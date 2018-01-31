@@ -33,6 +33,8 @@ type Props = {
   defaultIsOpen?: boolean,
   /** Disables the Tooltip */
   disabled?: boolean,
+  /** Include an arrow on the Tooltip content pointing to the trigger */
+  hasArrow?: boolean,
   /** For use with controlled components, in which the app manages Tooltip state */
   isOpen?: boolean,
   /**
@@ -139,6 +141,10 @@ const TriggerText = createStyledComponent('span', ({ theme: baseTheme }) => {
  * Tooltips display supporting information to disambiguate user controls and text.
  */
 export default class Tooltip extends Component<Props, State> {
+  static defaultProps = {
+    hasArrow: true
+  };
+
   state: State = {
     isOpen: Boolean(this.props.defaultIsOpen)
   };
@@ -165,14 +171,12 @@ export default class Tooltip extends Component<Props, State> {
       return children;
     }
 
-    const { isOpen } = this.isControlled() ? this.props : this.state;
-
     const popoverProps = {
       ...restProps,
       focusTriggerOnClose: false,
       getContentProps: this.getContentProps,
       getTriggerProps: this.getTriggerProps,
-      isOpen,
+      isOpen: this.getControllableValue('isOpen'),
       onClose: this.close,
       onOpen: this.open
     };
@@ -208,7 +212,7 @@ export default class Tooltip extends Component<Props, State> {
 
   handleDelayedOpen = (event: SyntheticEvent<>) => {
     this.clearOpenTimer();
-    const { isOpen } = this.isControlled() ? this.props : this.state;
+    const isOpen = this.getControllableValue('isOpen');
     if (!isOpen) {
       this.openTimer = global.setTimeout(() => {
         this.open(event);
@@ -222,7 +226,7 @@ export default class Tooltip extends Component<Props, State> {
   };
 
   open = (event: SyntheticEvent<>) => {
-    if (this.isControlled()) {
+    if (this.isControlled('isOpen')) {
       this.openActions(event);
     } else {
       this.setState({ isOpen: true }, () => {
@@ -237,7 +241,7 @@ export default class Tooltip extends Component<Props, State> {
 
   close = (event: SyntheticEvent<>) => {
     this.clearOpenTimer();
-    if (this.isControlled()) {
+    if (this.isControlled('isOpen')) {
       this.closeActions(event);
     } else {
       this.setState({ isOpen: false }, () => {
@@ -250,5 +254,11 @@ export default class Tooltip extends Component<Props, State> {
     this.props.onClose && this.props.onClose(event);
   };
 
-  isControlled = () => this.props.isOpen !== undefined;
+  isControlled = (prop: string) => {
+    return this.props[prop] !== undefined;
+  };
+
+  getControllableValue = (key: string) => {
+    return this.isControlled(key) ? this.props[key] : this.state[key];
+  };
 }

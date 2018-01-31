@@ -56,6 +56,7 @@ type Item = {
   render?: (item: Object, props: Object, theme: Object) => React$Element<*>,
   secondaryText?: React$Node,
   text?: React$Node,
+  value?: string,
   variant?: 'regular' | 'danger' | 'success' | 'warning'
 };
 

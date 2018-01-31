@@ -15,6 +15,10 @@
  */
 
 /* @flow */
-export { generateId, resetId } from './generateId';
-export { default as composeEventHandlers } from './composeEventHandlers';
-export { default as composePropsWithGetter } from './composePropsWithGetter';
+import { createStyledComponent } from '../../../../../styles';
+
+export default createStyledComponent('div', {
+  '&[class] > *:not(:last-child)': {
+    marginBottom: '1rem'
+  }
+});

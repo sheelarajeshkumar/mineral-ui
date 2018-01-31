@@ -15,35 +15,30 @@
  */
 
 /* @flow */
-import React, { Children, cloneElement, Component } from 'react';
-import { Target } from 'react-popper';
-import { createStyledComponent } from '../styles';
+import React from 'react';
+import Icon from 'mineral-ui/Icon';
 
 type Props = {
-  children: React$Node
+  size?: string | 'small' | 'medium' | 'large',
+  color?: string,
+  rtl?: boolean,
+  title?: string
 };
 
-const Root = createStyledComponent(
-  Target,
-  {
-    display: 'inline-block'
-  },
-  {
-    displayName: 'PopoverTrigger'
-  }
-);
+/* eslint-disable prettier/prettier */
+export default function IconArrowDropUp(props: Props) {
+  const iconProps = {
+    rtl: false,
+    ...props
+  };
 
-export default class PopoverTrigger extends Component<Props> {
-  render() {
-    const { children, ...restProps } = this.props;
-    const rootProps = {
-      component: 'span'
-    };
-
-    return (
-      <Root {...rootProps}>
-        {cloneElement(Children.only(children), restProps)}
-      </Root>
-    );
-  }
+  return (
+    <Icon {...iconProps}>
+      <g>
+        <path d="M7 14l5-5 5 5z"/>
+      </g>
+    </Icon>
+  );
 }
+
+IconArrowDropUp.category = 'navigation';

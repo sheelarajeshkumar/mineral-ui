@@ -15,6 +15,18 @@
  */
 
 /* @flow */
-export { generateId, resetId } from './generateId';
-export { default as composeEventHandlers } from './composeEventHandlers';
-export { default as composePropsWithGetter } from './composePropsWithGetter';
+import React from 'react';
+import Select from '../../../../Select';
+
+export default [
+  {
+    type: 'do',
+    description: ``,
+    example: <Select data={[]} />
+  },
+  {
+    type: 'dont',
+    description: ``,
+    example: <Select data={[]} />
+  }
+];

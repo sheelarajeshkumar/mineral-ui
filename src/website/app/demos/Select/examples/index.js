@@ -15,6 +15,7 @@
  */
 
 /* @flow */
-export { generateId, resetId } from './generateId';
-export { default as composeEventHandlers } from './composeEventHandlers';
-export { default as composePropsWithGetter } from './composePropsWithGetter';
+import importSyntax from './importSyntax';
+import select from './select';
+
+export default [importSyntax, select];

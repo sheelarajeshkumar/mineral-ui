@@ -15,6 +15,29 @@
  */
 
 /* @flow */
-export { generateId, resetId } from './generateId';
-export { default as composeEventHandlers } from './composeEventHandlers';
-export { default as composePropsWithGetter } from './composePropsWithGetter';
+import React from 'react';
+import { shallow } from 'enzyme';
+import examples from '../../website/app/demos/Select/examples';
+import testDemoExamples from '../../../utils/testDemoExamples';
+import Select from '../Select';
+
+function shallowSelect(props = {}) {
+  const selectProps = {
+    data: [],
+    ...props
+  };
+
+  return shallow(<Select {...selectProps} />);
+}
+
+describe('Dropdown', () => {
+  describe('renders', () => {
+    it('root', () => {
+      const select = shallowSelect();
+
+      expect(select.exists()).toEqual(true);
+    });
+  });
+
+  testDemoExamples(examples);
+});

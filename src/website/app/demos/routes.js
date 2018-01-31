@@ -206,6 +206,11 @@ export default [
     }
   ],
   {
+    description: 'Select', // TODO
+    slug: 'select',
+    title: 'Select'
+  },
+  {
     description:
       'TextAreas accept data from the user.  Use a TextArea to accept potentially lengthy, free-form input from a user',
     slug: 'text-area',

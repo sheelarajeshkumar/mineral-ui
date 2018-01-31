@@ -18,63 +18,50 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
-import { composePropsWithGetter, generateId } from '../utils';
-import Root from '../Popover';
-import DropdownContent, {
-  componentTheme as dropdownContentComponentTheme
-} from './DropdownContent';
-import ItemMatcher from './ItemMatcher';
+import { generateId } from '../utils';
+import { createThemedComponent, mapComponentThemes } from '../themes';
+import { createStyledComponent } from '../styles';
+import Dropdown, {
+  componentTheme as dropdownComponentTheme
+} from '../Dropdown/Dropdown';
+import MenuItem from '../Menu/MenuItem';
+import ItemMatcher from '../Dropdown/ItemMatcher';
 
 type Props = {
-  /** Trigger for the Dropdown */
-  children: React$Node,
-  /** Open the Dropdown immediately upon initialization */
+  /** TODO */
+  data: Array<{ items: Array<Item>, title?: React$Node }>,
+  // /** TODO */
+  defaultHighlightedIndex?: number,
+  /** Open the Select immediately upon initialization */
   defaultIsOpen?: boolean,
   /** TODO */
-  defaultHighlightedIndex?: number,
-  /** Disable the Dropdown */
-  disabled?: boolean,
-  /** Data from which the [Menu](../menu#data) will be constructed (see [example](#data)) */
-  data: Array<{ items: Array<Item>, title?: React$Node }>,
-  /** Function that returns props to be applied to each item */
-  getItemProps?: (props: Object, scope?: Object) => Object,
-  /** Function that returns props to be applied to the menu */
-  getMenuProps?: (props: Object, scope?: Object) => Object,
-  /** Function that returns props to be applied to the trigger */
-  getTriggerProps?: (props: Object, scope?: Object) => Object,
+  defaultSelectedItem?: Item,
   /** TODO */
   highlightedIndex?: number,
-  /** Id of the Dropdown */
+  /** Id of the Select */
   id?: string,
-  /** For use with controlled components, in which the app manages Dropdown state */
+  /** For use with controlled components, in which the app manages Select state */
   isOpen?: boolean,
-  /** Plugins that are used to alter behavior. See [PopperJS docs](https://popper.js.org/popper-documentation.html#modifiers) for options. */
-  modifiers?: Object,
-  /** Called when Dropdown is closed */
+  /** Name of the field when submitted in a form */
+  name?: string,
+  /** TODO */
+  onChange?: (item: Item, event: SyntheticEvent<>) => void,
+  /** Called when Select is closed */
   onClose?: (event: SyntheticEvent<>) => void,
-  /** Called when Dropdown is opened */
+  /** Called when Select is opened */
   onOpen?: (event: SyntheticEvent<>) => void,
-  /** TODO: needed if user is controlling highlightedIndex */
-  // onTriggerKeyDown?: (event: SyntheticEvent<>) => void,
-  /** Placement of the Dropdown menu */
-  placement?:
-    | 'bottom-end'
-    | 'bottom-start'
-    | 'left-end'
-    | 'left-start'
-    | 'right-end'
-    | 'right-start'
-    | 'top-end'
-    | 'top-start',
-  /** Use a Portal to render the Dropdown menu to the body rather than as a sibling to the trigger */
-  usePortal?: boolean,
-  /** Display a wider Dropdown menu */
-  wide?: boolean
+  /** TODO */
+  onSelect?: (item: Item, event: SyntheticEvent<>) => void,
+  /** TODO */
+  placeholder?: string,
+  /** TODO */
+  selectedItem?: Item
 };
 
 type State = {
   highlightedIndex: ?number,
-  isOpen?: boolean
+  isOpen?: boolean,
+  selectedItem: ?Item
 };
 
 type Item = {
@@ -90,31 +77,67 @@ type Item = {
   variant?: 'regular' | 'danger' | 'success' | 'warning'
 };
 
-export const componentTheme = (baseTheme: Object) => ({
-  ...dropdownContentComponentTheme(baseTheme),
-  ...baseTheme
+export const componentTheme = (baseTheme: Object) => {
+  return {
+    ...mapComponentThemes(
+      {
+        name: 'Dropdown',
+        theme: dropdownComponentTheme(baseTheme)
+      },
+      {
+        name: 'Select',
+        theme: {}
+      },
+      baseTheme
+    )
+  };
+};
+
+const Root = createThemedComponent(Dropdown, ({ theme: baseTheme }) => {
+  return {
+    ...mapComponentThemes(
+      {
+        name: 'Select',
+        theme: componentTheme(baseTheme)
+      },
+      {
+        name: 'Dropdown',
+        theme: {}
+      },
+      baseTheme
+    )
+  };
 });
 
+const SelectTrigger = createStyledComponent(
+  MenuItem,
+  {
+    cursor: 'pointer' // NOTE: temporary - only used to prevent glamor cache issue
+  },
+  {
+    displayName: 'SelectTrigger'
+  }
+);
+
 /**
- * Dropdown presents a list of actions after a user interacts with a trigger.
+ * Select
  */
-export default class Dropdown extends Component<Props, State> {
+export default class Select extends Component<Props, State> {
   static defaultProps = {
-    placement: 'bottom-start'
+    placeholder: 'Select...'
   };
 
   state: State = {
     highlightedIndex: this.props.defaultHighlightedIndex,
-    isOpen: Boolean(this.props.defaultIsOpen)
+    isOpen: Boolean(this.props.defaultIsOpen),
+    selectedItem: this.props.defaultSelectedItem
   };
 
   _isMounted: boolean = false;
 
-  dropdownTrigger: ?React$Component<*, *>;
+  id: string = this.props.id || `select-${generateId()}`;
 
-  id: string = this.props.id || `dropdown-${generateId()}`;
-
-  highlightedItemId: ?string;
+  selectTrigger: ?React$Component<*, *>;
 
   itemMatcher: any;
 
@@ -127,89 +150,80 @@ export default class Dropdown extends Component<Props, State> {
   }
 
   render() {
-    const {
-      children,
-      data,
-      modifiers,
-      placement,
-      wide,
-      ...restProps
-    } = this.props;
+    const { data, name, placeholder, ...restProps } = this.props;
     const isOpen = this.getControllableValue('isOpen');
+    const selectedItem = this.getControllableValue('selectedItem');
+    let highlightedIndex = this.getControllableValue('highlightedIndex');
 
-    const dropdownContentProps = {
-      data,
-      id: `${this.id}-dropdownContent`,
-      getItemProps: this.getItemProps,
-      getMenuProps: this.getMenuProps,
-      modifiers,
-      placement,
-      wide
-    };
+    // TODO: cleanup
+    if (isOpen) {
+      if (
+        selectedItem &&
+        (highlightedIndex === null || highlightedIndex === undefined)
+      ) {
+        highlightedIndex = this.getItemIndex(selectedItem);
+      }
+    }
 
     const rootProps = {
       id: this.id,
       ...restProps,
-      content: <DropdownContent {...dropdownContentProps} />,
+      data,
+      highlightedIndex,
+      getMenuProps: this.getMenuProps,
+      getItemProps: this.getItemProps,
       getTriggerProps: this.getTriggerProps,
       isOpen,
       onClose: this.close,
-      onOpen: this.open,
-      triggerRef: (node: ?React$Component<*, *>) => {
-        this.dropdownTrigger = node;
-      },
-      wrapContent: false
+      onOpen: this.open
     };
 
-    return <Root {...rootProps}>{children}</Root>;
+    const selectTriggerProps = {
+      ref: (node: ?React$Component<*, *>) => {
+        this.selectTrigger = node;
+      }
+    };
+
+    const inputProps = {
+      name,
+      type: 'hidden',
+      value: selectedItem ? selectedItem.value : ''
+    };
+
+    return (
+      <Root {...rootProps}>
+        <SelectTrigger {...selectTriggerProps}>
+          {selectedItem ? selectedItem.text : placeholder}
+          <input {...inputProps} />
+        </SelectTrigger>
+      </Root>
+    );
   }
 
-  getTriggerProps = (props: Object) => {
-    const contentId = `${this.id}-dropdownContent`;
-    const isOpen = this.getControllableValue('isOpen');
-
-    return composePropsWithGetter(
-      {
-        ...props,
-        'aria-activedescendant': isOpen
-          ? this.getHighlightedItemId() || `${contentId}-menu`
-          : undefined,
-        'aria-describedby': contentId,
-        'aria-haspopup': true,
-        'aria-owns': contentId,
-        onKeyDown: this.onTriggerKeyDown
-      },
-      this.props.getTriggerProps
-    );
-  };
+  getTriggerProps = (props: Object) => ({
+    ...props,
+    'aria-haspopup': 'listbox',
+    tabIndex: 0,
+    onKeyDown: this.onTriggerKeyDown
+  });
 
   getMenuProps = (props: Object) => {
-    return composePropsWithGetter(
-      {
-        ...props,
-        role: 'menu'
-      },
-      this.props.getMenuProps
-    );
+    return {
+      ...props,
+      role: 'listbox'
+    };
   };
 
   getItemProps = (props: Object, scope: Object) => {
-    const { index, item } = scope;
-    const highlightedIndex = this.getControllableValue('highlightedIndex');
+    const { item } = scope;
+    const selectedItem = this.getControllableValue('selectedItem');
 
-    return composePropsWithGetter(
-      {
-        ...props,
-        'aria-disabled': props.disabled,
-        id: `${this.id}-menuItem-${index}`,
-        isHighlighted: highlightedIndex === index,
-        onClick: this.onItemClick.bind(null, item),
-        role: 'menuitem',
-        tabIndex: null // Unset tabIndex because we use arrow keys to navigate instead
-      },
-      this.props.getItemProps,
-      scope
-    );
+    return {
+      ...props,
+      'aria-selected': selectedItem ? selectedItem.value === item.value : false,
+      onClick: this.onSelect.bind(null, item),
+      role: 'option'
+    };
   };
 
   getItems = () => {
@@ -250,7 +264,7 @@ export default class Dropdown extends Component<Props, State> {
       event.preventDefault();
       this.highlightItemAtIndex(this.getItems().length - 1);
     } else if (key === 'Enter' || key === ' ') {
-      isOpen && this.clickHighlightedItem();
+      isOpen ? this.clickHighlightedItem() : this.open(event);
     } else if (isOpen) {
       this.highlightItemMatchingKey(key);
     }
@@ -285,10 +299,13 @@ export default class Dropdown extends Component<Props, State> {
         prevState => ({
           highlightedIndex:
             prevState.highlightedIndex === null ||
-            prevState.highlightedIndex === undefined ||
-            prevState.highlightedIndex === this.getItems().length - 1
-              ? 0
-              : prevState.highlightedIndex + 1
+            prevState.highlightedIndex === undefined
+              ? prevState.selectedItem
+                ? this.getItemIndex(prevState.selectedItem)
+                : 0
+              : prevState.highlightedIndex === this.getItems().length - 1
+                ? 0
+                : prevState.highlightedIndex + 1
         }),
         this.scrollHighlightedItemIntoViewIfNeeded
       );
@@ -299,9 +316,28 @@ export default class Dropdown extends Component<Props, State> {
     if (!this.isControlled('highlightedIndex')) {
       this.setState(
         prevState => ({
-          highlightedIndex: !prevState.highlightedIndex
-            ? this.getItems().length - 1
-            : prevState.highlightedIndex - 1
+          highlightedIndex:
+            prevState.highlightedIndex === null ||
+            prevState.highlightedIndex === undefined
+              ? prevState.selectedItem
+                ? this.getItemIndex(prevState.selectedItem)
+                : this.getItems().length - 1
+              : prevState.highlightedIndex === 0
+                ? this.getItems().length - 1
+                : prevState.highlightedIndex - 1
+        }),
+        this.scrollHighlightedItemIntoViewIfNeeded
+      );
+    }
+  };
+
+  highlightDefaultItem = () => {
+    if (!this.isControlled('highlightedIndex')) {
+      this.setState(
+        prevState => ({
+          highlightedIndex: prevState.selectedItem
+            ? this.getItemIndex(prevState.selectedItem)
+            : prevState.highlightedIndex ? prevState.highlightedIndex : 0
         }),
         this.scrollHighlightedItemIntoViewIfNeeded
       );
@@ -327,7 +363,42 @@ export default class Dropdown extends Component<Props, State> {
     highlightedItemNode && highlightedItemNode.click();
   };
 
+  onSelect = (item: Item, event: SyntheticEvent<>) => {
+    // FIXME: need logic to set state - controlled vs. uncontrolled
+    const { selectedItem } = this.state;
+
+    this.setState(
+      {
+        selectedItem: item,
+        highlightedIndex: this.getItemIndex(item)
+      },
+      () => {
+        this.props.onSelect && this.props.onSelect(item, event);
+
+        if (selectedItem !== item) {
+          this.onChange(item, event);
+        }
+
+        this.close(event);
+        this.focusTrigger();
+      }
+    );
+  };
+
+  onChange = (item: Item, event: SyntheticEvent<>) => {
+    this.props.onChange && this.props.onChange(item, event);
+  };
+
+  focusTrigger = () => {
+    const node = findDOMNode(this.selectTrigger); // eslint-disable-line react/no-find-dom-node
+    if (node instanceof HTMLElement) {
+      node.focus();
+    }
+  };
+
   open = (event: SyntheticEvent<>) => {
+    this.highlightDefaultItem();
+
     if (this.isControlled('isOpen')) {
       this.openActions(event);
     } else {
@@ -341,7 +412,6 @@ export default class Dropdown extends Component<Props, State> {
   };
 
   openActions = (event: SyntheticEvent<>) => {
-    this.scrollHighlightedItemIntoViewIfNeeded();
     this.props.onOpen && this.props.onOpen(event);
   };
 
@@ -364,21 +434,6 @@ export default class Dropdown extends Component<Props, State> {
 
   closeActions = (event: SyntheticEvent<>) => {
     this.props.onClose && this.props.onClose(event);
-  };
-
-  onItemClick = (item: Item, event: SyntheticEvent<>) => {
-    const { onClick } = item;
-
-    onClick && onClick(event);
-    this.close(event);
-    this.focusTrigger();
-  };
-
-  focusTrigger = () => {
-    const node = findDOMNode(this.dropdownTrigger); // eslint-disable-line react/no-find-dom-node
-    if (node && node.firstChild && node.firstChild instanceof HTMLElement) {
-      node.firstChild.focus();
-    }
   };
 
   isControlled = (prop: string) => {
