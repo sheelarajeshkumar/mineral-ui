@@ -153,23 +153,12 @@ export default class Select extends Component<Props, State> {
     const { data, name, placeholder, ...restProps } = this.props;
     const isOpen = this.getControllableValue('isOpen');
     const selectedItem = this.getControllableValue('selectedItem');
-    let highlightedIndex = this.getControllableValue('highlightedIndex');
-
-    // TODO: cleanup
-    if (isOpen) {
-      if (
-        selectedItem &&
-        (highlightedIndex === null || highlightedIndex === undefined)
-      ) {
-        highlightedIndex = this.getItemIndex(selectedItem);
-      }
-    }
 
     const rootProps = {
       id: this.id,
       ...restProps,
       data,
-      highlightedIndex,
+      highlightedIndex: this.getHighlightedOrSelectedIndex(),
       getMenuProps: this.getMenuProps,
       getItemProps: this.getItemProps,
       getTriggerProps: this.getTriggerProps,
@@ -236,6 +225,22 @@ export default class Select extends Component<Props, State> {
 
   getItemIndex = (item: Item) => {
     return this.getItems().indexOf(item);
+  };
+
+  getHighlightedOrSelectedIndex = () => {
+    const isOpen = this.getControllableValue('isOpen');
+    const selectedItem = this.getControllableValue('selectedItem');
+    const highlightedIndex = this.getControllableValue('highlightedIndex');
+
+    if (
+      isOpen &&
+      selectedItem &&
+      (highlightedIndex === null || highlightedIndex === undefined)
+    ) {
+      return this.getItemIndex(selectedItem);
+    }
+
+    return highlightedIndex;
   };
 
   getHighlightedItemId = () => {
