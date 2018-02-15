@@ -75,34 +75,27 @@ const states = {
   WY: 'Wyoming'
 };
 
-const stateData = Object.entries(states).reduce(
-  (acc, entry) => {
-    const item = {
-      text: entry[1],
-      value: entry[0]
-    };
-    acc[0].items.push(item);
-    return acc;
-  },
-  [{ items: [] }]
-);
+const stateData = Object.entries(states).reduce((acc, entry) => {
+  const item = {
+    text: entry[1],
+    value: entry[0]
+  };
+  acc.push(item);
+  return acc;
+}, []);
 
 const data = [
   {
-    items: [
-      {
-        text: 'Alpha',
-        value: 'alpha'
-      },
-      {
-        text: 'Beta',
-        value: 'beta'
-      },
-      {
-        text: 'Gamma',
-        value: 'gamma'
-      }
-    ]
+    text: 'Alpha',
+    value: 'alpha'
+  },
+  {
+    text: 'Beta',
+    value: 'beta'
+  },
+  {
+    text: 'Gamma',
+    value: 'gamma'
   }
 ];
 
@@ -145,23 +138,19 @@ const groupedData = [
 
 const iconData = [
   {
-    items: [
-      {
-        iconStart: <IconCloud />,
-        text: 'Alpha',
-        value: 'alpha'
-      },
-      {
-        iconStart: <IconCloud />,
-        text: 'Beta',
-        value: 'beta'
-      },
-      {
-        iconStart: <IconCloud />,
-        text: 'Gamma',
-        value: 'gamma'
-      }
-    ]
+    iconStart: <IconCloud />,
+    text: 'Alpha',
+    value: 'alpha'
+  },
+  {
+    iconStart: <IconCloud />,
+    text: 'Beta',
+    value: 'beta'
+  },
+  {
+    iconStart: <IconCloud />,
+    text: 'Gamma',
+    value: 'gamma'
   }
 ];
 
@@ -183,6 +172,7 @@ export default {
   },
   source: `
   <DemoLayout>
+    <Select data={data} />
     <FormFieldset legend="Basic">
       <Select data={data} />
       <Select data={stateData} />
@@ -212,8 +202,8 @@ export default {
 
     <FormFieldset legend="Defaults">
       <Select data={data} defaultValue="nothing" />
-      <Select data={data} defaultValue="nothing" defaultSelectedItem={data[0].items[1]} />
-      <Select data={data} defaultSelectedItem={data[0].items[1]} />
+      <Select data={data} defaultValue="nothing" defaultSelectedItem={data[1]} />
+      <Select data={data} defaultSelectedItem={data[1]} />
       <Select data={data} defaultIsOpen />
     </FormFieldset>
 

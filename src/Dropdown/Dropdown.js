@@ -35,7 +35,7 @@ type Props = {
   /** Disable the Dropdown */
   disabled?: boolean,
   /** Data from which the [Menu](../menu#data) will be constructed (see [example](#data)) */
-  data: Array<{ items: Array<Item>, title?: React$Node }>,
+  data: Array<any>, // FIXME: Array<Item> | Array<{ items: Array<Item>, title?: React$Node }>,
   /** Function that returns props to be applied to each item */
   getItemProps?: (props: Object, scope?: Object) => Object,
   /** Function that returns props to be applied to the menu */
@@ -212,8 +212,14 @@ export default class Dropdown extends Component<Props, State> {
     );
   };
 
+  isGroupedData = (data: Array<any>) => {
+    return data[0].hasOwnProperty('items');
+  };
+
   getItems = () => {
-    return this.props.data.reduce((acc, group) => {
+    const { data } = this.props;
+    const groupedData = this.isGroupedData(data) ? data : [{ items: data }];
+    return groupedData.reduce((acc, group) => {
       return group.items && group.items.length
         ? acc.concat(group.items.filter(item => !item.divider))
         : acc;

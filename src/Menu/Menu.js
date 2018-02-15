@@ -23,10 +23,12 @@ type Props = {
   /** [MenuDivider](../menu-divider), [MenuGroup](../menu-group), or [MenuItem](../menu-item) */
   children?: React$Node,
   /** Data used to contruct Menu. See [example](#data) */
-  data?: Array<{ items: Array<Item>, title?: React$Node }>,
+  data?: Array<any>, // FIXME: Array<Item> | Array<{ items: Array<Item>, title?: React$Node }>
   /** @Private Function that returns props to be applied to each item */
   getItemProps?: (props: Object, scope: Object) => Object
 };
+
+type Group = { items: Array<Item>, title?: React$Node };
 
 type Item = {
   iconEnd?: React$Element<*>,
@@ -73,8 +75,13 @@ export default function Menu({
   );
 }
 
+function isGroupedData(data) {
+  return data[0].hasOwnProperty('items');
+}
+
 function renderFromData(data, getItemProps) {
-  return data.reduce(
+  const groupedData = isGroupedData(data) ? data : [{ items: data }];
+  return groupedData.reduce(
     (acc, group, groupIndex) => {
       acc.groups.push(renderMenuGroup(group, groupIndex, getItemProps, acc));
       return acc;
@@ -83,7 +90,7 @@ function renderFromData(data, getItemProps) {
   ).groups;
 }
 
-function renderMenuGroup(group, groupIndex, getItemProps, acc) {
+function renderMenuGroup(group: Group, groupIndex, getItemProps, acc) {
   return group.items && group.items.length ? (
     <MenuGroup key={groupIndex} title={group.title}>
       {group.items.map((item, itemIndex) => {

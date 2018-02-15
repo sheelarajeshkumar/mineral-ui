@@ -23,7 +23,7 @@ import IconMoreHoriz from '../Icon/IconMoreHoriz';
 
 type Props = {
   /** See the [Actions Menu](#actions-menu) example */
-  data?: Array<{ items: Array<Item>, title?: React$Node }>,
+  data?: Array<{ items: Array<Item>, title?: React$Node }>, // FIXME: Array<Item> | Array<{ items: Array<Item>, title?: React$Node }>,
   /** Title for the actions menu [Icon](../Icon) */
   triggerTitle?: string
 };
