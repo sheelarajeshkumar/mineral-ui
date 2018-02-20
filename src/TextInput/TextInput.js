@@ -18,9 +18,14 @@
 import React, { cloneElement } from 'react';
 import { ellipsis } from 'polished';
 import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
+import { createThemedComponent, mapComponentThemes } from '../themes';
 import IconDanger from '../Icon/IconDanger';
 import IconSuccess from '../Icon/IconSuccess';
 import IconWarning from '../Icon/IconWarning';
+import FocusWrapper from '../FocusWrapper';
+import FocusWrapperChild, {
+  componentTheme as focusWrapperComponentTheme
+} from '../FocusWrapper/FocusWrapperChild';
 
 type Props = {
   /** @Private CSS className */
@@ -70,31 +75,53 @@ type Props = {
   variant?: 'success' | 'warning' | 'danger'
 };
 
-export const componentTheme = (baseTheme: Object) => ({
-  TextInput_backgroundColor: baseTheme.backgroundColor_input,
-  TextInput_borderColor: baseTheme.borderColor,
-  TextInput_borderColor_active: baseTheme.borderColor,
-  TextInput_borderColor_focus: baseTheme.borderColor,
-  TextInput_borderColor_hover: baseTheme.borderColor_hover,
-  TextInput_borderRadius: baseTheme.borderRadius_1,
-  TextInput_borderWidth: '1px',
-  TextInput_boxShadow_active: `0 0 0 1px ${baseTheme.color_white}, 0 0 0 2px ${baseTheme.borderColor_active}`,
-  TextInput_boxShadow_focus: `0 0 0 1px ${baseTheme.color_white}, 0 0 0 2px ${baseTheme.borderColor_focus}`,
-  TextInput_color_text: baseTheme.color_gray_80,
-  TextInput_color_placeholder: baseTheme.color_gray_60,
-  TextInput_fontSize: baseTheme.fontSize_ui,
-  TextInput_fontSize_small: pxToEm(12),
-  TextInput_height_small: baseTheme.size_small,
-  TextInput_height_medium: baseTheme.size_medium,
-  TextInput_height_large: baseTheme.size_large,
-  TextInput_height_jumbo: baseTheme.size_jumbo,
-  TextInput_paddingHorizontal: baseTheme.space_inset_md,
+export const componentTheme = (baseTheme: Object) => {
+  return {
+    ...mapComponentThemes(
+      {
+        name: 'FocusWrapper',
+        theme: focusWrapperComponentTheme(baseTheme)
+      },
+      {
+        name: 'TextInput',
+        theme: {
+          TextInput_color_text: baseTheme.color_gray_80,
+          TextInput_color_placeholder: baseTheme.color_gray_60,
+          TextInput_fontSize: baseTheme.fontSize_ui,
+          TextInput_fontSize_small: pxToEm(12),
+          TextInput_height_small: baseTheme.size_small,
+          TextInput_height_medium: baseTheme.size_medium,
+          TextInput_height_large: baseTheme.size_large,
+          TextInput_height_jumbo: baseTheme.size_jumbo,
+          TextInput_paddingHorizontal: baseTheme.space_inset_md,
 
-  TextInputIcon_fill: baseTheme.color_gray_40,
-  TextInputIcon_marginHorizontal: baseTheme.space_inline_sm,
+          TextInputIcon_fill: baseTheme.color_gray_40,
+          TextInputIcon_marginHorizontal: baseTheme.space_inline_sm
+        }
+      },
+      baseTheme
+    )
+  };
+};
 
-  ...baseTheme
-});
+const ThemedFocusWrapperChild = createThemedComponent(
+  FocusWrapperChild,
+  ({ theme: baseTheme }) => {
+    return {
+      ...mapComponentThemes(
+        {
+          name: 'TextInput',
+          theme: componentTheme(baseTheme)
+        },
+        {
+          name: 'FocusWrapperChild',
+          theme: {}
+        },
+        baseTheme
+      )
+    };
+  }
+);
 
 const styles = {
   input: ({
@@ -102,22 +129,12 @@ const styles = {
     iconEnd,
     iconStart,
     prefix,
-    readOnly,
     size,
     suffix,
     theme: baseTheme,
     variant
   }) => {
     let theme = componentTheme(baseTheme);
-    if (variant) {
-      // prettier-ignore
-      theme = {
-        ...theme,
-        TextInput_borderColor_hover: theme[`borderColor_${variant}_hover`],
-        TextInput_boxShadow_active: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
-        TextInput_boxShadow_focus: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
-      };
-    }
 
     const rtl = theme.direction === 'rtl';
     const fontSize =
@@ -139,7 +156,6 @@ const styles = {
       border: 0,
       boxShadow: 'none',
       color: disabled ? theme.color_text_disabled : theme.TextInput_color_text,
-      flex: '1 1 auto',
       fontFamily: 'inherit',
       fontSize,
       height: getNormalizedValue(theme[`TextInput_height_${size}`], fontSize),
@@ -155,7 +171,6 @@ const styles = {
         ((iconStart || prefix) && rtl)
           ? 0
           : paddingWithoutIcon,
-      width: '100%',
 
       '&::placeholder': placeholderStyles,
       '&::-ms-input-placeholder': placeholderStyles, // Edge
@@ -163,46 +178,6 @@ const styles = {
 
       '&::-ms-clear': {
         display: 'none'
-      },
-
-      '&:hover,&[data-simulate-hover]': {
-        '& ~ div': {
-          borderColor: !disabled ? theme.TextInput_borderColor_hover : null
-        }
-      },
-
-      '&:focus,&[data-simulate-focus]': {
-        '& ~ div': {
-          borderColor: theme.TextInput_borderColor_focus,
-          boxShadow: theme.TextInput_boxShadow_focus
-        }
-      },
-
-      '&:active,&[data-simulate-active]': {
-        '& ~ div': {
-          borderColor: theme.TextInput_borderColor_active,
-          boxShadow: disabled ? 'none' : theme.TextInput_boxShadow_active
-        }
-      },
-
-      '& ~ div': {
-        backgroundColor:
-          disabled || readOnly
-            ? theme.backgroundColor_disabled
-            : theme.TextInput_backgroundColor,
-        borderColor:
-          variant && !disabled && !readOnly
-            ? theme[`borderColor_${variant}`]
-            : theme.TextInput_borderColor,
-        borderRadius: theme.TextInput_borderRadius,
-        borderStyle: 'solid',
-        borderWidth: theme.TextInput_borderWidth,
-        bottom: 0,
-        left: 0,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        zIndex: -1
       }
     };
   },
@@ -236,12 +211,6 @@ const styles = {
     const theme = componentTheme(baseTheme);
 
     return {
-      alignItems: 'center',
-      cursor: 'text',
-      display: 'flex',
-      position: 'relative',
-      width: '100%',
-
       '& [role="img"]': {
         display: 'block',
         fill: theme.TextInputIcon_fill,
@@ -288,13 +257,14 @@ const styles = {
   }
 };
 
-const Root = createStyledComponent('div', styles.root, {
-  displayName: 'TextInput',
-  includeStyleReset: true
+const Root = createStyledComponent(FocusWrapper, styles.root, {
+  displayName: 'TextInput'
 });
-const Input = createStyledComponent('input', styles.input, {
+const Input = createStyledComponent(ThemedFocusWrapperChild, styles.input, {
+  dispayName: 'Input',
+  forwardProps: ['innerRef'],
   rootEl: 'input'
-});
+}).withProps({ element: 'input' });
 const Prefix = createStyledComponent('span', styles.prefix);
 const Suffix = createStyledComponent('span', styles.suffix);
 
@@ -348,7 +318,6 @@ export default function TextInput({
   disabled,
   iconEnd,
   iconStart,
-  inputRef,
   rootProps: otherRootProps,
   invalid,
   prefix,
@@ -372,11 +341,6 @@ export default function TextInput({
     disabled,
     iconEnd,
     iconStart,
-    innerRef: ref => {
-      if (inputRef) {
-        inputRef(ref);
-      }
-    },
     prefix,
     readOnly,
     required,
@@ -411,7 +375,6 @@ export default function TextInput({
       <Input {...inputProps} />
       {suffix && <Suffix {...prefixAndSuffixProps}>{suffix}</Suffix>}
       {endIcon}
-      <div />
     </Root>
   );
 }
