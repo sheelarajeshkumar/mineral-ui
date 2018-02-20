@@ -36,8 +36,6 @@ type Props = {
   disabled?: boolean,
   /** Data from which the [Menu](../menu#data) will be constructed (see [example](#data)) */
   data: Array<any>, // FIXME: Array<Item> | Array<{ items: Array<Item>, title?: React$Node }>,
-  /** Function that returns props to be applied to the DropdownContent */
-  getContentProps?: (props: Object, scope?: Object) => Object,
   /** Function that returns props to be applied to each item */
   getItemProps?: (props: Object, scope?: Object) => Object,
   /** Function that returns props to be applied to the menu */
@@ -139,11 +137,20 @@ export default class Dropdown extends Component<Props, State> {
     } = this.props;
     const isOpen = this.getControllableValue('isOpen');
 
+    const dropdownContentProps = {
+      data,
+      id: `${this.id}-dropdownContent`,
+      getItemProps: this.getItemProps,
+      getMenuProps: this.getMenuProps,
+      modifiers,
+      placement,
+      wide
+    };
 
     const rootProps = {
       id: this.id,
       ...restProps,
-      content: <DropdownContent {...this.getContentProps(this.props)} />,
+      content: <DropdownContent {...dropdownContentProps} />,
       getTriggerProps: this.getTriggerProps,
       isOpen,
       onClose: this.close,
@@ -156,21 +163,6 @@ export default class Dropdown extends Component<Props, State> {
 
     return <Root {...rootProps}>{children}</Root>;
   }
-
-  getContentProps = (props: Object) => {
-    return composePropsWithGetter(
-      {
-        data: props.data,
-        id: `${this.id}-dropdownContent`,
-        getItemProps: this.getItemProps,
-        getMenuProps: this.getMenuProps,
-        modifiers: props.modifiers,
-        placement: props.placement,
-        wide: props.wide
-      },
-      this.props.getContentProps
-    );
-  };
 
   getTriggerProps = (props: Object) => {
     const contentId = `${this.id}-dropdownContent`;

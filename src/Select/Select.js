@@ -136,7 +136,6 @@ export default class Select extends Component<Props, State> {
   _isMounted: boolean = false;
 
   id: string = this.props.id || `select-${generateId()}`;
-  scrollParentId: string;
 
   selectTrigger: ?React$Component<*, *>;
 
@@ -161,7 +160,6 @@ export default class Select extends Component<Props, State> {
       data,
       highlightedIndex: this.getHighlightedOrSelectedIndex(),
       getMenuProps: this.getMenuProps,
-      getContentProps: this.getContentProps,
       getItemProps: this.getItemProps,
       getTriggerProps: this.getTriggerProps,
       isOpen,
@@ -197,13 +195,6 @@ export default class Select extends Component<Props, State> {
     tabIndex: 0,
     onKeyDown: this.onTriggerKeyDown
   });
-
-  getContentProps = (props: Object) => {
-    this.scrollParentId = props.id;
-    return {
-      ...props
-    };
-  };
 
   getMenuProps = (props: Object) => {
     return {
@@ -369,16 +360,10 @@ export default class Select extends Component<Props, State> {
       this.getHighlightedItemId()
     );
     const scrollOptions = {
-      boundary: global.document.getElementById(
-        this.scrollParentId
-      )
+      boundary: global.document.getElementById(this.id)
     };
-    // TODO: Not sure we want to use this package as it includes a whole bunch
-    // of animation stuff.  We should probably find a lighter weight solution
-    // See https://github.com/paypal/downshift/pull/259
-    //     https://github.com/paypal/downshift/blob/master/src/utils.js#L50
-    // FIXME: this is also causing the entire page to jump unnecessarily
-    highlightedItemNode && scrollIntoViewIfNeeded(highlightedItemNode, scrollOptions);
+    highlightedItemNode &&
+      scrollIntoViewIfNeeded(highlightedItemNode, scrollOptions);
   };
 
   clickHighlightedItem = () => {
