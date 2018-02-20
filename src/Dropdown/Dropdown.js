@@ -318,12 +318,11 @@ export default class Dropdown extends Component<Props, State> {
     const highlightedItemNode = global.document.getElementById(
       this.getHighlightedItemId()
     );
-    // TODO: Not sure we want to use this package as it includes a whole bunch
-    // of animation stuff.  We should probably find a lighter weight solution
-    // See https://github.com/paypal/downshift/pull/259
-    //     https://github.com/paypal/downshift/blob/master/src/utils.js#L50
-    // FIXME: this is also causing the entire page to jump unnecessarily
-    highlightedItemNode && scrollIntoViewIfNeeded(highlightedItemNode);
+    const scrollOptions = {
+      boundary: global.document.getElementById(this.id)
+    };
+    highlightedItemNode &&
+      scrollIntoViewIfNeeded(highlightedItemNode, scrollOptions);
   };
 
   clickHighlightedItem = () => {
