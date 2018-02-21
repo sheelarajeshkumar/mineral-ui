@@ -17,5 +17,6 @@
 /* @flow */
 import importSyntax from './importSyntax';
 import select from './select';
+import states from './states';
 
-export default [importSyntax, select];
+export default [importSyntax, select, states];

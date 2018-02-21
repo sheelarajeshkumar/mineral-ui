@@ -20,12 +20,11 @@ import { findDOMNode } from 'react-dom';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 import { generateId } from '../utils';
 import { createThemedComponent, mapComponentThemes } from '../themes';
-import { createStyledComponent } from '../styles';
 import Dropdown, {
   componentTheme as dropdownComponentTheme
 } from '../Dropdown/Dropdown';
-import MenuItem from '../Menu/MenuItem';
 import ItemMatcher from '../Dropdown/ItemMatcher';
+import SelectTrigger from './SelectTrigger';
 
 type Props = {
   /** TODO */
@@ -55,7 +54,9 @@ type Props = {
   /** TODO */
   placeholder?: string,
   /** TODO */
-  selectedItem?: Item
+  selectedItem?: Item,
+  /** Available variants */
+  variants?: 'danger' | 'success' | 'warning'
 };
 
 type State = {
@@ -109,16 +110,6 @@ const Root = createThemedComponent(Dropdown, ({ theme: baseTheme }) => {
   };
 });
 
-const SelectTrigger = createStyledComponent(
-  MenuItem,
-  {
-    cursor: 'pointer' // TODO: temporary - only used to prevent glamor cache issue
-  },
-  {
-    displayName: 'SelectTrigger'
-  }
-);
-
 /**
  * Select
  */
@@ -150,11 +141,13 @@ export default class Select extends Component<Props, State> {
   }
 
   render() {
-    const { data, name, placeholder, ...restProps } = this.props;
+    const { data, name, placeholder, variant, ...restProps } = this.props;
     const isOpen = this.getControllableValue('isOpen');
     const selectedItem = this.getControllableValue('selectedItem');
 
     const rootProps = {
+      // TODO: First 100% applies to root, second to PopoverTrigger (better way?)
+      css: { width: '100%', '& > span': { width: '100%' } },
       id: this.id,
       ...restProps,
       data,
@@ -170,7 +163,8 @@ export default class Select extends Component<Props, State> {
     const selectTriggerProps = {
       ref: (node: ?React$Component<*, *>) => {
         this.selectTrigger = node;
-      }
+      },
+      variant
     };
 
     const inputProps = {
@@ -192,7 +186,6 @@ export default class Select extends Component<Props, State> {
   getTriggerProps = (props: Object) => ({
     ...props,
     'aria-haspopup': 'listbox',
-    tabIndex: 0,
     onKeyDown: this.onTriggerKeyDown
   });
 

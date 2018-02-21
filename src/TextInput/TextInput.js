@@ -148,7 +148,6 @@ const styles = {
       flex: '1 1 auto',
       fontFamily: 'inherit',
       minWidth: 0,
-      outline: 0,
       width: '100%',
 
       '&::placeholder': placeholderStyles,

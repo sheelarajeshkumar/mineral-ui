@@ -23,7 +23,7 @@ type Props = {
   /** Disables the input */
   disabled?: boolean,
   /** Rendered element */
-  element:
+  element?:
     | React$StatelessFunctionalComponent<*>
     | React$ComponentType<*>
     | string,
@@ -49,6 +49,8 @@ const styles = {
     }
 
     return {
+      outline: 0,
+      
       '&:hover,&[data-simulate-hover]': {
         '& ~ div': {
           borderColor: !disabled ? theme.StatesUnderlay_borderColor_hover : null

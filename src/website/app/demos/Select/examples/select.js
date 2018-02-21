@@ -75,7 +75,7 @@ const states = {
   WY: 'Wyoming'
 };
 
-const stateData = Object.entries(states).reduce((acc, entry) => {
+export const stateData = Object.entries(states).reduce((acc, entry) => {
   const item = {
     text: entry[1],
     value: entry[0]
