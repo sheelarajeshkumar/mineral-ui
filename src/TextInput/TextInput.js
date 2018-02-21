@@ -22,10 +22,10 @@ import { createThemedComponent, mapComponentThemes } from '../themes';
 import IconDanger from '../Icon/IconDanger';
 import IconSuccess from '../Icon/IconSuccess';
 import IconWarning from '../Icon/IconWarning';
-import FocusWrapper from '../FocusWrapper';
-import FocusWrapperChild, {
-  componentTheme as focusWrapperComponentTheme
-} from '../FocusWrapper/FocusWrapperChild';
+import StatesUnderlay, {
+  componentTheme as statesUnderlayComponentTheme
+} from '../StatesUnderlay/StatesUnderlay';
+import { StatesUnderlaySource } from '../StatesUnderlay';
 
 type Props = {
   /** @Private CSS className */
@@ -79,8 +79,8 @@ export const componentTheme = (baseTheme: Object) => {
   return {
     ...mapComponentThemes(
       {
-        name: 'FocusWrapper',
-        theme: focusWrapperComponentTheme(baseTheme)
+        name: 'StatesUnderlay',
+        theme: statesUnderlayComponentTheme(baseTheme)
       },
       {
         name: 'TextInput',
@@ -104,8 +104,8 @@ export const componentTheme = (baseTheme: Object) => {
   };
 };
 
-const ThemedFocusWrapperChild = createThemedComponent(
-  FocusWrapperChild,
+const ThemedStatesUnderlaySource = createThemedComponent(
+  StatesUnderlaySource,
   ({ theme: baseTheme }) => {
     return {
       ...mapComponentThemes(
@@ -114,7 +114,7 @@ const ThemedFocusWrapperChild = createThemedComponent(
           theme: componentTheme(baseTheme)
         },
         {
-          name: 'FocusWrapperChild',
+          name: 'StatesUnderlaySource',
           theme: {}
         },
         baseTheme
@@ -156,6 +156,7 @@ const styles = {
       border: 0,
       boxShadow: 'none',
       color: disabled ? theme.color_text_disabled : theme.TextInput_color_text,
+      flex: '1 1 auto',
       fontFamily: 'inherit',
       fontSize,
       height: getNormalizedValue(theme[`TextInput_height_${size}`], fontSize),
@@ -171,6 +172,7 @@ const styles = {
         ((iconStart || prefix) && rtl)
           ? 0
           : paddingWithoutIcon,
+      width: '100%',
 
       '&::placeholder': placeholderStyles,
       '&::-ms-input-placeholder': placeholderStyles, // Edge
@@ -211,6 +213,11 @@ const styles = {
     const theme = componentTheme(baseTheme);
 
     return {
+      alignItems: 'center',
+      cursor: 'text',
+      display: 'flex',
+      width: '100%',
+
       '& [role="img"]': {
         display: 'block',
         fill: theme.TextInputIcon_fill,
@@ -257,10 +264,10 @@ const styles = {
   }
 };
 
-const Root = createStyledComponent(FocusWrapper, styles.root, {
+const Root = createStyledComponent(StatesUnderlay, styles.root, {
   displayName: 'TextInput'
 });
-const Input = createStyledComponent(ThemedFocusWrapperChild, styles.input, {
+const Input = createStyledComponent(ThemedStatesUnderlaySource, styles.input, {
   dispayName: 'Input',
   forwardProps: ['innerRef'],
   rootEl: 'input'
@@ -331,6 +338,8 @@ export default function TextInput({
 }: Props) {
   const rootProps = {
     className,
+    disabled,
+    readOnly,
     variant,
     ...otherRootProps
   };

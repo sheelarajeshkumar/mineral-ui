@@ -15,5 +15,18 @@
  */
 
 /* @flow */
-export { default } from './FocusWrapper';
-export { default as FocusWrapperChild } from './FocusWrapperChild';
+import React from 'react';
+import { shallow } from 'enzyme';
+import StatesUnderlay from '../StatesUnderlay';
+
+function shallowStatesUnderlay() {
+  return shallow(<StatesUnderlay />);
+}
+
+describe('StatesUnderlay', () => {
+  it('renders', () => {
+    const textInput = shallowStatesUnderlay();
+
+    expect(textInput.exists()).toEqual(true);
+  });
+});
