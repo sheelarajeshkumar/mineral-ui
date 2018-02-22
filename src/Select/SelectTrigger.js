@@ -30,10 +30,6 @@ type Props = {
   children?: React$Node,
   /** Disables the input */
   disabled?: boolean,
-  /** Icon located at the start of the input */
-  iconStart?: React$Element<*>,
-  /** Icon located at the end of the input */
-  iconEnd?: React$Element<*>,
   /** Indicates that the value of the element is invalid */
   invalid?: boolean,
   /** TODO */
@@ -50,43 +46,39 @@ type Props = {
   variant?: 'success' | 'warning' | 'danger'
 };
 
-export const componentTheme = (baseTheme: Object) => {
-  return {
-    ...mapComponentThemes(
-      {
-        name: 'TextInput',
-        theme: textInputComponentTheme(baseTheme)
-      },
-      {
-        name: 'SelectTrigger',
-        theme: {
-          SelectTrigger_color_placeholder: baseTheme.color_gray_60,
+export const componentTheme = (baseTheme: Object) => ({
+  ...mapComponentThemes(
+    {
+      name: 'TextInput',
+      theme: textInputComponentTheme(baseTheme)
+    },
+    {
+      name: 'Select',
+      theme: {
+        Select_color_placeholder: baseTheme.color_gray_60,
 
-          SelectTriggerIcon_fill: baseTheme.color_gray_40
-        }
-      },
-      baseTheme
-    )
-  };
-};
+        SelectIcon_fill: baseTheme.color_theme_60
+      }
+    },
+    baseTheme
+  )
+});
 
 const ThemedStatesUnderlaySource = createThemedComponent(
   StatesUnderlaySource,
-  ({ theme: baseTheme }) => {
-    return {
-      ...mapComponentThemes(
-        {
-          name: 'SelectTrigger',
-          theme: componentTheme(baseTheme)
-        },
-        {
-          name: 'StatesUnderlaySource',
-          theme: {}
-        },
-        baseTheme
-      )
-    };
-  }
+  ({ theme: baseTheme }) => ({
+    ...mapComponentThemes(
+      {
+        name: 'Select',
+        theme: componentTheme(baseTheme)
+      },
+      {
+        name: 'StatesUnderlaySource',
+        theme: {}
+      },
+      baseTheme
+    )
+  })
 );
 
 const styles = {
@@ -100,15 +92,13 @@ const styles = {
 
       '& [role="img"]': {
         display: 'block',
-        fill: theme.SelectTriggerIcon_fill,
+        fill: theme.SelectIcon_fill,
         flex: '0 0 auto',
-        margin: `0 ${theme.SelectTriggerIcon_marginHorizontal}`,
+        margin: `0 ${theme.SelectIcon_marginHorizontal}`
+      },
 
-        '&:last-of-type': {
-          fill: variant
-            ? theme[`color_text_${variant}`]
-            : theme.SelectTriggerIcon_fill
-        }
+      '& :not([role="img"]) ~ [role="img"]': {
+        fill: variant ? theme[`color_text_${variant}`] : theme.SelectIcon_fill
       }
     };
   },
@@ -138,8 +128,6 @@ export default class SelectTrigger extends Component<Props> {
     const {
       children,
       disabled,
-      iconEnd,
-      iconStart,
       invalid,
       isOpen,
       readOnly,
@@ -174,8 +162,6 @@ export default class SelectTrigger extends Component<Props> {
       control: Trigger,
       controlProps,
       disabled,
-      iconEnd,
-      iconStart,
       readOnly,
       size,
       variant

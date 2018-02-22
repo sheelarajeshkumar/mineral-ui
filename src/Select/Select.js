@@ -24,7 +24,9 @@ import Dropdown, {
   componentTheme as dropdownComponentTheme
 } from '../Dropdown/Dropdown';
 import ItemMatcher from '../Dropdown/ItemMatcher';
-import SelectTrigger from './SelectTrigger';
+import SelectTrigger, {
+  componentTheme as selectTriggerComponentTheme
+} from './SelectTrigger';
 
 type Props = {
   /** TODO */
@@ -78,37 +80,36 @@ type Item = {
   variant?: 'regular' | 'danger' | 'success' | 'warning'
 };
 
-export const componentTheme = (baseTheme: Object) => {
-  return {
-    ...mapComponentThemes(
-      {
-        name: 'Dropdown',
-        theme: dropdownComponentTheme(baseTheme)
-      },
-      {
-        name: 'Select',
-        theme: {}
-      },
-      baseTheme
-    )
-  };
-};
-
-const Root = createThemedComponent(Dropdown, ({ theme: baseTheme }) => {
-  return {
-    ...mapComponentThemes(
-      {
-        name: 'Select',
-        theme: componentTheme(baseTheme)
-      },
-      {
-        name: 'Dropdown',
-        theme: {}
-      },
-      baseTheme
-    )
-  };
+export const componentTheme = (baseTheme: Object) => ({
+  ...mapComponentThemes(
+    {
+      name: 'Dropdown',
+      theme: dropdownComponentTheme(baseTheme)
+    },
+    {
+      name: 'Select',
+      theme: {}
+    },
+    {
+      ...selectTriggerComponentTheme(baseTheme),
+      ...baseTheme
+    }
+  )
 });
+
+const Root = createThemedComponent(Dropdown, ({ theme: baseTheme }) => ({
+  ...mapComponentThemes(
+    {
+      name: 'Select',
+      theme: componentTheme(baseTheme)
+    },
+    {
+      name: 'Dropdown',
+      theme: {}
+    },
+    baseTheme
+  )
+}));
 
 /**
  * Select

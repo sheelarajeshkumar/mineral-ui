@@ -74,62 +74,56 @@ type Props = {
   variant?: 'success' | 'warning' | 'danger'
 };
 
-const fromControlItemsComponentTheme = (baseTheme: Object) => {
-  return {
+const fromControlItemsComponentTheme = (baseTheme: Object) => ({
+  ...mapComponentThemes(
+    {
+      name: 'ControlItems',
+      theme: controlItemsComponentTheme(baseTheme)
+    },
+    {
+      name: 'TextInput',
+      theme: {}
+    },
+    baseTheme
+  )
+});
+
+export const componentTheme = (baseTheme: Object) => ({
+  ...mapComponentThemes(
+    {
+      name: 'StatesUnderlay',
+      theme: statesUnderlayComponentTheme(baseTheme)
+    },
+    {
+      name: 'TextInput',
+      theme: {
+        TextInput_color_placeholder: baseTheme.color_gray_60,
+
+        TextInputIcon_fill: baseTheme.color_gray_40
+      }
+    },
+    {
+      ...fromControlItemsComponentTheme(baseTheme),
+      ...baseTheme
+    }
+  )
+});
+
+const ThemedStatesUnderlaySource = createThemedComponent(
+  StatesUnderlaySource,
+  ({ theme: baseTheme }) => ({
     ...mapComponentThemes(
       {
-        name: 'ControlItems',
-        theme: controlItemsComponentTheme(baseTheme)
+        name: 'TextInput',
+        theme: componentTheme(baseTheme)
       },
       {
-        name: 'TextInput',
+        name: 'StatesUnderlaySource',
         theme: {}
       },
       baseTheme
     )
-  };
-};
-
-export const componentTheme = (baseTheme: Object) => {
-  return {
-    ...mapComponentThemes(
-      {
-        name: 'StatesUnderlay',
-        theme: statesUnderlayComponentTheme(baseTheme)
-      },
-      {
-        name: 'TextInput',
-        theme: {
-          TextInput_color_placeholder: baseTheme.color_gray_60,
-
-          TextInputIcon_fill: baseTheme.color_gray_40
-        }
-      },
-      {
-        ...fromControlItemsComponentTheme(baseTheme),
-        ...baseTheme
-      }
-    )
-  };
-};
-
-const ThemedStatesUnderlaySource = createThemedComponent(
-  StatesUnderlaySource,
-  ({ theme: baseTheme }) => {
-    return {
-      ...mapComponentThemes(
-        {
-          name: 'TextInput',
-          theme: componentTheme(baseTheme)
-        },
-        {
-          name: 'StatesUnderlaySource',
-          theme: {}
-        },
-        baseTheme
-      )
-    };
-  }
+  })
 );
 
 const styles = {
