@@ -127,31 +127,14 @@ const ThemedStatesUnderlaySource = createThemedComponent(
 );
 
 const styles = {
-  input: ({ theme: baseTheme }) => {
-    let theme = componentTheme(baseTheme);
-
-    const placeholderStyles = {
-      color: theme.TextInput_color_placeholder,
-      fontStyle: 'italic'
-    };
-
-    return {
-      backgroundColor: 'transparent',
-      border: 0,
-      boxShadow: 'none',
-      flex: '1 1 auto',
-      fontFamily: 'inherit',
-      minWidth: 0,
-      width: '100%',
-
-      '&::placeholder': placeholderStyles,
-      '&::-ms-input-placeholder': placeholderStyles, // Edge
-      '&:-ms-input-placeholder': placeholderStyles, // IE 11
-
-      '&::-ms-clear': {
-        display: 'none'
-      }
-    };
+  input: {
+    backgroundColor: 'transparent',
+    border: 0,
+    boxShadow: 'none',
+    flex: '1 1 auto',
+    fontFamily: 'inherit',
+    minWidth: 0,
+    width: '100%'
   },
   root: ({ theme: baseTheme, variant }) => {
     const theme = componentTheme(baseTheme);

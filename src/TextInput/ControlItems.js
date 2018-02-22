@@ -115,6 +115,11 @@ const styles = {
       fontSize
     );
 
+    const placeholderStyles = {
+      color: theme.ControlItems_color_placeholder,
+      fontStyle: 'italic'
+    };
+
     return {
       color: disabled
         ? theme.color_text_disabled
@@ -136,7 +141,15 @@ const styles = {
         ((iconEnd || variant || suffix) && !rtl) ||
         ((iconStart || prefix) && rtl)
           ? 0
-          : paddingWithoutIcon
+          : paddingWithoutIcon,
+
+      '&::placeholder': placeholderStyles,
+      '&::-ms-input-placeholder': placeholderStyles, // Edge
+      '&:-ms-input-placeholder': placeholderStyles, // IE 11
+
+      '&::-ms-clear': {
+        display: 'none'
+      }
     };
   },
   suffix: ({ iconEnd, size, theme: baseTheme, variant }) => {
