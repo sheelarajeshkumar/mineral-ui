@@ -36,38 +36,23 @@ type Props = {
 };
 
 const styles = {
-  child: ({ disabled, theme: baseTheme, variant }) => {
+  child: ({ theme: baseTheme, variant }) => {
     let theme = statesUnderlayComponentTheme(baseTheme);
     if (variant) {
       // prettier-ignore
       theme = {
         ...theme,
-        StatesUnderlay_borderColor_hover: theme[`borderColor_${variant}_hover`],
-        StatesUnderlay_boxShadow_active: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
         StatesUnderlay_boxShadow_focus: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
       };
     }
 
     return {
       outline: 0,
-      
-      '&:hover,&[data-simulate-hover]': {
-        '& ~ div': {
-          borderColor: !disabled ? theme.StatesUnderlay_borderColor_hover : null
-        }
-      },
 
       '&:focus,&[data-simulate-focus]': {
         '& ~ div': {
           borderColor: theme.StatesUnderlay_borderColor_focus,
           boxShadow: theme.StatesUnderlay_boxShadow_focus
-        }
-      },
-
-      '&:active,&[data-simulate-active]': {
-        '& ~ div': {
-          borderColor: theme.StatesUnderlay_borderColor_active,
-          boxShadow: disabled ? 'none' : theme.StatesUnderlay_boxShadow_active
         }
       }
     };

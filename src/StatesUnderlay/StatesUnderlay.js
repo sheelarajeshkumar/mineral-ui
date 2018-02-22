@@ -47,11 +47,37 @@ export const componentTheme = (baseTheme: Object) => ({
 });
 
 const styles = {
-  root: {
-    position: 'relative'
+  root: ({ disabled, theme: baseTheme, variant }) => {
+    let theme = componentTheme(baseTheme);
+    if (variant) {
+      // prettier-ignore
+      theme = {
+        ...theme,
+        StatesUnderlay_borderColor_hover: theme[`borderColor_${variant}_hover`],
+        StatesUnderlay_boxShadow_active: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
+      };
+    }
+
+    return {
+      position: 'relative',
+
+      '&:hover,&[data-simulate-hover]': {
+        '& > div:last-child': {
+          borderColor: !disabled ? theme.StatesUnderlay_borderColor_hover : null
+        }
+      },
+
+      '&:active,&[data-simulate-active]': {
+        '& > div:last-child': {
+          borderColor: theme.StatesUnderlay_borderColor_active,
+          boxShadow: disabled ? 'none' : theme.StatesUnderlay_boxShadow_active
+        }
+      }
+    };
   },
   underlay: ({ disabled, readOnly, theme: baseTheme, variant }) => {
     const theme = componentTheme(baseTheme);
+
     return {
       backgroundColor:
         disabled || readOnly
@@ -92,9 +118,10 @@ export default function StatesUnderlay({
   variant,
   ...restProps
 }: Props) {
+  const rootProps = { disabled, variant, ...restProps };
   const underlayProps = { disabled, readOnly, variant };
   return (
-    <Root {...restProps}>
+    <Root {...rootProps}>
       {children}
       <Underlay {...underlayProps} />
     </Root>
