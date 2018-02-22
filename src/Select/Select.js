@@ -161,6 +161,7 @@ export default class Select extends Component<Props, State> {
     };
 
     const selectTriggerProps = {
+      isOpen,
       ref: (node: ?React$Component<*, *>) => {
         this.selectTrigger = node;
       },

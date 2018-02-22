@@ -285,6 +285,8 @@ export { default as IconDonutSmall } from './IconDonutSmall';
 export { default as IconDrafts } from './IconDrafts';
 export { default as IconDragHandle } from './IconDragHandle';
 export { default as IconDriveEta } from './IconDriveEta';
+export { default as IconDropdownArrowClose } from './IconDropdownArrowClose';
+export { default as IconDropdownArrowOpen } from './IconDropdownArrowOpen';
 export { default as IconDvr } from './IconDvr';
 export { default as IconEdit } from './IconEdit';
 export { default as IconEditLocation } from './IconEditLocation';

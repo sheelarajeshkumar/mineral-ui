@@ -16,7 +16,9 @@
 
 /* @flow */
 import React, { Component } from 'react';
-import { createStyledComponent } from '../styles';
+import IconDropdownArrowClose from 'mineral-ui-icons/IconDropdownArrowClose';
+import IconDropdownArrowOpen from 'mineral-ui-icons/IconDropdownArrowOpen';
+import { createStyledComponent, pxToEm } from '../styles';
 import { createThemedComponent, mapComponentThemes } from '../themes';
 import StatesUnderlay from '../StatesUnderlay/StatesUnderlay';
 import { StatesUnderlaySource } from '../StatesUnderlay';
@@ -34,6 +36,8 @@ type Props = {
   iconEnd?: React$Element<*>,
   /** Indicates that the value of the element is invalid */
   invalid?: boolean,
+  /** TODO */
+  isOpen?: boolean,
   /** Function called when input value changes */
   onChange?: (event: SyntheticEvent<>) => void,
   /** Indicates that the user cannot modify the value of the input */
@@ -137,6 +141,7 @@ export default class SelectTrigger extends Component<Props> {
       iconEnd,
       iconStart,
       invalid,
+      isOpen,
       readOnly,
       ref,
       required,
@@ -176,9 +181,15 @@ export default class SelectTrigger extends Component<Props> {
       variant
     };
 
+    const Icon = isOpen ? IconDropdownArrowClose : IconDropdownArrowOpen;
+    const iconProps = {
+      size: size === 'small' ? 'medium' : pxToEm(24)
+    };
+
     return (
       <Root {...rootProps}>
         <ControlItems {...controlItemsProps} />
+        <Icon {...iconProps} />
       </Root>
     );
   }
