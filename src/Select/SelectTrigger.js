@@ -30,6 +30,8 @@ type Props = {
   children?: React$Node,
   /** Disables the input */
   disabled?: boolean,
+  /** Indicates that the placeholder is displayed */
+  hasPlaceholder?: boolean,
   /** Indicates that the value of the element is invalid */
   invalid?: boolean,
   /** TODO */
@@ -128,6 +130,7 @@ export default class SelectTrigger extends Component<Props> {
     const {
       children,
       disabled,
+      hasPlaceholder,
       invalid,
       isOpen,
       readOnly,
@@ -154,6 +157,7 @@ export default class SelectTrigger extends Component<Props> {
     // };
     const controlProps = {
       children,
+      hasPlaceholder,
       innerRef: ref,
       tabIndex: 0
     };

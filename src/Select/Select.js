@@ -58,7 +58,7 @@ type Props = {
   /** TODO */
   selectedItem?: Item,
   /** Available variants */
-  variants?: 'danger' | 'success' | 'warning'
+  variant?: 'danger' | 'success' | 'warning'
 };
 
 type State = {
@@ -162,6 +162,7 @@ export default class Select extends Component<Props, State> {
     };
 
     const selectTriggerProps = {
+      hasPlaceholder: !selectedItem,
       isOpen,
       ref: (node: ?React$Component<*, *>) => {
         this.selectTrigger = node;

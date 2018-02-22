@@ -49,6 +49,7 @@ type Props = {
 };
 
 export const componentTheme = (baseTheme: Object) => ({
+  ControlItems_color_placeholder: baseTheme.color_gray_60,
   ControlItems_color_text: baseTheme.color_gray_80,
   ControlItems_fontSize: baseTheme.fontSize_ui,
   ControlItems_fontSize_small: pxToEm(12),
@@ -92,6 +93,7 @@ const styles = {
   },
   control: ({
     disabled,
+    hasPlaceholder,
     iconEnd,
     iconStart,
     prefix,
@@ -116,8 +118,11 @@ const styles = {
     return {
       color: disabled
         ? theme.color_text_disabled
-        : theme.ControlItems_color_text,
+        : hasPlaceholder
+          ? theme.ControlItems_color_placeholder
+          : theme.ControlItems_color_text,
       fontSize,
+      fontStyle: hasPlaceholder && !disabled ? 'italic' : null,
       height: getNormalizedValue(
         theme[`ControlItems_height_${size}`],
         fontSize
