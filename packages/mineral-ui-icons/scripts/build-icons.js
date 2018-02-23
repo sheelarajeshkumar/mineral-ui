@@ -29,14 +29,12 @@ const REGEX_MINERAL_ICONS_SVG_NAME = /(.*?).svg/;
 
 // Icons used interally by mineral-ui components
 const internalMineralIcons = [
-  'IconArrowDropDown',
-  'IconArrowDropUp',
+  'IconArrowDropdownDown',
+  'IconArrowDropdownUp',
   'IconCheckBoxCheck',
   'IconCheckBoxIndeterminate',
   'IconDanger',
   'IconDangerSimple',
-  'IconDropdownArrowClose',
-  'IconDropdownArrowOpen',
   'IconExpandLess',
   'IconExpandMore',
   'IconMoreHoriz',

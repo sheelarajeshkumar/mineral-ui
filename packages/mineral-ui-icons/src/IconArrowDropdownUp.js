@@ -26,7 +26,7 @@ type Props = {
 };
 
 /* eslint-disable prettier/prettier */
-export default function IconDropdownArrowOpen(props: Props) {
+export default function IconArrowDropdownUp(props: Props) {
   const iconProps = {
     rtl: false,
     ...props
@@ -35,10 +35,10 @@ export default function IconDropdownArrowOpen(props: Props) {
   return (
     <Icon {...iconProps}>
       <g>
-        <path d="M12 17.5l-8-8h16z"/>
+        <path d="M12 7.5l8 8H4z"/>
       </g>
     </Icon>
   );
 }
 
-IconDropdownArrowOpen.category = 'navigation';
+IconArrowDropdownUp.category = 'navigation';

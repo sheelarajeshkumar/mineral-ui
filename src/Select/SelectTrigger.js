@@ -16,10 +16,10 @@
 
 /* @flow */
 import React, { Component } from 'react';
-import IconDropdownArrowClose from 'mineral-ui-icons/IconDropdownArrowClose';
-import IconDropdownArrowOpen from 'mineral-ui-icons/IconDropdownArrowOpen';
 import { createStyledComponent, pxToEm } from '../styles';
 import { mapComponentThemes } from '../themes';
+import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
+import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import FauxControl, { FauxControlItems } from '../FauxControl';
 import { componentTheme as textInputComponentTheme } from '../TextInput/TextInput';
 
@@ -174,7 +174,7 @@ export default class SelectTrigger extends Component<Props> {
       value: selectedItem ? selectedItem.value : ''
     };
 
-    const Icon = isOpen ? IconDropdownArrowClose : IconDropdownArrowOpen;
+    const Icon = isOpen ? IconArrowDropdownUp : IconArrowDropdownDown;
     const iconProps = {
       size: size === 'small' ? 'medium' : pxToEm(24)
     };
