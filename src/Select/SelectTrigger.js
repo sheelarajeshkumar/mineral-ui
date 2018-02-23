@@ -135,17 +135,15 @@ export default class SelectTrigger extends Component<Props> {
     } = this.props;
     const rootProps = {
       disabled,
+      fauxControlRef: triggerRef,
       readOnly,
-      tabIndex: undefined,
       variant,
       ...restProps
     };
 
     const controlProps = {
       children: selectedItem ? selectedItem.text : placeholder,
-      controlRef: triggerRef,
-      hasPlaceholder: !selectedItem,
-      tabIndex: 0
+      hasPlaceholder: !selectedItem
     };
 
     const fauxControlItemsProps = {

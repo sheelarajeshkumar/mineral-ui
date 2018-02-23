@@ -58,7 +58,7 @@ export default {
     </FormFieldset>
 
     <FormFieldset legend="Custom item renderer">
-      TODO: Render items containg Avatar component
+      TODO: Render items using a custom renderer - not an Avatar
     </FormFieldset>
 
     <FormFieldset legend="Defaults">

@@ -15,7 +15,7 @@
  */
 
 /* @flow */
-import React from 'react';
+import React, { Component } from 'react';
 import { createStyledComponent } from '../styles';
 
 type Props = {
@@ -26,6 +26,8 @@ type Props = {
   children: React$Node,
   /** Disables the source */
   disabled?: boolean,
+  /** ref for the FauxControl */
+  fauxControlRef?: (node: ?React$Component<*, *>) => void,
   /** Indicates that the user cannot modify the value of the source */
   readOnly?: boolean,
   /** Available variants */
@@ -119,19 +121,31 @@ const Underlay = createStyledComponent('div', styles.underlay, {
 /**
  * FauxControl
  */
-export default function FauxControl({
-  children,
-  disabled,
-  readOnly,
-  variant,
-  ...restProps
-}: Props) {
-  const rootProps = { disabled, variant, ...restProps };
-  const underlayProps = { disabled, readOnly, variant };
-  return (
-    <Root {...rootProps}>
-      {children}
-      <Underlay {...underlayProps} />
-    </Root>
-  );
+export default class FauxControl extends Component<Props> {
+  render() {
+    const {
+      children,
+      disabled,
+      fauxControlRef,
+      readOnly,
+      variant,
+      ...restProps
+    } = this.props;
+
+    const rootProps = {
+      disabled,
+      innerRef: fauxControlRef,
+      variant,
+      ...restProps
+    };
+
+    const underlayProps = { disabled, readOnly, variant };
+
+    return (
+      <Root {...rootProps}>
+        {children}
+        <Underlay {...underlayProps} />
+      </Root>
+    );
+  }
 }
