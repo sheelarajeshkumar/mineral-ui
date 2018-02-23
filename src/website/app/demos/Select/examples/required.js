@@ -15,26 +15,18 @@
  */
 
 /* @flow */
-import importSyntax from './importSyntax';
-import invalid from './invalid';
-import disabled from './disabled';
-import uncontrolled from './uncontrolled';
-import placeholder from './placeholder';
-import readOnly from './readOnly';
-import required from './required';
-import variants from './variants';
-import select from './select';
-import states from './states';
+import Select from '../../../../../Select';
+import { basicData as data } from '../components/selectData';
 
-export default [
-  importSyntax,
-  select,
-  uncontrolled,
-  placeholder,
-  disabled,
-  readOnly,
-  required,
-  invalid,
-  variants,
-  states
-];
+export default {
+  id: 'required',
+  title: 'Required',
+  description: `The \`required\` prop on a Select does nothing visually on
+its own, but is important for accessibility. See FormField's
+[Required](../form-field/#required) and [Validation](../form-field/#validation)
+examples for more information.`,
+  scope: { data, Select },
+  source: `
+    <Select data={data} required />
+  `
+};

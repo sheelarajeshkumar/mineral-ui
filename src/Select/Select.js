@@ -37,10 +37,14 @@ type Props = {
   defaultIsOpen?: boolean,
   /** TODO */
   defaultSelectedItem?: Item,
+  /** Disables the input */
+  disabled?: boolean,
   /** TODO */
   highlightedIndex?: number,
   /** Id of the Select */
   id?: string,
+  /** Indicates that the value of the element is invalid */
+  invalid?: boolean,
   /** For use with controlled components, in which the app manages Select state */
   isOpen?: boolean,
   /** Name of the field when submitted in a form */
@@ -55,6 +59,10 @@ type Props = {
   onSelect?: (item: Item, event: SyntheticEvent<>) => void,
   /** TODO */
   placeholder?: string,
+  /** Indicates that the user cannot modify the value of the input */
+  readOnly?: boolean,
+  /** Indicates that the user must select a value before submitting a form */
+  required?: boolean,
   /** TODO */
   selectedItem?: Item,
   /** Available variants */
@@ -142,7 +150,15 @@ export default class Select extends Component<Props, State> {
   }
 
   render() {
-    const { data, name, placeholder, variant, ...restProps } = this.props;
+    const {
+      data,
+      disabled,
+      name,
+      placeholder,
+      readOnly,
+      variant,
+      ...restProps
+    } = this.props;
     const isOpen = this.getControllableValue('isOpen');
     const selectedItem = this.getControllableValue('selectedItem');
 
@@ -162,9 +178,11 @@ export default class Select extends Component<Props, State> {
     };
 
     const selectTriggerProps = {
+      disabled,
       isOpen,
       name,
       placeholder,
+      readOnly,
       triggerRef: (node: ?React$Component<*, *>) => {
         this.selectTrigger = node;
       },
@@ -179,12 +197,19 @@ export default class Select extends Component<Props, State> {
     );
   }
 
-  getTriggerProps = (props: Object) => ({
-    ...props,
-    'aria-haspopup': 'listbox',
-    onKeyDown: this.onTriggerKeyDown,
-    tabIndex: 0
-  });
+  getTriggerProps = (props: Object) => {
+    const { invalid, readOnly, required } = this.props;
+
+    return {
+      ...props,
+      'aria-haspopup': 'listbox',
+      'aria-invalid': invalid,
+      'aria-readonly': readOnly,
+      'aria-required': required,
+      onKeyDown: this.onTriggerKeyDown,
+      tabIndex: 0
+    };
+  };
 
   getMenuProps = (props: Object) => {
     return {

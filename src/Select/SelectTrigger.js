@@ -28,8 +28,6 @@ type Props = {
   children?: React$Node,
   /** Disables the input */
   disabled?: boolean,
-  /** Indicates that the value of the element is invalid */
-  invalid?: boolean,
   /** TODO */
   isOpen?: boolean,
   /** TODO */
@@ -38,8 +36,6 @@ type Props = {
   onChange?: (event: SyntheticEvent<>) => void,
   /** TODO */
   placeholder?: string,
-  /** TODO */
-  ref?: () => void,
   /** Indicates that the user cannot modify the value of the input */
   readOnly?: boolean,
   /** Indicates that the user must fill in a value before submitting a form */
@@ -48,6 +44,8 @@ type Props = {
   selectedItem?: Item,
   /** Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
+  /** TODO */
+  triggerRef?: () => void,
   /** Available variants */
   variant?: 'success' | 'warning' | 'danger'
 };
@@ -125,13 +123,11 @@ export default class SelectTrigger extends Component<Props> {
   render() {
     const {
       disabled,
-      invalid,
       isOpen,
       name,
       placeholder,
       readOnly,
       triggerRef,
-      required,
       selectedItem,
       size = 'large',
       variant,
@@ -145,13 +141,6 @@ export default class SelectTrigger extends Component<Props> {
       ...restProps
     };
 
-    // const inputProps = {
-    //   'aria-invalid': invalid,
-    //   'aria-required': required,
-    //   disabled,
-    //   readOnly,
-    //   required
-    // };
     const controlProps = {
       children: selectedItem ? selectedItem.text : placeholder,
       controlRef: triggerRef,

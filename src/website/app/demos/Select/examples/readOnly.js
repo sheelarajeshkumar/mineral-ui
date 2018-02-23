@@ -15,26 +15,16 @@
  */
 
 /* @flow */
-import importSyntax from './importSyntax';
-import invalid from './invalid';
-import disabled from './disabled';
-import uncontrolled from './uncontrolled';
-import placeholder from './placeholder';
-import readOnly from './readOnly';
-import required from './required';
-import variants from './variants';
-import select from './select';
-import states from './states';
+import Select from '../../../../../Select';
+import { basicData as data } from '../components/selectData';
 
-export default [
-  importSyntax,
-  select,
-  uncontrolled,
-  placeholder,
-  disabled,
-  readOnly,
-  required,
-  invalid,
-  variants,
-  states
-];
+export default {
+  id: 'read-only',
+  title: 'Read Only',
+  description: `The \`readOnly\` prop indicates that the input value cannot be
+modified by the user.`,
+  scope: { data, Select },
+  source: `
+    <Select data={data} readOnly />
+  `
+};
