@@ -15,5 +15,6 @@
  */
 
 /* @flow */
-export { default } from './StatesUnderlay';
-export { default as StatesUnderlaySource } from './StatesUnderlaySource';
+export { default } from './FauxControl';
+export { default as FauxControlTrigger } from './FauxControlTrigger';
+export { default as FauxControlItems } from './FauxControlItems';

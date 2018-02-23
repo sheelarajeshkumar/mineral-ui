@@ -20,9 +20,10 @@ import IconDropdownArrowClose from 'mineral-ui-icons/IconDropdownArrowClose';
 import IconDropdownArrowOpen from 'mineral-ui-icons/IconDropdownArrowOpen';
 import { createStyledComponent, pxToEm } from '../styles';
 import { createThemedComponent, mapComponentThemes } from '../themes';
-import StatesUnderlay from '../StatesUnderlay/StatesUnderlay';
-import { StatesUnderlaySource } from '../StatesUnderlay';
-import ControlItems from '../TextInput/ControlItems';
+import FauxControl, {
+  FauxControlItems,
+  FauxControlTrigger
+} from '../FauxControl';
 import { componentTheme as textInputComponentTheme } from '../TextInput/TextInput';
 
 type Props = {
@@ -30,22 +31,41 @@ type Props = {
   children?: React$Node,
   /** Disables the input */
   disabled?: boolean,
-  /** Indicates that the placeholder is displayed */
-  hasPlaceholder?: boolean,
   /** Indicates that the value of the element is invalid */
   invalid?: boolean,
   /** TODO */
   isOpen?: boolean,
+  /** TODO */
+  name?: string,
   /** Function called when input value changes */
   onChange?: (event: SyntheticEvent<>) => void,
+  /** TODO */
+  placeholder?: string,
+  /** TODO */
+  ref?: () => void,
   /** Indicates that the user cannot modify the value of the input */
   readOnly?: boolean,
   /** Indicates that the user must fill in a value before submitting a form */
   required?: boolean,
+  /** TODO */
+  selectedItem?: Item,
   /** Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
   /** Available variants */
   variant?: 'success' | 'warning' | 'danger'
+};
+
+type Item = {
+  iconEnd?: React$Element<*>,
+  iconStart?: React$Element<*>,
+  disabled?: boolean,
+  divider?: boolean,
+  onClick?: (event: SyntheticEvent<>) => void,
+  render?: (item: Object, props: Object, theme: Object) => React$Element<*>,
+  secondaryText?: React$Node,
+  text?: React$Node,
+  value?: string,
+  variant?: 'regular' | 'danger' | 'success' | 'warning'
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -66,8 +86,8 @@ export const componentTheme = (baseTheme: Object) => ({
   )
 });
 
-const ThemedStatesUnderlaySource = createThemedComponent(
-  StatesUnderlaySource,
+const ThemedFauxControlTrigger = createThemedComponent(
+  FauxControlTrigger,
   ({ theme: baseTheme }) => ({
     ...mapComponentThemes(
       {
@@ -75,7 +95,7 @@ const ThemedStatesUnderlaySource = createThemedComponent(
         theme: componentTheme(baseTheme)
       },
       {
-        name: 'StatesUnderlaySource',
+        name: 'FauxControlTrigger',
         theme: {}
       },
       baseTheme
@@ -111,11 +131,11 @@ const styles = {
   }
 };
 
-const Root = createStyledComponent(StatesUnderlay, styles.root, {
+const Root = createStyledComponent(FauxControl, styles.root, {
   displayName: 'SelectTrigger'
 });
 const Trigger = createStyledComponent(
-  ThemedStatesUnderlaySource,
+  ThemedFauxControlTrigger,
   styles.trigger,
   {
     dispayName: 'Trigger'
@@ -128,14 +148,15 @@ const Trigger = createStyledComponent(
 export default class SelectTrigger extends Component<Props> {
   render() {
     const {
-      children,
       disabled,
-      hasPlaceholder,
       invalid,
       isOpen,
+      name,
+      placeholder,
       readOnly,
       ref,
       required,
+      selectedItem,
       size = 'large',
       variant,
       ...restProps
@@ -156,19 +177,25 @@ export default class SelectTrigger extends Component<Props> {
     //   required
     // };
     const controlProps = {
-      children,
-      hasPlaceholder,
-      innerRef: ref,
+      children: selectedItem ? selectedItem.text : placeholder,
+      hasPlaceholder: !selectedItem,
+      inputRef: ref,
       tabIndex: 0
     };
 
-    const controlItemsProps = {
+    const fauxControlItemsProps = {
       control: Trigger,
       controlProps,
       disabled,
       readOnly,
       size,
       variant
+    };
+
+    const inputProps = {
+      name,
+      type: 'hidden',
+      value: selectedItem ? selectedItem.value : ''
     };
 
     const Icon = isOpen ? IconDropdownArrowClose : IconDropdownArrowOpen;
@@ -178,8 +205,9 @@ export default class SelectTrigger extends Component<Props> {
 
     return (
       <Root {...rootProps}>
-        <ControlItems {...controlItemsProps} />
+        <FauxControlItems {...fauxControlItemsProps} />
         <Icon {...iconProps} />
+        <input {...inputProps} />
       </Root>
     );
   }

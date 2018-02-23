@@ -17,15 +17,15 @@
 /* @flow */
 import React from 'react';
 import { shallow } from 'enzyme';
-import StatesUnderlay from '../StatesUnderlay';
+import FauxControl from '../FauxControl';
 
-function shallowStatesUnderlay() {
-  return shallow(<StatesUnderlay />);
+function shallowFauxControl() {
+  return shallow(<FauxControl />);
 }
 
-describe('StatesUnderlay', () => {
+describe('FauxControl', () => {
   it('renders', () => {
-    const textInput = shallowStatesUnderlay();
+    const textInput = shallowFauxControl();
 
     expect(textInput.exists()).toEqual(true);
   });

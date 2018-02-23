@@ -17,7 +17,7 @@
 /* @flow */
 import React, { Component } from 'react';
 import { createStyledComponent } from '../styles';
-import { componentTheme as statesUnderlayComponentTheme } from './StatesUnderlay';
+import { componentTheme as fauxControlComponentTheme } from './FauxControl';
 
 type Props = {
   /** Disables the input */
@@ -37,12 +37,12 @@ type Props = {
 
 const styles = {
   child: ({ theme: baseTheme, variant }) => {
-    let theme = statesUnderlayComponentTheme(baseTheme);
+    let theme = fauxControlComponentTheme(baseTheme);
     if (variant) {
       // prettier-ignore
       theme = {
         ...theme,
-        StatesUnderlay_boxShadow_focus: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
+        FauxControl_boxShadow_focus: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
       };
     }
 
@@ -51,30 +51,30 @@ const styles = {
 
       '&:focus,&[data-simulate-focus]': {
         '& ~ div': {
-          borderColor: theme.StatesUnderlay_borderColor_focus,
-          boxShadow: theme.StatesUnderlay_boxShadow_focus
+          borderColor: theme.FauxControl_borderColor_focus,
+          boxShadow: theme.FauxControl_boxShadow_focus
         }
       }
     };
   }
 };
 
-// StatesUnderlaySource's root node must be created outside of render, so that the
+// FauxControlTrigger's root node must be created outside of render, so that the
 // entire DOM element is replaced only when the element prop is changed,
 // otherwise it is updated in place
 function createRootNode(props: Props) {
-  const { element = StatesUnderlaySource.defaultProps.element } = props;
+  const { element = FauxControlTrigger.defaultProps.element } = props;
 
   return createStyledComponent(element, styles.child, {
-    displayName: 'StatesUnderlaySource', // TODO: Prop-driven?
+    displayName: 'FauxControlTrigger', // TODO: Prop-driven?
     rootEl: element
   });
 }
 
 /**
- * StatesUnderlaySource
+ * FauxControlTrigger
  */
-export default class StatesUnderlaySource extends Component<Props> {
+export default class FauxControlTrigger extends Component<Props> {
   static defaultProps = {
     element: 'div'
   };

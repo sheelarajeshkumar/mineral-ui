@@ -21,7 +21,7 @@ import { createStyledComponent } from '../styles';
 type Props = {
   /**
    * Things around which to fake focus/hover/etc...; must include at least one
-   * StatesUnderlaySource
+   * FauxControlTrigger
    */
   children: React$Node,
   /** Disables the source */
@@ -33,15 +33,15 @@ type Props = {
 };
 
 export const componentTheme = (baseTheme: Object) => ({
-  StatesUnderlay_backgroundColor: baseTheme.backgroundColor_input,
-  StatesUnderlay_borderColor: baseTheme.borderColor,
-  StatesUnderlay_borderColor_active: baseTheme.borderColor,
-  StatesUnderlay_borderColor_focus: baseTheme.borderColor,
-  StatesUnderlay_borderColor_hover: baseTheme.borderColor_hover,
-  StatesUnderlay_borderRadius: baseTheme.borderRadius_1,
-  StatesUnderlay_borderWidth: '1px',
-  StatesUnderlay_boxShadow_active: `0 0 0 1px ${baseTheme.color_white}, 0 0 0 2px ${baseTheme.borderColor_active}`,
-  StatesUnderlay_boxShadow_focus: `0 0 0 1px ${baseTheme.color_white}, 0 0 0 2px ${baseTheme.borderColor_focus}`,
+  FauxControl_backgroundColor: baseTheme.backgroundColor_input,
+  FauxControl_borderColor: baseTheme.borderColor,
+  FauxControl_borderColor_active: baseTheme.borderColor,
+  FauxControl_borderColor_focus: baseTheme.borderColor,
+  FauxControl_borderColor_hover: baseTheme.borderColor_hover,
+  FauxControl_borderRadius: baseTheme.borderRadius_1,
+  FauxControl_borderWidth: '1px',
+  FauxControl_boxShadow_active: `0 0 0 1px ${baseTheme.color_white}, 0 0 0 2px ${baseTheme.borderColor_active}`,
+  FauxControl_boxShadow_focus: `0 0 0 1px ${baseTheme.color_white}, 0 0 0 2px ${baseTheme.borderColor_focus}`,
 
   ...baseTheme
 });
@@ -53,8 +53,8 @@ const styles = {
       // prettier-ignore
       theme = {
         ...theme,
-        StatesUnderlay_borderColor_hover: theme[`borderColor_${variant}_hover`],
-        StatesUnderlay_boxShadow_active: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
+        FauxControl_borderColor_hover: theme[`borderColor_${variant}_hover`],
+        FauxControl_boxShadow_active: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
       };
     }
 
@@ -63,14 +63,14 @@ const styles = {
 
       '&:hover,&[data-simulate-hover]': {
         '& > div:last-child': {
-          borderColor: !disabled ? theme.StatesUnderlay_borderColor_hover : null
+          borderColor: !disabled ? theme.FauxControl_borderColor_hover : null
         }
       },
 
       '&:active,&[data-simulate-active]': {
         '& > div:last-child': {
-          borderColor: theme.StatesUnderlay_borderColor_active,
-          boxShadow: disabled ? 'none' : theme.StatesUnderlay_boxShadow_active
+          borderColor: theme.FauxControl_borderColor_active,
+          boxShadow: disabled ? 'none' : theme.FauxControl_boxShadow_active
         }
       }
     };
@@ -82,14 +82,14 @@ const styles = {
       backgroundColor:
         disabled || readOnly
           ? theme.backgroundColor_disabled
-          : theme.StatesUnderlay_backgroundColor,
+          : theme.FauxControl_backgroundColor,
       borderColor:
         variant && !disabled && !readOnly
           ? theme[`borderColor_${variant}`]
-          : theme.StatesUnderlay_borderColor,
-      borderRadius: theme.StatesUnderlay_borderRadius,
+          : theme.FauxControl_borderColor,
+      borderRadius: theme.FauxControl_borderRadius,
       borderStyle: 'solid',
-      borderWidth: theme.StatesUnderlay_borderWidth,
+      borderWidth: theme.FauxControl_borderWidth,
       bottom: 0,
       left: 0,
       position: 'absolute',
@@ -101,7 +101,7 @@ const styles = {
 };
 
 const Root = createStyledComponent('div', styles.root, {
-  displayName: 'StatesUnderlay', // TODO: Prop-driven?
+  displayName: 'FauxControl', // TODO: Prop-driven?
   includeStyleReset: true
 });
 const Underlay = createStyledComponent('div', styles.underlay, {
@@ -109,9 +109,9 @@ const Underlay = createStyledComponent('div', styles.underlay, {
 });
 
 /**
- * StatesUnderlay
+ * FauxControl
  */
-export default function StatesUnderlay({
+export default function FauxControl({
   children,
   disabled,
   readOnly,

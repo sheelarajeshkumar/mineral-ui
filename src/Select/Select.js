@@ -162,26 +162,19 @@ export default class Select extends Component<Props, State> {
     };
 
     const selectTriggerProps = {
-      hasPlaceholder: !selectedItem,
       isOpen,
+      name,
+      placeholder,
       ref: (node: ?React$Component<*, *>) => {
         this.selectTrigger = node;
       },
+      selectedItem,
       variant
-    };
-
-    const inputProps = {
-      name,
-      type: 'hidden',
-      value: selectedItem ? selectedItem.value : ''
     };
 
     return (
       <Root {...rootProps}>
-        <SelectTrigger {...selectTriggerProps}>
-          {selectedItem ? selectedItem.text : placeholder}
-          <input {...inputProps} />
-        </SelectTrigger>
+        <SelectTrigger {...selectTriggerProps} />
       </Root>
     );
   }

@@ -18,13 +18,13 @@
 import React from 'react';
 import { createStyledComponent } from '../styles';
 import { createThemedComponent, mapComponentThemes } from '../themes';
-import StatesUnderlay, {
-  componentTheme as statesUnderlayComponentTheme
-} from '../StatesUnderlay/StatesUnderlay';
-import { StatesUnderlaySource } from '../StatesUnderlay';
-import ControlItems, {
-  componentTheme as controlItemsComponentTheme
-} from './ControlItems';
+import { FauxControlTrigger } from '../FauxControl';
+import FauxControl, {
+  componentTheme as fauxControlComponentTheme
+} from '../FauxControl/FauxControl';
+import FauxControlItems, {
+  componentTheme as fauxControlItemsComponentTheme
+} from '../FauxControl/FauxControlItems';
 
 type Props = {
   /** @Private CSS className */
@@ -74,11 +74,11 @@ type Props = {
   variant?: 'success' | 'warning' | 'danger'
 };
 
-const fromControlItemsComponentTheme = (baseTheme: Object) => ({
+const fromFauxControlItemsComponentTheme = (baseTheme: Object) => ({
   ...mapComponentThemes(
     {
-      name: 'ControlItems',
-      theme: controlItemsComponentTheme(baseTheme)
+      name: 'FauxControlItems',
+      theme: fauxControlItemsComponentTheme(baseTheme)
     },
     {
       name: 'TextInput',
@@ -91,8 +91,8 @@ const fromControlItemsComponentTheme = (baseTheme: Object) => ({
 export const componentTheme = (baseTheme: Object) => ({
   ...mapComponentThemes(
     {
-      name: 'StatesUnderlay',
-      theme: statesUnderlayComponentTheme(baseTheme)
+      name: 'FauxControl',
+      theme: fauxControlComponentTheme(baseTheme)
     },
     {
       name: 'TextInput',
@@ -103,14 +103,14 @@ export const componentTheme = (baseTheme: Object) => ({
       }
     },
     {
-      ...fromControlItemsComponentTheme(baseTheme),
+      ...fromFauxControlItemsComponentTheme(baseTheme),
       ...baseTheme
     }
   )
 });
 
-const ThemedStatesUnderlaySource = createThemedComponent(
-  StatesUnderlaySource,
+const ThemedFauxControlTrigger = createThemedComponent(
+  FauxControlTrigger,
   ({ theme: baseTheme }) => ({
     ...mapComponentThemes(
       {
@@ -118,7 +118,7 @@ const ThemedStatesUnderlaySource = createThemedComponent(
         theme: componentTheme(baseTheme)
       },
       {
-        name: 'StatesUnderlaySource',
+        name: 'FauxControlTrigger',
         theme: {}
       },
       baseTheme
@@ -161,10 +161,10 @@ const styles = {
   }
 };
 
-const Root = createStyledComponent(StatesUnderlay, styles.root, {
+const Root = createStyledComponent(FauxControl, styles.root, {
   displayName: 'TextInput'
 });
-const Input = createStyledComponent(ThemedStatesUnderlaySource, styles.input, {
+const Input = createStyledComponent(ThemedFauxControlTrigger, styles.input, {
   dispayName: 'Input',
   forwardProps: ['innerRef'],
   rootEl: 'input'
@@ -208,7 +208,7 @@ export default function TextInput({
     ...restProps // Note: Props are spread to Input rather than Root
   };
 
-  const controlItemsProps = {
+  const fauxControlItemsProps = {
     control: Input,
     controlProps: inputProps,
     disabled,
@@ -223,7 +223,7 @@ export default function TextInput({
 
   return (
     <Root {...rootProps}>
-      <ControlItems {...controlItemsProps} />
+      <FauxControlItems {...fauxControlItemsProps} />
     </Root>
   );
 }

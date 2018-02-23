@@ -23,7 +23,7 @@ import IconSuccess from '../Icon/IconSuccess';
 import IconWarning from '../Icon/IconWarning';
 
 type Props = {
-  /** TODO */
+  /** TODO - maybe React$ElementType */
   control:
     | React$StatelessFunctionalComponent<*>
     | React$ComponentType<*>
@@ -49,17 +49,17 @@ type Props = {
 };
 
 export const componentTheme = (baseTheme: Object) => ({
-  ControlItems_color_placeholder: baseTheme.color_gray_60,
-  ControlItems_color_text: baseTheme.color_gray_80,
-  ControlItems_fontSize: baseTheme.fontSize_ui,
-  ControlItems_fontSize_small: pxToEm(12),
-  ControlItems_height_small: baseTheme.size_small,
-  ControlItems_height_medium: baseTheme.size_medium,
-  ControlItems_height_large: baseTheme.size_large,
-  ControlItems_height_jumbo: baseTheme.size_jumbo,
-  ControlItems_paddingHorizontal: baseTheme.space_inset_md,
+  FauxControlItems_color_placeholder: baseTheme.color_gray_60,
+  FauxControlItems_color_text: baseTheme.color_gray_80,
+  FauxControlItems_fontSize: baseTheme.fontSize_ui,
+  FauxControlItems_fontSize_small: pxToEm(12),
+  FauxControlItems_height_small: baseTheme.size_small,
+  FauxControlItems_height_medium: baseTheme.size_medium,
+  FauxControlItems_height_large: baseTheme.size_large,
+  FauxControlItems_height_jumbo: baseTheme.size_jumbo,
+  FauxControlItems_paddingHorizontal: baseTheme.space_inset_md,
 
-  ControlItemsIcon_marginHorizontal: baseTheme.space_inline_sm,
+  FauxControlItemsIcon_marginHorizontal: baseTheme.space_inline_sm,
 
   ...baseTheme
 });
@@ -71,14 +71,14 @@ const styles = {
 
     const fontSize =
       size === 'small'
-        ? theme.ControlItems_fontSize_small
-        : theme.ControlItems_fontSize;
+        ? theme.FauxControlItems_fontSize_small
+        : theme.FauxControlItems_fontSize;
     const marginWithIcon = getNormalizedValue(
-      theme.ControlItems_paddingHorizontal,
+      theme.FauxControlItems_paddingHorizontal,
       fontSize
     );
     const marginWithoutIcon = getNormalizedValue(
-      `${parseFloat(theme.ControlItemsIcon_marginHorizontal) / 2}em`,
+      `${parseFloat(theme.FauxControlItemsIcon_marginHorizontal) / 2}em`,
       fontSize
     );
 
@@ -108,15 +108,15 @@ const styles = {
     const rtl = theme.direction === 'rtl';
     const fontSize =
       size === 'small'
-        ? theme.ControlItems_fontSize_small
-        : theme.ControlItems_fontSize;
+        ? theme.FauxControlItems_fontSize_small
+        : theme.FauxControlItems_fontSize;
     const paddingWithoutIcon = getNormalizedValue(
-      theme.ControlItems_paddingHorizontal,
+      theme.FauxControlItems_paddingHorizontal,
       fontSize
     );
 
     const placeholderStyles = {
-      color: theme.ControlItems_color_placeholder,
+      color: theme.FauxControlItems_color_placeholder,
       fontStyle: 'italic'
     };
 
@@ -124,12 +124,12 @@ const styles = {
       color: disabled
         ? theme.color_text_disabled
         : hasPlaceholder
-          ? theme.ControlItems_color_placeholder
-          : theme.ControlItems_color_text,
+          ? theme.FauxControlItems_color_placeholder
+          : theme.FauxControlItems_color_text,
       fontSize,
       fontStyle: hasPlaceholder && !disabled ? 'italic' : null,
       height: getNormalizedValue(
-        theme[`ControlItems_height_${size}`],
+        theme[`FauxControlItems_height_${size}`],
         fontSize
       ),
       paddingLeft:
@@ -158,14 +158,14 @@ const styles = {
 
     const fontSize =
       size === 'small'
-        ? theme.ControlItems_fontSize_small
-        : theme.ControlItems_fontSize;
+        ? theme.FauxControlItems_fontSize_small
+        : theme.FauxControlItems_fontSize;
     const marginWithIcon = getNormalizedValue(
-      theme.ControlItems_paddingHorizontal,
+      theme.FauxControlItems_paddingHorizontal,
       fontSize
     );
     const marginWithoutIcon = getNormalizedValue(
-      `${parseFloat(theme.ControlItemsIcon_marginHorizontal) / 2}em`,
+      `${parseFloat(theme.FauxControlItemsIcon_marginHorizontal) / 2}em`,
       fontSize
     );
 
@@ -229,9 +229,9 @@ function getIcons({
 }
 
 /**
- * ControlItems
+ * FauxControlItems
  */
-export default function ControlItems({
+export default function FauxControlItems({
   disabled,
   iconEnd,
   iconStart,
