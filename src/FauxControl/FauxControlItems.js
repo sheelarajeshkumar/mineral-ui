@@ -21,6 +21,7 @@ import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import IconDanger from '../Icon/IconDanger';
 import IconSuccess from '../Icon/IconSuccess';
 import IconWarning from '../Icon/IconWarning';
+import { componentTheme as fauxControlComponentTheme } from './FauxControl';
 
 type Props = {
   /** TODO - maybe React$ElementType */
@@ -102,8 +103,18 @@ const styles = {
     theme: baseTheme,
     variant
   }) => {
-    const theme = componentTheme(baseTheme);
-    // const theme = baseTheme;
+    let theme = {
+      ...componentTheme(baseTheme),
+      ...fauxControlComponentTheme(baseTheme)
+    };
+
+    if (variant) {
+      // prettier-ignore
+      theme = {
+        ...theme,
+        FauxControl_boxShadow_focus: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
+      };
+    }
 
     const rtl = theme.direction === 'rtl';
     const fontSize =
@@ -132,6 +143,7 @@ const styles = {
         theme[`FauxControlItems_height_${size}`],
         fontSize
       ),
+      outline: 0,
       paddingLeft:
         ((iconStart || prefix) && !rtl) ||
         ((iconEnd || variant || suffix) && rtl)
@@ -149,6 +161,13 @@ const styles = {
 
       '&::-ms-clear': {
         display: 'none'
+      },
+
+      '&:focus,&[data-simulate-focus]': {
+        '& ~ div:last-child': {
+          borderColor: theme.FauxControl_borderColor_focus,
+          boxShadow: theme.FauxControl_boxShadow_focus
+        }
       }
     };
   },
@@ -277,6 +296,7 @@ export default function FauxControlItems({
     iconEnd,
     iconStart,
     prefix: prefixIn,
+    innerRef: controlPropsIn.controlRef,
     size,
     suffix: suffixIn,
     variant

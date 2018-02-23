@@ -17,8 +17,7 @@
 /* @flow */
 import React from 'react';
 import { createStyledComponent } from '../styles';
-import { createThemedComponent, mapComponentThemes } from '../themes';
-import { FauxControlTrigger } from '../FauxControl';
+import { mapComponentThemes } from '../themes';
 import FauxControl, {
   componentTheme as fauxControlComponentTheme
 } from '../FauxControl/FauxControl';
@@ -109,23 +108,6 @@ export const componentTheme = (baseTheme: Object) => ({
   )
 });
 
-const ThemedFauxControlTrigger = createThemedComponent(
-  FauxControlTrigger,
-  ({ theme: baseTheme }) => ({
-    ...mapComponentThemes(
-      {
-        name: 'TextInput',
-        theme: componentTheme(baseTheme)
-      },
-      {
-        name: 'FauxControlTrigger',
-        theme: {}
-      },
-      baseTheme
-    )
-  })
-);
-
 const styles = {
   input: {
     backgroundColor: 'transparent',
@@ -164,11 +146,10 @@ const styles = {
 const Root = createStyledComponent(FauxControl, styles.root, {
   displayName: 'TextInput'
 });
-const Input = createStyledComponent(ThemedFauxControlTrigger, styles.input, {
+const Input = createStyledComponent('input', styles.input, {
   dispayName: 'Input',
-  forwardProps: ['innerRef'],
   rootEl: 'input'
-}).withProps({ element: 'input' });
+});
 
 /**
  * TextInput allows your app to accept a text value from the user. It supports
@@ -179,11 +160,12 @@ export default function TextInput({
   disabled,
   iconEnd,
   iconStart,
-  rootProps: otherRootProps,
+  inputRef,
   invalid,
   prefix,
   readOnly,
   required,
+  rootProps: otherRootProps,
   size = 'large',
   suffix,
   type = 'text',
@@ -201,6 +183,7 @@ export default function TextInput({
   const inputProps = {
     'aria-invalid': invalid,
     'aria-required': required,
+    controlRef: inputRef,
     disabled,
     readOnly,
     required,

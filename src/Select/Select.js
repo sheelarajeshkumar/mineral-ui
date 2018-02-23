@@ -165,7 +165,7 @@ export default class Select extends Component<Props, State> {
       isOpen,
       name,
       placeholder,
-      ref: (node: ?React$Component<*, *>) => {
+      triggerRef: (node: ?React$Component<*, *>) => {
         this.selectTrigger = node;
       },
       selectedItem,
@@ -182,7 +182,8 @@ export default class Select extends Component<Props, State> {
   getTriggerProps = (props: Object) => ({
     ...props,
     'aria-haspopup': 'listbox',
-    onKeyDown: this.onTriggerKeyDown
+    onKeyDown: this.onTriggerKeyDown,
+    tabIndex: 0
   });
 
   getMenuProps = (props: Object) => {

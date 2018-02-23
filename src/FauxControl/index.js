@@ -16,5 +16,4 @@
 
 /* @flow */
 export { default } from './FauxControl';
-export { default as FauxControlTrigger } from './FauxControlTrigger';
 export { default as FauxControlItems } from './FauxControlItems';

@@ -19,11 +19,8 @@ import React, { Component } from 'react';
 import IconDropdownArrowClose from 'mineral-ui-icons/IconDropdownArrowClose';
 import IconDropdownArrowOpen from 'mineral-ui-icons/IconDropdownArrowOpen';
 import { createStyledComponent, pxToEm } from '../styles';
-import { createThemedComponent, mapComponentThemes } from '../themes';
-import FauxControl, {
-  FauxControlItems,
-  FauxControlTrigger
-} from '../FauxControl';
+import { mapComponentThemes } from '../themes';
+import FauxControl, { FauxControlItems } from '../FauxControl';
 import { componentTheme as textInputComponentTheme } from '../TextInput/TextInput';
 
 type Props = {
@@ -86,23 +83,6 @@ export const componentTheme = (baseTheme: Object) => ({
   )
 });
 
-const ThemedFauxControlTrigger = createThemedComponent(
-  FauxControlTrigger,
-  ({ theme: baseTheme }) => ({
-    ...mapComponentThemes(
-      {
-        name: 'Select',
-        theme: componentTheme(baseTheme)
-      },
-      {
-        name: 'FauxControlTrigger',
-        theme: {}
-      },
-      baseTheme
-    )
-  })
-);
-
 const styles = {
   root: ({ theme: baseTheme, variant }) => {
     const theme = componentTheme(baseTheme);
@@ -134,13 +114,9 @@ const styles = {
 const Root = createStyledComponent(FauxControl, styles.root, {
   displayName: 'SelectTrigger'
 });
-const Trigger = createStyledComponent(
-  ThemedFauxControlTrigger,
-  styles.trigger,
-  {
-    dispayName: 'Trigger'
-  }
-);
+const Trigger = createStyledComponent('div', styles.trigger, {
+  displayName: 'Trigger'
+});
 
 /**
  * SelectTrigger
@@ -154,7 +130,7 @@ export default class SelectTrigger extends Component<Props> {
       name,
       placeholder,
       readOnly,
-      ref,
+      triggerRef,
       required,
       selectedItem,
       size = 'large',
@@ -178,8 +154,8 @@ export default class SelectTrigger extends Component<Props> {
     // };
     const controlProps = {
       children: selectedItem ? selectedItem.text : placeholder,
+      controlRef: triggerRef,
       hasPlaceholder: !selectedItem,
-      inputRef: ref,
       tabIndex: 0
     };
 

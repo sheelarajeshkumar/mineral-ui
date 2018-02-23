@@ -20,8 +20,8 @@ import { createStyledComponent } from '../styles';
 
 type Props = {
   /**
-   * Things around which to fake focus/hover/etc...; must include at least one
-   * FauxControlTrigger
+   * Things around which to fake focus/hover/etc...; must include
+   * FauxControlItems
    */
   children: React$Node,
   /** Disables the source */
@@ -55,6 +55,7 @@ const styles = {
         ...theme,
         FauxControl_borderColor_hover: theme[`borderColor_${variant}_hover`],
         FauxControl_boxShadow_active: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
+        FauxControl_boxShadow_focus: `0 0 0 1px ${theme.color_white}, 0 0 0 2px ${theme[`borderColor_${variant}`]}`,
       };
     }
 
@@ -64,6 +65,13 @@ const styles = {
       '&:hover,&[data-simulate-hover]': {
         '& > div:last-child': {
           borderColor: !disabled ? theme.FauxControl_borderColor_hover : null
+        }
+      },
+
+      '&:focus,&[data-simulate-focus]': {
+        '& > div:last-child': {
+          borderColor: theme.FauxControl_borderColor_focus,
+          boxShadow: theme.FauxControl_boxShadow_focus
         }
       },
 
