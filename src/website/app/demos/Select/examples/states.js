@@ -17,7 +17,7 @@
 /* @flow */
 import { simulate } from 'glamor';
 import Select from '../../../../../Select';
-import { stateData as data } from './select';
+import { basicData as data } from '../components/selectData';
 import DemoLayout from '../components/DemoLayout';
 
 export default {

@@ -15,18 +15,15 @@
  */
 
 /* @flow */
-import importSyntax from './importSyntax';
-import select from './select';
-import uncontrolled from './uncontrolled';
-import placeholder from './placeholder';
-import variants from './variants';
-import states from './states';
+import Select from '../../../../../Select';
+import { statesData as data } from '../components/selectData';
 
-export default [
-  importSyntax,
-  select,
-  uncontrolled,
-  placeholder,
-  variants,
-  states
-];
+export default {
+  id: 'placeholder',
+  title: 'Placeholder Text',
+  description: 'Provide a placeholder as a helpful prompt.',
+  scope: { data, Select },
+  source: `
+    <Select data={data} placeholder="Choose a state..." />
+  `
+};

@@ -15,18 +15,17 @@
  */
 
 /* @flow */
-import importSyntax from './importSyntax';
-import select from './select';
-import uncontrolled from './uncontrolled';
-import placeholder from './placeholder';
-import variants from './variants';
-import states from './states';
+import Select from '../../../../../Select';
+import { statesData as data } from '../components/selectData';
 
-export default [
-  importSyntax,
-  select,
-  uncontrolled,
-  placeholder,
-  variants,
-  states
-];
+export default {
+  id: 'uncontrolled',
+  title: 'Uncontrolled',
+  description: `Uncontrolled Selects behave just like HTML select elements.
+The value is handled by the DOM. The main difference is that you must use
+\`defaultSelectedItem\` to set initial value.`,
+  scope: { data, Select },
+  source: `
+    <Select data={data} name="state" defaultSelectedItem={data[5]} />
+  `
+};
