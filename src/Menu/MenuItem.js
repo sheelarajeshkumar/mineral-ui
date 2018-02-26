@@ -66,8 +66,10 @@ export const componentTheme = (baseTheme: Object) => ({
   MenuItem_backgroundColor_active: baseTheme.color_gray_40,
   MenuItem_backgroundColor_focus: baseTheme.color_gray_20,
   MenuItem_backgroundColor_hover: baseTheme.color_gray_20,
+  MenuItem_backgroundColor_selected: baseTheme.color_theme_10,
   MenuItem_color_text: baseTheme.color_text,
   MenuItem_fontWeight: baseTheme.fontWeight_regular,
+  MenuItem_fontWeight_selected: baseTheme.fontWeight_bold,
   MenuItem_paddingHorizontal: baseTheme.space_inset_md,
   MenuItem_paddingVertical: baseTheme.space_inset_sm,
 
@@ -84,8 +86,8 @@ export const componentTheme = (baseTheme: Object) => ({
 
 // These styles are based off of Button, with significant changes
 const styles = {
-  content: props => {
-    let theme = componentTheme(props.theme);
+  content: ({ theme: baseTheme }) => {
+    let theme = componentTheme(baseTheme);
 
     const fontSize = theme.MenuItemContent_fontSize;
     const paddingBottom = getNormalizedValue(pxToEm(4), fontSize);
@@ -106,9 +108,8 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between'
   },
-  menuItem: props => {
-    const { disabled, isHighlighted, variant } = props;
-    let theme = componentTheme(props.theme);
+  menuItem: ({ disabled, isHighlighted, theme: baseTheme, variant }) => {
+    let theme = componentTheme(baseTheme);
 
     if (variant !== 'regular') {
       // prettier-ignore
@@ -137,6 +138,13 @@ const styles = {
 
       '&:active': {
         backgroundColor: !disabled && theme.MenuItem_backgroundColor_active
+      },
+
+      '[aria-selected="true"]': {
+        backgroundColor: isHighlighted
+          ? theme.MenuItem_backgroundColor_hover
+          : theme.MenuItem_backgroundColor_selected,
+        fontWeight: theme.MenuItem_fontWeight_selected
       },
 
       '& [role="img"]': {

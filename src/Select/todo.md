@@ -46,11 +46,10 @@
   * sizes
   * renders MenuItem
     * Determine relationship/responsibilities with FauxControl
+* MenuItem groups have a new design with a horizontal rule
 * Select Menu width
   * Not always a hierarchical DOM relationship
   * Root must be measured and pass to child
-* MenuItem selected
-  * Implement in MenuItem or Select? isSelected or [aria-selected=true]
 * Select - finish control props pattern
 * Fix Flow types
   * Flat and hierarchical data pop
@@ -103,3 +102,4 @@
 * Avatar renders icon prop as <span icon="[object Object]" in basic usage example
 * Add "built-in" avatar support to MenuItem, similar to icons
 * CustomRender examples updated to render something simple besides an Avatar
+* Cleanup variant=regular anti-pattern
