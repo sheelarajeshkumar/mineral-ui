@@ -15,6 +15,7 @@
  */
 
 /* @flow */
+import data from './data';
 import importSyntax from './importSyntax';
 import invalid from './invalid';
 import disabled from './disabled';
@@ -31,6 +32,7 @@ export default [
   importSyntax,
   select,
   uncontrolled,
+  data,
   placeholder,
   disabled,
   readOnly,

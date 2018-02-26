@@ -26,7 +26,6 @@
 * Store items in instance variable [perf]
 * Render props
 * Custom item renderer for root item
-* New MenuGroupTitle styles
 
 
 ### Design Questions
@@ -49,6 +48,8 @@
 * Select Menu width
   * Not always a hierarchical DOM relationship
   * Root must be measured and pass to child
+* MenuItem selected
+  * Implement in MenuItem or Select? isSelected or [aria-selected=true]
 * Select - finish control props pattern
 * Fix Flow types
   * Flat and hierarchical data pop
@@ -57,13 +58,8 @@
   * Controlled
   * Uncontrolled
   * Portal
-  * Data prop
-    * Show examples of flat and grouped data
-    * Need to update examples for Dropdown and Menu too
-    * text/value needed for Select data
   * States
     * Fix issue with simulated states
-    * Wrap each section with FormFieldsets and legend or use placeholder prop to indicate what it being displayed
   * More...
     * Async data loading?
     * Extract examples from kitchen sink.
@@ -100,5 +96,3 @@
 * Avatar renders icon prop as <span icon="[object Object]" in basic usage example
 * Add "built-in" avatar support to MenuItem, similar to icons
 * CustomRender examples updated to render something simple besides an Avatar
-* Cleanup variant=regular anti-pattern
-* Update MenuGroupTitle styles
