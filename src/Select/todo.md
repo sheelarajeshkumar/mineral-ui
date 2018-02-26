@@ -39,7 +39,6 @@
 
 * Component description
 * Route description
-* Component status page
 * SelectTrigger
   * disabled
   * readonly
