@@ -15,48 +15,66 @@
  */
 
 /* @flow */
+import React from 'react';
 import { simulate } from 'glamor';
+import { createStyledComponent } from '../../../../../styles';
+import DemoLayout from '../components/DemoLayout';
+import { FormFieldset } from '../../../../../Form';
 import Select from '../../../../../Select';
 import { basicData as data } from '../components/selectData';
-import DemoLayout from '../components/DemoLayout';
+
+const FieldSetRoot = createStyledComponent(FormFieldset, {
+  '& > *': {
+    marginBottom: '0.5rem',
+    marginRight: '0.5rem'
+  }
+});
+
+function FieldSet(props: {
+  legend: string,
+  variant?: 'success' | 'warning' | 'danger'
+}) {
+  const { legend, variant } = props;
+  const selectProps = {
+    data,
+    variant
+  };
+
+  return (
+    <FieldSetRoot>
+      <legend>{legend}</legend>
+      <Select placeholder="Regular" {...selectProps} />
+      <Select {...simulate('hover')} placeholder="Hover" {...selectProps} />
+      <Select {...simulate('focus')} placeholder="Focus" {...selectProps} />
+      <Select
+        {...simulate('focus', 'hover')}
+        placeholder="Focus & Hover"
+        {...selectProps}
+      />
+      <Select
+        {...simulate('focus', 'active')}
+        placeholder="Focus & Active"
+        {...selectProps}
+      />
+      <Select {...simulate('active')} placeholder="Active" {...selectProps} />
+      <Select readOnly placeholder="Read Only" {...selectProps} />
+      <Select disabled placeholder="Disabled" {...selectProps} />
+    </FieldSetRoot>
+  );
+}
 
 export default {
   id: 'states',
   title: 'States',
-  description: ``,
   hideFromProd: true,
   hideSource: true,
-  scope: { DemoLayout, Select, simulate, data },
+  scope: { DemoLayout, FieldSet },
   source: `
-  <DemoLayout>
-    <Select data={data} />
-    <Select data={data} variant="danger" />
-    <Select data={data} variant="success" />
-    <Select data={data} variant="warning" />
-    <br /><br />
-    <Select data={data} {...simulate('hover')} />
-    <Select data={data} variant="danger" {...simulate('hover')} />
-    <Select data={data} variant="success" {...simulate('hover')} />
-    <Select data={data} variant="warning" {...simulate('hover')} />
-    <br /><br />
-    <Select data={data} {...simulate('focus')} />
-    <Select data={data} variant="danger" {...simulate('focus')} />
-    <Select data={data} variant="success" {...simulate('focus')} />
-    <Select data={data} variant="warning" {...simulate('focus')} />
-    <br /><br />
-    <Select data={data} {...simulate('focus', 'hover')} />
-    <Select data={data} variant="danger" {...simulate('focus', 'hover')} />
-    <Select data={data} variant="success" {...simulate('focus', 'hover')} />
-    <Select data={data} variant="warning" {...simulate('focus', 'hover')} />
-    <br /><br />
-    <Select data={data} {...simulate('focus', 'active')} />
-    <Select data={data} variant="danger" {...simulate('focus', 'active')} />
-    <Select data={data} variant="success" {...simulate('focus', 'active')} />
-    <Select data={data} variant="warning" {...simulate('focus', 'active')} />
-    <br /><br />
-    <Select data={data} {...simulate('active')} />
-    <Select data={data} variant="danger" {...simulate('active')} />
-    <Select data={data} variant="success" {...simulate('active')} />
-    <Select data={data} variant="warning" {...simulate('active')} />
-  </DemoLayout>`
+    <DemoLayout>
+      <FieldSet legend="Regular" />
+      <FieldSet legend="Success" variant="success" />
+      <FieldSet legend="Warning" variant="warning" />
+      <FieldSet legend="Danger" variant="danger" />
+    </DemoLayout>
+  `
 };
