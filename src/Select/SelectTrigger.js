@@ -71,7 +71,7 @@ export const componentTheme = (baseTheme: Object) => ({
 });
 
 const styles = {
-  root: ({ theme: baseTheme, variant }) => {
+  root: ({ disabled, readOnly, theme: baseTheme, variant }) => {
     const theme = componentTheme(baseTheme);
 
     return {
@@ -87,7 +87,10 @@ const styles = {
       },
 
       '& :not([role="img"]) ~ [role="img"]': {
-        fill: variant ? theme[`color_text_${variant}`] : theme.SelectIcon_fill
+        fill:
+          disabled || readOnly
+            ? theme.color_text_disabled
+            : variant ? theme[`color_text_${variant}`] : theme.SelectIcon_fill
       }
     };
   },
