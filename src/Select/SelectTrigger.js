@@ -23,6 +23,8 @@ import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import FauxControl, { FauxControlItems } from '../FauxControl';
 import { componentTheme as textInputComponentTheme } from '../TextInput/TextInput';
 
+import type { Item } from '../Menu/MenuItem';
+
 type Props = {
   /** TODO */
   children?: React$Node,
@@ -48,19 +50,6 @@ type Props = {
   triggerRef?: () => void,
   /** Available variants */
   variant?: 'success' | 'warning' | 'danger'
-};
-
-type Item = {
-  iconEnd?: React$Element<*>,
-  iconStart?: React$Element<*>,
-  disabled?: boolean,
-  divider?: boolean,
-  onClick?: (event: SyntheticEvent<>) => void,
-  render?: (item: Object, props: Object, theme: Object) => React$Element<*>,
-  secondaryText?: React$Node,
-  text?: React$Node,
-  value?: string,
-  variant?: 'regular' | 'danger' | 'success' | 'warning'
 };
 
 export const componentTheme = (baseTheme: Object) => ({

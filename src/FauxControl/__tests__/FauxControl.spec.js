@@ -19,8 +19,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import FauxControl from '../FauxControl';
 
-function shallowFauxControl() {
-  return shallow(<FauxControl />);
+function shallowFauxControl(props = {}) {
+  const fauxControlProps = {
+    children: <span>children</span>,
+    ...props
+  };
+
+  return shallow(<FauxControl {...fauxControlProps} />);
 }
 
 describe('FauxControl', () => {

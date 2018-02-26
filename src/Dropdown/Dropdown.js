@@ -25,6 +25,9 @@ import DropdownContent, {
 } from './DropdownContent';
 import ItemMatcher from './ItemMatcher';
 
+import type { Items, ItemGroups } from '../Menu/Menu';
+import type { Item } from '../Menu/MenuItem';
+
 type Props = {
   /** Trigger for the Dropdown */
   children: React$Node,
@@ -35,7 +38,7 @@ type Props = {
   /** Disable the Dropdown */
   disabled?: boolean,
   /** Data from which the [Menu](../menu#data) will be constructed (see [example](#data)) */
-  data: Array<any>, // FIXME: Array<Item> | Array<{ items: Array<Item>, title?: React$Node }>,
+  data: Items | ItemGroups,
   /** Function that returns props to be applied to each item */
   getItemProps?: (props: Object, scope?: Object) => Object,
   /** Function that returns props to be applied to the menu */
@@ -75,19 +78,6 @@ type Props = {
 type State = {
   highlightedIndex: ?number,
   isOpen?: boolean
-};
-
-type Item = {
-  iconEnd?: React$Element<*>,
-  iconStart?: React$Element<*>,
-  disabled?: boolean,
-  divider?: boolean,
-  onClick?: (event: SyntheticEvent<>) => void,
-  render?: (item: Object, props: Object, theme: Object) => React$Element<*>,
-  secondaryText?: React$Node,
-  text?: React$Node,
-  value?: string,
-  variant?: 'regular' | 'danger' | 'success' | 'warning'
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -218,7 +208,10 @@ export default class Dropdown extends Component<Props, State> {
 
   getItems = () => {
     const { data } = this.props;
-    const groupedData = this.isGroupedData(data) ? data : [{ items: data }];
+    // $FlowFixMe
+    const groupedData: ItemGroups = this.isGroupedData(data)
+      ? data
+      : [{ items: data }];
     return groupedData.reduce((acc, group) => {
       return group.items && group.items.length
         ? acc.concat(group.items.filter(item => !item.divider))

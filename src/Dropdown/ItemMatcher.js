@@ -17,20 +17,8 @@
 /* @flow */
 // TODO: This file should probably live somewhere else, either in utils or Menu
 
-type Item = {
-  iconEnd?: React$Element<*>,
-  iconStart?: React$Element<*>,
-  disabled?: boolean,
-  divider?: boolean,
-  onClick?: (event: SyntheticEvent<>) => void,
-  render?: (item: Object, props: Object, theme: Object) => React$Element<*>,
-  secondaryText?: React$Node,
-  text?: React$Node,
-  value?: string,
-  variant?: 'regular' | 'danger' | 'success' | 'warning'
-};
-
-type Items = Array<Item>;
+import type { Item } from '../Menu/MenuItem';
+import type { Items } from '../Menu/Menu';
 
 export default class ItemMatcher {
   keys: string = '';

@@ -19,29 +19,20 @@ import React from 'react';
 import { createStyledComponent } from '../styles';
 import { MenuDivider, MenuGroup, MenuItem } from './index';
 
+import type { Item } from './MenuItem';
+
 type Props = {
   /** [MenuDivider](../menu-divider), [MenuGroup](../menu-group), or [MenuItem](../menu-item) */
   children?: React$Node,
   /** Data used to contruct Menu. See [example](#data) */
-  data?: Array<any>, // FIXME: Array<Item> | Array<{ items: Array<Item>, title?: React$Node }>
+  data?: Items | ItemGroups,
   /** @Private Function that returns props to be applied to each item */
   getItemProps?: (props: Object, scope: Object) => Object
 };
 
-type Group = { items: Array<Item>, title?: React$Node };
-
-type Item = {
-  iconEnd?: React$Element<*>,
-  iconStart?: React$Element<*>,
-  disabled?: boolean,
-  divider?: boolean,
-  onClick?: (event: SyntheticEvent<>) => void,
-  render?: (item: Object, props: Object, theme: Object) => React$Element<*>,
-  secondaryText?: React$Node,
-  text?: React$Node,
-  value?: string,
-  variant?: 'regular' | 'danger' | 'success' | 'warning'
-};
+export type ItemGroup = { items: Array<Item>, title?: React$Node };
+export type Items = Array<Item>;
+export type ItemGroups = Array<ItemGroup>;
 
 const Root = createStyledComponent(
   'div',
@@ -80,7 +71,10 @@ function isGroupedData(data) {
 }
 
 function renderFromData(data, getItemProps) {
-  const groupedData = isGroupedData(data) ? data : [{ items: data }];
+  // $FlowFixMe
+  const groupedData: ItemGroups = isGroupedData(data)
+    ? data
+    : [{ items: data }];
   return groupedData.reduce(
     (acc, group, groupIndex) => {
       acc.groups.push(renderMenuGroup(group, groupIndex, getItemProps, acc));
@@ -90,7 +84,7 @@ function renderFromData(data, getItemProps) {
   ).groups;
 }
 
-function renderMenuGroup(group: Group, groupIndex, getItemProps, acc) {
+function renderMenuGroup(group: ItemGroup, groupIndex, getItemProps, acc) {
   return group.items && group.items.length ? (
     <MenuGroup key={groupIndex} title={group.title}>
       {group.items.map((item, itemIndex) => {

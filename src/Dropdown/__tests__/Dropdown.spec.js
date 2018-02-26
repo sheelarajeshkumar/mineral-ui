@@ -23,18 +23,16 @@ import { MenuItem } from '../../Menu';
 import examples from '../../website/app/demos/Dropdown/examples';
 import testDemoExamples from '../../../utils/testDemoExamples';
 
-const data = [
+import type { Items } from '../../Menu/Menu';
+
+const data: Items = [
   {
-    items: [
-      {
-        text: 'item 1',
-        onClick: jest.fn()
-      },
-      {
-        text: 'item 2',
-        onClick: jest.fn()
-      }
-    ]
+    text: 'item 1',
+    onClick: jest.fn()
+  },
+  {
+    text: 'item 2',
+    onClick: jest.fn()
   }
 ];
 
@@ -199,7 +197,7 @@ describe('Dropdown', () => {
     const itemSelectionAssertions = ({ simulateArgs }) => {
       it('calls item onClick', () => {
         item.simulate(...simulateArgs);
-        const { onClick } = data[0].items[0];
+        const { onClick } = data[0];
 
         expect(onClick).toHaveBeenCalled();
       });
@@ -222,7 +220,7 @@ describe('Dropdown', () => {
         defaultIsOpen: true
       });
       item = dropdown.find(MenuItem).first();
-      data[0].items[0].onClick.mockReset();
+      data[0].onClick && data[0].onClick.mockReset();
     });
 
     describe('when mouse click', () => {

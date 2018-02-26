@@ -47,7 +47,7 @@ type Props = {
   variant?: 'regular' | 'danger' | 'success' | 'warning'
 };
 
-type Item = {
+export type Item = {
   iconEnd?: React$Element<*>,
   iconStart?: React$Element<*>,
   disabled?: boolean,
