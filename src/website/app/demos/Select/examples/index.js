@@ -15,6 +15,7 @@
  */
 
 /* @flow */
+import controlled from './controlled';
 import data from './data';
 import importSyntax from './importSyntax';
 import invalid from './invalid';
@@ -24,14 +25,14 @@ import placeholder from './placeholder';
 import readOnly from './readOnly';
 import required from './required';
 import rtl from './rtl';
-import select from './select';
+import kitchenSink from './kitchenSink';
 import states from './states';
 import variants from './variants';
 
 export default [
   importSyntax,
-  select,
   uncontrolled,
+  controlled,
   data,
   placeholder,
   disabled,
@@ -40,5 +41,6 @@ export default [
   invalid,
   variants,
   rtl,
+  kitchenSink,
   states
 ];

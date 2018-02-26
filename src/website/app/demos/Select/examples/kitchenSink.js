@@ -27,8 +27,8 @@ import {
 } from '../components/selectData';
 
 export default {
-  id: 'basic',
-  title: 'Basic Usage',
+  id: 'kitchenSink',
+  title: 'Kitchen Sink',
   description: ``,
   scope: {
     Button,
@@ -44,17 +44,8 @@ export default {
   },
   source: `
   <DemoLayout>
-    <FormFieldset legend="Basic">
-      <Select data={basicData} />
-      <Select data={statesData} />
-    </FormFieldset>
-
     <FormFieldset legend="Grouped data">
       <Select data={groupedData} />
-    </FormFieldset>
-
-    <FormFieldset legend="Items with icons">
-      <Select data={iconsData} />
     </FormFieldset>
 
     <FormFieldset legend="Custom item renderer">
@@ -91,16 +82,6 @@ export default {
         caption="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         name="state"
         required />
-    </FormFieldset>
-
-    <FormFieldset legend="Controlled props">
-      <Select data={basicData} isOpen />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </FormFieldset>
   </DemoLayout>`
 };
