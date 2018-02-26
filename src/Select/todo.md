@@ -26,6 +26,7 @@
 * Store items in instance variable [perf]
 * Render props
 * Custom item renderer for root item
+* New MenuGroupTitle styles
 
 
 ### Design Questions
@@ -45,7 +46,6 @@
   * sizes
   * renders MenuItem
     * Determine relationship/responsibilities with FauxControl
-* MenuItem groups have a new design with a horizontal rule
 * Select Menu width
   * Not always a hierarchical DOM relationship
   * Root must be measured and pass to child
@@ -101,3 +101,4 @@
 * Add "built-in" avatar support to MenuItem, similar to icons
 * CustomRender examples updated to render something simple besides an Avatar
 * Cleanup variant=regular anti-pattern
+* Update MenuGroupTitle styles
