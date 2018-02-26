@@ -17,6 +17,7 @@
 /* @flow */
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
+import { withTheme } from 'glamorous';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 import { generateId } from '../utils';
 import { createThemedComponent, mapComponentThemes } from '../themes';
@@ -65,6 +66,8 @@ type Props = {
   required?: boolean,
   /** TODO */
   selectedItem?: Item,
+  /** @Private */
+  theme: Object,
   /** Available variants */
   variant?: 'danger' | 'success' | 'warning'
 };
@@ -122,7 +125,7 @@ const Root = createThemedComponent(Dropdown, ({ theme: baseTheme }) => ({
 /**
  * Select
  */
-export default class Select extends Component<Props, State> {
+class Select extends Component<Props, State> {
   static defaultProps = {
     placeholder: 'Select...'
   };
@@ -157,6 +160,7 @@ export default class Select extends Component<Props, State> {
       placeholder,
       readOnly,
       variant,
+      theme,
       ...restProps
     } = this.props;
     const isOpen = this.getControllableValue('isOpen');
@@ -174,7 +178,8 @@ export default class Select extends Component<Props, State> {
       getTriggerProps: this.getTriggerProps,
       isOpen,
       onClose: this.close,
-      onOpen: this.open
+      onOpen: this.open,
+      placement: theme.direction === 'rtl' ? 'bottom-end' : undefined
     };
 
     const selectTriggerProps = {
@@ -469,3 +474,5 @@ export default class Select extends Component<Props, State> {
     return this.isControlled(key) ? this.props[key] : this.state[key];
   };
 }
+
+export default withTheme(Select);

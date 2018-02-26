@@ -56,7 +56,6 @@
 * Examples
   * Controlled
   * Uncontrolled
-  * RTL
   * Portal
   * Data prop
     * Show examples of flat and grouped data

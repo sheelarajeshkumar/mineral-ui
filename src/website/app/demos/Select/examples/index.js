@@ -22,9 +22,10 @@ import uncontrolled from './uncontrolled';
 import placeholder from './placeholder';
 import readOnly from './readOnly';
 import required from './required';
-import variants from './variants';
+import rtl from './rtl';
 import select from './select';
 import states from './states';
+import variants from './variants';
 
 export default [
   importSyntax,
@@ -36,5 +37,6 @@ export default [
   required,
   invalid,
   variants,
+  rtl,
   states
 ];

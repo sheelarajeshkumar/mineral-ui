@@ -132,3 +132,18 @@ export const iconsData = [
     value: 'gamma'
   }
 ];
+
+export const rtlData = [
+  {
+    text: 'ألفا',
+    value: 'alpha'
+  },
+  {
+    text: 'بيتا',
+    value: 'beta'
+  },
+  {
+    text: 'غاما',
+    value: 'gamma'
+  }
+];
