@@ -63,6 +63,7 @@ const styles = {
 
     return {
       position: 'relative',
+      zIndex: 1,
 
       '&:hover,&[data-simulate-hover]': {
         '& > div:last-child': {

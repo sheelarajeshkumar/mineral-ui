@@ -53,7 +53,6 @@
   * Flat and hierarchical data pop
   * Prop getters
 * Examples
-  * Portal
   * States
     * Fix issue with simulated states
   * More...

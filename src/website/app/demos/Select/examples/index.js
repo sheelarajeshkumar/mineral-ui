@@ -22,6 +22,7 @@ import invalid from './invalid';
 import disabled from './disabled';
 import uncontrolled from './uncontrolled';
 import placeholder from './placeholder';
+import portal from './portal';
 import readOnly from './readOnly';
 import required from './required';
 import rtl from './rtl';
@@ -40,6 +41,7 @@ export default [
   required,
   invalid,
   variants,
+  portal,
   rtl,
   kitchenSink,
   states
