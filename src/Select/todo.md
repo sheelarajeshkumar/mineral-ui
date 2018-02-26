@@ -37,8 +37,6 @@
 
 ### TODO
 
-* Component description
-* Route description
 * SelectTrigger
   * disabled
   * readonly

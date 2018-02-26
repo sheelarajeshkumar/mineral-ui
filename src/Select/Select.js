@@ -123,7 +123,7 @@ const Root = createThemedComponent(Dropdown, ({ theme: baseTheme }) => ({
 }));
 
 /**
- * Select
+ * Select represents a control that provides a menu of options.
  */
 class Select extends Component<Props, State> {
   static defaultProps = {

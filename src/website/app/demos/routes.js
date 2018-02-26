@@ -206,7 +206,8 @@ export default [
     }
   ],
   {
-    description: 'Select', // TODO
+    description:
+      'Select represents a form control that provides a menu of options from which a user can choose an option.',
     slug: 'select',
     title: 'Select'
   },
