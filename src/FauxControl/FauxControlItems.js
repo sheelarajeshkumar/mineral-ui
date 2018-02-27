@@ -59,6 +59,7 @@ export const componentTheme = (baseTheme: Object) => ({
   FauxControlItems_height_large: baseTheme.size_large,
   FauxControlItems_height_jumbo: baseTheme.size_jumbo,
   FauxControlItems_paddingHorizontal: baseTheme.space_inset_md,
+  FauxControlItems_paddingHorizontal_small: baseTheme.space_inset_sm,
 
   FauxControlItemsIcon_marginHorizontal: baseTheme.space_inline_sm,
 
@@ -121,8 +122,13 @@ const styles = {
       size === 'small'
         ? theme.FauxControlItems_fontSize_small
         : theme.FauxControlItems_fontSize;
+    const sizeAppropriateHorizontalPadding =
+      size === 'small' || size === 'medium'
+        ? theme.FauxControlItems_paddingHorizontal_small ||
+          theme.FauxControlItems_paddingHorizontal
+        : theme.FauxControlItems_paddingHorizontal;
     const paddingWithoutIcon = getNormalizedValue(
-      theme.FauxControlItems_paddingHorizontal,
+      sizeAppropriateHorizontalPadding,
       fontSize
     );
 

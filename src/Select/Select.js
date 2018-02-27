@@ -72,6 +72,8 @@ type Props = {
   required?: boolean,
   /** TODO */
   selectedItem?: Item,
+  /** Available sizes */
+  size?: 'small' | 'medium' | 'large' | 'jumbo',
   /** @Private */
   theme: Object,
   /** Available variants */
@@ -162,6 +164,7 @@ class Select extends Component<Props, State> {
       name,
       placeholder,
       readOnly,
+      size,
       variant,
       theme,
       ...restProps
@@ -196,6 +199,7 @@ class Select extends Component<Props, State> {
       name,
       placeholder,
       readOnly,
+      size,
       triggerRef: (node: ?React$Component<*, *>) => {
         this.selectTrigger = node;
       },

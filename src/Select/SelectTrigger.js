@@ -83,7 +83,10 @@ const styles = {
         display: 'block',
         fill: theme.SelectIcon_fill,
         flex: '0 0 auto',
-        margin: `0 ${theme.SelectIcon_marginHorizontal}`
+
+        '&:not(:last-of-type)': {
+          margin: `0 ${theme.SelectIcon_marginHorizontal}`
+        }
       },
 
       '& :not([role="img"]) ~ [role="img"]': {
@@ -129,6 +132,7 @@ export default class SelectTrigger extends Component<Props> {
       disabled,
       fauxControlRef: triggerRef,
       readOnly,
+      size,
       variant,
       ...restProps
     };
@@ -147,6 +151,13 @@ export default class SelectTrigger extends Component<Props> {
       variant
     };
 
+    const iconMarginMap = {
+      small: 4,
+      medium: 8,
+      large: 8,
+      jumbo: 14
+    };
+
     const inputProps = {
       name,
       type: 'hidden',
@@ -155,7 +166,8 @@ export default class SelectTrigger extends Component<Props> {
 
     const Icon = isOpen ? IconArrowDropdownUp : IconArrowDropdownDown;
     const iconProps = {
-      size: size === 'small' ? 'medium' : pxToEm(24)
+      css: { margin: pxToEm(iconMarginMap[size]) },
+      size: size === 'small' || size === 'medium' ? 'medium' : pxToEm(24)
     };
 
     return (

@@ -27,6 +27,7 @@ import readOnly from './readOnly';
 import required from './required';
 import rtl from './rtl';
 import kitchenSink from './kitchenSink';
+import sizes from './sizes';
 import states from './states';
 import variants from './variants';
 
@@ -40,6 +41,7 @@ export default [
   readOnly,
   required,
   invalid,
+  sizes,
   variants,
   portal,
   rtl,

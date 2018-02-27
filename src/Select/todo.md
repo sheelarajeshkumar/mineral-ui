@@ -39,7 +39,6 @@
 
 * Improve prop documentation
 * SelectTrigger
-  * sizes
   * renders MenuItem
     * Determine relationship/responsibilities with FauxControl
 * Select - finish control props pattern
