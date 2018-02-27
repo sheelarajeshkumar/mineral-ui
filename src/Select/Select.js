@@ -231,7 +231,7 @@ class Select extends Component<Props, State> {
 
   getItems = () => {
     const { data } = this.props;
-    // $FlowFixMe
+    // $FlowFixMe https://github.com/facebook/flow/issues/5885
     const groupedData: ItemGroups = this.isGroupedData(data)
       ? data
       : [{ items: data }];

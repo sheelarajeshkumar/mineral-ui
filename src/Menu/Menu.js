@@ -71,7 +71,7 @@ function isGroupedData(data) {
 }
 
 function renderFromData(data, getItemProps) {
-  // $FlowFixMe
+  // $FlowFixMe https://github.com/facebook/flow/issues/5885
   const groupedData: ItemGroups = isGroupedData(data)
     ? data
     : [{ items: data }];

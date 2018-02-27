@@ -50,7 +50,6 @@
   * Implement in MenuItem or Select? isSelected or [aria-selected=true]
 * Select - finish control props pattern
 * Fix Flow types
-  * Flat and hierarchical data pop
   * Prop getters
 * Examples
   * States
