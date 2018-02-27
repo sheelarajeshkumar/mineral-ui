@@ -28,6 +28,7 @@ import ItemMatcher from '../Dropdown/ItemMatcher';
 import SelectTrigger, {
   componentTheme as selectTriggerComponentTheme
 } from './SelectTrigger';
+import { pxToEm } from '../styles';
 
 import type { Items, ItemGroups } from '../Menu/Menu';
 import type { Item } from '../Menu/MenuItem';
@@ -51,6 +52,8 @@ type Props = {
   invalid?: boolean,
   /** For use with controlled components, in which the app manages Select state */
   isOpen?: boolean,
+  /** Plugins that are used to alter behavior. See [PopperJS docs](https://popper.js.org/popper-documentation.html#modifiers) for options. */
+  modifiers?: Object,
   /** Name of the field when submitted in a form */
   name?: string,
   /** TODO */
@@ -112,6 +115,15 @@ const Root = createThemedComponent(Dropdown, ({ theme: baseTheme }) => ({
   )
 }));
 
+const contentWidthModifier = {
+  enabled: true,
+  fn: data => {
+    data.styles.minWidth = pxToEm(224);
+    data.styles.width = pxToEm(data.offsets.reference.width);
+    return data;
+  }
+};
+
 /**
  * Select represents a control that provides a menu of options.
  */
@@ -146,6 +158,7 @@ class Select extends Component<Props, State> {
     const {
       data,
       disabled,
+      modifiers,
       name,
       placeholder,
       readOnly,
@@ -167,6 +180,10 @@ class Select extends Component<Props, State> {
       getItemProps: this.getItemProps,
       getTriggerProps: this.getTriggerProps,
       isOpen,
+      modifiers: {
+        contentWidth: contentWidthModifier,
+        ...modifiers
+      },
       onClose: this.close,
       onOpen: this.open,
       placement: theme.direction === 'rtl' ? 'bottom-end' : undefined
