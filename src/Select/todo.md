@@ -30,12 +30,14 @@
 
 ### Design Questions
 
+* Select Menu width
+  * Do we need to subtract icon width?
 * Component width
   * Question for all of our form elements
 * Clearable
 
 
-### TODO
+### Todos los TODOs
 
 * SelectTrigger
   * disabled
@@ -43,11 +45,6 @@
   * sizes
   * renders MenuItem
     * Determine relationship/responsibilities with FauxControl
-* Select Menu width
-  * Not always a hierarchical DOM relationship
-  * Root must be measured and pass to child
-* MenuItem selected
-  * Implement in MenuItem or Select? isSelected or [aria-selected=true]
 * Select - finish control props pattern
 * Fix Flow types
   * Prop getters
