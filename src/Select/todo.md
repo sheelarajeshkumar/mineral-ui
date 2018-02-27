@@ -30,8 +30,6 @@
 
 ### Design Questions
 
-* Select Menu width
-  * Do we need to subtract icon width?
 * Component width
   * Question for all of our form elements
 * Clearable
