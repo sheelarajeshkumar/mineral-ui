@@ -67,6 +67,7 @@ export const componentTheme = (baseTheme: Object) => ({
   MenuItem_backgroundColor_focus: baseTheme.color_gray_20,
   MenuItem_backgroundColor_hover: baseTheme.color_gray_20,
   MenuItem_backgroundColor_selected: baseTheme.color_theme_10,
+  MenuItem_backgroundColor_selectedHover: baseTheme.color_theme_20,
   MenuItem_color_text: baseTheme.color_text,
   MenuItem_fontWeight: baseTheme.fontWeight_regular,
   MenuItem_fontWeight_selected: baseTheme.fontWeight_bold,
@@ -142,7 +143,7 @@ const styles = {
 
       '[aria-selected="true"]': {
         backgroundColor: isHighlighted
-          ? theme.MenuItem_backgroundColor_hover
+          ? theme.MenuItem_backgroundColor_selectedHover
           : theme.MenuItem_backgroundColor_selected,
         fontWeight: theme.MenuItem_fontWeight_selected
       },
