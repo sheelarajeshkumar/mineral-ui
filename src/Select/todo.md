@@ -37,6 +37,7 @@
 
 ### Todos los TODOs
 
+* Improve prop documentation
 * SelectTrigger
   * disabled
   * readonly
@@ -44,8 +45,6 @@
   * renders MenuItem
     * Determine relationship/responsibilities with FauxControl
 * Select - finish control props pattern
-* Fix Flow types
-  * Prop getters
 * Examples
   * States
     * Fix issue with simulated states
@@ -57,12 +56,14 @@
   * Unit tests
   * Snapshots
 * Does CardTitleMenu need updated?
-* Update prop getter functions to not require passing empty props object
-* Mark public prop getters as private
-* Validate prop getter implementation
+* Prop getters
+  * Validate prop getter implementation
   * Ensure overrides in correct order
   * Remove scope where possible
   * Compose event handlers when needed
+  * Update prop getter functions to not require passing empty props object
+  * Mark public prop getters as private
+  * Ensure Flow type definitions are correct
 * Validate id's set/passed correctly/consistently
 * isMounted pattern needed?
 * Cross browser testing
