@@ -175,6 +175,7 @@ class Select extends Component<Props, State> {
       id: this.id,
       ...restProps,
       data,
+      disabled: disabled || readOnly,
       highlightedIndex: this.getHighlightedOrSelectedIndex(),
       getMenuProps: this.getMenuProps,
       getItemProps: this.getItemProps,
@@ -210,7 +211,7 @@ class Select extends Component<Props, State> {
   }
 
   getTriggerProps = (props: Object) => {
-    const { invalid, readOnly, required } = this.props;
+    const { disabled, invalid, readOnly, required } = this.props;
 
     return {
       ...props,
@@ -218,8 +219,9 @@ class Select extends Component<Props, State> {
       'aria-invalid': invalid,
       'aria-readonly': readOnly,
       'aria-required': required,
-      onKeyDown: this.onTriggerKeyDown,
-      tabIndex: 0
+      disabled,
+      onKeyDown: !readOnly ? this.onTriggerKeyDown : undefined,
+      tabIndex: !disabled ? 0 : undefined
     };
   };
 

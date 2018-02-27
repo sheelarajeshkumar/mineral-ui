@@ -39,15 +39,13 @@
 
 * Improve prop documentation
 * SelectTrigger
-  * disabled
-  * readonly
   * sizes
   * renders MenuItem
     * Determine relationship/responsibilities with FauxControl
 * Select - finish control props pattern
 * Examples
   * States
-    * Fix issue with simulated states
+    * Fix issue with simulated states - (Kyle) I don't think this is reasonable until render props
   * More...
     * Async data loading?
     * Extract examples from kitchen sink.

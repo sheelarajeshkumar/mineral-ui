@@ -73,8 +73,8 @@ const styles = {
 
       '&:focus,&[data-simulate-focus]': {
         '& > div:last-child': {
-          borderColor: theme.FauxControl_borderColor_focus,
-          boxShadow: theme.FauxControl_boxShadow_focus
+          borderColor: !disabled ? theme.FauxControl_borderColor_focus : null,
+          boxShadow: !disabled ? theme.FauxControl_boxShadow_focus : null
         }
       },
 
