@@ -38,7 +38,6 @@
 
 ### Todos los TODOs
 
-* Improve prop documentation
 * SelectTrigger
   * renders MenuItem
     * Determine relationship/responsibilities with FauxControl
