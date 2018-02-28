@@ -22,6 +22,7 @@ import formField from './formField';
 import importSyntax from './importSyntax';
 import invalid from './invalid';
 import kitchenSink from './kitchenSink';
+import overflow from './overflow';
 import placeholder from './placeholder';
 import placement from './placement';
 import portal from './portal';
@@ -46,6 +47,7 @@ export default [
   sizes,
   variants,
   placement,
+  overflow,
   portal,
   rtl,
   formField,
