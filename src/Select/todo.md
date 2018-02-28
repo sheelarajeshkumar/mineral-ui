@@ -33,6 +33,7 @@
 * Component width
   * Question for all of our form elements
 * Clearable
+* Select specs show MenuItem secondary text on a new line
 
 
 ### Todos los TODOs
@@ -43,8 +44,9 @@
     * Determine relationship/responsibilities with FauxControl
 * Select - finish control props pattern
 * Examples
-  * Controlled example needs to mention all controllable props
-    * isOpen, selectedItem, highlightedIndex
+  * Controlled example
+    * Needs to mention all controllable props - isOpen, selectedItem, highlightedIndex
+    * The example should likely demonstrate the controlling selectedItem in similar fashion to the TextInput example, rather than controlling isOpen.
   * Placement
   * Overflow
   * Scrolling container
