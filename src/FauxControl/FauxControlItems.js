@@ -99,6 +99,7 @@ const styles = {
     iconEnd,
     iconStart,
     prefix,
+    readOnly,
     size,
     suffix,
     theme: baseTheme,
@@ -140,7 +141,7 @@ const styles = {
     return {
       color: disabled
         ? theme.color_text_disabled
-        : hasPlaceholder
+        : hasPlaceholder || readOnly
           ? theme.FauxControlItems_color_placeholder
           : theme.FauxControlItems_color_text,
       fontSize,
@@ -303,6 +304,7 @@ export default function FauxControlItems({
     iconStart,
     prefix: prefixIn,
     innerRef: controlPropsIn.controlRef,
+    readOnly,
     size,
     suffix: suffixIn,
     variant
