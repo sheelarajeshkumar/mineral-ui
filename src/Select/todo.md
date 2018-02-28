@@ -53,14 +53,6 @@
   * Unit tests
   * Snapshots
 * Does CardTitleMenu need updated?
-* Prop getters
-  * Validate prop getter implementation
-  * Ensure overrides in correct order
-  * Remove scope where possible
-  * Compose event handlers when needed
-  * Update prop getter functions to not require passing empty props object
-  * Mark public prop getters as private
-  * Ensure Flow type definitions are correct
 * Validate id's set/passed correctly/consistently
 * isMounted pattern needed?
 * Cross browser testing
