@@ -57,7 +57,6 @@
 * Test coverage
   * Unit tests
   * Snapshots
-* Validate id's set/passed correctly/consistently
 * Cross browser testing
 * A11y testing
 * Test in CRA
