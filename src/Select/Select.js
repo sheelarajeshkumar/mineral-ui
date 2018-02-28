@@ -85,6 +85,23 @@ type Props = {
   onSelect?: (item: Item, event: SyntheticEvent<>) => void,
   /** Text displayed when there is no item selected */
   placeholder?: string,
+  /** Placement of the Select */
+  placement?:
+    | 'auto'
+    | 'auto-end'
+    | 'auto-start'
+    | 'bottom'
+    | 'bottom-end'
+    | 'bottom-start'
+    | 'left'
+    | 'left-end'
+    | 'left-start'
+    | 'right'
+    | 'right-end'
+    | 'right-start'
+    | 'top'
+    | 'top-end'
+    | 'top-start',
   /** Indicates that the user cannot modify the value of the input */
   readOnly?: boolean,
   /** Indicates that the user must select a value before submitting a form */
@@ -172,6 +189,7 @@ class Select extends Component<Props, State> {
       modifiers,
       name,
       placeholder,
+      placement,
       readOnly,
       size,
       variant,
@@ -199,7 +217,8 @@ class Select extends Component<Props, State> {
       },
       onClose: this.close,
       onOpen: this.open,
-      placement: theme.direction === 'rtl' ? 'bottom-end' : undefined
+      // TODO: Should RTL only affect the "end" portion of placement?
+      placement: theme.direction === 'rtl' ? 'bottom-end' : placement
     };
 
     const selectTriggerProps = {
