@@ -98,8 +98,6 @@ export default class Dropdown extends Component<Props, State> {
     isOpen: Boolean(this.props.defaultIsOpen)
   };
 
-  _isMounted: boolean = false;
-
   dropdownTrigger: ?React$Component<*, *>;
 
   id: string = this.props.id || `dropdown-${generateId()}`;
@@ -107,14 +105,6 @@ export default class Dropdown extends Component<Props, State> {
   highlightedItemId: ?string;
 
   itemMatcher: any;
-
-  componentDidMount() {
-    this._isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
 
   render() {
     const {

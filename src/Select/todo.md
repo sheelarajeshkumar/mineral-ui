@@ -54,7 +54,6 @@
   * Snapshots
 * Does CardTitleMenu need updated?
 * Validate id's set/passed correctly/consistently
-* isMounted pattern needed?
 * Cross browser testing
 * A11y testing
 * Test in CRA

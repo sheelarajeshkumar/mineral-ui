@@ -140,21 +140,11 @@ class Select extends Component<Props, State> {
     selectedItem: this.props.defaultSelectedItem
   };
 
-  _isMounted: boolean = false;
-
   id: string = this.props.id || `select-${generateId()}`;
 
   selectTrigger: ?React$Component<*, *>;
 
   itemMatcher: any;
-
-  componentDidMount() {
-    this._isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
 
   render() {
     const {
