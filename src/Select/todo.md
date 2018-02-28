@@ -41,8 +41,6 @@
 * Improve prop documentation
 * Examples
   * Control props issue with selectedItem and highlightedIndex
-  * Overflow
-  * Scrolling container
   * States
     * Fix issue with simulated states - (Kyle) I don't think this is reasonable until render props
   * More...
