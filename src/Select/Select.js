@@ -413,25 +413,26 @@ class Select extends Component<Props, State> {
   };
 
   onSelect = (item: Item, event: SyntheticEvent<>) => {
-    // FIXME: need logic to set state - controlled vs. uncontrolled
-    const { selectedItem } = this.state;
+    const selectedItem = this.getControllableValue('selectedItem');
 
-    this.setState(
-      {
-        selectedItem: item,
-        highlightedIndex: this.getItemIndex(item)
-      },
-      () => {
-        this.props.onSelect && this.props.onSelect(item, event);
+    const stateToSet = {};
+    if (!this.isControlled('selectedItem')) {
+      stateToSet.selectedItem = item;
+    }
+    if (!this.isControlled('highlightedIndex')) {
+      stateToSet.highlightedIndex = this.getItemIndex(item);
+    }
 
-        if (selectedItem !== item) {
-          this.onChange(item, event);
-        }
+    this.setState(stateToSet, () => {
+      this.props.onSelect && this.props.onSelect(item, event);
 
-        this.close(event);
-        this.focusTrigger();
+      if (selectedItem !== item) {
+        this.onChange(item, event);
       }
-    );
+
+      this.close(event);
+      this.focusTrigger();
+    });
   };
 
   onChange = (item: Item, event: SyntheticEvent<>) => {

@@ -42,7 +42,6 @@
 * SelectTrigger
   * renders MenuItem
     * Determine relationship/responsibilities with FauxControl
-* Select - finish control props pattern
 * Examples
   * Controlled example
     * Needs to mention all controllable props - isOpen, selectedItem, highlightedIndex
