@@ -204,6 +204,10 @@ class Select extends Component<Props, State> {
     );
   }
 
+  getMenuItemId = (index: string) => {
+    return `${this.id}-item-${index}`;
+  };
+
   getTriggerProps = (props: Object = {}) => {
     const { disabled, invalid, readOnly, required } = this.props;
 
@@ -287,7 +291,7 @@ class Select extends Component<Props, State> {
   getHighlightedItemId = () => {
     const highlightedIndex = this.getControllableValue('highlightedIndex');
     return highlightedIndex !== undefined && highlightedIndex !== null
-      ? `${this.id}-menuItem-${highlightedIndex}`
+      ? this.getMenuItemId(highlightedIndex)
       : undefined;
   };
 

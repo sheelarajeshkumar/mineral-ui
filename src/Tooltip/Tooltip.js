@@ -17,6 +17,7 @@
 /* @flow */
 import React, { Children, Component } from 'react';
 import { createStyledComponent } from '../styles';
+import { generateId } from '../utils';
 import { createThemedComponent, mapComponentThemes } from '../themes';
 import Popover, {
   componentTheme as popoverComponentTheme
@@ -35,6 +36,8 @@ type Props = {
   disabled?: boolean,
   /** Include an arrow on the Tooltip content pointing to the trigger */
   hasArrow?: boolean,
+  /** Id of the Tooltip */
+  id?: string,
   /** For use with controlled components, in which the app manages Tooltip state */
   isOpen?: boolean,
   /**
@@ -149,6 +152,8 @@ export default class Tooltip extends Component<Props, State> {
     isOpen: Boolean(this.props.defaultIsOpen)
   };
 
+  id: string = this.props.id || `tooltip-${generateId()}`;
+
   componentWillUnmount() {
     this.clearOpenTimer();
   }
@@ -176,6 +181,7 @@ export default class Tooltip extends Component<Props, State> {
       focusTriggerOnClose: false,
       getContentProps: this.getContentProps,
       getTriggerProps: this.getTriggerProps,
+      id: this.id,
       isOpen: this.getControllableValue('isOpen'),
       onClose: this.close,
       onOpen: this.open

@@ -197,8 +197,12 @@ export default class Popover extends Component<Props, State> {
     return popoverContent;
   };
 
+  getContentId = () => {
+    return `${this.id}-content`;
+  };
+
   getTriggerProps = (props: Object = {}) => {
-    const contentId = `${this.id}-popoverContent`;
+    const contentId = this.getContentId();
     const isOpen = this.getControllableValue('isOpen');
     const { children, disabled, getTriggerProps, triggerRef } = this.props;
     const child = Children.only(children);
@@ -232,7 +236,7 @@ export default class Popover extends Component<Props, State> {
   };
 
   getContentProps = (props: Object = {}) => {
-    const contentId = `${this.id}-popoverContent`;
+    const contentId = this.getContentId();
     const {
       getContentProps,
       hasArrow,

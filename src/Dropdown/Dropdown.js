@@ -119,7 +119,7 @@ export default class Dropdown extends Component<Props, State> {
 
     const dropdownContentProps = {
       data,
-      id: `${this.id}-dropdownContent`,
+      id: this.getContentId(),
       getItemProps: this.getItemProps,
       getMenuProps: this.getMenuProps,
       modifiers,
@@ -144,8 +144,20 @@ export default class Dropdown extends Component<Props, State> {
     return <Root {...rootProps}>{children}</Root>;
   }
 
+  getContentId = () => {
+    return `${this.id}-content`;
+  };
+
+  getMenuId = () => {
+    return `${this.id}-menu`;
+  };
+
+  getMenuItemId = (index: string) => {
+    return `${this.id}-item-${index}`;
+  };
+
   getTriggerProps = (props: Object = {}) => {
-    const contentId = `${this.id}-dropdownContent`;
+    const contentId = this.getContentId();
     const isOpen = this.getControllableValue('isOpen');
 
     return composePropsWithGetter(
@@ -155,7 +167,7 @@ export default class Dropdown extends Component<Props, State> {
 
         // Props set by this component
         'aria-activedescendant': isOpen
-          ? this.getHighlightedItemId() || `${contentId}-menu`
+          ? this.getHighlightedItemId() || this.getMenuId()
           : undefined,
         'aria-describedby': contentId,
         'aria-haspopup': true,
@@ -174,6 +186,7 @@ export default class Dropdown extends Component<Props, State> {
         ...props,
 
         // Props set by this component
+        id: this.getMenuId(),
         role: 'menu'
       },
       // Custom prop getter can override all values
@@ -192,7 +205,7 @@ export default class Dropdown extends Component<Props, State> {
 
         // Props set by this component
         'aria-disabled': props.disabled,
-        id: `${this.id}-menuItem-${index}`,
+        id: this.getMenuItemId(index),
         isHighlighted: highlightedIndex === index,
         onClick: this.onItemClick.bind(null, item),
         role: 'menuitem',
@@ -228,7 +241,7 @@ export default class Dropdown extends Component<Props, State> {
   getHighlightedItemId = () => {
     const highlightedIndex = this.getControllableValue('highlightedIndex');
     return highlightedIndex !== undefined && highlightedIndex !== null
-      ? `${this.id}-menuItem-${highlightedIndex}`
+      ? this.getMenuItemId(highlightedIndex)
       : undefined;
   };
 
