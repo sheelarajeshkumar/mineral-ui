@@ -167,7 +167,8 @@ const contentWidthModifier = {
  */
 class Select extends Component<Props, State> {
   static defaultProps = {
-    placeholder: 'Select...'
+    placeholder: 'Select...',
+    placement: 'bottom-start'
   };
 
   state: State = {
@@ -199,6 +200,25 @@ class Select extends Component<Props, State> {
     const isOpen = this.getControllableValue('isOpen');
     const selectedItem = this.getControllableValue('selectedItem');
 
+    const getRtlPlacement = placement => {
+      const rtlPlacementMap = {
+        end: 'start',
+        start: 'end'
+      };
+
+      let newPlacement = placement;
+      if (
+        placement &&
+        ['top', 'bottom'].indexOf(placement.split('-')[0]) !== -1 &&
+        placement.indexOf('-') !== -1
+      ) {
+        const direction = placement.split('-')[1];
+        newPlacement = placement.replace(direction, rtlPlacementMap[direction]);
+      }
+
+      return newPlacement;
+    };
+
     const rootProps = {
       // TODO: First 100% applies to root, second to PopoverTrigger (better way?)
       css: { width: '100%', '& > span': { width: '100%' } },
@@ -212,13 +232,16 @@ class Select extends Component<Props, State> {
       getTriggerProps: this.getTriggerProps,
       isOpen,
       modifiers: {
-        contentWidth: contentWidthModifier,
+        contentWidth:
+          placement && ['left', 'right'].indexOf(placement.split('-')[0]) !== -1
+            ? null
+            : contentWidthModifier,
         ...modifiers
       },
       onClose: this.close,
       onOpen: this.open,
-      // TODO: Should RTL only affect the "end" portion of placement?
-      placement: theme.direction === 'rtl' ? 'bottom-end' : placement
+      placement:
+        theme.direction === 'rtl' ? getRtlPlacement(placement) : placement
     };
 
     const selectTriggerProps = {
