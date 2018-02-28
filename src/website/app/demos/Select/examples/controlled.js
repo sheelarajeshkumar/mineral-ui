@@ -16,21 +16,8 @@
 
 /* @flow */
 import { Component } from 'react';
-import { findDOMNode } from 'react-dom';
-import { createStyledComponent } from '../../../../../styles';
-import Button from '../../../../../Button';
 import Select from '../../../../../Select';
 import { basicData as data } from '../components/selectData';
-
-const DemoLayout = createStyledComponent('div', {
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'space-between',
-
-  '& > :first-child': {
-    width: '8rem'
-  }
-});
 
 export default {
   id: 'controlled',
