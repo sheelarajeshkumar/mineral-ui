@@ -17,18 +17,19 @@
 /* @flow */
 import controlled from './controlled';
 import data from './data';
+import disabled from './disabled';
+import formField from './formField';
 import importSyntax from './importSyntax';
 import invalid from './invalid';
-import disabled from './disabled';
-import uncontrolled from './uncontrolled';
+import kitchenSink from './kitchenSink';
 import placeholder from './placeholder';
 import portal from './portal';
 import readOnly from './readOnly';
 import required from './required';
 import rtl from './rtl';
-import kitchenSink from './kitchenSink';
 import sizes from './sizes';
 import states from './states';
+import uncontrolled from './uncontrolled';
 import variants from './variants';
 
 export default [
@@ -45,6 +46,7 @@ export default [
   variants,
   portal,
   rtl,
+  formField,
   kitchenSink,
   states
 ];

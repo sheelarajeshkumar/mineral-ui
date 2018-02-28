@@ -19,23 +19,15 @@ import DemoLayout from '../components/DemoLayout';
 import { FormField, FormFieldDivider, FormFieldset } from '../../../../../Form';
 import Button from '../../../../../Button';
 import Select from '../../../../../Select';
-import {
-  basicData,
-  groupedData,
-  iconsData,
-  statesData
-} from '../components/selectData';
+import { basicData } from '../components/selectData';
 
 export default {
   id: 'kitchenSink',
   title: 'Kitchen Sink',
-  description: ``,
+  hideFromProd: true,
   scope: {
     Button,
     basicData,
-    iconsData,
-    groupedData,
-    statesData,
     DemoLayout,
     FormField,
     FormFieldDivider,
@@ -44,10 +36,6 @@ export default {
   },
   source: `
   <DemoLayout>
-    <FormFieldset legend="Grouped data">
-      <Select data={groupedData} />
-    </FormFieldset>
-
     <FormFieldset legend="Custom item renderer">
       TODO: Render items using a custom renderer - not an Avatar
     </FormFieldset>
@@ -71,17 +59,6 @@ export default {
         <Select data={basicData} name="test" defaultValue="nothing" />
         <Button type="submit" size="small">Submit</Button>
       </form>
-    </FormFieldset>
-
-    <FormFieldset legend="FormField">
-      <FormField
-        input={Select}
-        data={statesData}
-        placeholder="Choose a state"
-        label="State"
-        caption="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        name="state"
-        required />
     </FormFieldset>
   </DemoLayout>`
 };
