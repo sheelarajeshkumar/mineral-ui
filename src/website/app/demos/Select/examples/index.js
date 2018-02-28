@@ -29,6 +29,7 @@ import portal from './portal';
 import readOnly from './readOnly';
 import required from './required';
 import rtl from './rtl';
+import scrolling from './scrolling';
 import sizes from './sizes';
 import states from './states';
 import uncontrolled from './uncontrolled';
@@ -48,6 +49,7 @@ export default [
   variants,
   placement,
   overflow,
+  scrolling,
   portal,
   rtl,
   formField,
