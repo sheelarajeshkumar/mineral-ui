@@ -39,12 +39,12 @@ type Props = {
   disabled?: boolean,
   /** Data from which the [Menu](../menu#data) will be constructed (see [example](#data)) */
   data: Items | ItemGroups,
-  /** Function that returns props to be applied to each item */
+  /** @Private Function that returns props to be applied to each item */
   getItemProps?: (props: Object, scope?: Object) => Object,
-  /** Function that returns props to be applied to the menu */
-  getMenuProps?: (props: Object, scope?: Object) => Object,
-  /** Function that returns props to be applied to the trigger */
-  getTriggerProps?: (props: Object, scope?: Object) => Object,
+  /** @Private Function that returns props to be applied to the menu */
+  getMenuProps?: (props: Object) => Object,
+  /** @Private Function that returns props to be applied to the trigger */
+  getTriggerProps?: (props: Object) => Object,
   /** TODO */
   highlightedIndex?: number,
   /** Id of the Dropdown */
@@ -154,13 +154,16 @@ export default class Dropdown extends Component<Props, State> {
     return <Root {...rootProps}>{children}</Root>;
   }
 
-  getTriggerProps = (props: Object) => {
+  getTriggerProps = (props: Object = {}) => {
     const contentId = `${this.id}-dropdownContent`;
     const isOpen = this.getControllableValue('isOpen');
 
     return composePropsWithGetter(
       {
+        // Props set by caller, e.g. Popover
         ...props,
+
+        // Props set by this component
         'aria-activedescendant': isOpen
           ? this.getHighlightedItemId() || `${contentId}-menu`
           : undefined,
@@ -169,27 +172,35 @@ export default class Dropdown extends Component<Props, State> {
         'aria-owns': contentId,
         onKeyDown: this.onTriggerKeyDown
       },
+      // Custom prop getter can override all values
       this.props.getTriggerProps
     );
   };
 
-  getMenuProps = (props: Object) => {
+  getMenuProps = (props: Object = {}) => {
     return composePropsWithGetter(
       {
+        // Props set by caller, e.g. DropdownContent
         ...props,
+
+        // Props set by this component
         role: 'menu'
       },
+      // Custom prop getter can override all values
       this.props.getMenuProps
     );
   };
 
-  getItemProps = (props: Object, scope: Object) => {
+  getItemProps = (props: Object = {}, scope: Object) => {
     const { index, item } = scope;
     const highlightedIndex = this.getControllableValue('highlightedIndex');
 
     return composePropsWithGetter(
       {
+        // Props set by caller, e.g. Menu
         ...props,
+
+        // Props set by this component
         'aria-disabled': props.disabled,
         id: `${this.id}-menuItem-${index}`,
         isHighlighted: highlightedIndex === index,
@@ -197,6 +208,7 @@ export default class Dropdown extends Component<Props, State> {
         role: 'menuitem',
         tabIndex: null // Unset tabIndex because we use arrow keys to navigate instead
       },
+      // Custom prop getter can override all values
       this.props.getItemProps,
       scope
     );

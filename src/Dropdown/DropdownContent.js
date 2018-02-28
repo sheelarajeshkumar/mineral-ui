@@ -22,9 +22,9 @@ import { createStyledComponent, pxToEm } from '../styles';
 import Menu from '../Menu';
 
 type Props = {
-  /** Function that returns props to be applied to each item */
+  /** @Private Function that returns props to be applied to each item */
   getItemProps?: (props: Object, scope: Object) => Object,
-  /** Function that returns props to be applied to the menu */
+  /** @Private Function that returns props to be applied to the menu */
   getMenuProps?: (props: Object, scope?: Object) => Object,
   /** Data from which the [Menu](../menu#data) will be constructed */
   data: Array<Object>,

@@ -214,11 +214,14 @@ class Select extends Component<Props, State> {
     );
   }
 
-  getTriggerProps = (props: Object) => {
+  getTriggerProps = (props: Object = {}) => {
     const { disabled, invalid, readOnly, required } = this.props;
 
     return {
+      // Props set by caller, e.g. Dropdown
       ...props,
+
+      // Props set by this component
       'aria-haspopup': 'listbox',
       'aria-invalid': invalid,
       'aria-readonly': readOnly,
@@ -229,19 +232,25 @@ class Select extends Component<Props, State> {
     };
   };
 
-  getMenuProps = (props: Object) => {
+  getMenuProps = (props: Object = {}) => {
     return {
+      // Props set by caller, e.g. Dropdown
       ...props,
+
+      // Props set by this component
       role: 'listbox'
     };
   };
 
-  getItemProps = (props: Object, scope: Object) => {
+  getItemProps = (props: Object = {}, scope: Object) => {
     const { item } = scope;
     const selectedItem = this.getControllableValue('selectedItem');
 
     return {
+      // Props set by caller, e.g. Dropdown
       ...props,
+
+      // Props set by this component
       'aria-selected': selectedItem ? selectedItem.value === item.value : false,
       onClick: this.onSelect.bind(null, item),
       role: 'option'

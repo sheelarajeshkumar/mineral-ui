@@ -193,15 +193,21 @@ export default class Tooltip extends Component<Props, State> {
     return <Root {...popoverProps}>{child}</Root>;
   }
 
-  getContentProps = (props: Object) => ({
+  getContentProps = (props: Object = {}) => ({
+    // Props set by caller, e.g. Popover
     ...props,
+
+    // Props set by this component
     'aria-live': 'polite',
     role: 'tooltip',
     tabIndex: undefined
   });
 
-  getTriggerProps = (props: Object) => ({
+  getTriggerProps = (props: Object = {}) => ({
+    // Props set by caller, e.g. Popover
     ...props,
+
+    // Props set by this component
     'aria-expanded': undefined,
     onBlur: this.close,
     onFocus: this.handleDelayedOpen,
