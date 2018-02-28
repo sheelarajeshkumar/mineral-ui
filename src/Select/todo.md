@@ -43,16 +43,20 @@
     * Determine relationship/responsibilities with FauxControl
 * Select - finish control props pattern
 * Examples
+  * Controlled example needs to mention all controllable props
+    * isOpen, selectedItem, highlightedIndex
+  * Placement
+  * Overflow
+  * Scrolling container
   * States
     * Fix issue with simulated states - (Kyle) I don't think this is reasonable until render props
   * More...
     * Async data loading?
-    * Extract examples from kitchen sink.
+    * Extract useful examples from kitchen sink and get rid of others.
 * Best practices
 * Test coverage
   * Unit tests
   * Snapshots
-* Does CardTitleMenu need updated?
 * Validate id's set/passed correctly/consistently
 * Cross browser testing
 * A11y testing
