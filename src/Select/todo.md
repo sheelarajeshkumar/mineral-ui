@@ -41,7 +41,6 @@
 * Improve prop documentation
 * Examples
   * Control props issue with selectedItem and highlightedIndex
-  * Placement
   * Overflow
   * Scrolling container
   * States
