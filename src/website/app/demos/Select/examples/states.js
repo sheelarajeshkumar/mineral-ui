@@ -66,6 +66,14 @@ function FieldSet(props: {
 export default {
   id: 'states',
   title: 'States',
+  description: `<Callout title="Note">
+  <p key={0}>
+    Much of this example is currently broken, due to
+    the <code key={0}>simulate()</code> prop not being passed down to the
+    ultimate element with styles dependent on state. We hope the switch to
+    render props will enable a fix.
+  </p>
+</Callout>`,
   hideFromProd: true,
   hideSource: true,
   scope: { DemoLayout, FieldSet },
