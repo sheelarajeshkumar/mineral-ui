@@ -29,8 +29,9 @@ type Props = {
   /** Content of the Tooltip */
   content: string,
   /**
-   * For use with uncontrolled components, in which the Tooltip is immediately
-   * open upon initialization */
+   * Open the Tooltip upon initialization. Primarily for use with uncontrolled
+   * components.
+   */
   defaultIsOpen?: boolean,
   /** Disables the Tooltip */
   disabled?: boolean,
@@ -38,13 +39,14 @@ type Props = {
   hasArrow?: boolean,
   /** Id of the Tooltip */
   id?: string,
-  /** For use with controlled components, in which the app manages Tooltip state */
+  /** Determines whether the Tooltip is open. For use with controlled components. */
   isOpen?: boolean,
   /**
    * Plugins that are used to alter behavior. See
    * [PopperJS docs](https://popper.js.org/popper-documentation.html#modifiers)
    * for options.
    */
+  modifiers?: Object,
   /** Called when Tooltip is closed */
   onClose?: (event: SyntheticEvent<>) => void,
   /** Called when Tooltip is opened */
@@ -71,7 +73,7 @@ type Props = {
   /** @Private Tooltips should not have titles and will be removed */
   title?: any,
   /**
-   * Use a Portal to render the Popover to the body rather than as a sibling
+   * Use a Portal to render the Tooltip to the body rather than as a sibling
    * to the trigger.
    */
   usePortal?: boolean

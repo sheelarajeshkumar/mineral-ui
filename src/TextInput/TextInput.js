@@ -67,7 +67,11 @@ type Props = {
     | 'time'
     | 'url'
     | 'week',
-  /** The initial value of the input. Primarily for use with controlled components.  If this prop is specified, an onChange handler must also be specified.  Also see `defaultValue`. */
+  /**
+   * The initial value of the input. Primarily for use with controlled
+   * components.  If this prop is specified, an onChange handler must also be
+   * specified.  Also see `defaultValue`.
+   */
   value?: string,
   /** Available variants */
   variant?: 'success' | 'warning' | 'danger'

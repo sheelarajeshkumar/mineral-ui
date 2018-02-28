@@ -26,27 +26,23 @@ import { componentTheme as textInputComponentTheme } from '../TextInput/TextInpu
 import type { Item } from '../Menu/MenuItem';
 
 type Props = {
-  /** TODO */
-  children?: React$Node,
-  /** Disables the input */
+  /** Disables the control */
   disabled?: boolean,
-  /** TODO */
+  /** Indicates that the Select is open */
   isOpen?: boolean,
-  /** TODO */
+  /** Name of the field when submitted in a form */
   name?: string,
-  /** Function called when input value changes */
-  onChange?: (event: SyntheticEvent<>) => void,
-  /** TODO */
+  /** Text displayed when there is no item selected */
   placeholder?: string,
-  /** Indicates that the user cannot modify the value of the input */
+  /** Indicates that the user cannot modify the value of the control */
   readOnly?: boolean,
   /** Indicates that the user must fill in a value before submitting a form */
   required?: boolean,
-  /** TODO */
-  selectedItem?: Item,
+  /** The selected item */
+  item?: Item,
   /** Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
-  /** TODO */
+  /** Ref for the trigger */
   triggerRef?: () => void,
   /** Available variants */
   variant?: 'success' | 'warning' | 'danger'
@@ -119,11 +115,11 @@ export default class SelectTrigger extends Component<Props> {
     const {
       disabled,
       isOpen,
+      item,
       name,
       placeholder,
       readOnly,
       triggerRef,
-      selectedItem,
       size = 'large',
       variant,
       ...restProps
@@ -138,8 +134,8 @@ export default class SelectTrigger extends Component<Props> {
     };
 
     const controlProps = {
-      children: selectedItem ? selectedItem.text : placeholder,
-      hasPlaceholder: !selectedItem
+      children: item ? item.text : placeholder,
+      hasPlaceholder: !item
     };
 
     const fauxControlItemsProps = {
@@ -161,7 +157,7 @@ export default class SelectTrigger extends Component<Props> {
     const inputProps = {
       name,
       type: 'hidden',
-      value: selectedItem ? selectedItem.value : ''
+      value: item ? item.value : ''
     };
 
     const Icon = isOpen ? IconArrowDropdownUp : IconArrowDropdownDown;

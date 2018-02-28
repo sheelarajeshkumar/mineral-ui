@@ -15,8 +15,6 @@
  */
 
 /* @flow */
-// TODO: This file should probably live somewhere else, either in utils or Menu
-
 import type { Item } from '../Menu/MenuItem';
 import type { Items } from '../Menu/Menu';
 

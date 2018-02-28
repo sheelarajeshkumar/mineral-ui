@@ -37,7 +37,10 @@ type Props = {
   children: React$Node,
   /** Content of the Popover */
   content: $FlowFixMe,
-  /** For use with uncontrolled components, in which the Popover is immediately open upon initialization */
+  /**
+   * Open the Popover upon initialization. Primarily for use with uncontrolled
+   * components.
+   */
   defaultIsOpen?: boolean,
   /** Disables the Popover */
   disabled?: boolean,
@@ -50,7 +53,7 @@ type Props = {
   hasArrow?: boolean,
   /** Id of the Popover */
   id?: string,
-  /** For use with controlled components, in which the app manages Popover state */
+  /** Determines whether the Popover is open. For use with controlled components. */
   isOpen?: boolean,
   /**
    * Plugins that are used to alter behavior. See

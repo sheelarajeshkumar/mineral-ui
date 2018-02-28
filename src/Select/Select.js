@@ -34,43 +34,62 @@ import type { Items, ItemGroups } from '../Menu/Menu';
 import type { Item } from '../Menu/MenuItem';
 
 type Props = {
-  /** TODO */
+  /**
+   * Data from which the [Menu](../menu#data) will be constructed
+   * (see [example](#data))
+   */
   data: Items | ItemGroups,
-  /** TODO */
+  /**
+   * Index of item to be highlighted upon initialization. Primarily for
+   * use with uncontrolled components.
+   */
   defaultHighlightedIndex?: number,
-  /** Open the Select immediately upon initialization */
+  /**
+   * Open the Select upon initialization. Primarily for use with uncontrolled
+   * components.
+   */
   defaultIsOpen?: boolean,
-  /** TODO */
+  /**
+   * Item selected upon initialization. Primarily for use with uncontrolled
+   * components.
+   */
   defaultSelectedItem?: Item,
   /** Disables the input */
   disabled?: boolean,
-  /** TODO */
+  /** Index of the highlighted item. For use with controlled components. */
   highlightedIndex?: number,
   /** Id of the Select */
   id?: string,
   /** Indicates that the value of the element is invalid */
   invalid?: boolean,
-  /** For use with controlled components, in which the app manages Select state */
+  /** Determines whether the Select is open. For use with controlled components. */
   isOpen?: boolean,
-  /** Plugins that are used to alter behavior. See [PopperJS docs](https://popper.js.org/popper-documentation.html#modifiers) for options. */
+  /**
+   * Plugins that are used to alter behavior. See
+   * [PopperJS docs](https://popper.js.org/popper-documentation.html#modifiers)
+   * for options.
+   */
   modifiers?: Object,
   /** Name of the field when submitted in a form */
   name?: string,
-  /** TODO */
+  /**
+   * Called when an item is selected and it is different than the previously
+   * selected item.
+   */
   onChange?: (item: Item, event: SyntheticEvent<>) => void,
   /** Called when Select is closed */
   onClose?: (event: SyntheticEvent<>) => void,
   /** Called when Select is opened */
   onOpen?: (event: SyntheticEvent<>) => void,
-  /** TODO */
+  /** Called when an item is selected */
   onSelect?: (item: Item, event: SyntheticEvent<>) => void,
-  /** TODO */
+  /** Text displayed when there is no item selected */
   placeholder?: string,
   /** Indicates that the user cannot modify the value of the input */
   readOnly?: boolean,
   /** Indicates that the user must select a value before submitting a form */
   required?: boolean,
-  /** TODO */
+  /** The selected item. For use with controlled components. */
   selectedItem?: Item,
   /** Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
@@ -193,7 +212,7 @@ class Select extends Component<Props, State> {
       triggerRef: (node: ?React$Component<*, *>) => {
         this.selectTrigger = node;
       },
-      selectedItem,
+      item: selectedItem,
       variant
     };
 

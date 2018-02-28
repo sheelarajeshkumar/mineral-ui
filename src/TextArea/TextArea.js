@@ -35,7 +35,10 @@ type Props = {
   rootProps?: Object,
   /** Indicates that the value of the element is invalid */
   invalid?: boolean,
-  /** @Private Used internally in conjunction with autoSize prop. Must also support a custom function. */
+  /**
+   * @Private Used internally in conjunction with autoSize prop. Must also
+   * support a custom function.
+   */
   onInput?: (event: SyntheticEvent<>) => void,
   /** Function called when input value changes */
   onChange?: (event: SyntheticEvent<>) => void,
@@ -49,7 +52,11 @@ type Props = {
   rows?: number,
   /** Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
-  /** The initial value of the input. Primarily for use with controlled components.  If this prop is specified, an onChange handler must also be specified.  Also see `defaultValue`. */
+  /**
+   * The initial value of the input. Primarily for use with controlled
+   * components.  If this prop is specified, an onChange handler must also be
+   * specified.  Also see `defaultValue`.
+   */
   value?: string,
   /** Available variants */
   variant?: 'success' | 'warning' | 'danger'

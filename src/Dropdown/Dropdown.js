@@ -31,13 +31,22 @@ import type { Item } from '../Menu/MenuItem';
 type Props = {
   /** Trigger for the Dropdown */
   children: React$Node,
-  /** Open the Dropdown immediately upon initialization */
+  /**
+   * Open the Dropdown upon initialization. Primarily for use with uncontrolled
+   * components.
+   */
   defaultIsOpen?: boolean,
-  /** TODO */
+  /**
+   * Index of item to be highlighted upon initialization. Primarily for
+   * use with uncontrolled components.
+   */
   defaultHighlightedIndex?: number,
   /** Disable the Dropdown */
   disabled?: boolean,
-  /** Data from which the [Menu](../menu#data) will be constructed (see [example](#data)) */
+  /**
+   * Data from which the [Menu](../menu#data) will be constructed
+   * (see [example](#data))
+   */
   data: Items | ItemGroups,
   /** @Private Function that returns props to be applied to each item */
   getItemProps?: (props: Object, scope?: Object) => Object,
@@ -45,20 +54,22 @@ type Props = {
   getMenuProps?: (props: Object) => Object,
   /** @Private Function that returns props to be applied to the trigger */
   getTriggerProps?: (props: Object) => Object,
-  /** TODO */
+  /** Index of the highlighted item. For use with controlled components. */
   highlightedIndex?: number,
   /** Id of the Dropdown */
   id?: string,
-  /** For use with controlled components, in which the app manages Dropdown state */
+  /** Determines whether the Dropdown is open. For use with controlled components. */
   isOpen?: boolean,
-  /** Plugins that are used to alter behavior. See [PopperJS docs](https://popper.js.org/popper-documentation.html#modifiers) for options. */
+  /**
+   * Plugins that are used to alter behavior. See
+   * [PopperJS docs](https://popper.js.org/popper-documentation.html#modifiers)
+   * for options.
+   */
   modifiers?: Object,
   /** Called when Dropdown is closed */
   onClose?: (event: SyntheticEvent<>) => void,
   /** Called when Dropdown is opened */
   onOpen?: (event: SyntheticEvent<>) => void,
-  /** TODO: needed if user is controlling highlightedIndex */
-  // onTriggerKeyDown?: (event: SyntheticEvent<>) => void,
   /** Placement of the Dropdown menu */
   placement?:
     | 'bottom-end'
