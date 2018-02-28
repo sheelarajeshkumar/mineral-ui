@@ -44,7 +44,7 @@ type Props = {
   /** Determines if the item can be focused */
   tabIndex?: number,
   /** Available variants */
-  variant?: 'regular' | 'danger' | 'success' | 'warning'
+  variant?: 'danger' | 'success' | 'warning'
 };
 
 export type Item = {
@@ -57,7 +57,7 @@ export type Item = {
   secondaryText?: React$Node,
   text?: React$Node,
   value?: string,
-  variant?: 'regular' | 'danger' | 'success' | 'warning'
+  variant?: 'danger' | 'success' | 'warning'
 };
 
 // Some of these values (all of the margins & paddings and the content fontSize)
@@ -112,7 +112,7 @@ const styles = {
   menuItem: ({ disabled, isHighlighted, theme: baseTheme, variant }) => {
     let theme = componentTheme(baseTheme);
 
-    if (variant !== 'regular') {
+    if (variant) {
       // prettier-ignore
       theme = {
         ...theme,
@@ -151,10 +151,7 @@ const styles = {
       '& [role="img"]': {
         boxSizing: 'content-box',
         display: 'block',
-        fill:
-          disabled || variant !== 'regular'
-            ? 'currentColor'
-            : theme.MenuItemIcon_fill,
+        fill: disabled || variant ? 'currentColor' : theme.MenuItemIcon_fill,
         flex: '0 0 auto',
 
         '&:first-child': {
@@ -256,8 +253,7 @@ const defaultRender = ({
     ...restProps
   };
 
-  let startIcon =
-    variant !== undefined && variant !== 'regular' && variantIcons[variant];
+  let startIcon = variant !== undefined && variant && variantIcons[variant];
   if (iconStart) {
     startIcon = cloneElement(iconStart, { size: pxToEm(24), key: 'iconStart' });
   }
@@ -303,14 +299,9 @@ const customRender = ({ render, item, ...restProps }: Props) => {
  *
  * A custom rendering hook is exposed to enable any extra functionality your app requires.
  */
-export default function MenuItem({
-  tabIndex = 0,
-  variant = 'regular',
-  ...restProps
-}: Props) {
+export default function MenuItem({ tabIndex = 0, ...restProps }: Props) {
   const rootProps = {
     tabIndex,
-    variant,
     ...restProps
   };
 

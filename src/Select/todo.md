@@ -38,9 +38,7 @@
 
 ### Todos los TODOs
 
-* SelectTrigger
-  * renders MenuItem
-    * Determine relationship/responsibilities with FauxControl
+* Improve prop documentation
 * Examples
   * Control props issue with selectedItem and highlightedIndex
   * Placement

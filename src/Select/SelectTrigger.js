@@ -16,6 +16,7 @@
 
 /* @flow */
 import React, { Component } from 'react';
+import { ellipsis } from 'polished';
 import { createStyledComponent, pxToEm } from '../styles';
 import { mapComponentThemes } from '../themes';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
@@ -67,8 +68,15 @@ export const componentTheme = (baseTheme: Object) => ({
 });
 
 const styles = {
-  root: ({ disabled, readOnly, theme: baseTheme, variant }) => {
+  root: ({
+    disabled,
+    readOnly,
+    selectedItemVariant,
+    theme: baseTheme,
+    variant
+  }) => {
     const theme = componentTheme(baseTheme);
+    const rtl = theme.direction === 'rtl';
 
     return {
       alignItems: 'center',
@@ -80,7 +88,7 @@ const styles = {
         fill: theme.SelectIcon_fill,
         flex: '0 0 auto',
 
-        '&:not(:last-of-type)': {
+        '&:first-child': {
           margin: `0 ${theme.SelectIcon_marginHorizontal}`
         }
       },
@@ -90,13 +98,30 @@ const styles = {
           disabled || readOnly
             ? theme.color_text_disabled
             : variant ? theme[`color_text_${variant}`] : theme.SelectIcon_fill
+      },
+
+      '& :not([role="img"]) + [role="img"]:not(:last-child)': {
+        fill:
+          disabled || readOnly
+            ? theme.color_text_disabled
+            : variant
+              ? theme[`color_text_${variant}`]
+              : selectedItemVariant
+                ? theme[`color_text_${selectedItemVariant}`]
+                : theme.SelectIcon_fill,
+        marginLeft: rtl ? null : theme.SelectIcon_marginHorizontal,
+        marginRight: rtl ? theme.SelectIcon_marginHorizontal : null
       }
     };
   },
   trigger: {
     alignItems: 'center',
     display: 'flex',
-    flex: '1 1 auto'
+    flex: '1 1 auto',
+    minWidth: 0
+  },
+  triggerContent: {
+    ...ellipsis('100%')
   }
 };
 
@@ -105,6 +130,9 @@ const Root = createStyledComponent(FauxControl, styles.root, {
 });
 const Trigger = createStyledComponent('div', styles.trigger, {
   displayName: 'Trigger'
+});
+const TriggerContent = createStyledComponent('span', styles.triggerContent, {
+  displayName: 'TriggerContent'
 });
 
 /**
@@ -128,17 +156,20 @@ export default class SelectTrigger extends Component<Props> {
       disabled,
       fauxControlRef: triggerRef,
       readOnly,
+      selectedItemVariant: item && item.variant,
       size,
       variant,
       ...restProps
     };
 
     const controlProps = {
-      children: item ? item.text : placeholder,
+      children: (
+        <TriggerContent>{item ? item.text : placeholder}</TriggerContent>
+      ),
       hasPlaceholder: !item
     };
 
-    const fauxControlItemsProps = {
+    let fauxControlItemsProps = {
       control: Trigger,
       controlProps,
       disabled,
@@ -146,6 +177,16 @@ export default class SelectTrigger extends Component<Props> {
       size,
       variant
     };
+
+    if (item) {
+      const { iconEnd, iconStart, variant } = item;
+      fauxControlItemsProps = {
+        ...fauxControlItemsProps,
+        iconEnd,
+        iconStart,
+        variant: this.props.variant || variant
+      };
+    }
 
     const iconMarginMap = {
       small: 4,
