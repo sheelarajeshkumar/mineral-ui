@@ -224,10 +224,10 @@ export default class Dropdown extends Component<Props, State> {
   getItems = () => {
     const { data } = this.props;
     // $FlowFixMe https://github.com/facebook/flow/issues/5885
-    const groupedData: ItemGroups = this.isGroupedData(data)
+    const itemGroups: ItemGroups = this.isGroupedData(data)
       ? data
       : [{ items: data }];
-    return groupedData.reduce((acc, group) => {
+    return itemGroups.reduce((acc, group) => {
       return group.items && group.items.length
         ? acc.concat(group.items.filter(item => !item.divider))
         : acc;

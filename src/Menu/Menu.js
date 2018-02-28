@@ -72,10 +72,8 @@ function isGroupedData(data) {
 
 function renderFromData(data, getItemProps) {
   // $FlowFixMe https://github.com/facebook/flow/issues/5885
-  const groupedData: ItemGroups = isGroupedData(data)
-    ? data
-    : [{ items: data }];
-  return groupedData.reduce(
+  const itemGroups: ItemGroups = isGroupedData(data) ? data : [{ items: data }];
+  return itemGroups.reduce(
     (acc, group, groupIndex) => {
       acc.groups.push(renderMenuGroup(group, groupIndex, getItemProps, acc));
       return acc;
