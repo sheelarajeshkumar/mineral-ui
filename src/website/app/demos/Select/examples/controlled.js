@@ -34,66 +34,41 @@ const DemoLayout = createStyledComponent('div', {
 
 export default {
   id: 'controlled',
-  description: `Select controls its own state by default,
-and can optionally be managed by the application as a controlled component through the \`isOpen\` prop.
-Callbacks for \`onOpen\` and \`onClose\` are also provided.`,
+  description: `Select controls its own state by default, and can optionally be
+managed by the application as a controlled component via the control props,
+\`isOpen\`, \`selectedItem\`, and \`highlightedIndex\`.`,
   title: 'Controlled',
-  scope: { Button, Component, data, DemoLayout, Select, findDOMNode },
+  scope: { Component, data, Select },
   source: `
-    class App extends Component {
+  () => {
+    class MyForm extends Component {
       constructor(props) {
         super(props);
 
         this.state = {
-          isOpen: false
+          selectedItem: undefined
         };
 
-        this.onOpen = this.onOpen.bind(this);
-        this.onClose = this.onClose.bind(this);
-        this.toggleSelect = this.toggleSelect.bind(this);
+        this.handleChange = this.handleChange.bind(this);
       }
 
-      onOpen(event) {
-        this.setState({ isOpen: true });
-      }
-
-      onClose(event) {
-        // Prevent extra call to toggleSelect when clicking the controlling button.
-        // Also avoid interactions with other selects.
-        const demoLayoutNode = findDOMNode(this.demoLayout);
-        if (
-          !event.nativeEvent &&
-          demoLayoutNode &&
-          demoLayoutNode.contains(event.target)
-        ) {
-          event.stopImmediatePropagation();
-        }
-
-        this.setState({ isOpen: false });
-      }
-
-
-      toggleSelect(event) {
-        if (this.state.isOpen) {
-          this.onClose(event);
-        } else {
-          this.onOpen(event);
-        }
+      handleChange(item) {
+        this.setState({
+          selectedItem: item
+        });
       }
 
       render() {
-        const label = this.state.isOpen ? 'Close Select' : 'Open Select';
         return (
-          <DemoLayout ref={node => { this.demoLayout = node }}>
-            <Select
-              data={data}
-              isOpen={this.state.isOpen}
-              onOpen={this.onOpen}
-              onClose={this.onClose}
-              selectedItem={data[1]} />
-            <Button onClick={this.toggleSelect}>{label}</Button>
-          </DemoLayout>
+          <Select
+            data={data}
+            selectedItem={this.state.selectedItem}
+            onChange={this.handleChange} />
         );
       }
-    }`
+    }
+
+    return <MyForm />;
+  }
+  `
 };

@@ -43,9 +43,7 @@
   * renders MenuItem
     * Determine relationship/responsibilities with FauxControl
 * Examples
-  * Controlled example
-    * Needs to mention all controllable props - isOpen, selectedItem, highlightedIndex
-    * The example should likely demonstrate the controlling selectedItem in similar fashion to the TextInput example, rather than controlling isOpen.
+  * Control props issue with selectedItem and highlightedIndex
   * Placement
   * Overflow
   * Scrolling container
