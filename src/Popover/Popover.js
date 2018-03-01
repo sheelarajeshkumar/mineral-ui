@@ -348,10 +348,6 @@ export default class Popover extends Component<Props, State> {
     }
   };
 
-  isControlled = () => {
-    return this.props.isOpen !== undefined;
-  };
-
   open = (event: SyntheticEvent<>) => {
     if (this.isControlled('isOpen')) {
       this.openActions(event);

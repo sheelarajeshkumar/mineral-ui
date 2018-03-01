@@ -536,7 +536,7 @@ class Select extends Component<Props, State> {
   };
 
   isControlled = (prop: string) => {
-    return this.props[prop] !== undefined;
+    return this.props.hasOwnProperty(prop);
   };
 
   getControllableValue = (key: string) => {
