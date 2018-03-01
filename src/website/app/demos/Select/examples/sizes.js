@@ -27,7 +27,7 @@ export default {
   source: `
     <DemoLayout>
       <Select size="small" data={data} placeholder="Small" />
-      <Select size="medium" data={data} placeholder="Medium" />
+      <Select size="medium" data={data} placeholder="Medium" isOpen />
       <Select data={data} placeholder="Large" />
       <Select size="jumbo" data={data} placeholder="Jumbo" />
     </DemoLayout>

@@ -128,7 +128,7 @@ export const componentTheme = (baseTheme: Object) => ({
   )
 });
 
-const Root = createThemedComponent(Dropdown, ({ theme: baseTheme }) => ({
+const customTheme = (baseTheme, overrides = {}) => ({
   ...mapComponentThemes(
     {
       name: 'Select',
@@ -136,11 +136,27 @@ const Root = createThemedComponent(Dropdown, ({ theme: baseTheme }) => ({
     },
     {
       name: 'Dropdown',
-      theme: {}
+      theme: overrides
     },
     baseTheme
   )
-}));
+});
+
+const SmallerDropdown = createThemedComponent(
+  Dropdown,
+  ({ theme: baseTheme }) =>
+    customTheme(baseTheme, {
+      MenuItem_paddingHorizontal: baseTheme.space_inset_sm,
+
+      MenuItemContent_fontSize: pxToEm(12),
+      MenuItemSecondaryText_fontSize: '0.85em'
+    })
+);
+
+const RegularDropdown = createThemedComponent(
+  Dropdown,
+  ({ theme: baseTheme }) => customTheme(baseTheme)
+);
 
 const contentWidthModifier = {
   enabled: true,
@@ -224,6 +240,9 @@ export default class Select extends Component<Props, State> {
       item: selectedItem,
       variant
     };
+
+    const Root =
+      size === 'small' || size === 'medium' ? SmallerDropdown : RegularDropdown;
 
     return (
       <Root {...rootProps}>

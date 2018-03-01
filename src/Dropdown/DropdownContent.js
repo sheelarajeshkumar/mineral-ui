@@ -18,6 +18,7 @@
 import React, { Component } from 'react';
 import { composePropsWithGetter } from '../utils';
 import { createStyledComponent, pxToEm } from '../styles';
+import { createThemedComponent } from '../themes';
 import Menu from '../Menu';
 import Popper from '../Popover/Popper';
 
@@ -42,6 +43,8 @@ type Props = {
     | 'right-start'
     | 'top-end'
     | 'top-start',
+  /** Size from trigger */
+  size?: string | number,
   /** Display a wider dropdown menu */
   wide?: boolean
 };
@@ -56,7 +59,7 @@ export const componentTheme = (baseTheme: Object) => ({
   ...baseTheme
 });
 
-const Root = createStyledComponent(
+const RegularContent = createStyledComponent(
   Popper,
   ({ theme: baseTheme, wide }) => {
     const theme = componentTheme(baseTheme);
@@ -96,6 +99,16 @@ const Root = createStyledComponent(
   }
 );
 
+const SmallerContent = createThemedComponent(
+  RegularContent,
+  ({ theme: baseTheme }) => ({
+    MenuItem_paddingHorizontal: baseTheme.space_inset_sm,
+
+    MenuItemContent_fontSize: pxToEm(12),
+    MenuItemSecondaryText_fontSize: '0.85em'
+  })
+);
+
 /**
  * DropdownContent component
  */
@@ -107,6 +120,7 @@ export default class DropdownContent extends Component<Props> {
       getMenuProps,
       id,
       placement,
+      size,
       wide,
       ...restProps
     } = this.props;
@@ -126,6 +140,9 @@ export default class DropdownContent extends Component<Props> {
       },
       getMenuProps
     );
+
+    const Root =
+      size === 'small' || size === 'medium' ? SmallerContent : RegularContent;
 
     return (
       <Root {...rootProps}>

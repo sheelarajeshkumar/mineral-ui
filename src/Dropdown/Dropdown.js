@@ -15,7 +15,7 @@
  */
 
 /* @flow */
-import React, { Component } from 'react';
+import React, { Children, Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 import { composePropsWithGetter, generateId } from '../utils';
@@ -120,6 +120,8 @@ export default class Dropdown extends Component<Props, State> {
 
   itemMatcher: any;
 
+  triggerSize: string | number | typeof undefined;
+
   render() {
     const {
       children,
@@ -131,6 +133,13 @@ export default class Dropdown extends Component<Props, State> {
     } = this.props;
     const isOpen = this.getControllableValue('isOpen');
 
+    Children.forEach(children, child => {
+      const { size } = child.props;
+      if (size) {
+        this.triggerSize = size;
+      }
+    });
+
     const dropdownContentProps = {
       data,
       id: this.getContentId(),
@@ -138,6 +147,7 @@ export default class Dropdown extends Component<Props, State> {
       getMenuProps: this.getMenuProps,
       modifiers,
       placement,
+      size: this.triggerSize,
       wide
     };
 
