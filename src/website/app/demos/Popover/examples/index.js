@@ -24,6 +24,7 @@ import overflow from './overflow';
 import placement from './placement';
 import popover from './popover';
 import portal from './portal';
+import rtl from './rtl';
 import title from './title';
 
 export default [
@@ -36,5 +37,6 @@ export default [
   portal,
   onOpenClose,
   disabled,
-  controlled
+  controlled,
+  rtl
 ];

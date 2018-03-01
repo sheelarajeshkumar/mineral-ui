@@ -16,10 +16,10 @@
 
 /* @flow */
 import React, { Component } from 'react';
-import { Popper } from 'react-popper';
 import { createStyledComponent } from '../styles';
 import { createThemedComponent } from '../themes';
 import { CardBlock, CardTitle } from '../Card';
+import Popper from './Popper';
 import PopoverArrow from './PopoverArrow';
 
 type Props = {

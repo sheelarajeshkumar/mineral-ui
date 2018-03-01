@@ -17,7 +17,6 @@
 /* @flow */
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import { withTheme } from 'glamorous';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 import { generateId } from '../utils';
 import { createThemedComponent, mapComponentThemes } from '../themes';
@@ -97,8 +96,6 @@ type Props = {
   size?: 'small' | 'medium' | 'large' | 'jumbo',
   /** Ref for the trigger */
   triggerRef?: (node: ?React$Component<*, *>) => void,
-  /** @Private */
-  theme: Object,
   /**
    * Use a Portal to render the Select menu to the body rather than as a sibling
    * to the trigger
@@ -154,19 +151,10 @@ const contentWidthModifier = {
   }
 };
 
-const getRtlPlacement = (placement: string) => {
-  const rtlPlacementMap = {
-    end: 'start',
-    start: 'end'
-  };
-  const direction = placement.split('-')[1];
-  return placement.replace(direction, rtlPlacementMap[direction]);
-};
-
 /**
  * Select represents a control that provides a menu of options.
  */
-class Select extends Component<Props, State> {
+export default class Select extends Component<Props, State> {
   static defaultProps = {
     placeholder: 'Select...',
     placement: 'bottom-start',
@@ -192,11 +180,9 @@ class Select extends Component<Props, State> {
       modifiers,
       name,
       placeholder,
-      placement,
       readOnly,
       size,
       variant,
-      theme,
       triggerRef,
       ...restProps
     } = this.props;
@@ -216,18 +202,11 @@ class Select extends Component<Props, State> {
       getTriggerProps: this.getTriggerProps,
       isOpen,
       modifiers: {
-        contentWidth:
-          placement && ['left', 'right'].indexOf(placement.split('-')[0]) !== -1
-            ? null
-            : contentWidthModifier,
+        contentWidth: contentWidthModifier,
         ...modifiers
       },
       onClose: this.close,
-      onOpen: this.open,
-      placement:
-        placement && theme.direction === 'rtl'
-          ? getRtlPlacement(placement)
-          : placement
+      onOpen: this.open
     };
 
     const selectTriggerProps = {
@@ -543,5 +522,3 @@ class Select extends Component<Props, State> {
     return this.isControlled(key) ? this.props[key] : this.state[key];
   };
 }
-
-export default withTheme(Select);

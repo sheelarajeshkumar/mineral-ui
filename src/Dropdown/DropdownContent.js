@@ -16,10 +16,10 @@
 
 /* @flow */
 import React, { Component } from 'react';
-import { Popper } from 'react-popper';
 import { composePropsWithGetter } from '../utils';
 import { createStyledComponent, pxToEm } from '../styles';
 import Menu from '../Menu';
+import Popper from '../Popover/Popper';
 
 type Props = {
   /** @Private Function that returns props to be applied to each item */

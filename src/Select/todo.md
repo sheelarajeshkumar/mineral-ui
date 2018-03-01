@@ -65,5 +65,4 @@
 * Avatar renders icon prop as <span icon="[object Object]" in basic usage example
 * Add "built-in" avatar support to MenuItem, similar to icons
 * CustomRender examples updated to render something simple besides an Avatar
-* Add RTL Dropdown example and adjust content placement based on RTL
 * Select States example does not render simulated states
