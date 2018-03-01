@@ -26,10 +26,7 @@ export default {
   scope: { data, ScrollParent, Select },
   source: `
     <ScrollParent>
-      <Select
-        data={data}
-        placement="left-start"
-        isOpen />
+      <Select data={data} isOpen />
     </ScrollParent>
   `
 };

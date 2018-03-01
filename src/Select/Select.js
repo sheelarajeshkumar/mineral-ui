@@ -86,22 +86,7 @@ type Props = {
   /** Text displayed when there is no item selected */
   placeholder?: string,
   /** Placement of the Select */
-  placement?:
-    | 'auto'
-    | 'auto-end'
-    | 'auto-start'
-    | 'bottom'
-    | 'bottom-end'
-    | 'bottom-start'
-    | 'left'
-    | 'left-end'
-    | 'left-start'
-    | 'right'
-    | 'right-end'
-    | 'right-start'
-    | 'top'
-    | 'top-end'
-    | 'top-start',
+  placement?: 'bottom-end' | 'bottom-start' | 'top-end' | 'top-start',
   /** Indicates that the user cannot modify the value of the input */
   readOnly?: boolean,
   /** Indicates that the user must select a value before submitting a form */
@@ -164,6 +149,15 @@ const contentWidthModifier = {
   }
 };
 
+const getRtlPlacement = (placement: string) => {
+  const rtlPlacementMap = {
+    end: 'start',
+    start: 'end'
+  };
+  const direction = placement.split('-')[1];
+  return placement.replace(direction, rtlPlacementMap[direction]);
+};
+
 /**
  * Select represents a control that provides a menu of options.
  */
@@ -203,25 +197,6 @@ class Select extends Component<Props, State> {
     const isOpen = this.getControllableValue('isOpen');
     const selectedItem = this.getControllableValue('selectedItem');
 
-    const getRtlPlacement = placement => {
-      const rtlPlacementMap = {
-        end: 'start',
-        start: 'end'
-      };
-
-      let newPlacement = placement;
-      if (
-        placement &&
-        ['top', 'bottom'].indexOf(placement.split('-')[0]) !== -1 &&
-        placement.indexOf('-') !== -1
-      ) {
-        const direction = placement.split('-')[1];
-        newPlacement = placement.replace(direction, rtlPlacementMap[direction]);
-      }
-
-      return newPlacement;
-    };
-
     const rootProps = {
       // TODO: First 100% applies to root, second to PopoverTrigger (better way?)
       css: { width: '100%', '& > span': { width: '100%' } },
@@ -244,7 +219,9 @@ class Select extends Component<Props, State> {
       onClose: this.close,
       onOpen: this.open,
       placement:
-        theme.direction === 'rtl' ? getRtlPlacement(placement) : placement
+        placement && theme.direction === 'rtl'
+          ? getRtlPlacement(placement)
+          : placement
     };
 
     const selectTriggerProps = {

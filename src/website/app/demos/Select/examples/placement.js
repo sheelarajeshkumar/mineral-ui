@@ -35,9 +35,6 @@ edges and scrolling.`,
   scope: { data, DemoLayout, Select },
   source: `
     <DemoLayout>
-      <Select
-        data={data}
-        placement="bottom-start"
-        isOpen />
+      <Select data={data} placement="bottom-start" isOpen />
     </DemoLayout>`
 };
