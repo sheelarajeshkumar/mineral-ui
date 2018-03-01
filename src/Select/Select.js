@@ -54,7 +54,7 @@ type Props = {
    * components.
    */
   defaultSelectedItem?: Item,
-  /** Disables the input */
+  /** Disables the control */
   disabled?: boolean,
   /** Index of the highlighted item. For use with controlled components. */
   highlightedIndex?: number,
@@ -87,7 +87,7 @@ type Props = {
   placeholder?: string,
   /** Placement of the Select */
   placement?: 'bottom-end' | 'bottom-start' | 'top-end' | 'top-start',
-  /** Indicates that the user cannot modify the value of the input */
+  /** Indicates that the user cannot modify the value of the control */
   readOnly?: boolean,
   /** Indicates that the user must select a value before submitting a form */
   required?: boolean,
@@ -99,6 +99,11 @@ type Props = {
   triggerRef?: (node: ?React$Component<*, *>) => void,
   /** @Private */
   theme: Object,
+  /**
+   * Use a Portal to render the Select menu to the body rather than as a sibling
+   * to the trigger
+   */
+  usePortal?: boolean,
   /** Available variants */
   variant?: 'danger' | 'success' | 'warning'
 };
@@ -164,7 +169,8 @@ const getRtlPlacement = (placement: string) => {
 class Select extends Component<Props, State> {
   static defaultProps = {
     placeholder: 'Select...',
-    placement: 'bottom-start'
+    placement: 'bottom-start',
+    size: 'large'
   };
 
   state: State = {
