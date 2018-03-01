@@ -36,29 +36,11 @@ export default {
   },
   source: `
   <DemoLayout>
-    <FormFieldset legend="Custom item renderer">
-      TODO: Render items using a custom renderer - not an Avatar
-    </FormFieldset>
-
-    <FormFieldset legend="Defaults">
-      <Select data={basicData} defaultValue="nothing" />
-      <Select data={basicData} defaultValue="nothing" defaultSelectedItem={basicData[1]} />
-      <Select data={basicData} defaultSelectedItem={basicData[1]} />
-      <Select data={basicData} defaultIsOpen />
-    </FormFieldset>
-
     <FormFieldset legend="Event handlers">
       <Select data={basicData} onOpen={(event) => {console.log('onOpen', event)}} />
       <Select data={basicData} onClose={(event) => {console.log('onClose', event)}} />
       <Select data={basicData} onSelect={(item, event) => {console.log('onSelect', item, event)}} />
       <Select data={basicData} onChange={(item, event) => {console.log('onChange', item, event)}} />
-    </FormFieldset>
-
-    <FormFieldset legend="Uncontrolled form submission">
-      <form>
-        <Select data={basicData} name="test" defaultValue="nothing" />
-        <Button type="submit" size="small">Submit</Button>
-      </form>
     </FormFieldset>
   </DemoLayout>`
 };

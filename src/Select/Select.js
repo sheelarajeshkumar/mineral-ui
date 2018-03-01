@@ -110,6 +110,8 @@ type Props = {
   selectedItem?: Item,
   /** Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
+  /** Ref for the trigger */
+  triggerRef?: (node: ?React$Component<*, *>) => void,
   /** @Private */
   theme: Object,
   /** Available variants */
@@ -195,6 +197,7 @@ class Select extends Component<Props, State> {
       size,
       variant,
       theme,
+      triggerRef,
       ...restProps
     } = this.props;
     const isOpen = this.getControllableValue('isOpen');
@@ -253,6 +256,8 @@ class Select extends Component<Props, State> {
       size,
       triggerRef: (node: ?React$Component<*, *>) => {
         this.selectTrigger = node;
+
+        triggerRef && triggerRef(node);
       },
       item: selectedItem,
       variant

@@ -32,6 +32,7 @@ import rtl from './rtl';
 import scrolling from './scrolling';
 import sizes from './sizes';
 import states from './states';
+import triggerRef from './triggerRef';
 import uncontrolled from './uncontrolled';
 import variants from './variants';
 
@@ -51,6 +52,7 @@ export default [
   overflow,
   scrolling,
   portal,
+  triggerRef,
   rtl,
   formField,
   kitchenSink,

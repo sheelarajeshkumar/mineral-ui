@@ -25,6 +25,6 @@ export default {
 modified by the user.`,
   scope: { data, Select },
   source: `
-    <Select data={data} readOnly />
+    <Select data={data} selectedItem={data[0]} readOnly />
   `
 };

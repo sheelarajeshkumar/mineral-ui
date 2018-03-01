@@ -21,6 +21,7 @@ import { basicData as data } from '../components/selectData';
 
 const OverflowContainer = createStyledComponent('div', {
   backgroundColor: 'aliceblue',
+  margin: '0 0 105px 0',
   overflow: 'hidden',
   padding: '25px'
 });
@@ -34,9 +35,6 @@ the [portal example](#portal) for even greater control.`,
   scope: { data, OverflowContainer, Select },
   source: `
     <OverflowContainer>
-      <Select
-        data={data}
-        placement="right-start"
-        isOpen />
+      <Select data={data} isOpen />
     </OverflowContainer>`
 };
