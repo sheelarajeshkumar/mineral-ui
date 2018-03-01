@@ -38,14 +38,9 @@
 
 ### Todos los TODOs
 
-* Improve prop documentation
 * Examples
   * Control props issue with selectedItem and highlightedIndex
-  * States
-    * Fix issue with simulated states - (Kyle) I don't think this is reasonable until render props
-  * More...
-    * Async data loading?
-    * Extract useful examples from kitchen sink and get rid of others.
+  * Any others?
 * Best practices
 * Test coverage
   * Unit tests
@@ -71,3 +66,4 @@
 * Add "built-in" avatar support to MenuItem, similar to icons
 * CustomRender examples updated to render something simple besides an Avatar
 * Add RTL Dropdown example and adjust content placement based on RTL
+* Select States example does not render simulated states
