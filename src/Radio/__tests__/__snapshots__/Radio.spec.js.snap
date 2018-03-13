@@ -3525,7 +3525,7 @@ exports[`Radio demo examples form-field 1`] = `
 
 .glamor-0,
 [data-glamor-0] {
-  color: #db2929;
+  color: #d42828;
   font-size: 0.6875em;
 }
 

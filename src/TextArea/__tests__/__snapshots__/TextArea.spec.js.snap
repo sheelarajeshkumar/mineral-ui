@@ -924,7 +924,7 @@ exports[`TextArea demo examples form-field 1`] = `
 
 .glamor-0,
 [data-glamor-0] {
-  color: #db2929;
+  color: #d42828;
   font-size: 0.6875em;
 }
 
@@ -6454,7 +6454,7 @@ exports[`TextArea demo examples states 1`] = `
 [data-glamor-19]:hover ~ div,
 .glamor-19[data-simulate-hover] ~ div,
 [data-glamor-19][data-simulate-hover] ~ div {
-  border-color: #0a8f4c;
+  border-color: #067532;
 }
 
 .glamor-19:focus ~ div,
@@ -6462,7 +6462,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-19[data-simulate-focus] ~ div,
 [data-glamor-19][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-19:active ~ div,
@@ -6470,13 +6470,13 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-19[data-simulate-active] ~ div,
 [data-glamor-19][data-simulate-active] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-19 ~ div,
 [data-glamor-19] ~ div {
   background-color: #fff;
-  border-color: #10a35a;
+  border-color: #088a3c;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;
@@ -6543,7 +6543,7 @@ exports[`TextArea demo examples states 1`] = `
 [data-glamor-38]:hover ~ div,
 .glamor-38[data-simulate-hover] ~ div,
 [data-glamor-38][data-simulate-hover] ~ div {
-  border-color: #cf4615;
+  border-color: #9c5600;
 }
 
 .glamor-38:focus ~ div,
@@ -6551,7 +6551,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-38[data-simulate-focus] ~ div,
 [data-glamor-38][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-38:active ~ div,
@@ -6559,13 +6559,13 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-38[data-simulate-active] ~ div,
 [data-glamor-38][data-simulate-active] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-38 ~ div,
 [data-glamor-38] ~ div {
   background-color: #fff;
-  border-color: #e05b2b;
+  border-color: #b36200;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;
@@ -6632,7 +6632,7 @@ exports[`TextArea demo examples states 1`] = `
 [data-glamor-57]:hover ~ div,
 .glamor-57[data-simulate-hover] ~ div,
 [data-glamor-57][data-simulate-hover] ~ div {
-  border-color: #c71818;
+  border-color: #b81212;
 }
 
 .glamor-57:focus ~ div,
@@ -6640,7 +6640,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-57[data-simulate-focus] ~ div,
 [data-glamor-57][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-57:active ~ div,
@@ -6648,13 +6648,13 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-57[data-simulate-active] ~ div,
 [data-glamor-57][data-simulate-active] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-57 ~ div,
 [data-glamor-57] ~ div {
   background-color: #fff;
-  border-color: #db2929;
+  border-color: #d42828;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;
@@ -6765,7 +6765,7 @@ exports[`TextArea demo examples states 1`] = `
 [data-glamor-31]:hover ~ div,
 .glamor-31[data-simulate-hover] ~ div,
 [data-glamor-31][data-simulate-hover] ~ div {
-  border-color: #0a8f4c;
+  border-color: #067532;
 }
 
 .glamor-31:focus ~ div,
@@ -6773,7 +6773,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-31[data-simulate-focus] ~ div,
 [data-glamor-31][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-31:active ~ div,
@@ -6781,7 +6781,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-31[data-simulate-active] ~ div,
 [data-glamor-31][data-simulate-active] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-31 ~ div,
@@ -6855,7 +6855,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-33[data-simulate-focus] ~ div,
 [data-glamor-33][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-33:active ~ div,
@@ -6936,7 +6936,7 @@ exports[`TextArea demo examples states 1`] = `
 [data-glamor-50]:hover ~ div,
 .glamor-50[data-simulate-hover] ~ div,
 [data-glamor-50][data-simulate-hover] ~ div {
-  border-color: #cf4615;
+  border-color: #9c5600;
 }
 
 .glamor-50:focus ~ div,
@@ -6944,7 +6944,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-50[data-simulate-focus] ~ div,
 [data-glamor-50][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-50:active ~ div,
@@ -6952,7 +6952,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-50[data-simulate-active] ~ div,
 [data-glamor-50][data-simulate-active] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-50 ~ div,
@@ -7026,7 +7026,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-52[data-simulate-focus] ~ div,
 [data-glamor-52][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-52:active ~ div,
@@ -7107,7 +7107,7 @@ exports[`TextArea demo examples states 1`] = `
 [data-glamor-69]:hover ~ div,
 .glamor-69[data-simulate-hover] ~ div,
 [data-glamor-69][data-simulate-hover] ~ div {
-  border-color: #c71818;
+  border-color: #b81212;
 }
 
 .glamor-69:focus ~ div,
@@ -7115,7 +7115,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-69[data-simulate-focus] ~ div,
 [data-glamor-69][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-69:active ~ div,
@@ -7123,7 +7123,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-69[data-simulate-active] ~ div,
 [data-glamor-69][data-simulate-active] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-69 ~ div,
@@ -7197,7 +7197,7 @@ exports[`TextArea demo examples states 1`] = `
 .glamor-71[data-simulate-focus] ~ div,
 [data-glamor-71][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-71:active ~ div,
@@ -9127,7 +9127,7 @@ exports[`TextArea demo examples variants 1`] = `
 [data-glamor-0]:hover ~ div,
 .glamor-0[data-simulate-hover] ~ div,
 [data-glamor-0][data-simulate-hover] ~ div {
-  border-color: #0a8f4c;
+  border-color: #067532;
 }
 
 .glamor-0:focus ~ div,
@@ -9135,7 +9135,7 @@ exports[`TextArea demo examples variants 1`] = `
 .glamor-0[data-simulate-focus] ~ div,
 [data-glamor-0][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-0:active ~ div,
@@ -9143,13 +9143,13 @@ exports[`TextArea demo examples variants 1`] = `
 .glamor-0[data-simulate-active] ~ div,
 [data-glamor-0][data-simulate-active] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-0 ~ div,
 [data-glamor-0] ~ div {
   background-color: #fff;
-  border-color: #10a35a;
+  border-color: #088a3c;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;
@@ -9216,7 +9216,7 @@ exports[`TextArea demo examples variants 1`] = `
 [data-glamor-2]:hover ~ div,
 .glamor-2[data-simulate-hover] ~ div,
 [data-glamor-2][data-simulate-hover] ~ div {
-  border-color: #cf4615;
+  border-color: #9c5600;
 }
 
 .glamor-2:focus ~ div,
@@ -9224,7 +9224,7 @@ exports[`TextArea demo examples variants 1`] = `
 .glamor-2[data-simulate-focus] ~ div,
 [data-glamor-2][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-2:active ~ div,
@@ -9232,13 +9232,13 @@ exports[`TextArea demo examples variants 1`] = `
 .glamor-2[data-simulate-active] ~ div,
 [data-glamor-2][data-simulate-active] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-2 ~ div,
 [data-glamor-2] ~ div {
   background-color: #fff;
-  border-color: #e05b2b;
+  border-color: #b36200;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;
@@ -9305,7 +9305,7 @@ exports[`TextArea demo examples variants 1`] = `
 [data-glamor-4]:hover ~ div,
 .glamor-4[data-simulate-hover] ~ div,
 [data-glamor-4][data-simulate-hover] ~ div {
-  border-color: #c71818;
+  border-color: #b81212;
 }
 
 .glamor-4:focus ~ div,
@@ -9313,7 +9313,7 @@ exports[`TextArea demo examples variants 1`] = `
 .glamor-4[data-simulate-focus] ~ div,
 [data-glamor-4][data-simulate-focus] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-4:active ~ div,
@@ -9321,13 +9321,13 @@ exports[`TextArea demo examples variants 1`] = `
 .glamor-4[data-simulate-active] ~ div,
 [data-glamor-4][data-simulate-active] ~ div {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-4 ~ div,
 [data-glamor-4] ~ div {
   background-color: #fff;
-  border-color: #db2929;
+  border-color: #d42828;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;

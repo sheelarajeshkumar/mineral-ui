@@ -843,7 +843,7 @@ exports[`TextInput demo examples form-field 1`] = `
 
 .glamor-0,
 [data-glamor-0] {
-  color: #db2929;
+  color: #d42828;
   font-size: 0.6875em;
 }
 
@@ -2898,7 +2898,7 @@ exports[`TextInput demo examples kitchen-sink 1`] = `
 
 .glamor-52 [role="img"]:last-of-type,
 [data-glamor-52] [role="img"]:last-of-type {
-  fill: #db2929;
+  fill: #d42828;
 }
 
 .glamor-51,
@@ -2936,7 +2936,7 @@ exports[`TextInput demo examples kitchen-sink 1`] = `
 [data-glamor-51]:hover > div:last-child,
 .glamor-51[data-simulate-hover] > div:last-child,
 [data-glamor-51][data-simulate-hover] > div:last-child {
-  border-color: #c71818;
+  border-color: #b81212;
 }
 
 .glamor-51:focus > div:last-child,
@@ -2944,7 +2944,7 @@ exports[`TextInput demo examples kitchen-sink 1`] = `
 .glamor-51[data-simulate-focus] > div:last-child,
 [data-glamor-51][data-simulate-focus] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-51:active > div:last-child,
@@ -2952,7 +2952,7 @@ exports[`TextInput demo examples kitchen-sink 1`] = `
 .glamor-51[data-simulate-active] > div:last-child,
 [data-glamor-51][data-simulate-active] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-51 [role="img"],
@@ -2966,7 +2966,7 @@ exports[`TextInput demo examples kitchen-sink 1`] = `
 
 .glamor-51 [role="img"]:last-of-type,
 [data-glamor-51] [role="img"]:last-of-type {
-  fill: #db2929;
+  fill: #d42828;
 }
 
 .glamor-47,
@@ -3023,13 +3023,13 @@ exports[`TextInput demo examples kitchen-sink 1`] = `
 .glamor-47[data-simulate-focus] ~ div:last-child,
 [data-glamor-47][data-simulate-focus] ~ div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-50,
 [data-glamor-50] {
   background-color: #fff;
-  border-color: #db2929;
+  border-color: #d42828;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;
@@ -3431,7 +3431,7 @@ exports[`TextInput demo examples kitchen-sink 1`] = `
 .glamor-111[data-simulate-focus] ~ div:last-child,
 [data-glamor-111][data-simulate-focus] ~ div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-122,
@@ -9489,7 +9489,7 @@ exports[`TextInput demo examples rtl 1`] = `
 
 .glamor-16 [role="img"]:last-of-type,
 [data-glamor-16] [role="img"]:last-of-type {
-  fill: #06783f;
+  fill: #088a3c;
 }
 
 .glamor-15,
@@ -9527,7 +9527,7 @@ exports[`TextInput demo examples rtl 1`] = `
 [data-glamor-15]:hover > div:last-child,
 .glamor-15[data-simulate-hover] > div:last-child,
 [data-glamor-15][data-simulate-hover] > div:last-child {
-  border-color: #0a8f4c;
+  border-color: #067532;
 }
 
 .glamor-15:focus > div:last-child,
@@ -9535,7 +9535,7 @@ exports[`TextInput demo examples rtl 1`] = `
 .glamor-15[data-simulate-focus] > div:last-child,
 [data-glamor-15][data-simulate-focus] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-15:active > div:last-child,
@@ -9543,7 +9543,7 @@ exports[`TextInput demo examples rtl 1`] = `
 .glamor-15[data-simulate-active] > div:last-child,
 [data-glamor-15][data-simulate-active] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-15 [role="img"],
@@ -9557,7 +9557,7 @@ exports[`TextInput demo examples rtl 1`] = `
 
 .glamor-15 [role="img"]:last-of-type,
 [data-glamor-15] [role="img"]:last-of-type {
-  fill: #06783f;
+  fill: #088a3c;
 }
 
 .glamor-13,
@@ -9571,7 +9571,7 @@ exports[`TextInput demo examples rtl 1`] = `
 .glamor-14,
 [data-glamor-14] {
   background-color: #fff;
-  border-color: #10a35a;
+  border-color: #088a3c;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;
@@ -9761,7 +9761,7 @@ exports[`TextInput demo examples rtl 1`] = `
 .glamor-12[data-simulate-focus] ~ div:last-child,
 [data-glamor-12][data-simulate-focus] ~ div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 <ThemeProvider>
@@ -11448,7 +11448,7 @@ exports[`TextInput demo examples variants 1`] = `
 
 .glamor-4 [role="img"]:last-of-type,
 [data-glamor-4] [role="img"]:last-of-type {
-  fill: #06783f;
+  fill: #088a3c;
 }
 
 .glamor-3,
@@ -11486,7 +11486,7 @@ exports[`TextInput demo examples variants 1`] = `
 [data-glamor-3]:hover > div:last-child,
 .glamor-3[data-simulate-hover] > div:last-child,
 [data-glamor-3][data-simulate-hover] > div:last-child {
-  border-color: #0a8f4c;
+  border-color: #067532;
 }
 
 .glamor-3:focus > div:last-child,
@@ -11494,7 +11494,7 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-3[data-simulate-focus] > div:last-child,
 [data-glamor-3][data-simulate-focus] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-3:active > div:last-child,
@@ -11502,7 +11502,7 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-3[data-simulate-active] > div:last-child,
 [data-glamor-3][data-simulate-active] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-3 [role="img"],
@@ -11516,7 +11516,7 @@ exports[`TextInput demo examples variants 1`] = `
 
 .glamor-3 [role="img"]:last-of-type,
 [data-glamor-3] [role="img"]:last-of-type {
-  fill: #06783f;
+  fill: #088a3c;
 }
 
 .glamor-0,
@@ -11573,7 +11573,7 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-0[data-simulate-focus] ~ div:last-child,
 [data-glamor-0][data-simulate-focus] ~ div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #10a35a;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #088a3c;
 }
 
 .glamor-1,
@@ -11587,7 +11587,7 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-2,
 [data-glamor-2] {
   background-color: #fff;
-  border-color: #10a35a;
+  border-color: #088a3c;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;
@@ -11624,7 +11624,7 @@ exports[`TextInput demo examples variants 1`] = `
 
 .glamor-10 [role="img"]:last-of-type,
 [data-glamor-10] [role="img"]:last-of-type {
-  fill: #cf4615;
+  fill: #b36200;
 }
 
 .glamor-9,
@@ -11662,7 +11662,7 @@ exports[`TextInput demo examples variants 1`] = `
 [data-glamor-9]:hover > div:last-child,
 .glamor-9[data-simulate-hover] > div:last-child,
 [data-glamor-9][data-simulate-hover] > div:last-child {
-  border-color: #cf4615;
+  border-color: #9c5600;
 }
 
 .glamor-9:focus > div:last-child,
@@ -11670,7 +11670,7 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-9[data-simulate-focus] > div:last-child,
 [data-glamor-9][data-simulate-focus] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-9:active > div:last-child,
@@ -11678,7 +11678,7 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-9[data-simulate-active] > div:last-child,
 [data-glamor-9][data-simulate-active] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-9 [role="img"],
@@ -11692,7 +11692,7 @@ exports[`TextInput demo examples variants 1`] = `
 
 .glamor-9 [role="img"]:last-of-type,
 [data-glamor-9] [role="img"]:last-of-type {
-  fill: #cf4615;
+  fill: #b36200;
 }
 
 .glamor-6,
@@ -11749,13 +11749,13 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-6[data-simulate-focus] ~ div:last-child,
 [data-glamor-6][data-simulate-focus] ~ div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e05b2b;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #b36200;
 }
 
 .glamor-8,
 [data-glamor-8] {
   background-color: #fff;
-  border-color: #e05b2b;
+  border-color: #b36200;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;
@@ -11792,7 +11792,7 @@ exports[`TextInput demo examples variants 1`] = `
 
 .glamor-16 [role="img"]:last-of-type,
 [data-glamor-16] [role="img"]:last-of-type {
-  fill: #db2929;
+  fill: #d42828;
 }
 
 .glamor-15,
@@ -11830,7 +11830,7 @@ exports[`TextInput demo examples variants 1`] = `
 [data-glamor-15]:hover > div:last-child,
 .glamor-15[data-simulate-hover] > div:last-child,
 [data-glamor-15][data-simulate-hover] > div:last-child {
-  border-color: #c71818;
+  border-color: #b81212;
 }
 
 .glamor-15:focus > div:last-child,
@@ -11838,7 +11838,7 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-15[data-simulate-focus] > div:last-child,
 [data-glamor-15][data-simulate-focus] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-15:active > div:last-child,
@@ -11846,7 +11846,7 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-15[data-simulate-active] > div:last-child,
 [data-glamor-15][data-simulate-active] > div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-15 [role="img"],
@@ -11860,7 +11860,7 @@ exports[`TextInput demo examples variants 1`] = `
 
 .glamor-15 [role="img"]:last-of-type,
 [data-glamor-15] [role="img"]:last-of-type {
-  fill: #db2929;
+  fill: #d42828;
 }
 
 .glamor-12,
@@ -11917,13 +11917,13 @@ exports[`TextInput demo examples variants 1`] = `
 .glamor-12[data-simulate-focus] ~ div:last-child,
 [data-glamor-12][data-simulate-focus] ~ div:last-child {
   border-color: #c8d1e0;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #db2929;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d42828;
 }
 
 .glamor-14,
 [data-glamor-14] {
   background-color: #fff;
-  border-color: #db2929;
+  border-color: #d42828;
   border-radius: 0.1875em;
   border-style: solid;
   border-width: 1px;

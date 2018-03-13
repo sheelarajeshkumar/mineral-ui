@@ -641,7 +641,7 @@ exports[`Link demo examples states 1`] = `
 
 .glamor-6,
 [data-glamor-6] {
-  color: #db2929;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -657,8 +657,8 @@ exports[`Link demo examples states 1`] = `
 [data-glamor-6]:focus,
 .glamor-6[data-simulate-focus],
 [data-glamor-6][data-simulate-focus] {
-  color: #db2929;
-  outline: 1px solid #c71818;
+  color: #d42828;
+  outline: 1px solid #b81212;
   outline-offset: 2px;
 }
 
@@ -666,12 +666,12 @@ exports[`Link demo examples states 1`] = `
 [data-glamor-6]:active,
 .glamor-6[data-simulate-active],
 [data-glamor-6][data-simulate-active] {
-  color: #c71818;
+  color: #b81212;
 }
 
 .glamor-12,
 [data-glamor-12] {
-  color: #06783f;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -679,7 +679,7 @@ exports[`Link demo examples states 1`] = `
 [data-glamor-12]:hover,
 .glamor-12[data-simulate-hover],
 [data-glamor-12][data-simulate-hover] {
-  color: #0a8f4c;
+  color: #10b552;
   text-decoration: underline;
 }
 
@@ -687,8 +687,8 @@ exports[`Link demo examples states 1`] = `
 [data-glamor-12]:focus,
 .glamor-12[data-simulate-focus],
 [data-glamor-12][data-simulate-focus] {
-  color: #06783f;
-  outline: 1px solid #0a8f4c;
+  color: #088a3c;
+  outline: 1px solid #067532;
   outline-offset: 2px;
 }
 
@@ -696,12 +696,12 @@ exports[`Link demo examples states 1`] = `
 [data-glamor-12]:active,
 .glamor-12[data-simulate-active],
 [data-glamor-12][data-simulate-active] {
-  color: #046132;
+  color: #067532;
 }
 
 .glamor-18,
 [data-glamor-18] {
-  color: #cf4615;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -709,7 +709,7 @@ exports[`Link demo examples states 1`] = `
 [data-glamor-18]:hover,
 .glamor-18[data-simulate-hover],
 [data-glamor-18][data-simulate-hover] {
-  color: #e05b2b;
+  color: #d47604;
   text-decoration: underline;
 }
 
@@ -717,8 +717,8 @@ exports[`Link demo examples states 1`] = `
 [data-glamor-18]:focus,
 .glamor-18[data-simulate-focus],
 [data-glamor-18][data-simulate-focus] {
-  color: #cf4615;
-  outline: 1px solid #cf4615;
+  color: #b36200;
+  outline: 1px solid #9c5600;
   outline-offset: 2px;
 }
 
@@ -726,7 +726,7 @@ exports[`Link demo examples states 1`] = `
 [data-glamor-18]:active,
 .glamor-18[data-simulate-active],
 [data-glamor-18][data-simulate-active] {
-  color: #bd3909;
+  color: #9c5600;
 }
 
 <ThemeProvider>
@@ -1485,7 +1485,7 @@ exports[`Link demo examples variants 1`] = `
 
 .glamor-1,
 [data-glamor-1] {
-  color: #db2929;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -1501,8 +1501,8 @@ exports[`Link demo examples variants 1`] = `
 [data-glamor-1]:focus,
 .glamor-1[data-simulate-focus],
 [data-glamor-1][data-simulate-focus] {
-  color: #db2929;
-  outline: 1px solid #c71818;
+  color: #d42828;
+  outline: 1px solid #b81212;
   outline-offset: 2px;
 }
 
@@ -1510,12 +1510,12 @@ exports[`Link demo examples variants 1`] = `
 [data-glamor-1]:active,
 .glamor-1[data-simulate-active],
 [data-glamor-1][data-simulate-active] {
-  color: #c71818;
+  color: #b81212;
 }
 
 .glamor-2,
 [data-glamor-2] {
-  color: #06783f;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -1523,7 +1523,7 @@ exports[`Link demo examples variants 1`] = `
 [data-glamor-2]:hover,
 .glamor-2[data-simulate-hover],
 [data-glamor-2][data-simulate-hover] {
-  color: #0a8f4c;
+  color: #10b552;
   text-decoration: underline;
 }
 
@@ -1531,8 +1531,8 @@ exports[`Link demo examples variants 1`] = `
 [data-glamor-2]:focus,
 .glamor-2[data-simulate-focus],
 [data-glamor-2][data-simulate-focus] {
-  color: #06783f;
-  outline: 1px solid #0a8f4c;
+  color: #088a3c;
+  outline: 1px solid #067532;
   outline-offset: 2px;
 }
 
@@ -1540,12 +1540,12 @@ exports[`Link demo examples variants 1`] = `
 [data-glamor-2]:active,
 .glamor-2[data-simulate-active],
 [data-glamor-2][data-simulate-active] {
-  color: #046132;
+  color: #067532;
 }
 
 .glamor-3,
 [data-glamor-3] {
-  color: #cf4615;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -1553,7 +1553,7 @@ exports[`Link demo examples variants 1`] = `
 [data-glamor-3]:hover,
 .glamor-3[data-simulate-hover],
 [data-glamor-3][data-simulate-hover] {
-  color: #e05b2b;
+  color: #d47604;
   text-decoration: underline;
 }
 
@@ -1561,8 +1561,8 @@ exports[`Link demo examples variants 1`] = `
 [data-glamor-3]:focus,
 .glamor-3[data-simulate-focus],
 [data-glamor-3][data-simulate-focus] {
-  color: #cf4615;
-  outline: 1px solid #cf4615;
+  color: #b36200;
+  outline: 1px solid #9c5600;
   outline-offset: 2px;
 }
 
@@ -1570,7 +1570,7 @@ exports[`Link demo examples variants 1`] = `
 [data-glamor-3]:active,
 .glamor-3[data-simulate-active],
 [data-glamor-3][data-simulate-active] {
-  color: #bd3909;
+  color: #9c5600;
 }
 
 <ThemeProvider>

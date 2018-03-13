@@ -1136,7 +1136,7 @@ exports[`Button demo examples default 1`] = `
 .glamor-5,
 [data-glamor-5] {
   box-sizing: border-box;
-  color: #06783f;
+  color: #088a3c;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -1171,8 +1171,8 @@ exports[`Button demo examples default 1`] = `
 [data-glamor-5][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #0a8f4c;
-  color: #06783f;
+  box-shadow: 0 0 0 1px #067532;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -1181,7 +1181,7 @@ exports[`Button demo examples default 1`] = `
 .glamor-5[data-simulate-hover],
 [data-glamor-5][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #06783f;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -1190,7 +1190,7 @@ exports[`Button demo examples default 1`] = `
 .glamor-5[data-simulate-active],
 [data-glamor-5][data-simulate-active] {
   background-color: #dde3ed;
-  color: #06783f;
+  color: #088a3c;
 }
 
 .glamor-5::-moz-focus-inner,
@@ -1225,7 +1225,7 @@ exports[`Button demo examples default 1`] = `
 .glamor-8,
 [data-glamor-8] {
   box-sizing: border-box;
-  color: #cf4615;
+  color: #b36200;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -1260,8 +1260,8 @@ exports[`Button demo examples default 1`] = `
 [data-glamor-8][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #cf4615;
-  color: #cf4615;
+  box-shadow: 0 0 0 1px #9c5600;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -1270,7 +1270,7 @@ exports[`Button demo examples default 1`] = `
 .glamor-8[data-simulate-hover],
 [data-glamor-8][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #cf4615;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -1279,7 +1279,7 @@ exports[`Button demo examples default 1`] = `
 .glamor-8[data-simulate-active],
 [data-glamor-8][data-simulate-active] {
   background-color: #dde3ed;
-  color: #cf4615;
+  color: #b36200;
 }
 
 .glamor-8::-moz-focus-inner,
@@ -1314,7 +1314,7 @@ exports[`Button demo examples default 1`] = `
 .glamor-11,
 [data-glamor-11] {
   box-sizing: border-box;
-  color: #db2929;
+  color: #d42828;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -1349,8 +1349,8 @@ exports[`Button demo examples default 1`] = `
 [data-glamor-11][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
-  color: #db2929;
+  box-shadow: 0 0 0 1px #b81212;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -1359,7 +1359,7 @@ exports[`Button demo examples default 1`] = `
 .glamor-11[data-simulate-hover],
 [data-glamor-11][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #db2929;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -1368,7 +1368,7 @@ exports[`Button demo examples default 1`] = `
 .glamor-11[data-simulate-active],
 [data-glamor-11][data-simulate-active] {
   background-color: #dde3ed;
-  color: #db2929;
+  color: #d42828;
 }
 
 .glamor-11::-moz-focus-inner,
@@ -2908,7 +2908,7 @@ exports[`Button demo examples icons 1`] = `
 .glamor-28,
 [data-glamor-28] {
   box-sizing: border-box;
-  color: #06783f;
+  color: #088a3c;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -2943,8 +2943,8 @@ exports[`Button demo examples icons 1`] = `
 [data-glamor-28][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #0a8f4c;
-  color: #06783f;
+  box-shadow: 0 0 0 1px #067532;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -2953,7 +2953,7 @@ exports[`Button demo examples icons 1`] = `
 .glamor-28[data-simulate-hover],
 [data-glamor-28][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #06783f;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -2962,7 +2962,7 @@ exports[`Button demo examples icons 1`] = `
 .glamor-28[data-simulate-active],
 [data-glamor-28][data-simulate-active] {
   background-color: #dde3ed;
-  color: #06783f;
+  color: #088a3c;
 }
 
 .glamor-28::-moz-focus-inner,
@@ -2997,7 +2997,7 @@ exports[`Button demo examples icons 1`] = `
 .glamor-32,
 [data-glamor-32] {
   box-sizing: border-box;
-  color: #cf4615;
+  color: #b36200;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -3032,8 +3032,8 @@ exports[`Button demo examples icons 1`] = `
 [data-glamor-32][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #cf4615;
-  color: #cf4615;
+  box-shadow: 0 0 0 1px #9c5600;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -3042,7 +3042,7 @@ exports[`Button demo examples icons 1`] = `
 .glamor-32[data-simulate-hover],
 [data-glamor-32][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #cf4615;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -3051,7 +3051,7 @@ exports[`Button demo examples icons 1`] = `
 .glamor-32[data-simulate-active],
 [data-glamor-32][data-simulate-active] {
   background-color: #dde3ed;
-  color: #cf4615;
+  color: #b36200;
 }
 
 .glamor-32::-moz-focus-inner,
@@ -3086,7 +3086,7 @@ exports[`Button demo examples icons 1`] = `
 .glamor-24,
 [data-glamor-24] {
   box-sizing: border-box;
-  color: #db2929;
+  color: #d42828;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -3121,8 +3121,8 @@ exports[`Button demo examples icons 1`] = `
 [data-glamor-24][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
-  color: #db2929;
+  box-shadow: 0 0 0 1px #b81212;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -3131,7 +3131,7 @@ exports[`Button demo examples icons 1`] = `
 .glamor-24[data-simulate-hover],
 [data-glamor-24][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #db2929;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -3140,7 +3140,7 @@ exports[`Button demo examples icons 1`] = `
 .glamor-24[data-simulate-active],
 [data-glamor-24][data-simulate-active] {
   background-color: #dde3ed;
-  color: #db2929;
+  color: #d42828;
 }
 
 .glamor-24::-moz-focus-inner,
@@ -4975,7 +4975,7 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-5,
 [data-glamor-5] {
   box-sizing: border-box;
-  color: #06783f;
+  color: #088a3c;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -5009,8 +5009,8 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-5[data-simulate-focus],
 [data-glamor-5][data-simulate-focus] {
   border-color: #fff;
-  box-shadow: 0 0 0 1px #0a8f4c;
-  color: #06783f;
+  box-shadow: 0 0 0 1px #067532;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -5019,7 +5019,7 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-5[data-simulate-hover],
 [data-glamor-5][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #06783f;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -5028,7 +5028,7 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-5[data-simulate-active],
 [data-glamor-5][data-simulate-active] {
   background-color: #ebeff5;
-  color: #06783f;
+  color: #088a3c;
 }
 
 .glamor-5::-moz-focus-inner,
@@ -5063,7 +5063,7 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-8,
 [data-glamor-8] {
   box-sizing: border-box;
-  color: #cf4615;
+  color: #b36200;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -5097,8 +5097,8 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-8[data-simulate-focus],
 [data-glamor-8][data-simulate-focus] {
   border-color: #fff;
-  box-shadow: 0 0 0 1px #cf4615;
-  color: #cf4615;
+  box-shadow: 0 0 0 1px #9c5600;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -5107,7 +5107,7 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-8[data-simulate-hover],
 [data-glamor-8][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #cf4615;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -5116,7 +5116,7 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-8[data-simulate-active],
 [data-glamor-8][data-simulate-active] {
   background-color: #ebeff5;
-  color: #cf4615;
+  color: #b36200;
 }
 
 .glamor-8::-moz-focus-inner,
@@ -5151,7 +5151,7 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-11,
 [data-glamor-11] {
   box-sizing: border-box;
-  color: #db2929;
+  color: #d42828;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -5185,8 +5185,8 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-11[data-simulate-focus],
 [data-glamor-11][data-simulate-focus] {
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
-  color: #db2929;
+  box-shadow: 0 0 0 1px #b81212;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -5195,7 +5195,7 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-11[data-simulate-hover],
 [data-glamor-11][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #db2929;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -5204,7 +5204,7 @@ exports[`Button demo examples minimal 1`] = `
 .glamor-11[data-simulate-active],
 [data-glamor-11][data-simulate-active] {
   background-color: #ebeff5;
-  color: #db2929;
+  color: #d42828;
 }
 
 .glamor-11::-moz-focus-inner,
@@ -5687,7 +5687,7 @@ exports[`Button demo examples primary 1`] = `
   font-size: 16px;
   line-height: 1.25;
   outline: 0;
-  background-color: #0a8f4c;
+  background-color: #088a3c;
   border-color: transparent;
   border-radius: 0.1875em;
   border-style: solid;
@@ -5715,9 +5715,9 @@ exports[`Button demo examples primary 1`] = `
 [data-glamor-5]:focus,
 .glamor-5[data-simulate-focus],
 [data-glamor-5][data-simulate-focus] {
-  background-color: #0a8f4c;
+  background-color: #088a3c;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #0a8f4c;
+  box-shadow: 0 0 0 1px #067532;
   color: #fff;
   text-decoration: none;
 }
@@ -5726,7 +5726,7 @@ exports[`Button demo examples primary 1`] = `
 [data-glamor-5]:hover,
 .glamor-5[data-simulate-hover],
 [data-glamor-5][data-simulate-hover] {
-  background-color: #10a35a;
+  background-color: #10b552;
   color: #fff;
   text-decoration: none;
 }
@@ -5735,7 +5735,7 @@ exports[`Button demo examples primary 1`] = `
 [data-glamor-5]:active,
 .glamor-5[data-simulate-active],
 [data-glamor-5][data-simulate-active] {
-  background-color: #06783f;
+  background-color: #067532;
   color: #fff;
 }
 
@@ -5776,7 +5776,7 @@ exports[`Button demo examples primary 1`] = `
   font-size: 16px;
   line-height: 1.25;
   outline: 0;
-  background-color: #e05b2b;
+  background-color: #b36200;
   border-color: transparent;
   border-radius: 0.1875em;
   border-style: solid;
@@ -5804,9 +5804,9 @@ exports[`Button demo examples primary 1`] = `
 [data-glamor-8]:focus,
 .glamor-8[data-simulate-focus],
 [data-glamor-8][data-simulate-focus] {
-  background-color: #e05b2b;
+  background-color: #b36200;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #cf4615;
+  box-shadow: 0 0 0 1px #9c5600;
   color: #fff;
   text-decoration: none;
 }
@@ -5815,7 +5815,7 @@ exports[`Button demo examples primary 1`] = `
 [data-glamor-8]:hover,
 .glamor-8[data-simulate-hover],
 [data-glamor-8][data-simulate-hover] {
-  background-color: #ed774c;
+  background-color: #d47604;
   color: #fff;
   text-decoration: none;
 }
@@ -5824,7 +5824,7 @@ exports[`Button demo examples primary 1`] = `
 [data-glamor-8]:active,
 .glamor-8[data-simulate-active],
 [data-glamor-8][data-simulate-active] {
-  background-color: #cf4615;
+  background-color: #9c5600;
   color: #fff;
 }
 
@@ -5865,7 +5865,7 @@ exports[`Button demo examples primary 1`] = `
   font-size: 16px;
   line-height: 1.25;
   outline: 0;
-  background-color: #db2929;
+  background-color: #d42828;
   border-color: transparent;
   border-radius: 0.1875em;
   border-style: solid;
@@ -5893,9 +5893,9 @@ exports[`Button demo examples primary 1`] = `
 [data-glamor-11]:focus,
 .glamor-11[data-simulate-focus],
 [data-glamor-11][data-simulate-focus] {
-  background-color: #db2929;
+  background-color: #d42828;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
+  box-shadow: 0 0 0 1px #b81212;
   color: #fff;
   text-decoration: none;
 }
@@ -5913,7 +5913,7 @@ exports[`Button demo examples primary 1`] = `
 [data-glamor-11]:active,
 .glamor-11[data-simulate-active],
 [data-glamor-11][data-simulate-active] {
-  background-color: #c71818;
+  background-color: #b81212;
   color: #fff;
 }
 
@@ -7389,7 +7389,7 @@ exports[`Button demo examples states 1`] = `
   font-size: 16px;
   line-height: 1.25;
   outline: 0;
-  background-color: #0a8f4c;
+  background-color: #088a3c;
   border-color: transparent;
   border-radius: 0.1875em;
   border-style: solid;
@@ -7417,9 +7417,9 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-131]:focus,
 .glamor-131[data-simulate-focus],
 [data-glamor-131][data-simulate-focus] {
-  background-color: #0a8f4c;
+  background-color: #088a3c;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #0a8f4c;
+  box-shadow: 0 0 0 1px #067532;
   color: #fff;
   text-decoration: none;
 }
@@ -7428,7 +7428,7 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-131]:hover,
 .glamor-131[data-simulate-hover],
 [data-glamor-131][data-simulate-hover] {
-  background-color: #10a35a;
+  background-color: #10b552;
   color: #fff;
   text-decoration: none;
 }
@@ -7437,7 +7437,7 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-131]:active,
 .glamor-131[data-simulate-active],
 [data-glamor-131][data-simulate-active] {
-  background-color: #06783f;
+  background-color: #067532;
   color: #fff;
 }
 
@@ -7478,7 +7478,7 @@ exports[`Button demo examples states 1`] = `
   font-size: 16px;
   line-height: 1.25;
   outline: 0;
-  background-color: #e05b2b;
+  background-color: #b36200;
   border-color: transparent;
   border-radius: 0.1875em;
   border-style: solid;
@@ -7506,9 +7506,9 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-194]:focus,
 .glamor-194[data-simulate-focus],
 [data-glamor-194][data-simulate-focus] {
-  background-color: #e05b2b;
+  background-color: #b36200;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #cf4615;
+  box-shadow: 0 0 0 1px #9c5600;
   color: #fff;
   text-decoration: none;
 }
@@ -7517,7 +7517,7 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-194]:hover,
 .glamor-194[data-simulate-hover],
 [data-glamor-194][data-simulate-hover] {
-  background-color: #ed774c;
+  background-color: #d47604;
   color: #fff;
   text-decoration: none;
 }
@@ -7526,7 +7526,7 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-194]:active,
 .glamor-194[data-simulate-active],
 [data-glamor-194][data-simulate-active] {
-  background-color: #cf4615;
+  background-color: #9c5600;
   color: #fff;
 }
 
@@ -7567,7 +7567,7 @@ exports[`Button demo examples states 1`] = `
   font-size: 16px;
   line-height: 1.25;
   outline: 0;
-  background-color: #db2929;
+  background-color: #d42828;
   border-color: transparent;
   border-radius: 0.1875em;
   border-style: solid;
@@ -7595,9 +7595,9 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-68]:focus,
 .glamor-68[data-simulate-focus],
 [data-glamor-68][data-simulate-focus] {
-  background-color: #db2929;
+  background-color: #d42828;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
+  box-shadow: 0 0 0 1px #b81212;
   color: #fff;
   text-decoration: none;
 }
@@ -7615,7 +7615,7 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-68]:active,
 .glamor-68[data-simulate-active],
 [data-glamor-68][data-simulate-active] {
-  background-color: #c71818;
+  background-color: #b81212;
   color: #fff;
 }
 
@@ -7827,7 +7827,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-128,
 [data-glamor-128] {
   box-sizing: border-box;
-  color: #06783f;
+  color: #088a3c;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -7862,8 +7862,8 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-128][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #0a8f4c;
-  color: #06783f;
+  box-shadow: 0 0 0 1px #067532;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -7872,7 +7872,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-128[data-simulate-hover],
 [data-glamor-128][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #06783f;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -7881,7 +7881,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-128[data-simulate-active],
 [data-glamor-128][data-simulate-active] {
   background-color: #dde3ed;
-  color: #06783f;
+  color: #088a3c;
 }
 
 .glamor-128::-moz-focus-inner,
@@ -7916,7 +7916,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-191,
 [data-glamor-191] {
   box-sizing: border-box;
-  color: #cf4615;
+  color: #b36200;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -7951,8 +7951,8 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-191][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #cf4615;
-  color: #cf4615;
+  box-shadow: 0 0 0 1px #9c5600;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -7961,7 +7961,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-191[data-simulate-hover],
 [data-glamor-191][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #cf4615;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -7970,7 +7970,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-191[data-simulate-active],
 [data-glamor-191][data-simulate-active] {
   background-color: #dde3ed;
-  color: #cf4615;
+  color: #b36200;
 }
 
 .glamor-191::-moz-focus-inner,
@@ -8005,7 +8005,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-65,
 [data-glamor-65] {
   box-sizing: border-box;
-  color: #db2929;
+  color: #d42828;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -8040,8 +8040,8 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-65][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
-  color: #db2929;
+  box-shadow: 0 0 0 1px #b81212;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -8050,7 +8050,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-65[data-simulate-hover],
 [data-glamor-65][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #db2929;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -8059,7 +8059,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-65[data-simulate-active],
 [data-glamor-65][data-simulate-active] {
   background-color: #dde3ed;
-  color: #db2929;
+  color: #d42828;
 }
 
 .glamor-65::-moz-focus-inner,
@@ -8269,7 +8269,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-134,
 [data-glamor-134] {
   box-sizing: border-box;
-  color: #06783f;
+  color: #088a3c;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -8303,8 +8303,8 @@ exports[`Button demo examples states 1`] = `
 .glamor-134[data-simulate-focus],
 [data-glamor-134][data-simulate-focus] {
   border-color: #fff;
-  box-shadow: 0 0 0 1px #0a8f4c;
-  color: #06783f;
+  box-shadow: 0 0 0 1px #067532;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -8313,7 +8313,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-134[data-simulate-hover],
 [data-glamor-134][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #06783f;
+  color: #088a3c;
   text-decoration: none;
 }
 
@@ -8322,7 +8322,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-134[data-simulate-active],
 [data-glamor-134][data-simulate-active] {
   background-color: #ebeff5;
-  color: #06783f;
+  color: #088a3c;
 }
 
 .glamor-134::-moz-focus-inner,
@@ -8357,7 +8357,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-197,
 [data-glamor-197] {
   box-sizing: border-box;
-  color: #cf4615;
+  color: #b36200;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -8391,8 +8391,8 @@ exports[`Button demo examples states 1`] = `
 .glamor-197[data-simulate-focus],
 [data-glamor-197][data-simulate-focus] {
   border-color: #fff;
-  box-shadow: 0 0 0 1px #cf4615;
-  color: #cf4615;
+  box-shadow: 0 0 0 1px #9c5600;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -8401,7 +8401,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-197[data-simulate-hover],
 [data-glamor-197][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #cf4615;
+  color: #b36200;
   text-decoration: none;
 }
 
@@ -8410,7 +8410,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-197[data-simulate-active],
 [data-glamor-197][data-simulate-active] {
   background-color: #ebeff5;
-  color: #cf4615;
+  color: #b36200;
 }
 
 .glamor-197::-moz-focus-inner,
@@ -8445,7 +8445,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-71,
 [data-glamor-71] {
   box-sizing: border-box;
-  color: #db2929;
+  color: #d42828;
   font-family: Open Sans, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.25;
@@ -8479,8 +8479,8 @@ exports[`Button demo examples states 1`] = `
 .glamor-71[data-simulate-focus],
 [data-glamor-71][data-simulate-focus] {
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
-  color: #db2929;
+  box-shadow: 0 0 0 1px #b81212;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -8489,7 +8489,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-71[data-simulate-hover],
 [data-glamor-71][data-simulate-hover] {
   background-color: #f5f7fa;
-  color: #db2929;
+  color: #d42828;
   text-decoration: none;
 }
 
@@ -8498,7 +8498,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-71[data-simulate-active],
 [data-glamor-71][data-simulate-active] {
   background-color: #ebeff5;
-  color: #db2929;
+  color: #d42828;
 }
 
 .glamor-71::-moz-focus-inner,
@@ -8660,7 +8660,7 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-119][data-simulate-focus] {
   background-color: #ebeff5;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
+  box-shadow: 0 0 0 1px #b81212;
   color: #afbacc;
   text-decoration: none;
 }
@@ -8745,9 +8745,9 @@ exports[`Button demo examples states 1`] = `
 [data-glamor-122]:focus,
 .glamor-122[data-simulate-focus],
 [data-glamor-122][data-simulate-focus] {
-  background-color: #db2929;
+  background-color: #d42828;
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
+  box-shadow: 0 0 0 1px #b81212;
   color: #afbacc;
   text-decoration: none;
 }
@@ -8833,7 +8833,7 @@ exports[`Button demo examples states 1`] = `
 .glamor-125[data-simulate-focus],
 [data-glamor-125][data-simulate-focus] {
   border-color: #fff;
-  box-shadow: 0 0 0 1px #c71818;
+  box-shadow: 0 0 0 1px #b81212;
   color: #afbacc;
   text-decoration: none;
 }

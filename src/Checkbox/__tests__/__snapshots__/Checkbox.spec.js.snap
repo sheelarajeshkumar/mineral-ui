@@ -3680,13 +3680,13 @@ exports[`Checkbox demo examples form-field 1`] = `
 
 .glamor-0,
 [data-glamor-0] {
-  color: #db2929;
+  color: #d42828;
   font-size: 0.6875em;
 }
 
 .glamor-28,
 [data-glamor-28] {
-  color: #06783f;
+  color: #088a3c;
   font-size: 0.6875em;
   margin-top: 0.7272727272727273em;
 }
