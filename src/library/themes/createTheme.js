@@ -6,19 +6,17 @@ import pxToEm from '../styles/pxToEm';
 
 type Colors =
   | 'blue'
+  | 'bronze'
   | 'dusk'
   | 'gray'
   | 'green'
   | 'indigo'
-  | 'lime'
   | 'magenta'
-  | 'orange'
   | 'purple'
   | 'red'
   | 'sky'
   | 'slate'
-  | 'teal'
-  | 'yellow';
+  | 'teal';
 
 const spacing_quarter = pxToEm(2);
 const spacing_half = pxToEm(4);
@@ -28,7 +26,7 @@ const spacing_3x = pxToEm(24);
 const spacing_4x = pxToEm(32);
 const spacing_8x = pxToEm(64);
 
-const grays = createColorRamp('gray', 'color_gray', color);
+const grayRamp = createColorRamp('gray', 'color_gray', color);
 
 export default function createTheme(
   baseColor?: Colors = 'blue',
@@ -36,63 +34,77 @@ export default function createTheme(
 ): { [string]: any } {
   /* Theme key naming convention:
    *
-   *   [property]_[target]_[variant]_[state]
+   *   [target]_[property]_[variation]_[state]
    *
-   * E.g., A key for the border-color on focused "success" buttons and inputs
-   * would look like the following.
+   * E.g., A key for the background color on disabled inputs with a 'success'
+   * variant would look like:
    *
-   *   borderColor_success_focus
+   *   input_backgroundColor_success_disabled
    *
    * Only [property] is required. Irrelevant parts are skipped.
    */
 
-  const primaries = createColorRamp(baseColor, 'color_theme', color);
+  const themeRamp = createColorRamp(baseColor, 'color_theme', color);
 
   // prettier-ignore
   return {
-    backgroundColor_disabled: color.gray_20,
-    backgroundColor_danger: color.red_60,
-    backgroundColor_danger_muted: color.red_20,
-    backgroundColor_danger_active: color.red_70,
-    backgroundColor_danger_activeMuted: color.red_30,
-    backgroundColor_danger_focus: color.red_60,
-    backgroundColor_danger_hover: color.red_50,
-    backgroundColor_success: color.green_80,
-    backgroundColor_success_muted: color.green_20,
-    backgroundColor_success_active: color.green_90,
-    backgroundColor_success_activeMuted: color.green_30,
-    backgroundColor_success_focus: color.green_80,
-    backgroundColor_success_hover: color.green_70,
-    backgroundColor_warning: color.orange_60,
-    backgroundColor_warning_muted: color.orange_20,
-    backgroundColor_warning_active: color.orange_70,
-    backgroundColor_warning_activeMuted: color.orange_30,
-    backgroundColor_warning_focus: color.orange_60,
-    backgroundColor_warning_hover: color.orange_50,
-
-    backgroundColor_input: color.white,
-
-    backgroundColor_link_focus: color.gray_30,
+    backgroundColor_active: color.gray_20,
+    backgroundColor_disabled: color.gray_30,
+    backgroundColor_focus: color.gray_10,
+    backgroundColor_hover: color.gray_10,
+    backgroundColor_danger_active: color.red_20,
+    backgroundColor_danger_focus: color.red_10,
+    backgroundColor_danger_hover: color.red_10,
+    backgroundColor_dangerPrimary: color.red_60,
+    backgroundColor_dangerPrimary_active: color.red_70,
+    backgroundColor_dangerPrimary_focus: color.red_60,
+    backgroundColor_dangerPrimary_hover: color.red_50,
+    backgroundColor_success_active: color.green_20,
+    backgroundColor_success_focus: color.green_10,
+    backgroundColor_success_hover: color.green_10,
+    backgroundColor_successPrimary: color.green_60,
+    backgroundColor_successPrimary_active: color.green_70,
+    backgroundColor_successPrimary_focus: color.green_60,
+    backgroundColor_successPrimary_hover: color.green_50,
+    backgroundColor_theme_selected: themeRamp.color_theme_10,
+    backgroundColor_theme_selectedActive: themeRamp.color_theme_30,
+    backgroundColor_theme_selectedHover: themeRamp.color_theme_20,
+    backgroundColor_themePrimary: themeRamp.color_theme_60,
+    backgroundColor_themePrimary_active: themeRamp.color_theme_70,
+    backgroundColor_themePrimary_focus: themeRamp.color_theme_60,
+    backgroundColor_themePrimary_hover: themeRamp.color_theme_50,
+    backgroundColor_warning_active: color.bronze_20,
+    backgroundColor_warning_focus: color.bronze_10,
+    backgroundColor_warning_hover: color.bronze_10,
+    backgroundColor_warningPrimary: color.bronze_60,
+    backgroundColor_warningPrimary_active: color.bronze_70,
+    backgroundColor_warningPrimary_focus: color.bronze_60,
+    backgroundColor_warningPrimary_hover: color.bronze_50,
 
     borderColor: color.gray_40,
-    borderColor_active: primaries.color_theme_60,
-    borderColor_focus: primaries.color_theme_60,
-    borderColor_hover: primaries.color_theme_60,
+    borderColor_theme: themeRamp.color_theme_60,
+    borderColor_theme_active: themeRamp.color_theme_70,
+    borderColor_theme_focus: themeRamp.color_theme_70,
+    borderColor_theme_hover: themeRamp.color_theme_50,
     borderColor_danger: color.red_60,
     borderColor_danger_active: color.red_70,
     borderColor_danger_focus: color.red_70,
-    borderColor_danger_hover: color.red_70,
-    borderColor_danger_muted: color.red_40,
-    borderColor_success: color.green_70,
-    borderColor_success_active: color.green_80,
-    borderColor_success_focus: color.green_80,
-    borderColor_success_hover: color.green_80,
-    borderColor_success_muted: color.green_40,
-    borderColor_warning: color.orange_60,
-    borderColor_warning_active: color.orange_70,
-    borderColor_warning_focus: color.orange_70,
-    borderColor_warning_hover: color.orange_70,
-    borderColor_warning_muted: color.orange_40,
+    borderColor_danger_hover: color.red_50,
+    borderColor_success: color.green_60,
+    borderColor_success_active: color.green_70,
+    borderColor_success_focus: color.green_70,
+    borderColor_success_hover: color.green_50,
+    borderColor_warning: color.bronze_60,
+    borderColor_warning_active: color.bronze_70,
+    borderColor_warning_focus: color.bronze_70,
+    borderColor_warning_hover: color.bronze_50,
+
+    boxShadow_1: '0 1px 2px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.2)',
+    boxShadow_2: '0 2px 4px 0 rgba(0,0,0,0.2), 0 4px 8px 0 rgba(0,0,0,0.2)',
+    boxShadow_3: '0 4px 8px 0 rgba(0,0,0,0.2), 0 8px 16px 0 rgba(0,0,0,0.2)',
+    boxShadow_4: '0 8px 16px 0 rgba(0,0,0,0.2), 0 20px 16px -8px rgba(0,0,0,0.2)',
+    boxShadow_5: '0 16px 24px 0 rgba(0,0,0,0.2), 0 32px 24px -16px rgba(0,0,0,0.2)',
+    boxShadow_focusInner: color.white,
 
     borderRadius_1: pxToEm(3),
 
@@ -100,47 +112,29 @@ export default function createTheme(
     breakpoint_medium: 768,
     breakpoint_wide: 1024,
 
-    color_black: color.black,
-
-    color_caption: color.gray_80,
-
-    ...grays,
-
-    color_h1: color.gray_100,
-    color_h2: color.gray_80,
-    color_h3: color.gray_80,
-    color_h4: color.gray_80,
-    color_h5: color.gray_100,
-    color_h6: color.gray_80,
+    color: color.gray_100,
+    color_inverted: color.white,
+    color_disabled: color.gray_50,
+    color_danger: color.red_60,
+    color_danger_active: color.red_70,
+    color_danger_focus: color.red_60,
+    color_danger_hover: color.red_50,
     color_mouse: color.gray_80,
-    color_placeholder: color.gray_60,
-
-    ...primaries,
-
-    color_text: color.gray_100,
-    color_text_disabled: color.gray_50,
-    color_text_danger: color.red_60,
-    color_text_danger_active: color.red_70,
-    color_text_danger_focus: color.red_60,
-    color_text_danger_hover: color.red_50,
-    color_text_ondanger: color.white,
-    color_text_primary: primaries.color_theme_60,
-    color_text_primary_active: primaries.color_theme_70,
-    color_text_primary_focus: primaries.color_theme_60,
-    color_text_primary_hover: primaries.color_theme_50,
-    color_text_onprimary: color.white,
-    color_text_success: color.green_90,
-    color_text_success_active: color.green_100,
-    color_text_success_focus: color.green_90,
-    color_text_success_hover: color.green_80,
-    color_text_onsuccess: color.white,
-    color_text_warning: color.orange_70,
-    color_text_warning_active: color.orange_80,
-    color_text_warning_focus: color.orange_70,
-    color_text_warning_hover: color.orange_60,
-    color_text_onwarning: color.white,
-
-    color_white: color.white,
+    color_primary: color.white,
+    color_readOnly: color.gray_80,
+    color_required: color.red_60,
+    color_success: color.green_60,
+    color_success_active: color.green_70,
+    color_success_focus: color.green_60,
+    color_success_hover: color.green_50,
+    color_theme: themeRamp.color_theme_60,
+    color_theme_active: themeRamp.color_theme_70,
+    color_theme_focus: themeRamp.color_theme_60,
+    color_theme_hover: themeRamp.color_theme_50,
+    color_warning: color.bronze_60,
+    color_warning_active: color.bronze_70,
+    color_warning_focus: color.bronze_60,
+    color_warning_hover: color.bronze_50,
 
     direction: 'ltr',
 
@@ -149,12 +143,6 @@ export default function createTheme(
     fontFamily_monospace: '"SF Mono", "Droid Sans Mono", "Source Code Pro", Monaco, Consolas, "Courier New", Courier, monospace',
 
     fontSize_base,
-    fontSize_h1: pxToEm(34),
-    fontSize_h2: pxToEm(28),
-    fontSize_h3: pxToEm(22),
-    fontSize_h4: pxToEm(18),
-    fontSize_h5: pxToEm(14),
-    fontSize_h6: pxToEm(14),
     fontSize_mouse: pxToEm(11),
     fontSize_prose: pxToEm(16),
     fontSize_ui: pxToEm(14),
@@ -163,23 +151,11 @@ export default function createTheme(
     fontWeight_semiBold: 600,
     fontWeight_bold: 700,
     fontWeight_extraBold: 800,
-    fontWeight_h1: 800,
-    fontWeight_h2: 700,
-    fontWeight_h3: 700,
-    fontWeight_h4: 700,
-    fontWeight_h5: 700,
-    fontWeight_h6: 400,
 
     lineHeight: 1.25,
     lineHeight_heading: 1.25,
     lineHeight_heading_small: 1.5,
     lineHeight_prose: 1.5,
-
-    shadow_1: '0 1px 2px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.2)',
-    shadow_2: '0 2px 4px 0 rgba(0,0,0,0.2), 0 4px 8px 0 rgba(0,0,0,0.2)',
-    shadow_3: '0 4px 8px 0 rgba(0,0,0,0.2), 0 8px 16px 0 rgba(0,0,0,0.2)',
-    shadow_4: '0 8px 16px 0 rgba(0,0,0,0.2), 0 20px 16px -8px rgba(0,0,0,0.2)',
-    shadow_5: '0 16px 24px 0 rgba(0,0,0,0.2), 0 32px 24px -16px rgba(0,0,0,0.2)',
 
     size_small: pxToEm(24),
     size_medium: pxToEm(32),
@@ -211,6 +187,59 @@ export default function createTheme(
     zIndex_400: 400,
     zIndex_800: 800,
     zIndex_1600: 1600,
+
+    h1_color: color.gray_100,
+    h1_fontSize: pxToEm(34),
+    h1_fontWeight: 800,
+
+    h2_color: color.gray_80,
+    h2_fontSize: pxToEm(28),
+    h2_fontWeight: 700,
+
+    h3_color: color.gray_80,
+    h3_fontSize: pxToEm(22),
+    h3_fontWeight: 700,
+
+    h4_color: color.gray_80,
+    h4_fontSize: pxToEm(18),
+    h4_fontWeight: 700,
+
+    h5_color: color.gray_100,
+    h5_fontSize: pxToEm(14),
+    h5_fontWeight: 700,
+
+    h6_color: color.gray_80,
+    h6_fontSize: pxToEm(14),
+    h6_fontWeight: 400,
+
+    icon_color: color.gray_80,
+    icon_color_danger: color.red_60,
+    icon_color_success: color.green_60,
+    icon_color_theme: themeRamp.color_theme_60,
+    icon_color_warning: color.bronze_60,
+
+    input_backgroundColor: color.white,
+    input_backgroundColor_disabled: color.gray_20,
+
+    panel_backgroundColor: color.white,
+    panel_backgroundColor_inverted: color.gray_90,
+    panel_borderColor: color.gray_20,
+    panel_borderColor_inverted: color.gray_90,
+
+    placeholder_color: color.gray_60,
+
+    well_backgroundColor: color.gray_20,
+    well_backgroundColor_danger: color.red_20,
+    well_backgroundColor_success: color.green_20,
+    well_backgroundColor_warning: color.bronze_20,
+    well_borderColor_danger: color.red_40,
+    well_borderColor_success: color.green_40,
+    well_borderColor_warning: color.bronze_40,
+
+    ...themeRamp,
+    color_white: color.white,
+    ...grayRamp,
+    color_black: color.black,
 
     ...overrides
   };
