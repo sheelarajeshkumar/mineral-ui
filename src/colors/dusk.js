@@ -1,15 +1,13 @@
 /* @flow */
 export default {
-  dusk_10: '#eff1f8',
-  dusk_20: '#d8dced',
-  dusk_30: '#bdc4de',
-  dusk_40: '#99a3c4',
-  dusk_50: '#7680a6',
-  dusk_60: '#596387',
-  dusk_70: '#454e6e',
-  dusk_80: '#373f59',
-  dusk_90: '#2c3247',
-  dusk_100: '#24293b',
-
-  a11y_text_light: [60, 70, 80, 90, 100]
+  dusk_10: '#e6e1f2',
+  dusk_20: '#d3c9f0',
+  dusk_30: '#bdaee8',
+  dusk_40: '#a391d9',
+  dusk_50: '#8c7ac4',
+  dusk_60: '#7766aa',
+  dusk_70: '#665794',
+  dusk_80: '#584b80',
+  dusk_90: '#4d4170',
+  dusk_100: '#443a63'
 };
