@@ -52,8 +52,8 @@ export const componentTheme = (baseTheme: Object) => {
     background: baseTheme.color_white,
     regular: baseTheme.borderColor,
     checked: baseTheme.color_theme_60,
-    focus: baseTheme.color_theme_60,
-    hover: baseTheme.color_theme_70
+    focus: baseTheme.color_theme_70,
+    hover: baseTheme.color_theme_50
   };
 
   return {
