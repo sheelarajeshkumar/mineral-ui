@@ -1,6 +1,6 @@
 /* @flow */
 import React from 'react';
-import { componentTheme } from '../../../../library/TextArea/TextArea';
+import { componentTheme } from 'library/TextArea/TextArea';
 import bestPractices from './bestPractices';
 import examples from './examples';
 

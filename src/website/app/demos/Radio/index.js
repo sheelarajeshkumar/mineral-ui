@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react';
-import { componentTheme as radioComponentTheme } from '../../../../library/Radio/Radio';
-import { componentTheme as radioGroupComponentTheme } from '../../../../library/Radio/RadioGroup';
+import { componentTheme as radioComponentTheme } from 'library/Radio/Radio';
+import { componentTheme as radioGroupComponentTheme } from 'library/Radio/RadioGroup';
 import radioExamples from './examples/Radio';
 import radioGroupExamples from './examples/RadioGroup';
 import bestPractices from './bestPractices';

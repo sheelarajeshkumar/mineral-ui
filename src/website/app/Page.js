@@ -10,9 +10,9 @@ import {
   createStyledComponent,
   getNormalizedValue,
   pxToEm
-} from '../../library/styles';
-import { ThemeProvider } from '../../library/themes';
-import Button from '../../library/Button';
+} from 'library/styles';
+import { ThemeProvider } from 'library/themes';
+import Button from 'library/Button';
 import IconClose from 'mineral-ui-icons/IconClose';
 import IconMenu from 'mineral-ui-icons/IconMenu';
 import _Canvas from './Canvas';

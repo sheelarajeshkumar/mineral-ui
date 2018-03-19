@@ -1,5 +1,5 @@
 /* @flow */
-import { componentTheme } from '../../../../library/Tooltip/Tooltip';
+import { componentTheme } from 'library/Tooltip/Tooltip';
 import bestPractices from './bestPractices';
 import examples from './examples';
 

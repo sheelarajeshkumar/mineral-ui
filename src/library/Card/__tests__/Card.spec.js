@@ -2,8 +2,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Card from '../Card';
-import examples from '../../../website/app/demos/Card/examples';
-import testDemoExamples from '../../../../utils/testDemoExamples';
+import examples from 'website/app/demos/Card/examples';
+import testDemoExamples from 'utils/testDemoExamples';
 
 function shallowCard(props, children) {
   return shallow(<Card {...props}>{children}</Card>);

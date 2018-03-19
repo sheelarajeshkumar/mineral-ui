@@ -1,5 +1,5 @@
 /* @flow */
-import { componentTheme } from '../../../../library/Dropdown/Dropdown';
+import { componentTheme } from 'library/Dropdown/Dropdown';
 import examples from './examples';
 import bestPractices from './bestPractices';
 const doc = require('!!react-docgen-loader!../../../../library/Dropdown/Dropdown');

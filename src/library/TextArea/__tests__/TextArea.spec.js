@@ -1,10 +1,10 @@
 /* @flow */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { mountInThemeProvider } from '../../../../utils/enzymeUtils';
+import { mountInThemeProvider } from 'utils/enzymeUtils';
 import TextArea from '../TextArea';
-import examples from '../../../website/app/demos/TextArea/examples';
-import testDemoExamples from '../../../../utils/testDemoExamples';
+import examples from 'website/app/demos/TextArea/examples';
+import testDemoExamples from 'utils/testDemoExamples';
 
 function shallowTextArea(props = {}) {
   const textAreaProps = {

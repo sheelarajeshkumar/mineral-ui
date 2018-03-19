@@ -1,8 +1,8 @@
 /* @flow */
-import { componentTheme as menuDividerComponentTheme } from '../../../../library/Menu/MenuDivider';
-import { componentTheme as menuGroupComponentTheme } from '../../../../library/Menu/MenuGroup';
-import { componentTheme as menuGroupTitleComponentTheme } from '../../../../library/Menu/MenuGroupTitle';
-import { componentTheme as menuItemComponentTheme } from '../../../../library/Menu/MenuItem';
+import { componentTheme as menuDividerComponentTheme } from 'library/Menu/MenuDivider';
+import { componentTheme as menuGroupComponentTheme } from 'library/Menu/MenuGroup';
+import { componentTheme as menuGroupTitleComponentTheme } from 'library/Menu/MenuGroupTitle';
+import { componentTheme as menuItemComponentTheme } from 'library/Menu/MenuItem';
 import menuExamples from './examples/Menu';
 import menuDividerExamples from './examples/MenuDivider';
 import menuGroupExamples from './examples/MenuGroup';

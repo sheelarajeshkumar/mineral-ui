@@ -1,12 +1,12 @@
 /* @flow */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { mountInThemeProvider } from '../../../../utils/enzymeUtils';
+import { mountInThemeProvider } from 'utils/enzymeUtils';
 import Tooltip from '../Tooltip';
 import PopoverContent from '../../Popover/PopoverContent';
 import PopoverTrigger from '../../Popover/PopoverTrigger';
-import examples from '../../../website/app/demos/Tooltip/examples';
-import testDemoExamples from '../../../../utils/testDemoExamples';
+import examples from 'website/app/demos/Tooltip/examples';
+import testDemoExamples from 'utils/testDemoExamples';
 
 function shallowTooltip(props = {}) {
   const tooltipProps = {

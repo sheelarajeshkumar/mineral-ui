@@ -39,6 +39,9 @@ module.exports = {
       plugins.push(
         ['module-resolver', {
           alias: {
+            'library': './src/library',
+            'website': './src/website',
+            'utils': './utils',
             'mineral-ui': './src/library', // Used inside mineral-ui-icons components
             'mineral-ui-icons': './packages/mineral-ui-icons/src' // Used inside mineral-ui website
           }

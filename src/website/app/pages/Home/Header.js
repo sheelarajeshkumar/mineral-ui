@@ -1,12 +1,12 @@
 /* @flow */
 import React, { Component } from 'react';
 import Media from 'react-media';
-import colors from '../../../../library/colors';
-import { createStyledComponent, pxToEm } from '../../../../library/styles';
-import { createThemedComponent } from '../../../../library/themes';
-import Button from '../../../../library/Button';
+import colors from 'library/colors';
+import { createStyledComponent, pxToEm } from 'library/styles';
+import { createThemedComponent } from 'library/themes';
+import Button from 'library/Button';
 import IconArrowDropDown from 'mineral-ui-icons/IconArrowDropDown';
-import _Popover from '../../../../library/Popover';
+import _Popover from 'library/Popover';
 import Heading from '../../SiteHeading';
 import _Link from '../../SiteLink';
 import LogotypeHorizontal from '../../LogotypeHorizontal';

@@ -1,12 +1,12 @@
 /* @flow */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { mountInThemeProvider } from '../../../../utils/enzymeUtils';
+import { mountInThemeProvider } from 'utils/enzymeUtils';
 import { DropdownContent } from '../../Dropdown';
 import { MenuItem } from '../../Menu';
 import Select, { SelectTrigger } from '../../Select';
-import examples from '../../../website/app/demos/Select/examples';
-import testDemoExamples from '../../../../utils/testDemoExamples';
+import examples from 'website/app/demos/Select/examples';
+import testDemoExamples from 'utils/testDemoExamples';
 
 import type { Items } from '../../Menu/Menu';
 

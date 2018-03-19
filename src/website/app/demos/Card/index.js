@@ -1,11 +1,11 @@
 /* @flow */
-import { componentTheme as cardComponentTheme } from '../../../../library/Card/Card';
-import { componentTheme as cardActionsComponentTheme } from '../../../../library/Card/CardActions';
-import { componentTheme as cardBlockComponentTheme } from '../../../../library/Card/CardBlock';
-import { componentTheme as cardDividerComponentTheme } from '../../../../library/Card/CardDivider';
-import { componentTheme as cardFooterComponentTheme } from '../../../../library/Card/CardFooter';
-import { componentTheme as cardStatusComponentTheme } from '../../../../library/Card/CardStatus';
-import { componentTheme as cardTitleComponentTheme } from '../../../../library/Card/CardTitle';
+import { componentTheme as cardComponentTheme } from 'library/Card/Card';
+import { componentTheme as cardActionsComponentTheme } from 'library/Card/CardActions';
+import { componentTheme as cardBlockComponentTheme } from 'library/Card/CardBlock';
+import { componentTheme as cardDividerComponentTheme } from 'library/Card/CardDivider';
+import { componentTheme as cardFooterComponentTheme } from 'library/Card/CardFooter';
+import { componentTheme as cardStatusComponentTheme } from 'library/Card/CardStatus';
+import { componentTheme as cardTitleComponentTheme } from 'library/Card/CardTitle';
 
 import cardExamples from './examples/Card';
 import cardActionsExamples from './examples/CardActions';

@@ -1,9 +1,9 @@
 /* @flow */
 import React, { Component } from 'react';
-import { red } from '../../library/colors';
-import { createStyledComponent } from '../../library/styles';
-import { createThemedComponent } from '../../library/themes';
-import _Button from '../../library/Button';
+import { red } from 'library/colors';
+import { createStyledComponent } from 'library/styles';
+import { createThemedComponent } from 'library/themes';
+import _Button from 'library/Button';
 import Heading from './Heading';
 
 type Props = {

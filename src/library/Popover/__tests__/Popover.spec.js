@@ -1,13 +1,13 @@
 /* @flow */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { mountInThemeProvider } from '../../../../utils/enzymeUtils';
+import { mountInThemeProvider } from 'utils/enzymeUtils';
 import Popover from '../Popover';
 import PopoverArrow from '../PopoverArrow';
 import PopoverContent from '../PopoverContent';
 import PopoverTrigger from '../PopoverTrigger';
-import examples from '../../../website/app/demos/Popover/examples';
-import testDemoExamples from '../../../../utils/testDemoExamples';
+import examples from 'website/app/demos/Popover/examples';
+import testDemoExamples from 'utils/testDemoExamples';
 
 function shallowPopover(props = {}) {
   const popoverProps = {

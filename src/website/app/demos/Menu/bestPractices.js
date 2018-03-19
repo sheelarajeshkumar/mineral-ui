@@ -1,12 +1,8 @@
 /* @flow */
 import React from 'react';
-import { createStyledComponent, pxToEm } from '../../../../library/styles';
-import { mineralTheme } from '../../../../library/themes';
-import Menu, {
-  MenuDivider,
-  MenuGroup,
-  MenuItem
-} from '../../../../library/Menu';
+import { createStyledComponent, pxToEm } from 'library/styles';
+import { mineralTheme } from 'library/themes';
+import Menu, { MenuDivider, MenuGroup, MenuItem } from 'library/Menu';
 
 const DemoLayout = createStyledComponent('div', {
   '& > div': {

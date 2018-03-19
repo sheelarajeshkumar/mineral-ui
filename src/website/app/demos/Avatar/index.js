@@ -1,5 +1,5 @@
 /* @flow */
-import { componentTheme } from '../../../../library/Avatar/Avatar';
+import { componentTheme } from 'library/Avatar/Avatar';
 import bestPractices from './bestPractices';
 import examples from './examples';
 

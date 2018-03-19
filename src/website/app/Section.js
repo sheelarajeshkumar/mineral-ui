@@ -1,6 +1,6 @@
 /* @flow */
 import React, { Component } from 'react';
-import { createStyledComponent } from '../../library/styles';
+import { createStyledComponent } from 'library/styles';
 
 type Props = {
   angles?: Array<number>,

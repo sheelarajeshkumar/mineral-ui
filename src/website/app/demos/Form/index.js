@@ -1,8 +1,8 @@
 /* @flow */
 import React from 'react';
-import { componentTheme as formFieldComponentTheme } from '../../../../library/Form/FormField';
-import { componentTheme as formFieldsetComponentTheme } from '../../../../library/Form/FormFieldset';
-import { componentTheme as formFieldDividerComponentTheme } from '../../../../library/Form/FormFieldDivider';
+import { componentTheme as formFieldComponentTheme } from 'library/Form/FormField';
+import { componentTheme as formFieldsetComponentTheme } from 'library/Form/FormFieldset';
+import { componentTheme as formFieldDividerComponentTheme } from 'library/Form/FormFieldDivider';
 
 import formFieldExamples from './examples/FormField';
 import formFieldsetExamples from './examples/FormFieldset';

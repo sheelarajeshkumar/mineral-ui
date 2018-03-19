@@ -1,9 +1,6 @@
 /* @flow */
 import React from 'react';
-import {
-  createStyledComponent,
-  getNormalizedValue
-} from '../../library/styles';
+import { createStyledComponent, getNormalizedValue } from 'library/styles';
 
 type Props = {
   /** element used when rendering */

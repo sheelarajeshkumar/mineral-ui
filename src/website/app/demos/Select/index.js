@@ -1,5 +1,5 @@
 /* @flow */
-import { componentTheme } from '../../../../library/Select/Select';
+import { componentTheme } from 'library/Select/Select';
 import examples from './examples';
 import bestPractices from './bestPractices';
 const doc = require('!!react-docgen-loader!../../../../library/Select/Select');

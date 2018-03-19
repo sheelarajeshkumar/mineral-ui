@@ -1,9 +1,9 @@
 /* @flow */
 import React from 'react';
 import { shallow } from 'enzyme';
-import testDemoExamples from '../../../../utils/testDemoExamples';
-import Box from '../Box';
-import examples from '../../../website/app/demos/Box/examples';
+import testDemoExamples from 'utils/testDemoExamples';
+import Box from 'library/Box';
+import examples from 'website/app/demos/Box/examples';
 
 function shallowBox(props) {
   return shallow(<Box {...props} />);

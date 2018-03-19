@@ -1,6 +1,6 @@
 /* @flow */
 import React from 'react';
-import { componentTheme } from '../../../../library/TextInput/TextInput';
+import { componentTheme } from 'library/TextInput/TextInput';
 import bestPractices from './bestPractices';
 import examples from './examples';
 

@@ -1,5 +1,5 @@
 /* @flow */
-import { componentTheme } from '../../../../library/Icon/Icon';
+import { componentTheme } from 'library/Icon/Icon';
 import bestPractices from './bestPractices';
 import examples from './examples';
 

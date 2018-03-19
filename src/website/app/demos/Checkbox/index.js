@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react';
-import { componentTheme as checkboxComponentTheme } from '../../../../library/Checkbox/Checkbox';
-import { componentTheme as checkboxGroupComponentTheme } from '../../../../library/Checkbox/CheckboxGroup';
+import { componentTheme as checkboxComponentTheme } from 'library/Checkbox/Checkbox';
+import { componentTheme as checkboxGroupComponentTheme } from 'library/Checkbox/CheckboxGroup';
 import checkboxExamples from './examples/Checkbox';
 import checkboxGroupExamples from './examples/CheckboxGroup';
 import bestPractices from './bestPractices';

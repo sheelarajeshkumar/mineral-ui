@@ -1,7 +1,7 @@
 /* @flow */
 import React, { Children, cloneElement } from 'react';
-import { getColor, getReadableTextColor } from '../colors';
-import { createStyledComponent, pxToEm } from '../styles';
+import { getColor, getReadableTextColor } from 'library/colors';
+import { createStyledComponent, pxToEm } from 'library/styles';
 
 type Props = {
   /** When `children` is a string, this will be the rendered text */

@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react';
-import FormField from '../../../../library/Form/FormField';
-import TextInput from '../../../../library/TextInput/';
+import FormField from 'library/Form/FormField';
+import TextInput from 'library/TextInput/';
 import DemoLayout from './components/DemoLayout';
 
 export default [

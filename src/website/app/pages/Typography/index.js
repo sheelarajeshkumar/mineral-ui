@@ -5,7 +5,7 @@ import {
   createStyledComponent,
   getNormalizedValue,
   pxToEm
-} from '../../../../library/styles';
+} from 'library/styles';
 import Markdown from '../../Markdown';
 import {
   Table as _Table,

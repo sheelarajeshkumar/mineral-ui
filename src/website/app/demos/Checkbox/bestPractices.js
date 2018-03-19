@@ -1,9 +1,9 @@
 /* @flow */
 import React from 'react';
 import DemoForm from './components/DemoForm';
-import { FormField } from '../../../../library/Form';
-import Checkbox from '../../../../library/Checkbox';
-import { CheckboxGroup } from '../../../../library/Checkbox';
+import { FormField } from 'library/Form';
+import Checkbox from 'library/Checkbox';
+import { CheckboxGroup } from 'library/Checkbox';
 
 export default {
   checkbox: [

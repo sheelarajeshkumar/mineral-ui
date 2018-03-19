@@ -1,6 +1,6 @@
 /* @flow */
 import React, { Component } from 'react';
-import { createStyledComponent, getResponsiveStyles } from '../styles';
+import { createStyledComponent, getResponsiveStyles } from 'library/styles';
 
 type Props = {
   /**

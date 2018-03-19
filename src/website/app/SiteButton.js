@@ -1,7 +1,7 @@
 /* @flow */
-import { pxToEm } from '../../library/styles';
-import { createThemedComponent } from '../../library/themes';
-import Button from '../../library/Button';
+import { pxToEm } from 'library/styles';
+import { createThemedComponent } from 'library/themes';
+import Button from 'library/Button';
 
 // prettier-ignore
 const componentTheme = baseTheme => ({

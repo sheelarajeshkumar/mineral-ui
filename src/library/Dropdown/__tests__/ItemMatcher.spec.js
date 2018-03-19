@@ -1,6 +1,6 @@
 /* @flow */
 import ItemMatcher from '../ItemMatcher';
-import { statesData as items } from '../../../website/app/demos/Select/components/selectData';
+import { statesData as items } from 'website/app/demos/Select/components/selectData';
 
 describe('ItemMatcher', () => {
   describe('#findMatchingItem', () => {

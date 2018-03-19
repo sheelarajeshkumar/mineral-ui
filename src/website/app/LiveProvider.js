@@ -8,8 +8,8 @@ import {
   LiveError,
   LivePreview
 } from 'react-live';
-import { createStyledComponent } from '../../library/styles';
-import { ThemeProvider } from '../../library/themes';
+import { createStyledComponent } from 'library/styles';
+import { ThemeProvider } from 'library/themes';
 import getCodeBlockStyles from './utils/getCodeBlockStyles';
 import siteColors from './siteColors';
 

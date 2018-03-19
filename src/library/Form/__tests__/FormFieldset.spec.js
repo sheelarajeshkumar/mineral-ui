@@ -2,8 +2,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import FormFieldset from '../FormFieldset';
-import examples from '../../../website/app/demos/Form/examples/FormFieldset';
-import testDemoExamples from '../../../../utils/testDemoExamples';
+import examples from 'website/app/demos/Form/examples/FormFieldset';
+import testDemoExamples from 'utils/testDemoExamples';
 
 function shallowFormFieldset(props = {}) {
   const formFieldsetProps = {
