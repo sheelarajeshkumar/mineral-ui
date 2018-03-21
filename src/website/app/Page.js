@@ -297,13 +297,14 @@ const styles = {
     return wide
       ? {
           float: 'left',
-          overflow: 'auto',
+          // overflow: 'auto', // TEMP
           paddingRight: pxToEm(20), // room for scrollbar
           paddingTop: pxToEm(21), // Optical adjustment
           position: 'relative',
           textAlign: 'right',
           top: -1,
           width: theme.sidebarWidth,
+          zIndex: 1000, // TEMP
 
           '@supports(position:sticky)': {
             maxHeight: '100vh',

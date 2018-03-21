@@ -1,13 +1,15 @@
 /* @flow */
-import React from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { darken, rgba } from 'polished';
+import docsearch from 'docsearch.js';
 import {
   createStyledComponent,
   getNormalizedValue,
   pxToEm
 } from '../../library/styles';
 import { mineralTheme, ThemeProvider } from '../../library/themes';
+import TextInput from '../../library/TextInput';
 import _Logo from './Logo';
 import Heading from './SiteHeading';
 import _Link from './SiteLink';
@@ -17,7 +19,7 @@ import sections from './pages';
 type Props = {
   currentDemo?: string,
   demoRoutes: Array<DemoRoute>,
-  wide?: Boolean
+  wide?: boolean
 };
 
 type DemoRoute = {
@@ -236,45 +238,53 @@ const renderItem = (slug, title, wide) => (
   </ListItem>
 );
 
-export default function Nav({
-  currentDemo,
-  demoRoutes,
-  wide,
-  ...restProps
-}: Props) {
-  const rootProps = { ...restProps };
+export default class Nav extends Component<Props> {
+  componentDidMount() {
+    docsearch({
+      apiKey: '19daf6a94b20ab35bf01328de4e9a6bd',
+      indexName: 'mineral_ui',
+      inputSelector: '[data-algoliasearch]',
+      debug: true // Set debug to true if you want to inspect the dropdown
+    });
+  }
 
-  const demoLinks = demoRoutes.map(route => {
-    if (Array.isArray(route)) {
-      const open = route.filter(subRoute => subRoute.slug === currentDemo)
-        .length;
-      const subListProps = {
-        key: route[0].slug,
-        open,
-        wide
-      };
-      return (
-        <SubList {...subListProps}>
-          {route.map((subRoute, index) => {
-            const { slug, title } = subRoute;
-            return index === 0 || open ? renderItem(slug, title, wide) : null;
-          })}
-        </SubList>
-      );
-    } else {
-      const { slug, title } = route;
-      return renderItem(slug, title, wide);
-    }
-  });
+  render() {
+    const { currentDemo, demoRoutes, wide, ...restProps } = this.props;
+    const rootProps = { ...restProps };
 
-  return (
-    <ThemeProvider theme={wide ? navThemeWide : navTheme}>
-      <nav {...rootProps}>
-        <Logo wide={wide} />
-        {pages(wide)}
-        <SectionHeading wide={wide}>Components</SectionHeading>
-        <List>{demoLinks}</List>
-      </nav>
-    </ThemeProvider>
-  );
+    const demoLinks = demoRoutes.map(route => {
+      if (Array.isArray(route)) {
+        const open = route.filter(subRoute => subRoute.slug === currentDemo)
+          .length;
+        const subListProps = {
+          key: route[0].slug,
+          open,
+          wide
+        };
+        return (
+          <SubList {...subListProps}>
+            {route.map((subRoute, index) => {
+              const { slug, title } = subRoute;
+              return index === 0 || open ? renderItem(slug, title, wide) : null;
+            })}
+          </SubList>
+        );
+      } else {
+        const { slug, title } = route;
+        return renderItem(slug, title, wide);
+      }
+    });
+
+    return (
+      <ThemeProvider theme={wide ? navThemeWide : navTheme}>
+        <nav {...rootProps}>
+          <Logo wide={wide} />
+          <TextInput type="search" data-algoliasearch={true} />
+          {pages(wide)}
+          <SectionHeading wide={wide}>Components</SectionHeading>
+          <List>{demoLinks}</List>
+        </nav>
+      </ThemeProvider>
+    );
+  }
 }
