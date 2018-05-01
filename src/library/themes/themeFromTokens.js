@@ -2,8 +2,21 @@
 import colorAliases from 'mineral-ui-tokens/colorAliases';
 import pxToEm from '../styles/pxToEm';
 
-type Args = { themeRamp?: Ramp, tokens: Tokens };
-export type Ramp = { [string]: string };
+type Args = {
+  aliases?: { [string]: string },
+  colors?: Colors,
+  tokens: Tokens
+};
+type Colors = {
+  black?: string,
+  danger?: Ramp,
+  gray?: Ramp,
+  success?: Ramp,
+  theme?: Ramp,
+  warning?: Ramp,
+  white?: string
+};
+export type Ramp = { [number | string]: string, inflection?: number };
 export type Theme = Tokens;
 type Tokens = { [string]: number | string };
 
@@ -12,41 +25,58 @@ const contains = (string: string, subString: string) =>
 
 const remToEm = (value: string) => value.replace('rem', 'em');
 
-/*
- * Tokens can have "brand" values, e.g. `color_brand: 'brand_60'`. This creates
- * a map between those keys and the appropriate `color_theme` (60, above), which
- * is then used when a non-default base color is used to create a theme. In the
- * default case, the `color_brand` token's value is simply used directly.
- */
-const themeRampMap = Object.keys(colorAliases)
-  .filter((key) => key.indexOf('brand') !== -1)
-  .reduce((acc, key) => {
-    acc[key] = colorAliases[key].replace('brand', 'color_theme');
-    return acc;
-  }, {});
+export default function themeFromTokens({
+  aliases = colorAliases,
+  colors = {},
+  tokens
+}: Args): Theme {
+  const overriddenValue = (key, overrideKey) => {
+    const [, colorTint] = aliases[key].split('_'); // TODO: Produces string `'10'`
+    const override = colors[overrideKey];
+    const value = override[colorTint]; // TODO: This can expect key of `10` or `'10'`
+    if (!value) {
+      throw new Error(
+        `[mineral-ui/themes/createTheme]: colors.${overrideKey}[${colorTint}] is missing.
+See https://github.com/mineral-ui/mineral-ui/blob/master/packages/mineral-ui-tokens/src/blue.js for an example color ramp.`
+      );
+    }
+    return value;
+  };
 
-export default function themeFromTokens({ themeRamp, tokens }: Args): Theme {
+  const isTokenBasedOnRamp = (toMatch, overrideKey, tokenMatch) =>
+    toMatch &&
+    colors[overrideKey] &&
+    contains(toMatch, tokenMatch || overrideKey);
+
   return Object.keys(tokens).reduce((acc, key) => {
     const isBrandKey = contains(key, 'brand');
-    const value = tokens[key];
-
     const newKey = isBrandKey ? key.replace('brand', 'theme') : key;
-    let newValue = value;
+
+    let value = tokens[key];
 
     if (typeof value === 'string') {
-      if (isBrandKey) {
-        newValue = (themeRamp && themeRamp[themeRampMap[key]]) || tokens[key];
+      if (value.split('px').length === 2 && !contains(key, 'breakpoint')) {
+        value = pxToEm(value);
       } else if (contains(key, 'fontSize')) {
-        newValue = remToEm(value);
-      } else if (
-        value.split('px').length === 2 &&
-        !contains(key, 'breakpoint')
-      ) {
-        newValue = pxToEm(value);
+        value = remToEm(value);
+      } else if (isTokenBasedOnRamp(key, 'theme', 'brand')) {
+        value = overriddenValue(key, 'theme');
+      } else if (isTokenBasedOnRamp(key, 'danger')) {
+        value = overriddenValue(key, 'danger');
+      } else if (isTokenBasedOnRamp(key, 'success')) {
+        value = overriddenValue(key, 'success');
+      } else if (isTokenBasedOnRamp(key, 'warning')) {
+        value = overriddenValue(key, 'warning');
+      } else if (isTokenBasedOnRamp(aliases[key], 'gray')) {
+        value = overriddenValue(key, 'gray');
+      } else if (isTokenBasedOnRamp(aliases[key], 'black')) {
+        value = colors.black;
+      } else if (isTokenBasedOnRamp(aliases[key], 'white')) {
+        value = colors.white;
       }
     }
 
-    acc[newKey] = newValue;
+    acc[newKey] = value;
     return acc;
   }, {});
 }

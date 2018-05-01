@@ -63,12 +63,11 @@ export default function Theming(props: Props) {
       <Markdown scope={{ Button }}>{content}</Markdown>
       {groupedMineralTheme.map((group, index) => {
         const [title, values] = group;
-        const themeGroup = typeof values === 'function' ? values() : values;
         return (
           <div key={title}>
             {index > 0 && <Title id={title}>{title}</Title>}
             <Table
-              themeToDisplay={themeGroup}
+              themeToDisplay={values}
               value={getValue}
               valueColor={getColor}
             />

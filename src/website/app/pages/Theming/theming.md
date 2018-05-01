@@ -64,7 +64,7 @@ import { render } from 'react-dom';
 import Button from 'mineral-ui/Button';
 import { createTheme, ThemeProvider } from 'mineral-ui/themes';
 
-const myTheme = createTheme('dusk');
+const myTheme = createTheme({ colors: { theme: 'dusk' } });
 
 function App() {
   return (
@@ -112,14 +112,46 @@ const MyButton = createThemedComponent(Button, {
 });
 ```
 
-### `createTheme(baseColor, overrides)`
+### `createTheme(options)`
 
 This function is useful when you want to create a new theme that uses a different color scheme or otherwise overrides default values.
 
 **Parameters**
 
-* `baseColor`: Optional.  Default: 'blue'.  Color used to generate theme color scheme.  Value must be a valid [Mineral UI color](/color#guidelines-ramps).
-* `overrides`: Optional.  A shallow object of variables to be spread on to the default theme.  Useful to override default values.
+* `options`: Optional. An object with the following shape. All properties are optional.
+
+| Option           | Type            | Description                                    |
+|------------------|-----------------|------------------------------------------------|
+| `colors.danger`  | Palette or Ramp | Color used for all "danger" keys in the theme  |
+| `colors.theme`   | Palette or Ramp | Color used for all "theme" keys in the theme   |
+| `colors.success` | Palette or Ramp | Color used for all "success" keys in the theme |
+| `colors.warning` | Palette or Ramp | Color used for all "warning" keys in the theme |
+| `colors.black`   | string          | Color used for black in the theme              |
+| `colors.white`   | string          | Color used for black in the theme              |
+| `overrides`      | Object          | <key, value> pairs of specific theme overrides |
+
+**Types**
+
+* Palette: string matching a color ramp name in the Mineral UI [palette](/color#guidelines-ramps)
+* Ramp: Object matching this shape:
+
+  ```
+  const myRamp = {
+    10: '<color>',
+    20: '<color>',
+    30: '<color>',
+    40: '<color>',
+    50: '<color>',
+    60: '<color>',
+    70: '<color>',
+    80: '<color>',
+    90: '<color>',
+    100: '<color>',
+    inflection: 70
+  };
+  ```
+
+  Note the optional `inflection` key. Mineral UI's color ramps are designed to provide an [accessible level of contrast](/color#guidelines-accessibility). You'll notice that each ramp's text color changes from black to white at the `60` value. If your ramp has a different inflection point, you may use this key to define it.
 
 **Returns**
 
@@ -130,8 +162,9 @@ This function is useful when you want to create a new theme that uses a differen
 ```jsx
 import { createTheme } from 'mineral-ui/themes';
 
-const myTheme = createTheme('dusk', {
-  fontFamily: 'Comic Sans MS'
+const myTheme = createTheme({
+  colors: { theme: 'dusk' },
+  overrides: { fontFamily: 'Comic Sans MS' }
 });
 ```
 

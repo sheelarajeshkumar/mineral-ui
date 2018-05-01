@@ -97,8 +97,11 @@ const LeftColumn = createStyledComponent('div', styles.leftColumn);
 const RightColumn = createStyledComponent('div', styles.rightColumn);
 
 const mineralColor = 'blue';
-const defaultTheme = createTheme(mineralColor, {
-  ...breakpoints
+const defaultTheme = createTheme({
+  colors: { theme: mineralColor },
+  overrides: {
+    ...breakpoints
+  }
 });
 
 export default class PaletteDemo extends Component<Props, State> {
@@ -135,7 +138,7 @@ export default class PaletteDemo extends Component<Props, State> {
   }
 
   handleThemeChange = (color: Colors) => {
-    const newTheme = createTheme(color);
+    const newTheme = createTheme({ colors: { theme: color } });
     this.setState({ activeColor: color, theme: newTheme });
   };
 }

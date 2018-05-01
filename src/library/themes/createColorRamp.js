@@ -1,4 +1,6 @@
 /* @flow */
+import type { Ramp } from './themeFromTokens';
+
 /**
  * Generates an object of colors with renamed keys from a color palette.
  * This is primarily used to translate plain color objects into theme variables.
@@ -7,7 +9,7 @@
  * renamed.
  *
  * e.g.
- *    createColorRamp(color, 'color_theme', 'blue');
+ *    createColorRamp(palette, 'color_theme', 'blue');
  *
  *    returns
  *      {
@@ -24,12 +26,10 @@
  *      }
  */
 export default function createColorRamp(
-  colors: { [string]: any }, // The palette of colors
+  colors: Ramp, // The palette of colors
   outKey: string, // The key of the color in the returned object, excluding the index
   inKey?: string // The key of the color in the color palette, excluding the index
-): {
-  [string]: any
-} {
+): { [string]: string } {
   let keys = Object.keys(colors);
   let newKey = (key) => `${outKey}${key}`;
 
@@ -39,7 +39,7 @@ export default function createColorRamp(
     newKey = (key) => key.replace(REGEX_IN_KEY, outKey);
   }
 
-  return keys.reduce((acc, key) => {
+  return keys.filter((key) => key !== 'inflection').reduce((acc, key) => {
     acc[newKey(key)] = colors[key];
     return acc;
   }, {});

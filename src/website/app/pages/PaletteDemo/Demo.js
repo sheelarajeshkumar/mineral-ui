@@ -28,10 +28,10 @@ const menuData: ItemGroups = [
   {
     title: 'Menu Title',
     items: [
-      { text: 'Menu Item', iconEnd: <IconSpa /> },
-      { text: 'Menu Item', variant: 'success' },
+      { text: 'Item1', iconEnd: <IconSpa /> },
+      { text: 'Item2', variant: 'success' },
       { text: 'With icon', iconStart: <IconSpa />, variant: 'warning' },
-      { text: 'Menu Item', variant: 'danger' }
+      { text: 'Menu Item3', variant: 'danger' }
     ]
   }
 ];
