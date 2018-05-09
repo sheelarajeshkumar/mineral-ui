@@ -1,5 +1,6 @@
 /* @flow */
 import React from 'react';
+import withProps from 'recompose/withProps';
 import { NavLink } from 'react-router-dom';
 import { darken, rgba } from 'polished';
 import {
@@ -175,26 +176,23 @@ const styles = {
   }
 };
 
-const Link = createStyledComponent(_Link, styles.link, {
-  filterProps: ['wide']
-}).withProps({
+const Link = withProps({
   element: NavLink
-});
+})(
+  createStyledComponent(_Link, styles.link, {
+    filterProps: ['wide']
+  })
+);
 const List = createStyledComponent('ol', styles.list);
 const ListItem = createStyledComponent('li', styles.listItem);
-const SectionHeading = createStyledComponent(Heading, styles.heading).withProps(
-  {
-    as: 'h2',
-    level: 4
-  }
-);
+const SectionHeading = withProps({
+  as: 'h2',
+  level: 4
+})(createStyledComponent(Heading, styles.heading));
 const SubList = createStyledComponent('ol', styles.subList);
-const LogoHeading = createStyledComponent(
-  Heading,
-  styles.logoHeading
-).withProps({
+const LogoHeading = withProps({
   level: 1
-});
+})(createStyledComponent(Heading, styles.logoHeading));
 
 const Logo = (wide) => (
   <LogoHeading wide={wide}>

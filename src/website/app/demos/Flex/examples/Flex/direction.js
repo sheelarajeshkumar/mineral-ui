@@ -1,10 +1,11 @@
 /* @flow */
+import withProps from 'recompose/withProps';
 import { createStyledComponent } from '../../../../../../library/styles';
 import _DemoLayout from '../../components/DemoLayout';
 import FlexItem from '../../components/FlexItem';
 import _Flex from '../../components/Flex';
 
-const DemoLayout = _DemoLayout.withProps({ lastRowStartsAt: 3 });
+const DemoLayout = withProps({ lastRowStartsAt: 3 })(_DemoLayout);
 
 const Flex = createStyledComponent(_Flex, ({ direction }) => {
   return direction.indexOf('column') != -1

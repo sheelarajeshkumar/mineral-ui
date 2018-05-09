@@ -1,5 +1,6 @@
 /* @flow */
 import React from 'react';
+import withProps from 'recompose/withProps';
 import { createStyledComponent, getResponsiveStyles } from '../styles';
 import { FlexItem } from '../Flex';
 import type { Values } from '../Flex/Flex';
@@ -57,10 +58,12 @@ const styles = {
   }
 };
 
-const Root = createStyledComponent(FlexItem, styles.root, {
-  displayName: 'GridItem',
-  filterProps: ['alignSelf', 'grow', 'inline', 'width']
-}).withProps({ shrink: 0 });
+const Root = withProps({ shrink: 0 })(
+  createStyledComponent(FlexItem, styles.root, {
+    displayName: 'GridItem',
+    filterProps: ['alignSelf', 'grow', 'inline', 'width']
+  })
+);
 
 /**
  * GridItem is used within [Grid](/components/grid) to lay out other components

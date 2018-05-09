@@ -1,5 +1,6 @@
 /* @flow */
 import React from 'react';
+import withProps from 'recompose/withProps';
 import { createStyledComponent, pxToEm } from '../../../../library/styles';
 import Link from '../../SiteLink';
 import Section from './DocSection';
@@ -40,9 +41,9 @@ const styles = {
   })
 };
 
-const Root = createStyledComponent(Section, styles.subnav).withProps({
+const Root = withProps({
   element: 'nav'
-});
+})(createStyledComponent(Section, styles.subnav));
 const NavElement = createStyledComponent(Link, styles.navElement);
 
 export default function DocSubNav({

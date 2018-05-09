@@ -1,10 +1,11 @@
 /* @flow */
+import withProps from 'recompose/withProps';
 import { createStyledComponent } from '../../../../../../library/styles';
 import GridItem from '../../components/GridItem';
 import _DemoLayout from '../../components/DemoLayout';
 import _Grid from '../../components/Grid';
 
-const DemoLayout = _DemoLayout.withProps({ lastRowStartsAt: 5 });
+const DemoLayout = withProps({ lastRowStartsAt: 5 })(_DemoLayout);
 
 const Grid = createStyledComponent(_Grid, {
   height: '5rem'

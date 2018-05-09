@@ -1,5 +1,6 @@
 /* @flow */
 import React from 'react';
+import withProps from 'recompose/withProps';
 import {
   createStyledComponent,
   getNormalizedValue,
@@ -42,18 +43,20 @@ type BestPractice = {
 
 type Theme = (theme: Object) => Object;
 
-const StyledDocHeading = createStyledComponent(Heading, ({ theme }) => ({
-  marginBottom: 0,
-  paddingTop: getNormalizedValue(pxToEm(62), theme.SiteHeading_fontSize_2),
+const StyledDocHeading = withProps({ level: 2 })(
+  createStyledComponent(Heading, ({ theme }) => ({
+    marginBottom: 0,
+    paddingTop: getNormalizedValue(pxToEm(62), theme.SiteHeading_fontSize_2),
 
-  [theme.bp_moreSpacious]: {
-    fontSize: theme.SiteHeading_fontSize_2_wide,
-    paddingTop: getNormalizedValue(
-      pxToEm(80),
-      theme.SiteHeading_fontSize_2_wide
-    )
-  }
-})).withProps({ level: 2 });
+    [theme.bp_moreSpacious]: {
+      fontSize: theme.SiteHeading_fontSize_2_wide,
+      paddingTop: getNormalizedValue(
+        pxToEm(80),
+        theme.SiteHeading_fontSize_2_wide
+      )
+    }
+  }))
+);
 
 const DocHeading = ({
   children,

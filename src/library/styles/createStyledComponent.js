@@ -1,5 +1,6 @@
 /* @flow */
-import glamorous from 'glamorous';
+import styled from 'react-emotion';
+// import isPropValid from '@emotion/is-prop-valid';
 import componentStyleReset from './componentStyleReset';
 
 export default function createStyledComponent(
@@ -8,24 +9,34 @@ export default function createStyledComponent(
     | React$ComponentType<*>
     | string,
   styles: Object | ((props: Object, context?: Object) => Object),
-  options?: Object = {}
+  options?: {
+    displayName?: string,
+    includeStyleReset?: boolean
+  } = {}
 ) {
-  const { includeStyleReset, ...restOptions } = options;
-  let outStyles;
+  const { displayName } = options;
+  const includeStyleReset = options.includeStyleReset || false;
 
-  if (includeStyleReset) {
-    outStyles = (props: Object, context?: Object): Object => {
-      const componentStyles =
-        typeof styles === 'function' ? styles(props, context) : styles;
+  const outStyles = (props: Object, context?: Object): Object => {
+    const componentStyles =
+      typeof styles === 'function' ? styles(props, context) : styles;
 
-      return {
-        ...componentStyleReset(props),
-        ...componentStyles
-      };
+    return {
+      ...(includeStyleReset ? componentStyleReset(props) : undefined),
+      ...componentStyles
     };
-  } else {
-    outStyles = styles;
+  };
+
+  if (displayName && typeof element !== 'string') {
+    element.displayName = displayName;
   }
 
-  return glamorous(element, restOptions)(outStyles);
+  return styled(element, {
+    ...(displayName ? { label: displayName } : undefined)
+    // shouldForwardProp: isPropValid
+    // shouldForwardProp: (prop) => {
+    //   console.log(prop);
+    //   return true;
+    // }
+  })(outStyles);
 }
