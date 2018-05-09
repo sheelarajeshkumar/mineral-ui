@@ -425,10 +425,10 @@ const styles = {
     }
   },
   heroCanvas: ({ theme }) => ({
-    backgroundColor: 'hsl(199,35%,31%)',
+    filter: 'url(/images/triangles.svg#duotone_peachypink)',
 
     [theme.bp_home_navCollapsedAndDown]: {
-      backgroundColor: 'hsl(199,35%,26%)',
+      filter: 'url(/images/triangles.svg#duotone_peachypink)',
       bottom: '-14.5em' // Matches change in Header margin due to open menu
     }
   }),
@@ -603,7 +603,7 @@ const LinkButton = createStyledComponent(SiteButton, styles.button).withProps({
   size: 'jumbo',
   type: null
 });
-const PlaygroundCanvas = createStyledComponent(Canvas, styles.playgroundCanvas);
+const PlaygroundCanvas = createThemedComponent(Canvas, styles.playgroundCanvas);
 const PlaygroundSection = createStyledComponent(
   Section,
   styles.playgroundSection
@@ -805,10 +805,10 @@ export default class Home extends Component<Props, State> {
         global.clearTimeout(this.rotateThemeTimer);
         this.rotateThemeTimer = undefined;
       }
-      const newIndex = index < playgroundThemes.length - 1 ? index + 1 : 0;
-      this.rotateThemeTimer = global.setTimeout(() => {
-        this.setThemeIndex(newIndex);
-      }, 12000);
+      // const newIndex = index < playgroundThemes.length - 1 ? index + 1 : 0;
+      // this.rotateThemeTimer = global.setTimeout(() => {
+      //   this.setThemeIndex(newIndex);
+      // }, 12000);
     }
   };
 
