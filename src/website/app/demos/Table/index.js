@@ -1,5 +1,5 @@
 /* @flow */
-import { componentTheme as tableComponentTheme } from '../../../../library/Table/Table';
+import { componentTheme as tableComponentTheme } from '../../../../library/Table/TableBase';
 import { componentTheme as tableCellComponentTheme } from '../../../../library/Table/TableCell';
 import { componentTheme as tableColumnHeaderComponentTheme } from '../../../../library/Table/TableColumnHeader';
 import { componentTheme as tableHeaderComponentTheme } from '../../../../library/Table/TableHeader';

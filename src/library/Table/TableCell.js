@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import { rtlTextAlign } from '../utils';
-import { TableContext } from './Table';
+import { TableContext } from './TableBase';
 
 type Props = {
   /** Rendered content */
@@ -27,7 +27,7 @@ export const componentTheme = (baseTheme: Object) => ({
   ...baseTheme
 });
 
-const styles = ({ noPadding, textAlign, theme: baseTheme, density }) => {
+const styles = ({ density, noPadding, textAlign, theme: baseTheme }) => {
   const theme = componentTheme(baseTheme);
   const fontSize = theme.TableCell_fontSize;
   const paddingHorizontal = getNormalizedValue(
@@ -86,6 +86,7 @@ export default class TableCell extends PureComponent<Props> {
   rootNode: React$ComponentType<*> = createRootNode(this.props);
 
   render() {
+    console.log('render TableCell', this.props.children);
     const { children, primary, ...restProps } = this.props;
 
     const Root = this.rootNode;
@@ -94,8 +95,8 @@ export default class TableCell extends PureComponent<Props> {
       <TableContext.Consumer>
         {({ density }) => {
           const rootProps = {
-            scope: primary ? 'row' : undefined,
             density,
+            scope: primary ? 'row' : undefined,
             ...restProps
           };
           return <Root {...rootProps}>{children}</Root>;

@@ -5,7 +5,7 @@ import { createThemedComponent, mapComponentThemes } from '../themes';
 import TableCell, {
   componentTheme as tableCellComponentTheme
 } from './TableCell';
-import { TableContext } from './Table';
+import { TableContext } from './TableBase';
 
 type Props = {
   /** Rendered content */
@@ -126,17 +126,18 @@ export default class TableColumnHeader extends PureComponent<Props> {
   rootNode: React$ComponentType<*> = createRootNode(this.props);
 
   render() {
+    console.log('render TableColumnHeader');
     const { children, label, ...restProps } = this.props;
 
     const Root = this.rootNode;
 
     return (
       <TableContext.Consumer>
-        {({ highContrast, density }) => {
+        {({ density, highContrast }) => {
           const rootProps = {
             'aria-label': label,
-            highContrast,
             density,
+            highContrast,
             ...restProps
           };
           return <Root {...rootProps}>{children}</Root>;

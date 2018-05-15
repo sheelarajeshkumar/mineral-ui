@@ -1,7 +1,7 @@
 /* @flow */
 import React, { PureComponent } from 'react';
 import { createStyledComponent } from '../styles';
-import { TableContext } from './Table';
+import { TableContext } from './TableBase';
 
 type Props = {
   /** Rendered content can be TD or TH */
@@ -93,6 +93,7 @@ const Root = createStyledComponent(
  */
 export default class TableRow extends PureComponent<Props> {
   render() {
+    console.log('render TableRow');
     const { children, ...restProps } = this.props;
     return (
       <TableContext.Consumer>
