@@ -29,6 +29,8 @@ type Props = {
   inputRef?: (node: ?React$Component<*, *>) => void,
   /** Props to be applied directly to the root element rather than the input */
   rootProps?: Object,
+  /** Visually hide label, but keep available for [assistive technologies](https://webaccess.berkeley.edu/resources/assistive-technology) */
+  hideLabel?: boolean,
   /** Indicates that the value of the input is invalid */
   invalid?: boolean,
   /** Label associated with the input element */
@@ -80,9 +82,8 @@ export const componentTheme = (baseTheme: Object) => {
 };
 
 const styles = {
-  control: ({ disabled, labelPosition, size, theme: baseTheme }) => {
+  control: ({ disabled, size, theme: baseTheme }) => {
     const theme = componentTheme(baseTheme);
-    const rtl = theme.direction === 'rtl';
     const backgroundColor = disabled
       ? theme.input_backgroundColor_disabled
       : theme.ChoiceControl_backgroundColor;
@@ -90,7 +91,6 @@ const styles = {
       size === 'jumbo'
         ? theme.ChoiceControl_size_jumbo
         : theme.ChoiceControl_size;
-    const labelPositionStart = labelPosition === 'start';
 
     return {
       alignItems: 'center',
@@ -105,14 +105,6 @@ const styles = {
       flex: 'none',
       height: controlDimensions,
       justifyContent: 'center',
-      marginLeft:
-        (labelPositionStart && !rtl) || (!labelPositionStart && rtl)
-          ? theme.ChoiceControl_marginHorizontal
-          : 0,
-      marginRight:
-        (labelPositionStart && !rtl) || (!labelPositionStart && rtl)
-          ? 0
-          : theme.ChoiceControl_marginHorizontal,
       width: controlDimensions,
 
       '& svg': {
@@ -177,7 +169,14 @@ const styles = {
       }
     };
   },
-  text: ({ disabled, justify, labelPosition, size, theme: baseTheme }) => {
+  text: ({
+    disabled,
+    hideLabel,
+    justify,
+    labelPosition,
+    size,
+    theme: baseTheme
+  }) => {
     const theme = componentTheme(baseTheme);
     const rtl = theme.direction === 'rtl';
     const labelPositionStart = labelPosition === 'start';
@@ -188,6 +187,14 @@ const styles = {
         size === 'small'
           ? theme.ChoiceText_fontSize_small
           : theme.ChoiceText_fontSize,
+      marginLeft:
+        (labelPositionStart && !rtl) || (!labelPositionStart && rtl)
+          ? 0
+          : theme.ChoiceControl_marginHorizontal,
+      marginRight:
+        (labelPositionStart && !rtl) || (!labelPositionStart && rtl)
+          ? theme.ChoiceControl_marginHorizontal
+          : 0,
 
       ...(justify
         ? {
@@ -200,7 +207,9 @@ const styles = {
                 ? 'auto'
                 : 0
           }
-        : {})
+        : undefined),
+
+      ...(hideLabel ? hideVisually() : undefined)
     };
   }
 };
@@ -222,10 +231,11 @@ const Choice = (props: Props) => {
   const {
     className,
     disabled,
-    justify,
+    hideLabel,
     iconChecked,
     inputRef,
     invalid,
+    justify,
     label,
     labelPosition,
     required,
@@ -257,12 +267,12 @@ const Choice = (props: Props) => {
 
   const controlProps = {
     disabled,
-    labelPosition,
     size
   };
 
   const textProps = {
     disabled,
+    hideLabel,
     justify,
     labelPosition,
     size
