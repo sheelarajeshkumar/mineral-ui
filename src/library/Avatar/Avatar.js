@@ -103,13 +103,8 @@ const Root = createStyledComponent(
  * Avatar provides a graphic representation of an identity. It can display an
  * image, text, or an [Icon](/components/icon).
  */
-export default function Avatar({
-  abbr,
-  children,
-  shape = 'circle',
-  size = 'large',
-  ...restProps
-}: Props) {
+export default function Avatar(props: Props) {
+  const { abbr, children, size, ...restProps } = props;
   let icon, noBackground, text;
 
   Children.map(children, (child) => {
@@ -125,7 +120,9 @@ export default function Avatar({
       child.type.displayName &&
       child.type.displayName.indexOf('Icon') != -1
     ) {
-      icon = cloneElement(child, { size: iconSize[size] });
+      icon = cloneElement(child, {
+        size: iconSize[size || this.defaultProps.size]
+      });
     } else {
       noBackground = true;
     }
@@ -134,10 +131,14 @@ export default function Avatar({
   const rootProps = {
     icon,
     noBackground,
-    shape,
     size,
     ...restProps
   };
 
   return <Root {...rootProps}>{text || icon || children}</Root>;
 }
+
+Avatar.defaultProps = {
+  shape: 'circle',
+  size: 'large'
+};

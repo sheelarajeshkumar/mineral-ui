@@ -89,17 +89,15 @@ const Root = createThemedComponent(Choice, ({ theme: baseTheme }) => {
  * are often used in [groups](/components/checkbox-group), wherein multiple options may be
  * selected.
  */
-export default function Checkbox({
-  className,
-  indeterminate,
-  inputRef,
-  labelPosition = 'end',
-  rootProps: otherRootProps,
-  size = 'large',
-  ...restProps
-}: Props) {
+export default function Checkbox(props: Props) {
+  const {
+    className,
+    indeterminate,
+    inputRef,
+    rootProps: otherRootProps,
+    ...restProps
+  } = props;
   const rootProps = {
-    labelPosition,
     iconChecked: indeterminate ? <IconIndeterminate /> : <IconChecked />,
     inputRef: (ref) => {
       if (ref) {
@@ -114,7 +112,6 @@ export default function Checkbox({
       className,
       ...otherRootProps
     },
-    size,
     type: 'checkbox',
     ...restProps // Note: Props are spread to input rather than Root
   };
@@ -122,4 +119,8 @@ export default function Checkbox({
   return <Root {...rootProps} />;
 }
 
+Checkbox.defaultProps = {
+  labelPosition: 'end',
+  size: 'large'
+};
 Checkbox.displayName = 'Checkbox';

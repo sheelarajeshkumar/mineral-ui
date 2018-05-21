@@ -62,20 +62,24 @@ const linkStyles = ({ variant, theme: baseTheme }) => {
 /**
  * The Link component creates a hyperlink to external pages, files, anchors on the same page, or another URL.
  */
-export default function Link({
-  children,
-  element = 'a',
-  variant = 'regular',
-  ...restProps
-}: Props) {
+export default function Link(props: Props) {
+  const { children, element, ...restProps } = props;
   const rootProps = {
-    variant,
     ...restProps
   };
-  const Root = createStyledComponent(element, linkStyles, {
-    displayName: 'Link',
-    filterProps: ['variant']
-  });
+  const Root = createStyledComponent(
+    element || this.defaultProps.element,
+    linkStyles,
+    {
+      displayName: 'Link',
+      filterProps: ['variant']
+    }
+  );
 
   return <Root {...rootProps}>{children}</Root>;
 }
+
+Link.defaultProps = {
+  element: 'a',
+  variant: 'regular'
+};

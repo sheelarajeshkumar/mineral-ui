@@ -226,23 +226,21 @@ const Control = createStyledComponent('span', styles.control);
 /**
  * Choice is base renderer for Checkbox and Radio.
  */
-export default function Choice({
-  checked,
-  className,
-  defaultChecked,
-  disabled,
-  justify,
-  iconChecked,
-  inputRef,
-  invalid,
-  label,
-  labelPosition = 'end',
-  required,
-  rootProps: otherRootProps,
-  size = 'large',
-  type,
-  ...restProps
-}: Props) {
+export default function Choice(props: Props) {
+  const {
+    className,
+    disabled,
+    justify,
+    iconChecked,
+    inputRef,
+    invalid,
+    label,
+    labelPosition,
+    required,
+    rootProps: otherRootProps,
+    size,
+    ...restProps
+  } = props;
   const rootProps = {
     className,
     disabled,
@@ -254,8 +252,6 @@ export default function Choice({
   const inputProps = {
     'aria-invalid': invalid,
     'aria-required': required,
-    checked,
-    defaultChecked,
     disabled,
     innerRef: (ref) => {
       if (inputRef) {
@@ -264,7 +260,6 @@ export default function Choice({
     },
     required,
     size,
-    type,
     ...restProps // Note: Props are spread to input rather than Root
   };
 
@@ -289,3 +284,8 @@ export default function Choice({
     </Root>
   );
 }
+
+Choice.defaultProps = {
+  labelPosition: 'end',
+  size: 'large'
+};

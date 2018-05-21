@@ -199,7 +199,9 @@ const ThemedRoot = withTheme(
  * Flex component is used together with [FlexItem](/components/flex-item) to lay out
  * other components in a flexible, and optionally responsive, manner.
  */
-const Flex = (props: Props) => <ThemedRoot {...props} />;
+export default function Flex(props: Props) {
+  return <ThemedRoot {...props} />;
+}
 
 Flex.defaultProps = {
   alignItems: 'stretch',
@@ -207,5 +209,3 @@ Flex.defaultProps = {
   gutterWidth: 'md',
   justifyContent: 'start'
 };
-
-export default Flex;

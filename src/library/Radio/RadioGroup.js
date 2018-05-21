@@ -70,10 +70,8 @@ const Root = createThemedComponent(ChoiceGroup, ({ theme: baseTheme }) => {
  *
  * RadioGroup allows users to select a single option from a list.
  */
-export default function RadioGroup({
-  rootProps: otherRootProps,
-  ...restProps
-}: Props) {
+export default function RadioGroup(props: Props) {
+  const { rootProps: otherRootProps, ...restProps } = props;
   const rootProps = {
     rootProps: {
       role: 'radiogroup',

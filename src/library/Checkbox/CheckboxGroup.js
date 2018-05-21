@@ -71,10 +71,8 @@ const Root = createThemedComponent(ChoiceGroup, ({ theme: baseTheme }) => {
  *
  * CheckboxGroup allows users to select multiple options from a list.
  */
-export default function CheckboxGroup({
-  rootProps: otherRootProps,
-  ...restProps
-}: Props) {
+export default function CheckboxGroup(props: Props) {
+  const { rootProps: otherRootProps, ...restProps } = props;
   const rootProps = {
     rootProps: {
       ...otherRootProps

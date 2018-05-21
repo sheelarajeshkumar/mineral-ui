@@ -71,11 +71,11 @@ const Root = createStyledComponent(Box, styles.root, {
  * FlexItem is used within [Flex](/components/flex) to lay out other components in
  * your app.
  */
-const FlexItem = (props: Props) => <Root {...props} />;
+export default function FlexItem(props: Props) {
+  return <Root {...props} />;
+}
 
 FlexItem.defaultProps = {
   grow: 0,
   shrink: 1
 };
-
-export default FlexItem;

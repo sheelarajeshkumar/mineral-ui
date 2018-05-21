@@ -54,12 +54,12 @@ const getGridItems = ({ breakpoints, children, columns, gutterWidth }) =>
  * Grid component is used together with [GridItem](/components/grid-item) to lay
  * out other components in a columnar, and optionally responsive, manner.
  */
-const Grid = (props: Props) => <Root {...props}>{getGridItems(props)}</Root>;
+export default function Grid(props: Props) {
+  return <Root {...props}>{getGridItems(props)}</Root>;
+}
 
 Grid.defaultProps = {
   alignItems: 'stretch', // Same as Flex
   columns: 12,
   gutterWidth: 'md' // Same as Flex
 };
-
-export default Grid;

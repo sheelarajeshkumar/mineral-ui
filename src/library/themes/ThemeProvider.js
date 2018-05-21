@@ -13,11 +13,13 @@ type Props = {
 /**
  * ThemeProvider provides a theme to the tree of components contained within.  See the [theming page](/theming) for more information.
  */
-export default function ThemeProvider({
-  children,
-  theme = mineralTheme
-}: Props) {
+export default function ThemeProvider(props: Props) {
+  const { children, theme } = props;
   return (
     <GlamorousThemeProvider theme={theme}>{children}</GlamorousThemeProvider>
   );
 }
+
+ThemeProvider.defaultProps = {
+  theme: mineralTheme
+};
