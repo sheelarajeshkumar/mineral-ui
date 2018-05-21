@@ -34,14 +34,15 @@ const Root = createStyledComponent('p', ({ variant, theme: baseTheme }) => {
   };
 });
 
-export default function Paragraph({
-  children,
-  variant = 'ui',
-  ...restProps
-}: Props) {
+export default function Paragraph(props: Props) {
+  const { children, variant, ...restProps } = props;
   return (
     <Root variant={variant} {...restProps}>
       {children}
     </Root>
   );
 }
+
+Paragraph.defaultProps = {
+  variant: 'ui'
+};

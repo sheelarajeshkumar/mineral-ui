@@ -75,12 +75,8 @@ const Anchor = createStyledComponent(Link, ({ theme }) => ({
   visibility: 'hidden'
 }));
 
-export default function SiteHeading({
-  anchor = true,
-  children,
-  id,
-  ...restProps
-}: siteHeadingProps) {
+export default function SiteHeading(props: siteHeadingProps) {
+  const { anchor, children, id, ...restProps } = props;
   const rootProps = {
     id,
     ...restProps
@@ -91,3 +87,7 @@ export default function SiteHeading({
     </SiteStyledHeading>
   );
 }
+
+SiteHeading.defaultProps = {
+  anchor: true
+};

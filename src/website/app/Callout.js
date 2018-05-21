@@ -122,12 +122,8 @@ const Title = createStyledComponent('h4', ({ variant, theme }) => ({
   margin: 0
 }));
 
-export default function Callout({
-  children,
-  className,
-  title = '💡 Info',
-  variant = 'regular'
-}: Props) {
+export default function Callout(props: Props) {
+  const { children, className, title, variant } = props;
   return (
     <Root className={className} variant={variant}>
       {title !== '' && <Title variant={variant}>{title}</Title>}
@@ -135,3 +131,8 @@ export default function Callout({
     </Root>
   );
 }
+
+Callout.defaultProps = {
+  title: '💡 Info',
+  variant: 'regular'
+};

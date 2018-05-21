@@ -6,11 +6,8 @@ type Props = {
   title?: string
 };
 
-export default function LogotypeHorizontal({
-  fill,
-  title = 'Mineral',
-  ...restProps
-}: Props) {
+export default function LogotypeHorizontal(props: Props) {
+  const { fill, title, ...restProps } = props;
   const fillColor = fill || 'currentColor';
   return (
     <svg
@@ -51,3 +48,7 @@ export default function LogotypeHorizontal({
     </svg>
   );
 }
+
+LogotypeHorizontal.defaultProps = {
+  title: 'Mineral'
+};
