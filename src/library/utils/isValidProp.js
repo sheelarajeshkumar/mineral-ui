@@ -1,11 +1,12 @@
 /* @flow */
 
-import htmlAttributes from 'react-html-attributes';
+import _htmlAttributes from 'react-html-attributes';
 import memoize from 'fast-memoize';
 import reactProps from './reactProps';
+import { settify } from './asSet';
 
 const REGEX_DATA_OR_ARIA = /^(data|aria)-/;
-const globalHtmlProps = htmlAttributes['*'];
+const htmlAttributes = settify(_htmlAttributes);
 const svgTags = htmlAttributes.elements.svg;
 const svgAttributes = htmlAttributes.svg;
 
@@ -14,11 +15,13 @@ const isComponent = (tag) => !isElement(tag);
 const isReactProp = (prop) => reactProps.includes(prop);
 const isDataOrAria = (prop) => REGEX_DATA_OR_ARIA.test(prop);
 const isSvgProp = (tag, prop) => {
-  return svgTags.includes(tag) && svgAttributes.includes(prop);
+  return svgTags.has(tag) && svgAttributes.has(prop);
 };
 const isHtmlProp = (tag, prop) => {
-  const tagHtmlProps = globalHtmlProps[tag] || [];
-  return globalHtmlProps.includes(prop) || tagHtmlProps.includes(prop);
+  return (
+    htmlAttributes['*'].has(prop) ||
+    (htmlAttributes[tag] && htmlAttributes[tag].has(prop))
+  );
 };
 
 const isValidProp = (tag: any, prop: string) =>
