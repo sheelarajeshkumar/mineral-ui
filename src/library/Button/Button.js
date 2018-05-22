@@ -305,7 +305,8 @@ function createRootNode(props: Props) {
   return createStyledComponent(element, styles.button, {
     displayName: 'Button',
     filterProps: filterProps(props),
-    includeStyleReset: true
+    includeStyleReset: true,
+    rootEl: element
   });
 }
 

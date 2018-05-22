@@ -53,19 +53,14 @@ const styles = {
   }),
   link: ({ theme, wide }) => {
     const fontSize = theme.fontSize_ui;
-    const styles = [
-      {
-        display: 'block',
-        fontWeight: theme.fontWeight_regular,
-        // top & bottom: results of `getNormalizedValue(pxToEm(5), fontSize)`
-        // (6px for bottom), rounded down for baseline alignment
-        padding: '0.35em 0 0.4em',
-        textDecoration: 'none'
-      }
-    ];
-
-    styles.push(
-      wide
+    return {
+      display: 'block',
+      fontWeight: theme.fontWeight_regular,
+      // top & bottom: results of `getNormalizedValue(pxToEm(5), fontSize)`
+      // (6px for bottom), rounded down for baseline alignment
+      padding: '0.35em 0 0.4em',
+      textDecoration: 'none',
+      ...(wide
         ? {
             paddingLeft: getNormalizedValue(pxToEm(8), fontSize),
             paddingRight: getNormalizedValue(pxToEm(8), fontSize),
@@ -101,10 +96,8 @@ const styles = {
                 width: getNormalizedValue(pxToEm(6), fontSize)
               }
             }
-          }
-    );
-
-    return styles;
+          })
+    };
   },
   list: {
     listStyle: 'none',
@@ -135,18 +128,13 @@ const styles = {
     }
   }),
   subList: ({ open, theme, wide }) => {
-    const styles = [
-      {
-        listStyle: 'none',
-        margin: 0,
-        padding: 0,
-        position: 'relative'
-      }
-    ];
-
-    if (open) {
-      styles.push(
-        wide
+    return {
+      listStyle: 'none',
+      margin: 0,
+      padding: 0,
+      position: 'relative',
+      ...(open
+        ? wide
           ? {
               '&::before': {
                 backgroundColor: rgba(theme.color_theme, 0.25),
@@ -169,10 +157,8 @@ const styles = {
                 width: pxToEm(6)
               }
             }
-      );
-    }
-
-    return styles;
+        : undefined)
+    };
   }
 };
 
