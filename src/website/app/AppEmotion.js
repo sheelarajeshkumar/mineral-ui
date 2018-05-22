@@ -15,7 +15,7 @@ import Router from './Router';
 import siteColors from './siteColors';
 import Loadable from './Loadable';
 
-// import * as Mineral from '../../library';
+import * as Mineral from '../../library';
 
 declare var GOOGLE_TRACKING_ID: string;
 
@@ -246,8 +246,8 @@ class App extends Component<Props> {
             {/* Test Loadable component  - works */}
             <AsyncButton>Async Button</AsyncButton>
 
-            {/* Testing basic mineral component rendering
-            <Mineral.Button>Yo</Mineral.Button>
+            {/* Testing basic mineral component rendering */}
+            {/* <Mineral.Button>Yo</Mineral.Button>
             <Mineral.Select
               data={[
                 { text: 'yo', value: 'yo' },

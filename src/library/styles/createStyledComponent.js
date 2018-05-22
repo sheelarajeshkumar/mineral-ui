@@ -1,7 +1,8 @@
 /* @flow */
+
 import styled from 'react-emotion';
-// import isPropValid from '@emotion/is-prop-valid';
 import componentStyleReset from './componentStyleReset';
+import isValidProp from '../utils/isValidProp';
 
 export default function createStyledComponent(
   element:
@@ -11,10 +12,13 @@ export default function createStyledComponent(
   styles: Object | ((props: Object, context?: Object) => Object),
   options?: {
     displayName?: string,
-    includeStyleReset?: boolean
+    filterProps?: Array<string>,
+    forwardProps?: Array<string>,
+    includeStyleReset?: boolean,
+    rootEl?: string // TODO: we pass in other things than string in some places
   } = {}
 ) {
-  const { displayName } = options;
+  const { displayName, filterProps = [], forwardProps = [], rootEl } = options;
   const includeStyleReset = options.includeStyleReset || false;
 
   const outStyles = (props: Object, context?: Object): Object => {
@@ -32,11 +36,18 @@ export default function createStyledComponent(
   }
 
   return styled(element, {
-    ...(displayName ? { label: displayName } : undefined)
-    // shouldForwardProp: isPropValid
-    // shouldForwardProp: (prop) => {
-    //   console.log(prop);
-    //   return true;
-    // }
+    ...(displayName ? { label: displayName } : undefined),
+    shouldForwardProp: (prop) => {
+      /*
+       * These props are filtered in Emotion's default implementation of
+       * shouldForwardProp, which this overrides.
+       */
+      const filteredProps = ['innerRef', 'theme'].concat(filterProps);
+      const isFiltered = filteredProps.includes(prop);
+      const isForwarded = forwardProps.includes(prop);
+      const tag = typeof element === 'string' ? element : rootEl;
+
+      return !isFiltered && (isForwarded || isValidProp(tag, prop));
+    }
   })(outStyles);
 }

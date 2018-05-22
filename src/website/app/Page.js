@@ -245,6 +245,7 @@ const styles = {
         paddingTop: pxToEm(53), // roughly theme.baseline_5
 
         '&::before': {
+          content: '""',
           left: `calc(-50vw + 50% - ${theme.SectionPaddingHorizontalWide} -
             ${parseFloat(theme.sidebarWidth) / 2}em)`, // [1]
           width: `calc(50vw - 50% + 2 * ${theme.SectionPaddingHorizontalWide} +
@@ -252,6 +253,7 @@ const styles = {
         },
 
         '&::after': {
+          content: '""',
           right: `calc(-50vw + 50% - ${magic + 1}%)`,
           width: `calc(50vw - 50% + 100% -
             ${theme.SectionPaddingHorizontalWide} + ${magic + 1}%)` // [1]
