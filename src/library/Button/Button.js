@@ -8,6 +8,8 @@ type Props = {
   children?: React$Node,
   /** Displays a circular Button */
   circular?: boolean,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Disables the Button */
   disabled?: boolean,
   /** Element to be used as the root node - e.g. `a` can be used to create a link that is styled like a Button */
@@ -336,6 +338,7 @@ export default class Button extends Component<Props> {
   render() {
     const {
       children,
+      css,
       iconStart,
       iconEnd,
       size = Button.defaultProps.size,
@@ -362,7 +365,7 @@ export default class Button extends Component<Props> {
       : null;
 
     return (
-      <Root {...rootProps}>
+      <Root {...rootProps} css={css}>
         <Inner>
           {startIcon}
           {children && <Content size={size}>{children}</Content>}
