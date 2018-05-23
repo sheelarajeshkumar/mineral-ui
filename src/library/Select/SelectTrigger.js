@@ -1,6 +1,7 @@
 /* @flow */
 import React, { Component } from 'react';
 import { ellipsis } from 'polished';
+import withProps from 'recompose/withProps';
 import IconDanger from '../Icon/IconDanger';
 import IconSuccess from '../Icon/IconSuccess';
 import IconWarning from '../Icon/IconWarning';
@@ -73,6 +74,7 @@ const styles = {
       display: 'flex',
       width: '100%',
 
+      // all icons
       '& [role="img"]': {
         display: 'block',
         color: theme.SelectIcon_color,
@@ -89,6 +91,7 @@ const styles = {
         }
       },
 
+      // the arrow icon
       '& :not([role="img"]) ~ [role="img"]': {
         color:
           disabled || readOnly
@@ -96,6 +99,7 @@ const styles = {
             : variant ? theme[`icon_color_${variant}`] : theme.SelectIcon_color
       },
 
+      // the variant icon
       '& :not([role="img"]) + [role="img"]:not(:last-of-type)': {
         color:
           disabled || readOnly
@@ -173,11 +177,14 @@ export default class SelectTrigger extends Component<Props> {
       jumbo: 14
     };
 
-    const Arrow = isOpen ? IconArrowDropdownUp : IconArrowDropdownDown;
-    const iconProps = {
-      css: { margin: pxToEm(iconMarginMap[size]) },
+    const ArrowIcon = isOpen ? IconArrowDropdownUp : IconArrowDropdownDown;
+    const Arrow = withProps({
       size: size === 'small' || size === 'medium' ? 'medium' : pxToEm(24)
-    };
+    })(
+      createStyledComponent(ArrowIcon, {
+        margin: pxToEm(iconMarginMap[size])
+      })
+    );
 
     const controlProps = {
       hasPlaceholder: !item,
@@ -192,7 +199,7 @@ export default class SelectTrigger extends Component<Props> {
 
     let rootProps = {
       afterItems: [
-        <Arrow {...iconProps} key="arrow" />,
+        <Arrow key="arrow" />,
         <input {...inputProps} key="input" />
       ],
       control: Trigger,
