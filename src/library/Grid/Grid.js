@@ -1,6 +1,5 @@
 /* @flow */
 import React, { Children, cloneElement } from 'react';
-import withProps from 'recompose/withProps';
 import { createStyledComponent } from '../styles';
 import Flex from '../Flex';
 
@@ -37,15 +36,14 @@ type Props = {
     | string
 };
 
-const Root = withProps({ wrap: true })(
-  createStyledComponent(
-    Flex,
-    { display: 'flex' },
-    {
-      displayName: 'Grid',
-      filterProps: ['direction', 'inline', 'justifyContent']
-    }
-  )
+const Root = createStyledComponent(
+  Flex,
+  { display: 'flex' },
+  {
+    displayName: 'Grid',
+    filterProps: ['direction', 'inline', 'justifyContent'],
+    withProps: { wrap: true }
+  }
 );
 
 const getGridItems = ({ breakpoints, children, columns, gutterWidth }) =>

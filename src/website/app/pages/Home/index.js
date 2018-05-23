@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import Media from 'react-media';
 import Helmet from 'react-helmet';
-import withProps from 'recompose/withProps';
 import { canUseDOM } from 'exenv';
 import darken from 'polished/lib/color/darken';
 import desaturate from 'polished/lib/color/desaturate';
@@ -577,9 +576,11 @@ const Root = createStyledComponent('div', styles.home, {
   includeStyleReset: true
 });
 // Markdown must come before all of the other Markdown-based components
-const Markdown = withProps({
-  anchors: false
-})(createStyledComponent(_Markdown, styles.markdown));
+const Markdown = createStyledComponent(_Markdown, styles.markdown, {
+  withProps: {
+    anchors: false
+  }
+});
 const SiteButton = createThemedComponent(_SiteButton, buttonTheme);
 const BlogLink = createStyledComponent(Link, styles.blogLink);
 const Button = createThemedComponent(_Button, buttonTheme);
@@ -587,9 +588,11 @@ const Buttons = createStyledComponent('div', styles.buttons);
 const ThemedCTALink = createThemedComponent(Link, CTALinkTheme);
 const CTALink = createStyledComponent(ThemedCTALink, styles.CTALink);
 const Feature = createStyledComponent('div', styles.feature);
-const FeatureImg = withProps({
-  alt: ''
-})(createStyledComponent('img', styles.featureImg));
+const FeatureImg = createStyledComponent('img', styles.featureImg, {
+  withProps: {
+    alt: ''
+  }
+});
 const FloatingMinerals = createStyledComponent('div', styles.floatingMinerals);
 const FeatureSection = createStyledComponent(Section, styles.featureSection);
 const GetStarted = createStyledComponent(Markdown, styles.getStarted);
@@ -613,16 +616,20 @@ const GuidelinesSection = createStyledComponent(
   Section,
   styles.guidelinesSection
 );
-const Hero = withProps({
-  element: 'header'
-})(createStyledComponent(Section, styles.hero));
+const Hero = createStyledComponent(Section, styles.hero, {
+  withProps: {
+    element: 'header'
+  }
+});
 const HeroCanvas = createStyledComponent(Canvas, styles.heroCanvas);
 const Intro = createStyledComponent(Markdown, styles.intro);
-const LinkButton = withProps({
-  element: Link,
-  size: 'jumbo',
-  type: null
-})(createStyledComponent(SiteButton, styles.button));
+const LinkButton = createStyledComponent(SiteButton, styles.button, {
+  withProps: {
+    element: Link,
+    size: 'jumbo',
+    type: null
+  }
+});
 const PlaygroundCanvas = createStyledComponent(Canvas, styles.playgroundCanvas);
 const PlaygroundSection = createStyledComponent(
   Section,
@@ -740,17 +747,25 @@ export default class Home extends Component<Props, State> {
                   themes={playgroundThemes}>
                   <Media query="(min-width: 23em)">
                     {(navExpanded) => {
-                      const PlaygroundButton = withProps({
-                        element: Link,
-                        iconStart: navExpanded ? <IconFavorite /> : undefined,
-                        primary: true,
-                        size: 'jumbo',
-                        type: null
-                      })(
-                        createStyledComponent(Button, {
+                      const PlaygroundButton = createStyledComponent(
+                        Button,
+                        {
                           ...styles.button,
                           fontFamily: 'inherit'
-                        })
+                        },
+                        {
+                          withProps: {
+                            element: Link,
+                            iconStart: navExpanded ? (
+                              <IconFavorite />
+                            ) : (
+                              undefined
+                            ),
+                            primary: true,
+                            size: 'jumbo',
+                            type: null
+                          }
+                        }
                       );
 
                       return (

@@ -1,6 +1,5 @@
 /* @flow */
 import React from 'react';
-import withProps from 'recompose/withProps';
 import {
   createStyledComponent,
   getNormalizedValue,
@@ -12,11 +11,9 @@ type Props = {
   children: string | React$Node
 };
 
-const Title = withProps({
-  anchors: true,
-  level: 3
-})(
-  createStyledComponent(Heading, ({ theme }) => ({
+const Title = createStyledComponent(
+  Heading,
+  ({ theme }) => ({
     margin: `0 0 ${getNormalizedValue(
       pxToEm(21 - 12), // to mid-baseline
       theme.SiteHeading_fontSize_3
@@ -47,7 +44,13 @@ const Title = withProps({
         theme.SiteHeading_fontSize_3_wide
       )
     }
-  }))
+  }),
+  {
+    withProps: {
+      anchors: true,
+      level: 3
+    }
+  }
 );
 
 export default function SiteSubHeading(props: Props) {

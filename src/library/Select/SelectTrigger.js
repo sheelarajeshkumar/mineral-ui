@@ -1,7 +1,6 @@
 /* @flow */
 import React, { Component } from 'react';
 import { ellipsis } from 'polished';
-import withProps from 'recompose/withProps';
 import IconDanger from '../Icon/IconDanger';
 import IconSuccess from '../Icon/IconSuccess';
 import IconWarning from '../Icon/IconWarning';
@@ -178,12 +177,16 @@ export default class SelectTrigger extends Component<Props> {
     };
 
     const ArrowIcon = isOpen ? IconArrowDropdownUp : IconArrowDropdownDown;
-    const Arrow = withProps({
-      size: size === 'small' || size === 'medium' ? 'medium' : pxToEm(24)
-    })(
-      createStyledComponent(ArrowIcon, {
+    const Arrow = createStyledComponent(
+      ArrowIcon,
+      {
         margin: pxToEm(iconMarginMap[size])
-      })
+      },
+      {
+        withProps: {
+          size: size === 'small' || size === 'medium' ? 'medium' : pxToEm(24)
+        }
+      }
     );
 
     const controlProps = {

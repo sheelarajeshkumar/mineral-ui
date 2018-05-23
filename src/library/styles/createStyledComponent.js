@@ -1,6 +1,7 @@
 /* @flow */
 
 import styled from 'react-emotion';
+import withPropsFn from 'recompose/withProps';
 import componentStyleReset from './componentStyleReset';
 import isValidProp from '../utils/isValidProp';
 
@@ -15,10 +16,17 @@ export default function createStyledComponent(
     filterProps?: Array<string>,
     forwardProps?: Array<string>,
     includeStyleReset?: boolean,
-    rootEl?: string // TODO: we pass in other things than string in some places
+    rootEl?: string, // TODO: we pass in other things than string in some places
+    withProps?: Object
   } = {}
 ) {
-  const { displayName, filterProps = [], forwardProps = [], rootEl } = options;
+  const {
+    displayName,
+    filterProps = [],
+    forwardProps = [],
+    rootEl,
+    withProps
+  } = options;
   const includeStyleReset = options.includeStyleReset || false;
 
   const outStyles = (props: Object, context?: Object): Object => {
@@ -35,7 +43,7 @@ export default function createStyledComponent(
     element.displayName = displayName;
   }
 
-  return styled(element, {
+  const styledComponent = styled(element, {
     ...(displayName ? { label: displayName } : undefined),
     shouldForwardProp: (prop) => {
       /*
@@ -50,4 +58,6 @@ export default function createStyledComponent(
       return !isFiltered && (isForwarded || isValidProp(tag, prop));
     }
   })(outStyles);
+
+  return withProps ? withPropsFn(withProps)(styledComponent) : styledComponent;
 }

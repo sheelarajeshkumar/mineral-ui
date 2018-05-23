@@ -1,6 +1,5 @@
 /* @flow */
 import React from 'react';
-import withProps from 'recompose/withProps';
 import * as Icons from 'mineral-ui-icons';
 import { createStyledComponent } from '../../../../../library/styles';
 import Figure from '../components/Figure';
@@ -8,13 +7,17 @@ import FigCaption from '../components/FigCaption';
 import FigContainer from '../components/FigContainer';
 import Heading from '../../../SiteHeading';
 
-const CategoryHeading = withProps({ as: 'h5', level: 4 })(
-  createStyledComponent(Heading, ({ theme }) => ({
+const CategoryHeading = createStyledComponent(
+  Heading,
+  ({ theme }) => ({
     borderTop: `1px solid ${theme.borderColor}`,
     paddingTop: theme.space_stack_lg,
     position: 'relative',
     textTransform: 'capitalize'
-  }))
+  }),
+  {
+    withProps: { as: 'h5', level: 4 }
+  }
 );
 
 const componentsByCategory: {

@@ -1,5 +1,4 @@
 /* @flow */
-import withProps from 'recompose/withProps';
 import {
   createStyledComponent,
   getNormalizedValue,
@@ -7,8 +6,9 @@ import {
 } from '../../../../library/styles';
 import Heading from '../../SiteHeading';
 
-export default withProps({ level: 3 })(
-  createStyledComponent(Heading, ({ theme }) => ({
+export default createStyledComponent(
+  Heading,
+  ({ theme }) => ({
     margin: `0 0 ${getNormalizedValue(
       pxToEm(21 - 12), // to mid-baseline
       theme.SiteHeading_fontSize_3
@@ -29,5 +29,8 @@ export default withProps({ level: 3 })(
         theme.SiteHeading_fontSize_3_wide
       )
     }
-  }))
+  }),
+  {
+    withProps: { level: 3 }
+  }
 );

@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import Media from 'react-media';
 import Helmet from 'react-helmet';
-import withProps from 'recompose/withProps';
 import noScroll from 'no-scroll';
 import lighten from 'polished/lib/color/lighten';
 import darken from 'polished/lib/color/darken';
@@ -367,12 +366,16 @@ const Canvas = createStyledComponent(_Canvas, styles.canvas);
 const Content = createStyledComponent('main', styles.content);
 const Dialog = createStyledComponent('div', styles.dialog);
 const Footer = createStyledComponent(_Footer, styles.footer);
-const Header = withProps({
-  element: 'header'
-})(createStyledComponent(Section, styles.header));
-const MenuButton = withProps({
-  circular: true
-})(createStyledComponent(Button, styles.menuButton));
+const Header = createStyledComponent(Section, styles.header, {
+  withProps: {
+    element: 'header'
+  }
+});
+const MenuButton = createStyledComponent(Button, styles.menuButton, {
+  withProps: {
+    circular: true
+  }
+});
 const Nav = createStyledComponent(_Nav, styles.nav, {
   filterProps: ['glitched']
 });
