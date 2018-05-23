@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import 'babel-polyfill';
 import ThemeProvider from '../library/themes/ThemeProvider';
 import App from './app/App';
-// import App from './app/AppEmotion';
 import demoRoutes from './app/demos/routes';
 require('./index.css');
 
