@@ -332,7 +332,9 @@ function getIcons({
 // The control node must be created outside of render, so that the entire DOM
 // element is replaced only when the control prop is changed.
 const createControlNode = (props: Props) => {
-  return createStyledComponent(props.control, styles.control);
+  return createStyledComponent(props.control, styles.control, {
+    displayName: 'Control'
+  });
 };
 
 /**
