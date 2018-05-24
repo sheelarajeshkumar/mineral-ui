@@ -16,7 +16,7 @@ export default function createStyledComponent(
     filterProps?: Array<string>,
     forwardProps?: Array<string>,
     includeStyleReset?: boolean,
-    rootEl?: string, // TODO: we pass in other things than string in some places
+    rootEl?: string,
     withProps?: Object
   } = {}
 ) {

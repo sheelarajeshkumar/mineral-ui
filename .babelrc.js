@@ -33,9 +33,7 @@ module.exports = {
       'transform-class-properties',
       'syntax-dynamic-import',
       ['emotion', {
-        // 'autoLabel': !isProduction, // Useless - everything goes through createStyledComponent
-        'hoist': isProduction,
-        // 'sourceMap': !isProduction // Useless - all point to createStyledComponent
+        'hoist': isProduction
       }]
     ];
 
@@ -66,8 +64,7 @@ module.exports = {
 
     if (isProduction) {
       plugins.push(
-        'babel-plugin-transform-react-constant-elements',
-        // 'babel-plugin-transform-react-inline-elements' incompatible with Emotion css prop
+        'babel-plugin-transform-react-constant-elements'
       );
 
       if (TARGET === 'website') {
