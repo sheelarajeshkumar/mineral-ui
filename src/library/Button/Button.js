@@ -8,6 +8,8 @@ type Props = {
   children?: React$Node,
   /** Displays a circular Button */
   circular?: boolean,
+  /** @Private - CSS className */
+  className?: string,
   /** @Private - Emotion css */
   css?: Object,
   /** Disables the Button */
@@ -331,13 +333,12 @@ export default class Button extends Component<Props> {
     }
   }
 
-  props: Props;
-
   rootNode: React$ComponentType<*> = createRootNode(this.props);
 
   render() {
     const {
       children,
+      className,
       css,
       iconStart,
       iconEnd,
@@ -365,7 +366,7 @@ export default class Button extends Component<Props> {
       : null;
 
     return (
-      <Root {...rootProps} css={css}>
+      <Root {...rootProps} className={className} css={css}>
         <Inner>
           {startIcon}
           {children && <Content size={size}>{children}</Content>}

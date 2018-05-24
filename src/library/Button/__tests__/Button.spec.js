@@ -1,6 +1,8 @@
 /* @flow */
 import React from 'react';
 import { shallow } from 'enzyme';
+import * as emotion from 'emotion';
+import { getStyles } from 'jest-emotion';
 import { mountInThemeProvider } from '../../../../utils/enzymeUtils';
 import Button from '../Button';
 import examples from '../../../website/app/demos/Button/examples';
@@ -36,6 +38,23 @@ describe('Button', () => {
     const button = shallowButton();
 
     expect(button.exists()).toEqual(true);
+  });
+
+  describe('Supports CSS props', () => {
+    it('css', () => {
+      const css = { color: 'red' };
+      shallowButton({ css });
+      const buttonStyles = getStyles(emotion);
+
+      expect(buttonStyles).toMatchSnapshot();
+    });
+
+    it('className', () => {
+      const className = 'test';
+      const button = shallowButton({ className });
+
+      expect(button.props().className).toContain(className);
+    });
   });
 
   it('calls onClick when clicked', () => {
