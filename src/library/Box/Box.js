@@ -8,6 +8,10 @@ type Props = {
    * "&#xfeff;[[Responsive-capable]](#responsive)&#xfeff;"
    */
   breakpoints?: Array<number | string>,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Rendered root HTML element */
   element?: string,
   /** Sets the box height. [[Responsive-capable]](#responsive) */
@@ -579,7 +583,8 @@ export default class Box extends Component<Props> {
 
   render() {
     const Root = this.rootNode;
+    const { css, className, ...rootProps } = this.props;
 
-    return <Root {...this.props} />;
+    return <Root {...rootProps} css={css} className={className} />;
   }
 }

@@ -3,6 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Avatar from '../Avatar';
 import examples from '../../../website/app/demos/Avatar/examples';
+import testCssProps from '../../../../utils/testCssProps';
 import testDemoExamples from '../../../../utils/testDemoExamples';
 
 function shallowAvatar(props = {}) {
@@ -11,6 +12,8 @@ function shallowAvatar(props = {}) {
 
 describe('Avatar', () => {
   testDemoExamples(examples);
+
+  testCssProps(Avatar);
 
   it('renders', () => {
     const avatar = shallowAvatar();

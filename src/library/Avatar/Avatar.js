@@ -14,6 +14,10 @@ type Props = {
   children: React$Node,
   /** Text color */
   color?: string,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Available shapes */
   shape?: 'circle' | 'rounded' | 'square',
   /** Available sizes */
@@ -106,6 +110,8 @@ const Root = createStyledComponent(
 export default function Avatar({
   abbr,
   children,
+  className,
+  css,
   shape = 'circle',
   size = 'large',
   ...restProps
@@ -139,5 +145,9 @@ export default function Avatar({
     ...restProps
   };
 
-  return <Root {...rootProps}>{text || icon || children}</Root>;
+  return (
+    <Root {...rootProps} className={className} css={css}>
+      {text || icon || children}
+    </Root>
+  );
 }
