@@ -177,7 +177,7 @@ const styles = {
         display: 'none'
       },
 
-      '&:focus,&[data-simulate-focus]': {
+      '&:focus': {
         '& ~ div:last-child': {
           borderColor: theme.FauxControl_borderColor_focus,
           boxShadow: theme.FauxControl_boxShadow_focus
@@ -201,20 +201,20 @@ const styles = {
       position: 'relative',
       zIndex: 1,
 
-      '&:hover,&[data-simulate-hover]': {
+      '&:hover': {
         '& > div:last-child': {
           borderColor: !disabled ? theme.FauxControl_borderColor_hover : null
         }
       },
 
-      '&:focus,&[data-simulate-focus]': {
+      '&:focus': {
         '& > div:last-child': {
           borderColor: !disabled ? theme.FauxControl_borderColor_focus : null,
           boxShadow: !disabled ? theme.FauxControl_boxShadow_focus : null
         }
       },
 
-      '&:active,&[data-simulate-active]': {
+      '&:active': {
         '& > div:last-child': {
           borderColor: theme.FauxControl_borderColor_active,
           boxShadow: disabled ? 'none' : theme.FauxControl_boxShadow_active
