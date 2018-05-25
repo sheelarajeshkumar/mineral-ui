@@ -3,7 +3,7 @@
 /*
  * React properties list
  *
- * Borrowed from MIT licensed Glamorous project, with modifications.
+ * Copied from MIT licensed Glamorous project, with modifications.
  * https://github.com/paypal/glamorous/blob/master/src/react-props.js
  * https://github.com/paypal/glamorous/blob/master/LICENSE
  */
@@ -24,7 +24,7 @@ export default {
   onFocusOut: true,
   className: true,
 
-  /* Events list copied from https://facebook.github.io/react/docs/events.html */
+  /* Events list copied from https://reactjs.org/docs/events.html */
 
   // Clipboard Events
   onCopy: true,
@@ -70,6 +70,18 @@ export default {
   onMouseOut: true,
   onMouseOver: true,
   onMouseUp: true,
+
+  // Pointer Events
+  onGotPointerCapture: true,
+  onLostPointerCapture: true,
+  onPointerCancel: true,
+  onPointerDown: true,
+  onPointerEnter: true,
+  onPointerLeave: true,
+  onPointerMove: true,
+  onPointerOut: true,
+  onPointerOver: true,
+  onPointerUp: true,
 
   // Selection Events
   onSelect: true,
