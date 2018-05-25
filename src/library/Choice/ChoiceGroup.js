@@ -12,6 +12,10 @@ type Props = {
   checked?: string | Array<string>,
   /** Mineral Checkbox or Radio components */
   children?: React$Node,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Data used to contruct Checkboxes, see [example](#data) */
   data?: Array<{ label: string | React$Element<*>, value: string }>,
   /**
@@ -96,6 +100,8 @@ const isChecked = (checked: string | Array<string>, value) => {
 export default function ChoiceGroup({
   checked,
   children,
+  className,
+  css,
   data,
   defaultChecked,
   inline,
@@ -149,5 +155,9 @@ export default function ChoiceGroup({
     });
   }
 
-  return <Root {...rootProps}>{inputs}</Root>;
+  return (
+    <Root {...rootProps} className={className} css={css}>
+      {inputs}
+    </Root>
+  );
 }

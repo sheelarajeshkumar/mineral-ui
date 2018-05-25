@@ -10,8 +10,10 @@ type Props = {
    * specified. See also: `defaultChecked`.
    */
   checked?: boolean,
-  /** @Private CSS className */
+  /** @Private - CSS className */
   className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Determines the position of the label relative to the control */
   labelPosition?: 'start' | 'end',
   /**
@@ -229,6 +231,7 @@ const Control = createStyledComponent('span', styles.control);
 export default function Choice({
   checked,
   className,
+  css,
   defaultChecked,
   disabled,
   justify,
@@ -244,7 +247,6 @@ export default function Choice({
   ...restProps
 }: Props) {
   const rootProps = {
-    className,
     disabled,
     justify,
     labelPosition,
@@ -282,7 +284,7 @@ export default function Choice({
   };
 
   return (
-    <Root {...rootProps}>
+    <Root {...rootProps} className={className} css={css}>
       <Input {...inputProps} />
       <Control {...controlProps}>{iconChecked}</Control>
       <Text {...textProps}>{label}</Text>

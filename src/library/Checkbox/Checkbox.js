@@ -14,8 +14,10 @@ type Props = {
    * specified. See also: `defaultChecked`.
    */
   checked?: boolean,
-  /** @Private CSS className */
+  /** @Private - CSS className */
   className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /**
    * Initial checked state of the checkbox; primarily for use with
    * uncontrolled components
@@ -91,6 +93,7 @@ const Root = createThemedComponent(Choice, ({ theme: baseTheme }) => {
  */
 export default function Checkbox({
   className,
+  css,
   indeterminate,
   inputRef,
   labelPosition = 'end',
@@ -119,7 +122,7 @@ export default function Checkbox({
     ...restProps // Note: Props are spread to input rather than Root
   };
 
-  return <Root {...rootProps} />;
+  return <Root {...rootProps} className={className} css={css} />;
 }
 
 Checkbox.displayName = 'Checkbox';
