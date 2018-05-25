@@ -5,7 +5,7 @@ import * as emotion from 'emotion';
 import { getStyles } from 'jest-emotion';
 
 export default function testCssProps(Component: any) {
-  describe('Supports CSS props', () => {
+  fdescribe('Supports CSS props', () => {
     it('css', () => {
       const props = { css: { color: 'rebeccapurple' } };
       shallow(<Component {...props} />);
