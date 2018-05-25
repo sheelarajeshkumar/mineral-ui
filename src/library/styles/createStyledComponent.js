@@ -4,6 +4,7 @@ import styled from 'react-emotion';
 import withPropsFn from 'recompose/withProps';
 import componentStyleReset from './componentStyleReset';
 import isValidProp from '../utils/isValidProp';
+import { isDevelopment } from '../utils/nodeEnv';
 
 export default function createStyledComponent(
   element:
@@ -44,7 +45,7 @@ export default function createStyledComponent(
   }
 
   const styledComponent = styled(element, {
-    ...(displayName ? { label: displayName } : undefined),
+    ...(isDevelopment && displayName ? { label: displayName } : undefined),
     shouldForwardProp: (prop) => {
       /*
        * These props are filtered in Emotion's default implementation of
