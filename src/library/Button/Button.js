@@ -34,9 +34,9 @@ type Props = {
 
 // prettier-ignore
 export const componentTheme = (baseTheme: Object) => ({
-  Button_backgroundColor: baseTheme.color_gray_20,
-  Button_backgroundColor_active: baseTheme.color_gray_30,
-  Button_backgroundColor_focus: baseTheme.color_gray_20,
+  Button_backgroundColor: baseTheme.backgroundColor,
+  Button_backgroundColor_active: baseTheme.backgroundColor_active,
+  Button_backgroundColor_focus: baseTheme.backgroundColor_focus,
   Button_backgroundColor_hover: baseTheme.backgroundColor_hover,
   Button_backgroundColor_minimal_active: baseTheme.backgroundColor_active,
   Button_backgroundColor_minimal_hover: baseTheme.backgroundColor_hover,
@@ -45,10 +45,13 @@ export const componentTheme = (baseTheme: Object) => ({
   Button_backgroundColor_primary_focus: baseTheme.backgroundColor_themePrimary_focus,
   Button_backgroundColor_primary_hover: baseTheme.backgroundColor_themePrimary_hover,
   Button_borderColor: baseTheme.borderColor,
+  Button_borderColor_active: baseTheme.borderColor_theme_active,
+  Button_borderColor_focus: baseTheme.borderColor_theme_focus,
+  Button_borderColor_hover: baseTheme.borderColor_theme_hover,
   Button_borderRadius: baseTheme.borderRadius_1,
   Button_borderWidth: 1, // px
   Button_boxShadow_focus: `0 0 0 1px ${baseTheme.boxShadow_focusInner}, 0 0 0 2px ${baseTheme.borderColor_theme_focus}`,
-  Button_color: baseTheme.color,
+  Button_color: baseTheme.color_theme,
   Button_color_minimal: baseTheme.color_theme,
   Button_color_primary: baseTheme.color_themePrimary,
   Button_fontWeight: baseTheme.fontWeight_semiBold,
@@ -105,6 +108,9 @@ const styles = {
         Button_backgroundColor_primary_active: theme[`backgroundColor_${variant}Primary_active`],
         Button_backgroundColor_primary_focus: theme[`backgroundColor_${variant}Primary_focus`],
         Button_backgroundColor_primary_hover: theme[`backgroundColor_${variant}Primary_hover`],
+        Button_borderColor_active: theme[`borderColor_${variant}_active`],
+        Button_borderColor_focus: theme[`borderColor_${variant}_focus`],
+        Button_borderColor_hover: theme[`borderColor_${variant}_hover`],
         Button_boxShadow_focus: `0 0 0 1px ${theme.boxShadow_focusInner}, 0 0 0 2px ${theme[`borderColor_${variant}_focus`]}`,
         Button_color: theme[`color_${variant}`],
         Button_color_primary: theme[`color_${variant}Primary`],
@@ -161,7 +167,16 @@ const styles = {
             return theme.Button_backgroundColor_focus;
           }
         })(),
-        boxShadow: theme.Button_boxShadow_focus,
+        borderColor: (() => {
+          if (primary) {
+            return null;
+          } else if (minimal) {
+            return theme.Button_borderColor_focus;
+          } else {
+            return theme.Button_borderColor;
+          }
+        })(),
+        boxShadow: minimal ? null : theme.Button_boxShadow_focus,
         color,
         textDecoration: 'none'
       },
@@ -177,8 +192,23 @@ const styles = {
             }
           }
         })(),
+        borderColor:
+          disabled || minimal || primary
+            ? 'transparent'
+            : theme.Button_borderColor_hover,
         color,
         textDecoration: 'none'
+      },
+      '&:focus:active, &:focus:hover': {
+        borderColor: (() => {
+          if (primary) {
+            return 'transparent';
+          } else if (minimal) {
+            return theme.Button_borderColor_focus;
+          } else {
+            return theme.Button_borderColor;
+          }
+        })()
       },
       // `:active` must be last, to follow LVHFA order:
       // https://developer.mozilla.org/en-US/docs/Web/CSS/:active
@@ -191,6 +221,15 @@ const styles = {
               return theme.Button_backgroundColor_minimal_active;
             } else {
               return theme.Button_backgroundColor_active;
+            }
+          }
+        })(),
+        borderColor: (() => {
+          if (!disabled) {
+            if (minimal) {
+              return 'transparent';
+            } else {
+              return theme.Button_borderColor_active;
             }
           }
         })(),
