@@ -1,6 +1,7 @@
 /* @flow */
 import React, { Children } from 'react';
 import Flex, { FlexItem } from '../Flex';
+import { createStyledComponent } from '../styles';
 
 type Props = {
   /**
@@ -22,6 +23,8 @@ type Props = {
   /** @Private From Flex; filtered out */
   wrap?: any
 };
+
+const Root = createStyledComponent(Flex);
 
 /**
  * StartEnd provides a simple way to align components to the start and end of a
@@ -59,5 +62,5 @@ export default function StartEnd(props: Props) {
   }
 
   // $FlowFixMe - `direction` can't have the '-reverse' options from Flex
-  return <Flex {...rootProps}>{flexItems}</Flex>;
+  return <Root {...rootProps}>{flexItems}</Root>;
 }

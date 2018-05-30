@@ -19,12 +19,16 @@ type Props = {
    * and [React docs](https://reactjs.org/docs/render-props.html).
    */
   children: React$Node | RenderFn,
+  /** @Private - CSS className */
+  className?: string,
   /**
    * Content of the Popover. Optionally provides custom rendering control.
    * See the [custom content example](/components/popover#custom-content)
    * and [React docs](https://reactjs.org/docs/render-props.html).
    */
   content: $FlowFixMe | RenderFn,
+  /** @Private - Emotion css */
+  css?: Object,
   /**
    * Open the Popover upon initialization. Primarily for use with uncontrolled
    * components.
@@ -148,15 +152,16 @@ export default class Popover extends Component<Props, State> {
   popoverTrigger: ?React$Component<*, *>;
 
   render() {
+    const { className, css, ...restProps } = this.props;
     const isOpen = this.getControllableValue('isOpen');
 
     const rootProps = {
-      ...this.props,
+      ...restProps,
       tag: 'span'
     };
 
     return (
-      <Root {...rootProps}>
+      <Root {...rootProps} className={className || ''} css={css}>
         {this.renderTrigger()}
         {isOpen && this.renderContent()}
         {isOpen && (

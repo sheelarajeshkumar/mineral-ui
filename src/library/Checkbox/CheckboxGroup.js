@@ -15,6 +15,10 @@ type Props = {
   checked?: Array<string>,
   /** Mineral [Checkbox](/components/checkbox) components */
   children?: React$Node,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Data used to contruct [Checkboxes](/components/checkbox), see [example](#data) */
   data?: Array<{ label: string | React$Element<*>, value: string }>,
   /**
@@ -72,6 +76,8 @@ const Root = createThemedComponent(ChoiceGroup, ({ theme: baseTheme }) => {
  * CheckboxGroup allows users to select multiple options from a list.
  */
 export default function CheckboxGroup({
+  className,
+  css,
   rootProps: otherRootProps,
   ...restProps
 }: Props) {
@@ -84,7 +90,7 @@ export default function CheckboxGroup({
     ...restProps // Note: Props are spread to input rather than Root
   };
 
-  return <Root {...rootProps} />;
+  return <Root {...rootProps} className={className || ''} css={css} />;
 }
 
 CheckboxGroup.displayName = 'CheckboxGroup';

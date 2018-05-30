@@ -2,7 +2,12 @@
 import React from 'react';
 import { createStyledComponent } from '../styles';
 
-type Props = Object;
+type Props = {
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object
+};
 
 export const componentTheme = (baseTheme: Object) => ({
   FormFieldDivider_borderColor: baseTheme.borderColor,
@@ -35,5 +40,13 @@ const Root = createStyledComponent(
  * at related fields, without explicitly adding a legend.
  */
 export default function FormFieldDivider(props: Props) {
-  return <Root {...props} role="separator" />;
+  const { className, css, ...restProps } = props;
+  return (
+    <Root
+      {...restProps}
+      className={className || ''}
+      css={css}
+      role="separator"
+    />
+  );
 }

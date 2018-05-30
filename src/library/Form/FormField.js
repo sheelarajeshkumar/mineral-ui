@@ -14,6 +14,8 @@ type Props = {
   children?: React$Node,
   /** @Private CSS className */
   className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Visually hide label, but keep available for [assistive technologies](https://webaccess.berkeley.edu/resources/assistive-technology) */
   hideLabel?: boolean,
   /** Form input class; alternative to `children` */
@@ -137,6 +139,7 @@ export default class FormField extends Component<Props> {
       caption,
       children,
       className,
+      css,
       hideLabel,
       input,
       label,
@@ -149,7 +152,6 @@ export default class FormField extends Component<Props> {
     } = this.props;
 
     const rootProps = {
-      className,
       ...otherRootProps
     };
 
@@ -201,7 +203,7 @@ export default class FormField extends Component<Props> {
     }
 
     return (
-      <Root {...rootProps}>
+      <Root {...rootProps} className={className || ''} css={css}>
         <Label>
           <TextWrapper {...textWrapperProps}>
             <span {...labelTextProps}>{label}</span>

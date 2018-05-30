@@ -21,6 +21,10 @@ type Props = {
    * and [React docs](https://reactjs.org/docs/render-props.html).
    */
   children: React$Node | RenderFn,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /**
    * Data from which the [Menu](/components/menu#data) will be constructed
    * (see [example](#data))
@@ -153,6 +157,8 @@ export default class Dropdown extends Component<Props, State> {
   render() {
     const {
       children,
+      className,
+      css,
       data: ignoreData,
       item: ignoreItem,
       menu: ignoreMenu,
@@ -171,7 +177,7 @@ export default class Dropdown extends Component<Props, State> {
     };
 
     return (
-      <Root {...rootProps}>
+      <Root {...rootProps} className={className || ''} css={css}>
         {isRenderProp(children) ? this.renderTrigger : this.renderTrigger()}
       </Root>
     );

@@ -5,6 +5,10 @@ import { createStyledComponent } from '../styles';
 type Props = {
   /** Rendered content of the component, most likely [FormField](/components/form-field) */
   children?: React$Node,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Disable (visually) the fieldset */
   disabled?: boolean,
   /** Title of the fieldset */
@@ -56,11 +60,14 @@ const Root = createStyledComponent(
  */
 export default function FormFieldset({
   children,
+  className,
+  css,
+
   legend,
   ...restProps
 }: Props) {
   return (
-    <Root {...restProps}>
+    <Root {...restProps} className={className || ''} css={css}>
       {legend && <legend>{legend}</legend>}
       {children}
     </Root>

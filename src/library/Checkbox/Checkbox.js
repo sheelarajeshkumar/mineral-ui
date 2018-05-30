@@ -122,7 +122,7 @@ export default function Checkbox({
     ...restProps // Note: Props are spread to input rather than Root
   };
 
-  return <Root {...rootProps} className={className} css={css} />;
+  return <Root {...rootProps} className={className || ''} css={css} />;
 }
 
 Checkbox.displayName = 'Checkbox';

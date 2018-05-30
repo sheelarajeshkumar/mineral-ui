@@ -156,7 +156,7 @@ export default function ChoiceGroup({
   }
 
   return (
-    <Root {...rootProps} className={className} css={css}>
+    <Root {...rootProps} className={className || ''} css={css}>
       {inputs}
     </Root>
   );

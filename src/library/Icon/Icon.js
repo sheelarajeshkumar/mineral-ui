@@ -8,6 +8,10 @@ type Props = {
   size?: 'small' | 'medium' | 'large' | string,
   /** SVG content, required for the generic Icon component */
   children?: React$Node,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Fill color */
   color?: string,
   /** Flip the Icon horizontally when used with RTL languages */
@@ -60,7 +64,7 @@ export default class Icon extends Component<Props> {
   id: string = `icon-${generateId()}`;
 
   render() {
-    const { title, children, ...restProps } = this.props;
+    const { title, children, className, css, ...restProps } = this.props;
     const titleElementId = `icon-title-${this.id}`;
     const rootProps = {
       'aria-hidden': title ? null : true,
@@ -75,7 +79,7 @@ export default class Icon extends Component<Props> {
     };
 
     return (
-      <Root {...rootProps}>
+      <Root {...rootProps} className={className || ''} css={css}>
         {title && <title {...titleProps}>{title}</title>}
         {children}
       </Root>
