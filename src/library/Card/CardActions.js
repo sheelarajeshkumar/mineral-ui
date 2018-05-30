@@ -8,7 +8,11 @@ import CardRow from './CardRow';
 
 type Props = {
   /** Actions associated with Card; see [Button](/components/button), [Link](/components/link) */
-  children: React$Node
+  children: React$Node,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -65,7 +69,12 @@ const Action = createStyledComponent('span', styles.action);
 /**
  * The CardActions component allows you to lay out actions inside your [Card](/components/card).
  */
-export default function CardActions({ children, ...restProps }: Props) {
+export default function CardActions({
+  children,
+  className,
+  css,
+  ...restProps
+}: Props) {
   const actions = Children.map(children, (child, index) => {
     if (child.type === Button) {
       child = cloneElement(child, { size: 'medium' });
@@ -73,5 +82,9 @@ export default function CardActions({ children, ...restProps }: Props) {
     return <Action key={index}>{child}</Action>;
   });
 
-  return <Root {...restProps}>{actions}</Root>;
+  return (
+    <Root {...restProps} className={className || ''} css={css}>
+      {actions}
+    </Root>
+  );
 }

@@ -9,6 +9,10 @@ import CardRow from './CardRow';
 type Props = {
   /** Status text */
   children: string,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Available variants */
   variant: 'danger' | 'success' | 'warning'
 };
@@ -58,7 +62,13 @@ const statusIcons = {
 /**
  * CardStatus provides a standard way of displaying a [Card's](/components/card) current status.
  */
-export default function CardStatus({ children, variant, ...restProps }: Props) {
+export default function CardStatus({
+  children,
+  className,
+  css,
+  variant,
+  ...restProps
+}: Props) {
   const rootProps = {
     variant,
     ...restProps
@@ -66,7 +76,7 @@ export default function CardStatus({ children, variant, ...restProps }: Props) {
   const icon = statusIcons[variant];
 
   return (
-    <Root {...rootProps}>
+    <Root {...rootProps} className={className || ''} css={css}>
       {icon}
       {children}
     </Root>

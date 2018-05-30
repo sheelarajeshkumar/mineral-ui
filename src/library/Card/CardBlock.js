@@ -6,7 +6,11 @@ import CardRow from './CardRow';
 
 type Props = {
   /** Contents of CardBlock */
-  children: React$Node
+  children: React$Node,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -45,9 +49,14 @@ const Inner = createStyledComponent('div', styles.inner);
  * CardBlock is used to normalize font sizes for content and to provide
  * consistent margins and padding.
  */
-export default function CardBlock({ children, ...restProps }: Props) {
+export default function CardBlock({
+  children,
+  className,
+  css,
+  ...restProps
+}: Props) {
   return (
-    <Root {...restProps}>
+    <Root {...restProps} className={className || ''} css={css}>
       <Inner>{children}</Inner>
     </Root>
   );

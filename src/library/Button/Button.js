@@ -366,7 +366,7 @@ export default class Button extends Component<Props> {
       : null;
 
     return (
-      <Root {...rootProps} className={className} css={css}>
+      <Root {...rootProps} className={className || ''} css={css}>
         <Inner>
           {startIcon}
           {children && <Content size={size}>{children}</Content>}

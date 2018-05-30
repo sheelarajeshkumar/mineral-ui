@@ -10,6 +10,10 @@ import { componentTheme as cardComponentTheme } from './Card';
 type Props = {
   /** Content of CardFooter */
   children?: React$Node,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** If `expandable`, expand CardFooter immediately upon initialization */
   defaultIsOpen?: boolean,
   /** Display a trigger to expand/collapse CardFooter contents (`title` is required for this feature)*/
@@ -169,6 +173,8 @@ export default class CardFooter extends Component<Props, State> {
   render() {
     const {
       children,
+      className,
+      css,
       expandable,
       title,
       triggerTitle = CardFooter.defaultProps.triggerTitle,
@@ -180,7 +186,7 @@ export default class CardFooter extends Component<Props, State> {
     const ExpandCollapseIcon = isOpen ? IconExpandLess : IconExpandMore;
 
     return (
-      <Root {...restProps}>
+      <Root {...restProps} className={className || ''} css={css}>
         {title && (
           <Title>
             <TitleContent>{title}</TitleContent>

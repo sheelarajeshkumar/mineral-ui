@@ -5,6 +5,10 @@ import { createStyledComponent } from '../styles';
 type Props = {
   /** Content of Card; see the [Basic](#basic) example for more details */
   children: React$Node,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Called with the click event */
   onClick?: (event: SyntheticEvent<>) => void
 };
@@ -63,11 +67,12 @@ const onKeyDown = (props: Props, event: SyntheticKeyboardEvent<>) => {
  * with which your users can interact.
  */
 export default function Card(props: Props) {
+  const { className, css, ...restProps } = props;
   const rootProps = {
     onKeyDown: props.onClick ? onKeyDown.bind(null, props) : undefined,
     role: props.onClick ? 'button' : undefined,
     tabIndex: props.onClick ? 0 : undefined,
-    ...props
+    ...restProps
   };
-  return <Root {...rootProps} />;
+  return <Root {...rootProps} className={className || ''} css={css} />;
 }

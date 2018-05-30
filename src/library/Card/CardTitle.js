@@ -14,6 +14,10 @@ type Props = {
   avatar?: string | React$Element<*>,
   /** Title of Card */
   children: React$Node,
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object,
   /** Information displayed beside the title (`actions` will take precedence over this) */
   secondaryText?: string | React$Element<*>,
   /** Subtitle displayed under the title */
@@ -161,6 +165,8 @@ export default function CardTitle({
   actions,
   avatar,
   children,
+  className,
+  css,
   secondaryText,
   subtitle,
   variant,
@@ -179,7 +185,7 @@ export default function CardTitle({
   ) : null;
 
   return (
-    <Root {...rootProps}>
+    <Root {...rootProps} className={className || ''} css={css}>
       {avatar && <Avatar subtitle={subtitle}>{avatar}</Avatar>}
       <Inner>
         <Title variant={variant}>

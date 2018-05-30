@@ -146,7 +146,7 @@ export default function Avatar({
   };
 
   return (
-    <Root {...rootProps} className={className} css={css}>
+    <Root {...rootProps} className={className || ''} css={css}>
       {text || icon || children}
     </Root>
   );

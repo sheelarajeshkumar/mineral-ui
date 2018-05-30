@@ -3,7 +3,12 @@ import React from 'react';
 import { createStyledComponent } from '../styles';
 import { componentTheme as cardComponentTheme } from './Card';
 
-type Props = Object;
+type Props = {
+  /** @Private - CSS className */
+  className?: string,
+  /** @Private - Emotion css */
+  css?: Object
+};
 
 const Root = createStyledComponent(
   'img',
@@ -42,5 +47,6 @@ const Root = createStyledComponent(
  * Use CardImage to display static media.
  */
 export default function CardImage(props: Props) {
-  return <Root {...props} />;
+  const { className, css, ...restProps } = props;
+  return <Root {...restProps} className={className || ''} css={css} />;
 }
