@@ -1,6 +1,7 @@
 /* @flow */
 import React, { Children, cloneElement } from 'react';
 import { createStyledComponent, pxToEm } from '../styles';
+import _Root from '../Root';
 
 type Props = {
   /** When `children` is a string, this will be the rendered text */
@@ -46,7 +47,7 @@ export const componentTheme = (baseTheme: Object) => ({
 });
 
 const Root = createStyledComponent(
-  'span',
+  _Root,
   ({
     background,
     color: propColor,
@@ -99,7 +100,10 @@ const Root = createStyledComponent(
   {
     displayName: 'Avatar',
     filterProps: ['icon'],
-    includeStyleReset: true
+    includeStyleReset: true,
+    withProps: {
+      element: 'span'
+    }
   }
 );
 
@@ -110,8 +114,6 @@ const Root = createStyledComponent(
 export default function Avatar({
   abbr,
   children,
-  className,
-  css,
   shape = 'circle',
   size = 'large',
   ...restProps
@@ -145,9 +147,5 @@ export default function Avatar({
     ...restProps
   };
 
-  return (
-    <Root {...rootProps} className={className || ''} css={css}>
-      {text || icon || children}
-    </Root>
-  );
+  return <Root {...rootProps}>{text || icon || children}</Root>;
 }
