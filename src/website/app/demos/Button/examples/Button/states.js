@@ -2,7 +2,7 @@
 import { simulate } from 'glamor';
 import Button from '../../../../../../library/Button';
 import { createStyledComponent } from '../../../../../../library/styles';
-import _DemoLayout from '../../shared/DemoLayout';
+import _DemoLayout from '../../../shared/DemoLayout';
 
 const DemoLayout = createStyledComponent(_DemoLayout, {
   '& > button': {

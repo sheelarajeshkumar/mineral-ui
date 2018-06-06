@@ -1,8 +1,9 @@
 /* @flow */
-import React from 'react';
-import { createStyledComponent } from '../styles';
-import Button, { styles as buttonStyles } from './Button';
+import React, { Component } from 'react';
 import { ChoiceGroup } from '../Choice';
+// import _Radio from '../Radio';
+import { createStyledComponent } from '../styles';
+import Button from './Button';
 
 type Props = {
   /**
@@ -34,9 +35,17 @@ export const componentTheme = (baseTheme: Object) => ({
   // ButtonGroup_backgroundColor: baseTheme.color_gray_20,
 });
 
-const Root = createStyledComponent(ChoiceGroup, ({ theme: baseTheme }) => {}, {
-  displayName: 'ButtonGroup'
-});
+// const styles = ({
+//   '& > *': {marginRight: '0px'}
+// })
+
+const Root = createStyledComponent(
+  ChoiceGroup,
+  {},
+  {
+    displayName: 'ButtonGroup'
+  }
+);
 
 /**
  * ButtonGroup allows authors to construct a group of [Buttons](/components/button)
@@ -44,15 +53,15 @@ const Root = createStyledComponent(ChoiceGroup, ({ theme: baseTheme }) => {}, {
  *
  * ButtonGroup allows users to select a single option from a list.
  */
-export default function ButtonGroup({
-  rootProps: otherRootProps,
-  ...restProps
-}: Props) {
+export default function ButtonGroup(props: Props) {
+  const { rootProps: otherRootProps, ...restProps } = props;
   const rootProps = {
     rootProps: {
+      inline: true,
       role: 'buttongroup',
       ...otherRootProps
     },
+    appearance: 'button',
     input: Button,
     type: 'radio',
     ...restProps // Note: Props are spread to input rather than Root

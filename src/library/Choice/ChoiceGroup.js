@@ -3,6 +3,8 @@ import React, { Children, cloneElement, createElement } from 'react';
 import { createStyledComponent } from '../styles';
 
 type Props = {
+  /** Display of children */
+  appearance?: string,
   /**
    * Value of the selected Radio or an array of values of the selected
    * Checkboxes. Primarily for use with controlled components. If this prop is
@@ -44,7 +46,7 @@ type Props = {
   /** @Private Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
   /** Type of component that will be rendered */
-  type: 'checkbox' | 'radio'
+  type: 'button' | 'checkbox' | 'radio'
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -56,9 +58,9 @@ export const componentTheme = (baseTheme: Object) => ({
 });
 
 const styles = {
-  root: ({ inline, size, theme: baseTheme }) => {
+  root: ({ appearance, inline, size, theme: baseTheme }) => {
     const theme = componentTheme(baseTheme);
-
+    console.log(appearance === 'button');
     return {
       display: 'flex',
       flexDirection: inline ? 'row' : 'column',
@@ -69,9 +71,10 @@ const styles = {
           : size === 'jumbo'
             ? theme.ChoiceGroupControl_marginVertical_stackedJumbo
             : theme.ChoiceGroupControl_marginVertical_stacked,
-        marginRight: inline
-          ? theme.ChoiceGroupControl_marginHorizontal_inline
-          : undefined
+        marginRight:
+          inline && appearance !== 'button'
+            ? theme.ChoiceGroupControl_marginHorizontal_inline
+            : appearance === 'button' ? '0px' : undefined
       }
     };
   }
@@ -95,6 +98,7 @@ const isChecked = (checked: string | Array<string>, value) => {
  */
 const ChoiceGroup = (props: Props) => {
   const {
+    appearance,
     checked,
     children,
     data,
@@ -110,6 +114,7 @@ const ChoiceGroup = (props: Props) => {
     ...restProps
   } = props;
   const rootProps = {
+    appearance,
     inline,
     role,
     size,
