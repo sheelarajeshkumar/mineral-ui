@@ -5,6 +5,7 @@ import { createThemedComponent, mapComponentThemes } from '../themes';
 import TD, { componentTheme as tDComponentTheme } from './TD';
 
 type Props = {
+  /** TODO */
   actions?: React$Node,
   /** TODO */
   children?: React$Node,
@@ -26,16 +27,15 @@ export const componentTheme = (baseTheme: Object) => ({
     },
     {
       name: 'TH',
-      // prettier-ignore
       theme: {
-          TH_borderVertical: `1px dotted ${baseTheme.borderColor}`,
-          TH_borderVertical_highContrast: `1px dotted ${baseTheme.color_gray_80}`,
-          TH_fontWeight: baseTheme.fontWeight_bold,
-          TH_paddingHorizontal: baseTheme.space_inline_sm,
-          TH_paddingVertical: baseTheme.space_stack_sm,
-          TH_paddingVertical_spacious: baseTheme.space_stack_md,
-          TH_verticalAlign: 'bottom'
-        }
+        TH_borderVertical: `1px dotted ${baseTheme.borderColor}`,
+        TH_borderVertical_highContrast: `1px dotted ${baseTheme.color_gray_80}`,
+        TH_fontWeight: baseTheme.fontWeight_bold,
+        TH_paddingHorizontal: baseTheme.space_inline_sm,
+        TH_paddingVertical: baseTheme.space_stack_sm,
+        TH_paddingVertical_spacious: baseTheme.space_stack_md,
+        TH_verticalAlign: 'bottom'
+      }
     },
     baseTheme
   )

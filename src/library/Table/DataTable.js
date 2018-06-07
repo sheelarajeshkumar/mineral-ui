@@ -54,10 +54,13 @@ type Props = {
   zebraStriped?: boolean
 };
 type Column = {
+  'aria-label'?: string,
+  'aria-sort'?: string,
   content: React$Node,
   enableSort?: boolean,
   name: string,
   primary?: boolean,
+  role?: string,
   sortFn?: (a: Object, b: Object, column: string) => -1 | 1 | 0,
   textAlign?: 'start' | 'end' | 'center' | 'justify'
 };
@@ -165,14 +168,21 @@ export default class DataTable extends Component<Props, State> {
   };
 
   render() {
-    const { columns, rows, ...restProps } = this.props;
+    const {
+      columns,
+      enableRowSelection,
+      messages,
+      rows,
+      ...restProps
+    } = this.props;
 
     const getColumnsOrRowsArg = {
       columns: columns || generateColumns(rows),
+      enableRowSelection,
+      messages,
       rows,
       selectedRows: this.getControllableValue('selectedRows'),
-      sort: this.getControllableValue('sort'),
-      ...restProps
+      sort: this.getControllableValue('sort')
     };
 
     const rootProps = {
@@ -195,13 +205,13 @@ export default class DataTable extends Component<Props, State> {
     const result = columns.map(({ content, enableSort, name, ...column }) => ({
       // TODO: Mac VO (others?) repeats content a _lot_
       // TODO: What about non-string content?
-      'aria-label': content,
       content,
       name,
       ...column,
       ...(enableSort
         ? {
             actions: this.getColumnActions(content, messages, name, sort),
+            'aria-label': content,
             'aria-sort': sort.column === name ? sort.direction : 'none',
             role: 'columnheader'
           }
