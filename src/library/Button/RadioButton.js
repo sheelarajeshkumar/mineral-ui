@@ -6,30 +6,12 @@ import Button from './Button';
 type Props = {
   /** Rendered content of the component */
   children?: React$Node,
-  // /** Displays a circular Button */
-  // circular?: boolean,
   /** Disables the Button */
   disabled?: boolean,
-  // /** Element to be used as the root node - e.g. `a` can be used to create a link that is styled like a Button */
-  // element?: $FlowFixMe, // Should allow string | React class
-  // /** Stretch Button to fill its container */
-  // fullWidth?: boolean,
-  /** Icon that goes after the children*/
-  iconEnd?: React$Element<*>,
-  /** Icon that goes before the children */
-  iconStart?: React$Element<*>,
-  // /** Display a minimal Button */
-  // minimal?: boolean,
   /** Called with the click event */
   onClick?: (event: SyntheticEvent<>) => void,
-  // /** Display a primary Button */
-  // primary?: boolean,
-  /** Available sizes */
+  /** @Private Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
-  // /** Available types */
-  // type?: string,
-  // /** Available variants */
-  // variant?: 'regular' | 'danger' | 'success' | 'warning',
 
   /**
    * Checked state of the input. Primarily for use with controlled
@@ -37,8 +19,8 @@ type Props = {
    * specified. See also: `defaultChecked`.
    */
   checked?: boolean,
-  // /** @Private CSS className */
-  // className?: string,
+  /** @Private CSS className */
+  className?: string,
   /**
    * Initial checked state of the input; primarily for use with
    * uncontrolled components
@@ -46,14 +28,16 @@ type Props = {
   defaultChecked?: boolean,
   /** Indicates that the value of the input is invalid */
   invalid?: boolean,
+  /** Label associated with the input element */
+  label?: string | React$Element<*>,
   // /** Used to uniquely define a group of inputs */
   // name?: string,
   /** Function called when a input is selected */
   onChange?: (event: SyntheticEvent<>) => void,
   /** Indicates that the user must select an option before submitting a form */
   required?: boolean,
-  /** Available sizes */
-  size?: 'small' | 'medium' | 'large' | 'jumbo',
+  /** Props to be applied directly to the root element */
+  rootProps?: Object,
   /** The value of the input */
   value?: string
 };
@@ -95,36 +79,56 @@ export const componentTheme = (baseTheme: Object) => ({
 // });
 
 const styles = (props) => ({
+  // display: 'flex',
   marginRight: 0,
-  '&:first-child': {
-    '& > button': {
-      borderBottomRightRadius: 0,
-      borderRightStyle: 'none',
-      borderTopRightRadius: 0
-    }
+  '& > input': {
+    // display: 'block',
+    // flex: '1 100%',
+    position: 'absolute',
+    // width: '100%',
+    // height: '100%',
+    opacity: 0,
+    zIndex: -1
   },
-  '&:not(:first-child)&:not(:last-child)': {
-    '& > button': {
-      borderBottomLeftRadius: 0,
-      borderBottomRightRadius: 0,
-      borderRightStyle: 'none',
-      borderTopLeftRadius: 0,
-      borderTopRightRadius: 0
-    }
-  },
-  '&:last-child': {
-    '& > button': {
-      borderBottomLeftRadius: 0,
-      borderTopLeftRadius: 0
-    }
-  },
-  '& > button': {
-    '&:focus': {
-      backgroundColor: props.theme.backgroundColor_themePrimary,
+  '& > input:checked ~ span': {
+    backgroundColor: props.theme.backgroundColor_themePrimary,
+    borderColor: props.theme.borderColor_theme_focus,
+    boxShadow: 'none',
+    color: 'white',
+    '&:focus ~ span': {
       borderColor: props.theme.backgroundColor_themePrimary,
-      boxShadow: 'none',
-      color: 'white'
+      borderRightStyle: 'solid',
+      boxShadow: `inset 0 0 0 1px white`
     }
+  },
+  '&:first-child': {
+    '& > span': {
+      borderBottomRightRadius: 0,
+      borderTopRightRadius: 0,
+      '&:not(:focus)': {
+        borderRightStyle: 'hidden'
+      }
+    }
+  },
+  '&:not(:first-child)&:not(:last-child) > span': {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    '&:not(:focus)': {
+      borderRightStyle: 'hidden'
+    }
+  },
+  '&:last-child > span': {
+    borderBottomLeftRadius: 0,
+    borderTopLeftRadius: 0
+  },
+  '& > span:focus': {
+    // backgroundColor: props.theme.backgroundColor_themePrimary,
+    borderColor: props.theme.backgroundColor_themePrimary,
+    // borderRightStyle: 'solid',
+    boxShadow: 'none'
+    // color: 'white'
   }
   // `:active` must be last, to follow LVHFA order:
   // https://developer.mozilla.org/en-US/docs/Web/CSS/:active
@@ -144,88 +148,50 @@ const styles = (props) => ({
   // },
 });
 
+const Root = createStyledComponent('label', styles);
+
 export default function RadioButton(props: Props) {
   const {
-    checked,
-    defaultChecked,
+    children,
+    className,
+    disabled,
     invalid,
+    label,
+    onClick,
     onChange,
     required,
+    rootProps: otherRootProps,
     size,
     value,
     ...restProps
   } = props;
 
-  const Root = createStyledComponent('label', styles);
-
   const buttonProps = {
-    ...restProps
+    disabled,
+    size,
+    onClick
+  };
+  const inputProps = {
+    'aria-invalid': invalid,
+    'aria-required': required,
+    disabled,
+    label,
+    required,
+    type: 'radio',
+    ...restProps // Note: Props are spread to input rather than Root
   };
   const rootProps = {
-    checked,
-    defaultChecked,
-    invalid,
-    onChange,
-    required,
-    size,
-    value
+    className,
+    disabled,
+    ...otherRootProps
   };
 
   return (
     <Root {...rootProps}>
-      <input type="hidden" />
-      <Button {...buttonProps} />
+      <input {...inputProps} />
+      <Button {...buttonProps} element="span">
+        {children ? children : label}
+      </Button>
     </Root>
   );
 }
-
-// export default class RadioButton extends Component<Props> {
-//   static defaultProps = {
-//     element: 'button',
-//     size: 'large',
-//     type: 'button',
-//     variant: 'regular'
-//   };
-//
-//   props: Props;
-//
-//   render() {
-//     const {
-//       children,
-//       disabled,
-//       iconStart,
-//       iconEnd,
-//       size = Button.defaultProps.size,
-//       ...restProps
-//     } = this.props;
-//
-//     const rootProps = {
-//       disabled,
-//       size,
-//       text: children,
-//       ...restProps
-//     };
-//     const Root = createStyledComponent('button', styles.button, {
-//       // filterProps: filterProps(props),
-//       includeStyleReset: true,
-//       displayName: 'RadioButton'
-//     });
-//
-//     const startIcon = iconStart
-//       ? cloneElement(iconStart, { size: iconSize[size], key: 'iconStart' })
-//       : null;
-//     const endIcon = iconEnd
-//       ? cloneElement(iconEnd, { size: iconSize[size], key: 'iconEnd' })
-//       : null;
-//
-//     return (
-//       <Root {...rootProps}>
-//         <Inner>
-//           {startIcon}
-//           {children && <Content size={size}>{children}</Content>}
-//           {endIcon}
-//         </Inner>
-//       </Root>
-//     );
-//   }
-// }

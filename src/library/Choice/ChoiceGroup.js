@@ -4,7 +4,7 @@ import { createStyledComponent } from '../styles';
 
 type Props = {
   /** Display of children */
-  appearance?: string,
+  appearance?: 'button',
   /**
    * Value of the selected Radio or an array of values of the selected
    * Checkboxes. Primarily for use with controlled components. If this prop is
@@ -60,7 +60,6 @@ export const componentTheme = (baseTheme: Object) => ({
 const styles = {
   root: ({ appearance, inline, size, theme: baseTheme }) => {
     const theme = componentTheme(baseTheme);
-    console.log(appearance === 'button');
     return {
       display: 'flex',
       flexDirection: inline ? 'row' : 'column',
@@ -122,6 +121,7 @@ const ChoiceGroup = (props: Props) => {
   };
 
   const inputProps = (value, index, inputData = {}) => {
+    console.log('inputProps', defaultChecked);
     return {
       checked: checked !== undefined ? isChecked(checked, value) : undefined,
       defaultChecked:

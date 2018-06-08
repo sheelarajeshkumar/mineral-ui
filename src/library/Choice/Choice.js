@@ -212,8 +212,12 @@ const Root = createStyledComponent('label', styles.root, {
 const Input = createStyledComponent('input', styles.input, {
   rootEl: 'input'
 });
-const Text = createStyledComponent('span', styles.text);
-const Control = createStyledComponent('span', styles.control);
+const Text = createStyledComponent('span', styles.text, {
+  displayName: 'Text'
+});
+const Control = createStyledComponent('span', styles.control, {
+  displayName: 'Control'
+});
 
 /**
  * Choice is base renderer for Checkbox and Radio.

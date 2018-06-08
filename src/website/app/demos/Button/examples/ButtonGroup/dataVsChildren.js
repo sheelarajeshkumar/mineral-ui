@@ -11,7 +11,7 @@ group of related controls.`,
   scope: { DemoForm, FormFieldDivider, ButtonGroup, RadioButton },
   source: `
     <DemoForm>
-      <ButtonGroup
+      <ButtonGroup type="radio"
         name="mineral-1"
         defaultChecked="quartz"
         data={[
@@ -22,8 +22,8 @@ group of related controls.`,
 
       <FormFieldDivider />
 
-      <ButtonGroup name="mineral-2" defaultChecked="pyrite">
-        <RadioButton>Hi</RadioButton>
+      <ButtonGroup defaultChecked="hi" name="mineral-2" size="jumbo" type="radio">
+        <RadioButton value="hi">Hi</RadioButton>
         <RadioButton>I'm a Button</RadioButton>
         <RadioButton>Me too</RadioButton>
       </ButtonGroup>

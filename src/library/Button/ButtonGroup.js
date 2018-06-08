@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { ChoiceGroup } from '../Choice';
 // import _Radio from '../Radio';
 import { createStyledComponent } from '../styles';
-import Button from './Button';
+import RadioButton from './RadioButton';
 
 type Props = {
   /**
@@ -28,7 +28,15 @@ type Props = {
   /** Function called when a choice is selected */
   onChange?: (event: SyntheticEvent<>) => void,
   /** Props to be applied directly to the root element */
-  rootProps?: Object
+  rootProps?: Object,
+  /** Available RadioButton sizes */
+  size?: 'small' | 'medium' | 'large' | 'jumbo',
+  /** The type of HTML input */
+  type: 'checkbox' | 'radio'
+};
+
+type State = {
+  checked?: string // Appease Dropdown
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -53,19 +61,33 @@ const Root = createStyledComponent(
  *
  * ButtonGroup allows users to select a single option from a list.
  */
-export default function ButtonGroup(props: Props) {
-  const { rootProps: otherRootProps, ...restProps } = props;
-  const rootProps = {
-    rootProps: {
-      inline: true,
-      role: 'buttongroup',
-      ...otherRootProps
-    },
-    appearance: 'button',
-    input: Button,
-    type: 'radio',
-    ...restProps // Note: Props are spread to input rather than Root
-  };
+export default class ButtonGroup extends Component<Props, State> {
+  render() {
+    const { rootProps: otherRootProps, ...restProps } = this.props;
+    // const checked = this.getControllableValue('checked');
 
-  return <Root {...rootProps} />;
+    const rootProps = {
+      appearance: 'button',
+      input: RadioButton,
+      type: 'radio',
+      rootProps: {
+        inline: true,
+        role: 'buttongroup',
+        ...otherRootProps
+      },
+      ...restProps // Note: Props are spread to input rather than Root
+
+      // checked
+    };
+
+    return <Root {...rootProps} />;
+  }
+  //
+  // isControlled = (prop: string) => {
+  //   return this.props.hasOwnProperty(prop);
+  // };
+  //
+  // getControllableValue = (key: string) => {
+  //   return this.isControlled(key) ? this.props[key] : this.state[key];
+  // };
 }
