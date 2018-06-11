@@ -3,6 +3,7 @@ import React, { cloneElement, Component } from 'react';
 import FocusTrap from 'focus-trap-react';
 import Transition from 'react-transition-group/Transition';
 import { createStyledComponent, pxToEm } from '../styles';
+import { createThemedComponent } from '../themes';
 import { generateId, findByType } from '../utils';
 import Portal from '../Portal';
 import EventListener from '../EventListener';
@@ -10,6 +11,10 @@ import DialogBody from './DialogBody';
 import DialogFooter from './DialogFooter';
 import DialogHeader from './DialogHeader';
 import { componentTheme as dialogRowComponentTheme } from './DialogRow';
+import StartEnd from '../StartEnd';
+import Box from '../Box';
+import Button from '../Button';
+import IconClose from 'mineral-ui-icons/IconClose';
 
 type Props = {
   /** TODO */
@@ -34,6 +39,8 @@ type Props = {
   onClose?: () => void,
   /** Called when Dialog is opened */
   onOpen?: () => void,
+  /** TODO */
+  removeCloseButton?: boolean,
   /** TODO */
   size?: 'small' | 'medium' | 'large',
   /** @Private TODO */
@@ -164,6 +171,10 @@ const Animate = createStyledComponent('div', styles.animate, {
   displayName: 'Animate'
 });
 
+const CloseButton = createThemedComponent(Button, ({ theme }) => ({
+  ButtonIcon_color: theme.color
+}));
+
 const Animation = ({ children, ...restProps }: Object) => {
   return (
     <Transition
@@ -214,6 +225,7 @@ export default class Dialog extends Component<Props, State> {
       disableFocusTrap,
       isOpen,
       hideOverlay,
+      removeCloseButton,
       size,
       usePortal,
       variant,
@@ -231,7 +243,6 @@ export default class Dialog extends Component<Props, State> {
 
     const header = cloneElement(_header, {
       id: headerId,
-      onClose: this.close,
       tabIndex: '-1',
       variant
     });
@@ -271,7 +282,20 @@ export default class Dialog extends Component<Props, State> {
           <Root {...rootProps}>
             {!hideOverlay && <Overlay />}
             <DialogContent {...contentProps}>
-              {header}
+              {removeCloseButton ? (
+                header
+              ) : (
+                <StartEnd>
+                  <Box>{header}</Box>
+                  <CloseButton
+                    iconStart={<IconClose />}
+                    minimal
+                    onClick={this.close}
+                    size="small"
+                    tabIndex={1000}
+                  />
+                </StartEnd>
+              )}
               {body}
               {footer}
             </DialogContent>
