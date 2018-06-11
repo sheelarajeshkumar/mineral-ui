@@ -11,13 +11,13 @@ export default {
   source: `
     <DemoForm>
       <ButtonGroup
-        name="mineral"
-        defaultChecked="quartz"
         data={[
           { label: 'Fluorite', value: 'fluorite' },
           { label: 'Magnetite', value: 'magnetite' },
           { label: 'Quartz', value: 'quartz' }
-        ]} />
+        ]}
+        defaultChecked="quartz"
+        name="mineral" />
     </DemoForm>
   `
 };

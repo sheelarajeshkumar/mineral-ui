@@ -12,18 +12,18 @@ and other features as well as a more streamlined API.`,
   source: `
     <DemoForm>
       <FormField
-        input={ButtonGroup}
-        label="What is your preferred contact method?"
         caption="We promise not to spam you."
-        name="contact"
-        defaultChecked="none"
-        required
         data={[
           { label: 'Email', value: 'email' },
           { label: 'Telephone', value: 'telephone' },
           { label: 'Text message', value: 'text' },
           { label: 'None', value: 'none' }
-        ]} />
+        ]}
+        defaultChecked="none"
+        input={ButtonGroup}
+        label="What is your preferred contact method?"
+        name="contact"
+        required />
     </DemoForm>
   `
 };

@@ -32,14 +32,14 @@ create a controlled component.`,
         return (
           <DemoForm>
             <ButtonGroup
-              name="mineral"
-              onChange={this.handleChange}
               checked={this.state.value}
               data={[
                 { label: 'Fluorite', value: 'fluorite' },
                 { label: 'Magnetite', value: 'magnetite' },
                 { label: 'Quartz', value: 'quartz' }
-              ]} />
+              ]}
+              name="mineral"
+              onChange={this.handleChange} />
           </DemoForm>
         );
       }

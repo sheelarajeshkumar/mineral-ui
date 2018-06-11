@@ -1,6 +1,7 @@
 /* @flow */
 import React, { Children, cloneElement, createElement } from 'react';
 import { createStyledComponent } from '../styles';
+import InputButton from '../Button/InputButton';
 
 type Props = {
   /** Display of children */
@@ -46,7 +47,7 @@ type Props = {
   /** @Private Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
   /** Type of component that will be rendered */
-  type: 'button' | 'checkbox' | 'radio'
+  type: 'checkbox' | 'radio'
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -121,7 +122,6 @@ const ChoiceGroup = (props: Props) => {
   };
 
   const inputProps = (value, index, inputData = {}) => {
-    console.log('inputProps', defaultChecked);
     return {
       checked: checked !== undefined ? isChecked(checked, value) : undefined,
       defaultChecked:
@@ -131,6 +131,7 @@ const ChoiceGroup = (props: Props) => {
       invalid: type === 'checkbox' ? undefined : invalid,
       key: index,
       required: type === 'checkbox' ? undefined : required,
+      // type: appearance === 'button' ? type : null,
       size,
       ...restProps, // Note: Props are spread to input rather than Root
       ...inputData
@@ -139,15 +140,31 @@ const ChoiceGroup = (props: Props) => {
 
   let inputs = null;
   if (data && input) {
+    // let inputProps
     inputs = data.map((inputData, index) => {
-      return createElement(
-        input,
-        inputProps(inputData.value, index, inputData)
-      );
+      return appearance === 'button'
+        ? createElement(input, {
+            type,
+            ...inputProps(inputData.value, index, inputData)
+          })
+        : createElement(input, inputProps(inputData.value, index, inputData));
     });
-  } else if (children) {
+  } else if (children && input !== InputButton) {
     inputs = Children.map(children, (child, index) => {
+      console.log(cloneElement(child, inputProps(child.props.value, index)));
       return cloneElement(child, inputProps(child.props.value, index));
+    });
+  } else if (children && input === InputButton) {
+    inputs = Children.map(children, (child, index) => {
+      const _InputButton = (
+        <InputButton
+          children={child.props.children}
+          disabled={child.props.disabled}
+          value={child.props.value}
+          type={type}
+        />
+      );
+      return cloneElement(_InputButton, inputProps(child.props.value, index));
     });
   }
 

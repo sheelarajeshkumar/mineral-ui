@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { ChoiceGroup } from '../Choice';
 // import _Radio from '../Radio';
 import { createStyledComponent } from '../styles';
-import RadioButton from './RadioButton';
+import InputButton from './InputButton';
 
 type Props = {
   /**
@@ -25,14 +25,14 @@ type Props = {
   inline?: boolean,
   /** The name of the group */
   name: string,
+  /** TODO Determines whether HTML inputs are type radio or checkbox */
+  multiSelect?: boolean,
   /** Function called when a choice is selected */
   onChange?: (event: SyntheticEvent<>) => void,
   /** Props to be applied directly to the root element */
   rootProps?: Object,
   /** Available RadioButton sizes */
-  size?: 'small' | 'medium' | 'large' | 'jumbo',
-  /** The type of HTML input */
-  type: 'checkbox' | 'radio'
+  size?: 'small' | 'medium' | 'large' | 'jumbo'
 };
 
 type State = {
@@ -63,31 +63,20 @@ const Root = createStyledComponent(
  */
 export default class ButtonGroup extends Component<Props, State> {
   render() {
-    const { rootProps: otherRootProps, ...restProps } = this.props;
-    // const checked = this.getControllableValue('checked');
+    const { multiSelect, rootProps: otherRootProps, ...restProps } = this.props;
 
     const rootProps = {
       appearance: 'button',
-      input: RadioButton,
-      type: 'radio',
+      input: InputButton,
       rootProps: {
         inline: true,
         role: 'buttongroup',
         ...otherRootProps
       },
+      type: multiSelect ? 'checkbox' : 'radio',
       ...restProps // Note: Props are spread to input rather than Root
-
-      // checked
     };
 
     return <Root {...rootProps} />;
   }
-  //
-  // isControlled = (prop: string) => {
-  //   return this.props.hasOwnProperty(prop);
-  // };
-  //
-  // getControllableValue = (key: string) => {
-  //   return this.isControlled(key) ? this.props[key] : this.state[key];
-  // };
 }
