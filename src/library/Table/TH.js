@@ -100,8 +100,9 @@ const styles = {
 };
 
 const Root = createStyledComponent(ThemedTD, styles.root, {
-  displayName: 'TH'
-}).withProps({ element: 'th' });
+  displayName: 'TH',
+  withProps: { element: 'th' }
+});
 const Content = createStyledComponent('div', styles.content);
 const Inner = createStyledComponent('div', styles.inner);
 

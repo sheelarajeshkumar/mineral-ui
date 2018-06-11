@@ -50,7 +50,7 @@ const Root = createStyledComponent(
           : theme.TR_borderHorizontal
       },
 
-      ':not(thead) > &:hover': {
+      '*:not(thead) > &:hover': {
         backgroundColor: (() => {
           if (isSelected) {
             if (highContrast) {
