@@ -319,7 +319,7 @@ export default class Dialog extends Component<Props, State> {
     this.handleExiting();
   };
 
-  handleClick = (event: SyntheticEvent<>) => {
+  handleClick = (event: SyntheticEvent<Node>) => {
     if (this.isEventOutsideNode(event, this.dialogContent)) {
       this.close();
     }
@@ -353,9 +353,7 @@ export default class Dialog extends Component<Props, State> {
     );
   };
 
-  isEventOutsideNode = (event: SyntheticEvent<>, node: ?HTMLElement) => {
-    const { target } = event;
-
-    return node && target && !node.contains(target);
+  isEventOutsideNode = (event: SyntheticEvent<Node>, node: ?HTMLElement) => {
+    return node && !node.contains(event.currentTarget);
   };
 }

@@ -27,6 +27,9 @@ const Root = createStyledComponent(
         }
       };
     }
+  },
+  {
+    displayName: 'DemoLayout'
   }
 );
 
@@ -38,5 +41,3 @@ export default function DemoLayout({
   const rootProps = { marginBottom, ...restProps };
   return <Root {...rootProps}>{children}</Root>;
 }
-
-DemoLayout.displayName = 'DemoLayout';
