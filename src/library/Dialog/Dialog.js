@@ -11,9 +11,7 @@ import DialogBody from './DialogBody';
 import DialogFooter from './DialogFooter';
 import DialogHeader from './DialogHeader';
 import { componentTheme as dialogRowComponentTheme } from './DialogRow';
-import StartEnd from '../StartEnd';
-import Box from '../Box';
-import Button from '../Button';
+import _Button from '../Button';
 import IconClose from 'mineral-ui-icons/IconClose';
 
 type Props = {
@@ -129,6 +127,7 @@ const styles = {
       flexDirection: 'column',
       maxHeight: theme.DialogContent_maxHeight,
       minWidth: theme.DialogContent_minWidth,
+      position: 'relative',
       ...getSizeStyles(size)
     };
   },
@@ -171,9 +170,18 @@ const Animate = createStyledComponent('div', styles.animate, {
   displayName: 'Animate'
 });
 
-const CloseButton = createThemedComponent(Button, ({ theme }) => ({
+const Button = createThemedComponent(_Button, ({ theme }) => ({
   ButtonIcon_color: theme.color
 }));
+
+const CloseButton = createStyledComponent(Button, ({ theme: baseTheme }) => {
+  const theme = componentTheme(baseTheme);
+  return {
+    position: 'absolute',
+    right: theme.DialogRow_paddingHorizontal,
+    top: theme.DialogRow_marginVertical
+  };
+});
 
 const Animation = ({ children, ...restProps }: Object) => {
   return (

@@ -29,7 +29,16 @@ export default {
       <Dialog>
         <DialogHeader>
           <DialogTitle>
-            Lorem ipsum dolor sit amet
+            LLorem ipsum dolor sit amet
+oLorem ipsum dolor sit amet
+rLorem ipsum dolor sit amet
+eLorem ipsum dolor sit amet
+mLorem ipsum dolor sit amet
+ Lorem ipsum dolor sit amet
+iLorem ipsum dolor sit amet
+pLorem ipsum dolor sit amet
+sLorem ipsum dolor sit amet
+um dolor sit amet
           </DialogTitle>
         </DialogHeader>
         <DialogBody>
