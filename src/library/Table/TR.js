@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react';
 import { createStyledComponent } from '../styles';
-import { childrenWithProps } from '../utils';
+import { TableContext } from './Table';
 
 type Props = {
   /** Rendered content can be THead, TBody, or TFoot TODO */
@@ -100,6 +100,12 @@ const Root = createStyledComponent(
  */
 export default function TR(props: Props) {
   const { children, ...restProps } = props;
-  const rootProps = { ...restProps };
-  return <Root {...rootProps}>{childrenWithProps(children, rootProps)}</Root>;
+  return (
+    <TableContext.Consumer>
+      {({ highContrast, zebraStriped }) => {
+        const rootProps = { highContrast, zebraStriped, ...restProps };
+        return <Root {...rootProps}>{children}</Root>;
+      }}
+    </TableContext.Consumer>
+  );
 }

@@ -1,7 +1,8 @@
 /* @flow */
 import React, { Component } from 'react';
+import createReactContext, { type Context } from 'create-react-context';
 import { createStyledComponent } from '../styles';
-import { childrenWithProps, generateId } from '../utils';
+import { generateId } from '../utils';
 import TableTitle, {
   componentTheme as tableTitleComponentTheme
 } from './TableTitle';
@@ -48,11 +49,19 @@ type State = {
   scrollable: boolean
 };
 
+type Appearance = {
+  highContrast?: boolean,
+  spacious?: boolean,
+  zebraStriped?: boolean
+};
+
 export const generateColumns = (rows: Rows) =>
   Object.keys(rows[0]).reduce((acc, cell) => {
     acc.push({ content: cell, name: cell });
     return acc;
   }, []);
+
+export const TableContext: Context<Appearance> = createReactContext({});
 
 export const componentTheme = (baseTheme: Object) => ({
   Table_borderTop: `1px solid ${baseTheme.borderColor}`,
@@ -118,16 +127,20 @@ export default class Table extends Component<Props, State> {
     const {
       children,
       disableOverflowScroll,
+      highContrast,
       rowKey,
       rows,
+      spacious,
       title,
       titleAppearance,
       titleElement,
+      zebraStriped,
       ...restProps
     } = this.props;
 
     const rootProps = {
       'aria-labelledby': title ? this.titleId : undefined,
+      highContrast,
       ...restProps
     };
 
@@ -141,7 +154,9 @@ export default class Table extends Component<Props, State> {
             {title}
           </TableTitle>
         )}
-        {childrenWithProps(children, restProps)}
+        <TableContext.Provider value={{ highContrast, spacious, zebraStriped }}>
+          {children}
+        </TableContext.Provider>
       </StyledTable>
     );
 

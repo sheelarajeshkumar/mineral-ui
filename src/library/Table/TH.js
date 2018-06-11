@@ -3,6 +3,7 @@ import React from 'react';
 import { createStyledComponent, getNormalizedValue } from '../styles';
 import { createThemedComponent, mapComponentThemes } from '../themes';
 import TD, { componentTheme as tDComponentTheme } from './TD';
+import { TableContext } from './Table';
 
 type Props = {
   /** TODO */
@@ -110,15 +111,21 @@ const Inner = createStyledComponent('div', styles.inner);
  * TH TODO
  */
 function TH(props: Props) {
-  const { actions, children, textAlign, ...restProps } = props;
-  const rootProps = { textAlign, ...restProps };
+  const { actions, children, ...restProps } = props;
   return (
-    <Root {...rootProps}>
-      <Content>
-        <Inner>{children}</Inner>
-        {actions}
-      </Content>
-    </Root>
+    <TableContext.Consumer>
+      {({ highContrast }) => {
+        const rootProps = { highContrast, ...restProps };
+        return (
+          <Root {...rootProps}>
+            <Content>
+              <Inner>{children}</Inner>
+              {actions}
+            </Content>
+          </Root>
+        );
+      }}
+    </TableContext.Consumer>
   );
 }
 

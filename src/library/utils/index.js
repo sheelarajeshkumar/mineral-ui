@@ -1,5 +1,4 @@
 /* @flow */
-export { default as childrenWithProps } from './childrenWithProps';
 export { fromArray, settify, toArray } from './collections';
 export { default as composeEventHandlers } from './composeEventHandlers';
 export { generateId, resetId } from './generateId';

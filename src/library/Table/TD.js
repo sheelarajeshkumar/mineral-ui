@@ -2,6 +2,7 @@
 import React from 'react';
 import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import { rtlTextAlign } from '../utils';
+import { TableContext } from './Table';
 
 type Props = {
   /** TODO */
@@ -57,8 +58,14 @@ function TD(props: Props) {
       rootEl: element || TD.defaultProps.element
     }
   );
-  const rootProps = { ...restProps };
-  return <Root {...rootProps}>{children}</Root>;
+  return (
+    <TableContext.Consumer>
+      {({ spacious }) => {
+        const rootProps = { spacious, ...restProps };
+        return <Root {...rootProps}>{children}</Root>;
+      }}
+    </TableContext.Consumer>
+  );
 }
 
 TD.defaultProps = {

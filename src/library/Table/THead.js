@@ -1,16 +1,13 @@
 /* @flow */
 import React from 'react';
 import { createStyledComponent } from '../styles';
-import { childrenWithProps } from '../utils';
+import { TableContext } from './Table';
 
 type Props = {
   /** Rendered content can be THead, TBody, or TFoot TODO */
   children: React$Node,
   /** @Private TODO */
-  highContrast?: boolean,
-  /** @Private TODO */
-  spacious?: boolean
-  /** @Private TODO */
+  highContrast?: boolean
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -40,7 +37,14 @@ const Root = createStyledComponent(
 /**
  * THead TODO
  */
-export default function THead({ children, ...restProps }: Props) {
-  const rootProps = { ...restProps };
-  return <Root {...rootProps}>{childrenWithProps(children, rootProps)}</Root>;
+export default function THead(props: Props) {
+  const { children, ...restProps } = props;
+  return (
+    <TableContext.Consumer>
+      {({ highContrast }) => {
+        const rootProps = { highContrast, ...restProps };
+        return <Root {...rootProps}>{children}</Root>;
+      }}
+    </TableContext.Consumer>
+  );
 }
