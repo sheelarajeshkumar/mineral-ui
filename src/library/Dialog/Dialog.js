@@ -282,22 +282,18 @@ export default class Dialog extends Component<Props, State> {
           <Root {...rootProps}>
             {!hideOverlay && <Overlay />}
             <DialogContent {...contentProps}>
-              {removeCloseButton ? (
-                header
-              ) : (
-                <StartEnd>
-                  <Box>{header}</Box>
-                  <CloseButton
-                    iconStart={<IconClose />}
-                    minimal
-                    onClick={this.close}
-                    size="small"
-                    tabIndex={1000}
-                  />
-                </StartEnd>
-              )}
+              {header}
               {body}
               {footer}
+              {
+                <CloseButton
+                  iconStart={<IconClose />}
+                  minimal
+                  onClick={this.close}
+                  size="small"
+                  tabIndex={1000}
+                />
+              }
             </DialogContent>
             {closeOnEscape && (
               <EventListener
