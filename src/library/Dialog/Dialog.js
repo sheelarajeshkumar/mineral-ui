@@ -231,6 +231,7 @@ export default class Dialog extends Component<Props, State> {
 
     const header = cloneElement(_header, {
       id: headerId,
+      onClose: this.close,
       tabIndex: '-1',
       variant
     });
