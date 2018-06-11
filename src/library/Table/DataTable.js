@@ -56,7 +56,9 @@ type Props = {
 type Column = {
   'aria-label'?: string,
   'aria-sort'?: string,
+  cell?: RenderFn,
   content: React$Node,
+  header?: RenderFn,
   enableSort?: boolean,
   name: string,
   primary?: boolean,
@@ -87,6 +89,10 @@ type Messages = {
     descending: string,
     none: string
   }
+};
+type RenderFn = (props?: RenderProps) => React$Node;
+type RenderProps = {
+  props: Object
 };
 type Sort = {
   column: string,

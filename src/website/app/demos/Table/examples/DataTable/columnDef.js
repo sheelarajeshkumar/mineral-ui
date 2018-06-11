@@ -10,10 +10,20 @@ of an array of column objects, where each object contains:
 
 <PropTable
   propDoc={{
+    cell: {
+      flowType: { name: 'RenderFn' },
+      required: false,
+      description: 'Provides custom rendering control for the cells in the column. See the [custom cell example](#custom-cell) and [React docs](https://reactjs.org/docs/render-props.html).'
+    },
     content: {
       flowType: { name: 'React$Node' },
       required: true,
       description: 'Rendered content of the column header'
+    },
+    header: {
+      flowType: { name: 'RenderFn' },
+      required: false,
+      description: 'Provides custom rendering control for the column header. See the [custom column header example](#custom-column-header) and [React docs](https://reactjs.org/docs/render-props.html).'
     },
     enableSort: {
       flowType: { name: 'boolean' },

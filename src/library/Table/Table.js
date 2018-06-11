@@ -126,6 +126,7 @@ export default class Table extends Component<Props, State> {
   render() {
     const {
       children,
+      columns,
       disableOverflowScroll,
       highContrast,
       rowKey,
@@ -164,14 +165,24 @@ export default class Table extends Component<Props, State> {
     if (children) {
       table = <Root>{children}</Root>;
     } else if (rows) {
-      const columns = this.props.columns || generateColumns(rows);
+      const columnsDef = columns || generateColumns(rows);
       table = (
         <Root>
           <THead>
-            <TR>{columns && this.renderColumnHeaders(columns)}</TR>
+            <TR>
+              {columnsDef &&
+                this.renderColumnHeaders({ columns: columnsDef, ...restProps })}
+            </TR>
           </THead>
           <TBody>
-            {columns && rows && this.renderRows(columns, rowKey, rows)}
+            {columnsDef &&
+              rows &&
+              this.renderRows({
+                columns: columnsDef,
+                rowKey,
+                rows,
+                ...restProps
+              })}
           </TBody>
         </Root>
       );
@@ -193,50 +204,106 @@ export default class Table extends Component<Props, State> {
     return table;
   }
 
-  renderColumnHeaders = (columns: Columns) => {
-    return (
-      columns &&
-      columns.map(({ content, name, ...columnHeader }) => (
-        <TH key={name} scope="col" {...columnHeader}>
+  renderColumnHeaders = ({
+    columns,
+    highContrast,
+    spacious,
+    zebraStriped
+  }: {
+    columns: Columns,
+    highContrast?: boolean,
+    spacious?: boolean,
+    zebraStriped?: boolean
+  }) =>
+    columns.map(({ content, header, name, ...columnHeader }) => {
+      const { cell: ignoreCell, ...usefulColumnHeader } = columnHeader;
+      return header ? (
+        header({
+          props: {
+            children: content,
+            highContrast,
+            key: name,
+            name,
+            spacious,
+            zebraStriped,
+            ...usefulColumnHeader
+          }
+        })
+      ) : (
+        <TH key={name} scope="col" {...usefulColumnHeader}>
           {content}
         </TH>
-      ))
-    );
-  };
+      );
+    });
 
-  renderCells = (columns: Columns, row: Row) => {
-    return (
-      columns &&
-      columns.map(({ name, primary, ...cell }) => {
-        const cellProps = {
-          ...cell,
-          ...(primary
-            ? {
-                // TODO: aria-label being applied when its unnecessary
-                element: 'th',
-                scope: 'row'
-              }
-            : undefined)
-        };
-        return (
-          <TD key={name} {...cellProps}>
-            {row[name]}
-          </TD>
-        );
-      })
-    );
-  };
+  renderCells = ({
+    columns,
+    row,
+    highContrast,
+    spacious,
+    zebraStriped
+  }: {
+    columns: Columns,
+    highContrast?: boolean,
+    row: Row,
+    spacious?: boolean,
+    zebraStriped?: boolean
+  }) =>
+    columns.map(({ cell, name, primary, ...column }) => {
+      const {
+        'aria-label': ignoreAriaLabel,
+        'aria-sort': ignoreSort,
+        content: ignoreContent,
+        header: ignoreHeader,
+        role: ignoreRole,
+        ...usefulColumn
+      } = column;
+      const cellProps = {
+        ...usefulColumn,
+        ...(primary
+          ? {
+              element: 'th',
+              scope: 'row'
+            }
+          : undefined)
+      };
 
-  renderRows = (columns: Columns, rowKey?: string, rows: Rows) => {
-    return (
-      rows &&
-      rows.map(({ ...row }, index) => (
-        <TR key={row[rowKey] || index} {...row}>
-          {this.renderCells(columns, row)}
-        </TR>
-      ))
-    );
-  };
+      return cell ? (
+        cell({
+          props: {
+            children: row[name],
+            columnName: name,
+            highContrast,
+            key: name,
+            primary,
+            rowIsSelected: row.isSelected,
+            spacious,
+            zebraStriped,
+            ...usefulColumn
+          }
+        })
+      ) : (
+        <TD key={name} {...cellProps}>
+          {row[name]}
+        </TD>
+      );
+    });
+
+  renderRows = ({
+    columns,
+    rowKey,
+    rows,
+    ...restProps
+  }: {
+    columns: Columns,
+    rowKey?: string,
+    rows: Rows
+  }) =>
+    rows.map(({ ...row }, index) => (
+      <TR key={row[rowKey] || index} {...row}>
+        {this.renderCells({ columns, row, ...restProps })}
+      </TR>
+    ));
 
   setContainerRef = (node: HTMLElement) => {
     this.container = node;

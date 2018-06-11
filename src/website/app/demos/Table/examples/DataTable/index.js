@@ -2,6 +2,8 @@
 import columnAlign from './columnAlign';
 import columnAlignWithSort from './columnAlignWithSort';
 import columnDef from './columnDef';
+import customCell from './customCell';
+import customColumnHeader from './customColumnHeader';
 import controlled from './controlled';
 import dataTable from './dataTable';
 import defaultSort from './defaultSort';
@@ -33,6 +35,8 @@ export default [
   overflow,
   controlled,
   rtl,
+  customCell,
+  customColumnHeader,
   defaultSort,
   rowSelectionAndColumnDef,
   columnAlignWithSort,
