@@ -1,6 +1,7 @@
 /* @flow */
 import Button from '../../../../../library/Button';
 import {
+  DialogActions,
   DialogBody,
   DialogFooter,
   DialogHeader,
@@ -17,6 +18,7 @@ export default {
     Button,
     DemoLayout,
     Dialog,
+    DialogActions,
     DialogBody,
     DialogFooter,
     DialogHeader,
@@ -35,8 +37,10 @@ export default {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </DialogBody>
         <DialogFooter>
-          <Button minimal size="medium">Cancel</Button>
-          <Button primary size="medium">Action</Button>
+          <DialogActions>
+            <Button minimal>Cancel</Button>
+            <Button primary>Action</Button>
+          </DialogActions>
         </DialogFooter>
       </Dialog>
     </DemoLayout>`

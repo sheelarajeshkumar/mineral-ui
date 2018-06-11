@@ -2,6 +2,7 @@
 import { ThemeProvider } from '../../../../../library/themes';
 import Button from '../../../../../library/Button';
 import {
+  DialogActions,
   DialogBody,
   DialogFooter,
   DialogHeader,
@@ -18,6 +19,7 @@ export default {
     Button,
     DemoLayout,
     Dialog,
+    DialogActions,
     DialogBody,
     DialogFooter,
     DialogHeader,
@@ -40,8 +42,10 @@ export default {
               </p>
             </DialogBody>
             <DialogFooter>
-              <Button minimal size="medium">إلغاء</Button>
-              <Button primary size="medium">قبول الشروط</Button>
+              <DialogActions>
+                <Button minimal>إلغاء</Button>
+                <Button primary>قبول الشروط</Button>
+              </DialogActions>
             </DialogFooter>
           </Dialog>
         </DemoLayout>

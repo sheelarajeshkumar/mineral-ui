@@ -2,9 +2,10 @@
 import { Component } from 'react';
 import Button from '../../../../../library/Button';
 import Dialog, {
-  DialogHeader,
+  DialogActions,
   DialogBody,
   DialogFooter,
+  DialogHeader,
   DialogTitle
 } from '../../../../../library/Dialog';
 
@@ -16,6 +17,7 @@ export default {
     Button,
     Component,
     Dialog,
+    DialogActions,
     DialogBody,
     DialogFooter,
     DialogHeader,
@@ -63,8 +65,10 @@ export default {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
               </DialogBody>
               <DialogFooter>
-                <Button minimal size="medium" onClick={this.toggleDialog}>Cancel</Button>
-                <Button primary size="medium" onClick={this.toggleDialog}>Action</Button>
+                <DialogActions>
+                  <Button minimal onClick={this.toggleDialog}>Cancel</Button>
+                  <Button primary onClick={this.toggleDialog}>Action</Button>
+                </DialogActions>
               </DialogFooter>
             </Dialog>
           </div>

@@ -2,6 +2,7 @@
 import React from 'react';
 import Button from '../../../../../library/Button';
 import {
+  DialogActions,
   DialogBody,
   DialogFooter,
   DialogHeader,
@@ -33,6 +34,7 @@ export default {
     Button,
     DemoLayout,
     Dialog,
+    DialogActions,
     DialogBody,
     DialogFooter,
     DialogHeader,
@@ -51,8 +53,10 @@ export default {
           {content}
         </DialogBody>
         <DialogFooter>
-          <Button minimal size="medium">Cancel</Button>
-          <Button primary size="medium">Action</Button>
+          <DialogActions>
+            <Button minimal>Cancel</Button>
+            <Button primary>Action</Button>
+          </DialogActions>
         </DialogFooter>
       </Dialog>
     </DemoLayout>`
