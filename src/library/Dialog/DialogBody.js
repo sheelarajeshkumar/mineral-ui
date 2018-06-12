@@ -1,5 +1,6 @@
 /* @flow */
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import { createStyledComponent, getNormalizedValue } from '../styles';
 import { createThemedComponent } from '../themes';
 import DialogRow from './DialogRow';
@@ -17,11 +18,20 @@ export const componentTheme = (baseTheme: Object) => ({
 });
 
 const styles = {
-  root: ({ theme: baseTheme }) => {
+  root: ({ showBottomBorder, showTopBorder, theme: baseTheme }) => {
     const theme = componentTheme(baseTheme);
     const fontSize = theme.DialogBody_fontSize;
 
+    const boxShadowTop = `inset 0 8px 8px -8px #8E99AB, inset 0 1px #C8D1E0`;
+    const boxShadowBottom = `inset 0 -8px 8px -8px #8E99AB, inset 0 -1px #C8D1E0`;
+
+    const boxShadowArray = [];
+    showTopBorder && boxShadowArray.push(boxShadowTop);
+    showBottomBorder && boxShadowArray.push(boxShadowBottom);
+    const boxShadow = boxShadowArray.join(',');
+
     return {
+      boxShadow,
       flex: '1 1 auto',
       fontSize,
       overflowX: 'hidden',
@@ -54,5 +64,11 @@ const Root = createStyledComponent(ThemedDialogRow, styles.root, {
  * DialogBody - TODO
  */
 export default function DialogBody(props: Props) {
-  return <Root {...props} />;
+  const rootProps = {
+    showTopBorder: false, // body.scrollTop > 0
+    showBottomBorder: false, // body.scrollTop + body.clientHeight < body.scrollHeight
+    ...props
+  };
+
+  return <Root {...rootProps} />;
 }
