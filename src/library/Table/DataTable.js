@@ -26,7 +26,7 @@ type Props = {
   /** TODO */
   highContrast?: boolean,
   /** TODO */
-  messages?: Messages,
+  messages: Messages,
   /** TODO */
   onSelectRows?: (selectedRows: Rows) => void,
   /** TODO */
@@ -54,7 +54,7 @@ type Props = {
   zebraStriped?: boolean
 };
 type Column = {
-  'aria-label'?: string,
+  'aria-label'?: React$Node, // TODO: Should be a string
   'aria-sort'?: string,
   cell?: RenderFn,
   content: React$Node,
@@ -68,7 +68,7 @@ type Column = {
 };
 export type Columns = Array<Column>;
 type Direction = 'ascending' | 'descending' | 'none';
-type GetColumnsOrRows = {
+type GetColumnsOrRowsArg = {
   columns: Columns,
   enableRowSelection?: boolean,
   messages: Messages,
@@ -207,10 +207,9 @@ export default class DataTable extends Component<Props, State> {
     rows,
     selectedRows,
     sort
-  }: GetColumnsOrRows) => {
+  }: GetColumnsOrRowsArg) => {
     const result = columns.map(({ content, enableSort, name, ...column }) => ({
-      // TODO: Mac VO (others?) repeats content a _lot_
-      // TODO: What about non-string content?
+      // TODO: Mac Chrome VO (others?) repeats content a _lot_
       content,
       name,
       ...column,
@@ -305,7 +304,7 @@ export default class DataTable extends Component<Props, State> {
     rows,
     selectedRows,
     sort
-  }: GetColumnsOrRows) => {
+  }: GetColumnsOrRowsArg) => {
     const result = enableRowSelection
       ? rows.map((row) => this.addCheckboxToRow(messages, row, selectedRows))
       : rows;

@@ -42,6 +42,12 @@ type Props = {
   /** TODO */
   zebraStriped?: boolean
 };
+type RenderArg = {
+  columns: Columns,
+  highContrast?: boolean,
+  spacious?: boolean,
+  zebraStriped?: boolean
+};
 type Row = Object;
 export type Rows = Array<Row>;
 
@@ -209,12 +215,7 @@ export default class Table extends Component<Props, State> {
     highContrast,
     spacious,
     zebraStriped
-  }: {
-    columns: Columns,
-    highContrast?: boolean,
-    spacious?: boolean,
-    zebraStriped?: boolean
-  }) =>
+  }: RenderArg) =>
     columns.map(({ content, header, name, ...columnHeader }) => {
       const { cell: ignoreCell, ...usefulColumnHeader } = columnHeader;
       return header ? (
@@ -238,17 +239,11 @@ export default class Table extends Component<Props, State> {
 
   renderCells = ({
     columns,
-    row,
     highContrast,
+    row,
     spacious,
     zebraStriped
-  }: {
-    columns: Columns,
-    highContrast?: boolean,
-    row: Row,
-    spacious?: boolean,
-    zebraStriped?: boolean
-  }) =>
+  }: { row: Row } & RenderArg) =>
     columns.map(({ cell, name, primary, ...column }) => {
       const {
         'aria-label': ignoreAriaLabel,
@@ -298,35 +293,29 @@ export default class Table extends Component<Props, State> {
     zebraStriped,
     ...restProps
   }: {
-    columns: Columns,
-    highContrast?: boolean,
     rowKey?: string,
-    rows: Rows,
-    spacious?: boolean,
-    zebraStriped?: boolean
-  }) => {
-    const children = (row) => this.renderCells({ columns, row, ...restProps });
-    const key = (row, index) => row[rowKey] || index;
-    return rows.map(
-      ({ ...row }, index) =>
-        row.row ? (
-          row.row({
-            props: {
-              children: children(row),
-              highContrast,
-              key: key(row, index),
-              spacious,
-              zebraStriped,
-              ...row
-            }
-          })
-        ) : (
-          <TR key={key(row, index)} {...row}>
-            {children(row)}
-          </TR>
-        )
-    );
-  };
+    rows: Rows
+  } & RenderArg) =>
+    rows.map(({ ...row }, index) => {
+      const children = this.renderCells({ columns, row, ...restProps });
+      const key = row[rowKey] || index;
+      return row.row ? (
+        row.row({
+          props: {
+            children,
+            highContrast,
+            key,
+            spacious,
+            zebraStriped,
+            ...row
+          }
+        })
+      ) : (
+        <TR key={key} {...row}>
+          {children}
+        </TR>
+      );
+    });
 
   setContainerRef = (node: HTMLElement) => {
     this.container = node;
