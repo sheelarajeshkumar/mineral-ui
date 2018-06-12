@@ -1,5 +1,5 @@
 /* @flow */
-import React from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { createStyledComponent, getNormalizedValue } from '../styles';
 import { createThemedComponent } from '../themes';
@@ -8,6 +8,11 @@ import DialogRow from './DialogRow';
 type Props = {
   /** TODO */
   children: React$Node
+};
+
+type State = {
+  showTopBorder: boolean,
+  showBottomBorder: boolean
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -63,12 +68,30 @@ const Root = createStyledComponent(ThemedDialogRow, styles.root, {
 /**
  * DialogBody - TODO
  */
-export default function DialogBody(props: Props) {
-  const rootProps = {
-    showTopBorder: false, // body.scrollTop > 0
-    showBottomBorder: false, // body.scrollTop + body.clientHeight < body.scrollHeight
-    ...props
+export default class DialogBody extends Component<Props, State> {
+  state = {
+    showTopBorder: false,
+    showBottomBorder: false
   };
 
-  return <Root {...rootProps} />;
+  render() {
+    const { showBottomBorder, showTopBorder } = this.state;
+    const rootProps = {
+      showTopBorder,
+      showBottomBorder,
+      onScroll: this.handleScroll,
+      ...this.props
+    };
+
+    return <Root {...rootProps} />;
+  }
+
+  handleScroll = (e) => {
+    const body = e.currentTarget;
+
+    this.setState({
+      showTopBorder: body.scrollTop > 0,
+      showBottomBorder: body.scrollTop + body.clientHeight < body.scrollHeight
+    });
+  };
 }
