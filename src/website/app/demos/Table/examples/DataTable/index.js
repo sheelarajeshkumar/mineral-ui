@@ -4,6 +4,7 @@ import columnAlignWithSort from './columnAlignWithSort';
 import columnDef from './columnDef';
 import customCell from './customCell';
 import customColumnHeader from './customColumnHeader';
+import customRow from './customRow';
 import controlled from './controlled';
 import dataTable from './dataTable';
 import defaultSort from './defaultSort';
@@ -37,6 +38,7 @@ export default [
   rtl,
   customCell,
   customColumnHeader,
+  customRow,
   defaultSort,
   rowSelectionAndColumnDef,
   columnAlignWithSort,

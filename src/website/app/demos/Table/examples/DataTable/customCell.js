@@ -19,6 +19,8 @@ ${renderPropDescription}
 
 Some things to keep in mind:
 
+1. Because you are rendering a table cell, the rendered root element _must_ be a
+   \`td\`.
 1. Remember to accommodate the appearance-related DataTable props, like
    [\`highContrast\`](#high-contrast), [\`spacious\`](#spacious), and
    [\`zebraStriped\`](#zebra-striped).
@@ -49,7 +51,6 @@ Some things to keep in mind:
 
         const CustomCell = withTheme(({ theme: baseTheme }) => {
           const theme = tDTheme(baseTheme);
-          const fontSize = theme.TD_fontSize;
           const paddingVertical = spacious
             ? theme.TD_paddingVertical_spacious
             : theme.TD_paddingVertical;
@@ -80,7 +81,7 @@ Some things to keep in mind:
           });
 
           const Content = createStyledComponent('span', {
-            fontSize,
+            fontSize: theme.TD_fontSize,
             textAlign: rtlTextAlign
           });
 

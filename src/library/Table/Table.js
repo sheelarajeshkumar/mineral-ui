@@ -291,19 +291,42 @@ export default class Table extends Component<Props, State> {
 
   renderRows = ({
     columns,
+    highContrast,
     rowKey,
     rows,
+    spacious,
+    zebraStriped,
     ...restProps
   }: {
     columns: Columns,
+    highContrast?: boolean,
     rowKey?: string,
-    rows: Rows
-  }) =>
-    rows.map(({ ...row }, index) => (
-      <TR key={row[rowKey] || index} {...row}>
-        {this.renderCells({ columns, row, ...restProps })}
-      </TR>
-    ));
+    rows: Rows,
+    spacious?: boolean,
+    zebraStriped?: boolean
+  }) => {
+    const children = (row) => this.renderCells({ columns, row, ...restProps });
+    const key = (row, index) => row[rowKey] || index;
+    return rows.map(
+      ({ ...row }, index) =>
+        row.row ? (
+          row.row({
+            props: {
+              children: children(row),
+              highContrast,
+              key: key(row, index),
+              spacious,
+              zebraStriped,
+              ...row
+            }
+          })
+        ) : (
+          <TR key={key(row, index)} {...row}>
+            {children(row)}
+          </TR>
+        )
+    );
+  };
 
   setContainerRef = (node: HTMLElement) => {
     this.container = node;

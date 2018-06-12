@@ -62,7 +62,7 @@ const Root = createStyledComponent(
         })()
       },
 
-      '&:nth-child(even):not(:hover):not([data-simulate-hover])': {
+      '&:nth-child(even):not(:hover)': {
         backgroundColor:
           !isSelected && zebraStriped
             ? theme.TR_backgroundColor_zebraStriped

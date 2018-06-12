@@ -19,6 +19,8 @@ ${renderPropDescription}
 
 Some things to keep in mind:
 
+1. Because you are rendering a table column header, the rendered root element
+   _must_ be either a \`th\` (recommended) or a \`td\`.
 1. Remember to accommodate the appearance-related DataTable props, like
    [\`highContrast\`](#high-contrast), [\`spacious\`](#spacious), and
    [\`zebraStriped\`](#zebra-striped).
