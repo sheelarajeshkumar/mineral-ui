@@ -1,6 +1,7 @@
 /* @flow */
 import React, { cloneElement, Component } from 'react';
 import FocusTrap from 'focus-trap-react';
+import noScroll from 'no-scroll';
 import Transition from 'react-transition-group/Transition';
 import { createStyledComponent, pxToEm } from '../styles';
 import { createThemedComponent } from '../themes';
@@ -218,10 +219,8 @@ export default class Dialog extends Component<Props, State> {
   dialogContent: ?HTMLElement;
 
   componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.isOpen && !this.props.isOpen) {
-      this.setState({
-        isExited: false
-      });
+    if (!this.props.isOpen && nextProps.isOpen) {
+      this.open();
     }
   }
 
@@ -344,8 +343,17 @@ export default class Dialog extends Component<Props, State> {
     this.dialogContent = node;
   };
 
+  open = () => {
+    this.setState({
+      isExited: false
+    });
+
+    noScroll.on();
+  };
+
   close = () => {
     this.handleExiting();
+    noScroll.off();
   };
 
   handleClick = (event: SyntheticEvent<Node>) => {
