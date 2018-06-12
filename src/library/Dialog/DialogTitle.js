@@ -32,15 +32,14 @@ const styles = {
       alignItems: 'flex-start',
       color: variant ? theme[`color_${variant}`] : theme.DialogTitle_color,
       display: 'flex',
+      height: '100%',
 
       '& > [role="img"]': {
         color: variant ? theme[`icon_color_${variant}`] : null,
         flex: 'none',
         fontSize: theme.DialogTitleIcon_fontSize,
         marginLeft: rtl ? theme.DialogTitleIcon_margin : null,
-        marginRight: rtl ? null : theme.DialogTitleIcon_margin,
-        position: 'relative',
-        top: pxToEm(1) // optical alignment
+        marginRight: rtl ? null : theme.DialogTitleIcon_margin
       }
     };
   },

@@ -245,7 +245,6 @@ export default class Dialog extends Component<Props, State> {
       noCloseButton,
       size,
       usePortal,
-      variant,
       ...restProps
     } = this.props;
     const { isExited, isExiting } = this.state;
@@ -269,8 +268,7 @@ export default class Dialog extends Component<Props, State> {
       // prettier-ignore
       closeButton: noCloseButton ? undefined : <CloseButton {...closeButtonProps} />,
       id: headerId,
-      tabIndex: '-1',
-      variant
+      tabIndex: '-1'
     });
 
     const rootProps = {
