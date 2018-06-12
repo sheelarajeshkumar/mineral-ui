@@ -6,18 +6,20 @@ import Transition from 'react-transition-group/Transition';
 import { createStyledComponent, pxToEm } from '../styles';
 import { createThemedComponent } from '../themes';
 import { generateId, findByType } from '../utils';
+import Button from '../Button';
+import IconClose from '../Icon/IconClose';
 import Portal from '../Portal';
 import EventListener from '../EventListener';
 import DialogBody from './DialogBody';
 import DialogFooter from './DialogFooter';
 import DialogHeader from './DialogHeader';
 import { componentTheme as dialogRowComponentTheme } from './DialogRow';
-import _Button from '../Button';
-import IconClose from 'mineral-ui-icons/IconClose';
 
 type Props = {
   /** TODO */
   children: React$Node,
+  /** TODO */
+  closeButtonLabel?: string,
   /** TODO */
   closeOnEscape?: boolean,
   /** TODO */
@@ -34,12 +36,12 @@ type Props = {
   isOpen?: boolean,
   /** TODO */
   modeless?: boolean,
+  /** TODO */
+  noCloseButton?: boolean,
   /** Called when Dialog is closed */
   onClose?: () => void,
   /** Called when Dialog is opened */
   onOpen?: () => void,
-  /** TODO */
-  removeCloseButton?: boolean,
   /** TODO */
   size?: 'small' | 'medium' | 'large',
   /** @Private TODO */
@@ -55,6 +57,8 @@ type State = {
 
 export const componentTheme = (baseTheme: Object) => ({
   Dialog_zIndex: baseTheme.zIndex_100,
+
+  DialogCloseButton_margin: baseTheme.space_inline_sm,
 
   DialogContent_backgroundColor: baseTheme.panel_backgroundColor,
   DialogContent_borderColor: baseTheme.panel_borderColor,
@@ -171,19 +175,6 @@ const Animate = createStyledComponent('div', styles.animate, {
   displayName: 'Animate'
 });
 
-const Button = createThemedComponent(_Button, ({ theme }) => ({
-  ButtonIcon_color: theme.color
-}));
-
-const CloseButton = createStyledComponent(Button, ({ theme: baseTheme }) => {
-  const theme = componentTheme(baseTheme);
-  return {
-    position: 'absolute',
-    right: theme.DialogRow_paddingHorizontal,
-    top: theme.DialogRow_marginVertical
-  };
-});
-
 const Animation = ({ children, ...restProps }: Object) => {
   return (
     <Transition
@@ -197,11 +188,29 @@ const Animation = ({ children, ...restProps }: Object) => {
   );
 };
 
+const ThemedButton = createThemedComponent(Button, ({ theme }) => ({
+  ButtonIcon_color: theme.color
+}));
+
+const CloseButton = createStyledComponent(
+  ThemedButton,
+  ({ theme: baseTheme }) => {
+    const theme = componentTheme(baseTheme);
+    const rtl = theme.direction === 'rtl';
+
+    return {
+      marginLeft: rtl ? null : theme.DialogCloseButton_margin,
+      marginRight: rtl ? theme.DialogCloseButton_margin : null
+    };
+  }
+);
+
 /**
  * Dialog - TODO
  */
 export default class Dialog extends Component<Props, State> {
   static defaultProps: Object = {
+    closeButtonLabel: 'close',
     closeOnClickOutside: true,
     closeOnEscape: true,
     hideOverlay: false,
@@ -227,12 +236,13 @@ export default class Dialog extends Component<Props, State> {
   render() {
     const {
       children,
+      closeButtonLabel,
       closeOnClickOutside,
       closeOnEscape,
       disableFocusTrap,
       isOpen,
       hideOverlay,
-      removeCloseButton,
+      noCloseButton,
       size,
       usePortal,
       variant,
@@ -248,7 +258,16 @@ export default class Dialog extends Component<Props, State> {
 
     const headerId = this.getHeaderId();
 
+    const closeButtonProps = {
+      'aria-label': closeButtonLabel,
+      iconStart: <IconClose />,
+      minimal: true,
+      size: 'small'
+    };
+
     const header = cloneElement(_header, {
+      // prettier-ignore
+      closeButton: noCloseButton ? undefined : <CloseButton {...closeButtonProps} />,
       id: headerId,
       tabIndex: '-1',
       variant
@@ -292,15 +311,6 @@ export default class Dialog extends Component<Props, State> {
               {header}
               {body}
               {footer}
-              {
-                <CloseButton
-                  iconStart={<IconClose />}
-                  minimal
-                  onClick={this.close}
-                  size="small"
-                  tabIndex={1000}
-                />
-              }
             </DialogContent>
             {closeOnEscape && (
               <EventListener

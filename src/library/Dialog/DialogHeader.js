@@ -5,13 +5,16 @@ import DialogRow from './DialogRow';
 
 type Props = {
   /** TODO */
-  children: React$Node
+  children: React$Node,
+  /** TODO */
+  closeButton?: React$Node
 };
 
 const Root = createStyledComponent(
   DialogRow,
   {
-    position: 'static' // Inert style to avoid glamor "unexpected rule cache miss"
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   {
     displayName: 'DialogHeader',
@@ -23,5 +26,12 @@ const Root = createStyledComponent(
  * DialogHeader - TODO
  */
 export default function DialogHeader(props: Props) {
-  return <Root {...props} />;
+  const { children, closeButton, ...rootProps } = props;
+
+  return (
+    <Root {...rootProps}>
+      <div>{children}</div>
+      {closeButton}
+    </Root>
+  );
 }
