@@ -20,7 +20,7 @@ type Props = {
    * Value of the selected [Button](/components/button); primarily for use with
    * uncontrolled components.
    */
-  defaultChecked?: string,
+  defaultChecked?: string | Array<string>,
   /** Display the choices inline horizontally rather than stacked vertically. */
   inline?: boolean,
   /** The name of the group */

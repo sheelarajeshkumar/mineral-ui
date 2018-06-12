@@ -140,7 +140,6 @@ const ChoiceGroup = (props: Props) => {
 
   let inputs = null;
   if (data && input) {
-    // let inputProps
     inputs = data.map((inputData, index) => {
       return appearance === 'button'
         ? createElement(input, {
@@ -156,15 +155,26 @@ const ChoiceGroup = (props: Props) => {
     });
   } else if (children && input === InputButton) {
     inputs = Children.map(children, (child, index) => {
-      const _InputButton = (
+      const { disabled, size, value, ...otherButtonProps } = child.props;
+      const buttonProps = { disabled, ...otherButtonProps };
+      const comp = (
         <InputButton
-          children={child.props.children}
-          disabled={child.props.disabled}
-          value={child.props.value}
+          buttonProps={buttonProps}
+          disabled
           type={type}
+          value={value}
+          {...inputProps(child.props.value, index)}
         />
       );
-      return cloneElement(_InputButton, inputProps(child.props.value, index));
+      console.log(comp);
+      return comp;
+      // const newInput = cloneElement(InputButton, {
+      //   buttonProps,
+      //   // disabled,
+      //   type,
+      //   // value,
+      //   ...inputProps(child.props.value, index)
+      // });
     });
   }
 

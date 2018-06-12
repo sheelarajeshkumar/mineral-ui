@@ -44,18 +44,32 @@ type Props = {
 
 export const componentTheme = (baseTheme: Object) => ({
   ButtonGroup_backgroundColor_checked: baseTheme.backgroundColor_themePrimary,
+  ButtonGroup_backgroundColor_checked_active:
+    baseTheme.backgroundColor_themePrimary_active,
+  ButtonGroup_backgroundColor_checked_focus:
+    baseTheme.backgroundColor_themePrimary_focus,
+  ButtonGroup_backgroundColor_checked_hover:
+    baseTheme.backgroundColor_themePrimary_hover,
+  ButtonGroup_border: `solid 1px ${baseTheme.borderColor}`,
+  ButtonGroup_border_disabled: `solid 1px ${baseTheme.borderColor}`,
+  ButtonGroup_border_focus: `solid 1px ${baseTheme.borderColor_theme_focus}`,
   ButtonGroup_borderColor_checked: baseTheme.borderColor_theme,
-  // ButtonGroup_borderColor_focus: baseTheme.borderColor_theme_focus,
-  ButtonGroup_borderColor: `solid 1px ${baseTheme.borderColor_theme}`,
-  ButtonGroup_borderColor_focus: `solid 1px ${
-    baseTheme.borderColor_theme_focus
-  }`,
-  ButtonGroup_border_disabled: `solid 1px ${baseTheme.borderColor}`
+  ButtonGroup_color_checked: baseTheme.color_inverted
 });
 
 const styles = (props) => {
   let theme = componentTheme(props.theme);
-  const { disabled } = props;
+  const { disabled, multiSelect, variant } = props;
+  if (variant !== 'regular') {
+    // prettier-ignore
+    theme = {
+      ...theme,
+      Button_backgroundColor_checked: theme[`backgroundColor_${variant}Primary`],
+      Button_backgroundColor_checked_active: theme[`backgroundColor_${variant}Primary_active`],
+      Button_backgroundColor_checked_focus: theme[`backgroundColor_${variant}Primary_focus`],
+      Button_backgroundColor_checked_hover: theme[`backgroundColor_${variant}Primary_hover`]
+    }
+  }
   return {
     marginRight: 0,
     '& > input': {
@@ -70,27 +84,12 @@ const styles = (props) => {
       '& ~ span': {
         backgroundColor: theme.ButtonGroup_backgroundColor_checked,
         borderColor: theme.ButtonGroup_borderColor_checked,
-        // boxShadow: 'none',
-        color: 'white',
-        // borderRight: 'solid 1px white',
-        // borderLeftColor: 'white'
-        // '&:focus': {
-        //   borderColor: theme.ButtonGroup_borderColor_checked,
-        //   borderRight: 'solid 1px white',
-        //   borderLeftColor: 'white',
-        //   boxShadow: `inset 0 0 0 1px white`
-        // }
-        '&:focus ~ span': {
-          // backgroundColor: theme.backgroundColor_themePrimary,
-          border: theme.ButtonGroup_border_focus,
-          // borderRightStyle: 'solid',
-          // boxShadow: 'none',
-          // borderColor: theme.ButtonGroup_borderColor_checked,
-          // borderRight: theme.ButtonGroup_border_focus,
-          // borderLeftColor: 'white',
-          boxShadow: `inset 0 0 0 1px white`
-        }
+        color: theme.ButtonGroup_color_checked
       }
+      // '&:focus ~ span': {
+      //   border: theme.ButtonGroup_border_focus,
+      //   boxShadow: `inset 0 0 0 1px white`
+      // }
     },
     '& > input:focus ~ span': {
       border: theme.ButtonGroup_border_focus,
@@ -99,13 +98,13 @@ const styles = (props) => {
     '&:first-child': {
       '& > span': {
         borderBottomRightRadius: 0,
-        borderTopRightRadius: 0,
-        '&:not(:focus)': {
-          borderRightColor: 'transparent'
-        }
+        borderTopRightRadius: 0
+      },
+      '& > input:not(:focus) ~ span': {
+        borderRightColor: 'transparent'
       },
       '& > input:checked:not(:focus) ~ span': {
-        borderRight: 'solid 1px white'
+        borderRight: `${multiSelect && 'solid 1px white'}`
       },
       '& > input:checked:focus ~ span': {
         border: theme.ButtonGroup_border_focus
@@ -119,19 +118,19 @@ const styles = (props) => {
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
         borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
-        '&:not(:focus)': {
-          borderRightColor: 'transparent'
-        },
-        '& > input:checked:not(:focus) ~ span': {
-          borderRight: 'solid 1px white'
-        },
-        '& > input:checked:focus ~ span': {
-          border: theme.ButtonGroup_border_focus
-        },
-        '& > input:not(:focus):not(:checked) ~ span': {
-          border: theme.ButtonGroup_border
-        }
+        borderTopRightRadius: 0
+      },
+      '& > input:not(:focus) ~ span': {
+        borderRightColor: 'transparent'
+      },
+      '& > input:checked:not(:focus) ~ span': {
+        borderRight: 'solid 1px white'
+      },
+      '& > input:checked:focus ~ span': {
+        border: theme.ButtonGroup_border_focus
+      },
+      '& > input:not(:focus):not(:checked) ~ span': {
+        border: theme.ButtonGroup_border
       },
       '& > input:checked ~ span': {
         borderRight: 'solid 1px white'
@@ -168,32 +167,31 @@ const Root = createStyledComponent('label', styles);
 export default function InputButton(props: Props) {
   const {
     buttonProps: otherButtonProps,
-    children,
+    // children,
     className,
     disabled,
-    invalid,
+    // invalid,
     label,
     minimal,
-    onClick,
-    required,
+    // required,
     rootProps: otherRootProps,
     size,
+    variant,
     ...restProps
   } = props;
-  // console.log(restProps);
   const buttonProps = {
     disabled,
     minimal,
-    onClick,
     size,
+    variant,
     ...otherButtonProps
   };
   const inputProps = {
-    'aria-invalid': invalid,
-    'aria-required': required,
+    // 'aria-invalid': invalid,
+    // 'aria-required': required,
     disabled,
     label,
-    required,
+    // required,
     ...restProps // Note: Props are spread to input rather than Root
   };
   const rootProps = {
@@ -201,11 +199,12 @@ export default function InputButton(props: Props) {
     disabled,
     ...otherRootProps
   };
+
   return (
     <Root {...rootProps}>
       <input {...inputProps} />
       <Button {...buttonProps} element="span">
-        {children ? children : label}
+        {buttonProps.children ? buttonProps.children : label}
       </Button>
     </Root>
   );
