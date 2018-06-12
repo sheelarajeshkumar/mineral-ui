@@ -1,5 +1,6 @@
 /* @flow */
 import React, { cloneElement, Component } from 'react';
+import { canUseDOM } from 'exenv';
 import FocusTrap from 'focus-trap-react';
 import noScroll from 'no-scroll';
 import Transition from 'react-transition-group/Transition';
@@ -227,8 +228,11 @@ export default class Dialog extends Component<Props, State> {
 
   dialogContent: ?HTMLElement;
 
+  lastFocusedElement: ?HTMLElement;
+
   componentWillReceiveProps(nextProps: Props) {
     if (!this.props.isOpen && nextProps.isOpen) {
+      this.setLastFocusedElement();
       this.open();
     }
   }
@@ -351,6 +355,18 @@ export default class Dialog extends Component<Props, State> {
     this.dialogContent = node;
   };
 
+  setLastFocusedElement = () => {
+    if (canUseDOM) {
+      const { activeElement, body } = global.document;
+      this.lastFocusedElement =
+        activeElement && activeElement.focus ? activeElement : body;
+    }
+  };
+
+  restoreFocus = () => {
+    this.lastFocusedElement && this.lastFocusedElement.focus();
+  };
+
   open = () => {
     this.setState({
       isExited: false
@@ -362,6 +378,7 @@ export default class Dialog extends Component<Props, State> {
   close = () => {
     this.handleExiting();
     noScroll.off();
+    this.restoreFocus();
   };
 
   handleClick = (event: SyntheticEvent<Node>) => {
