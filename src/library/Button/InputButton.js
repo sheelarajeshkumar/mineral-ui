@@ -99,20 +99,27 @@ const styles = (props) => {
       '& > span': {
         borderBottomRightRadius: 0,
         borderTopRightRadius: 0
-      },
-      '& > input:not(:focus) ~ span': {
-        borderRightColor: 'transparent'
-      },
-      '& > input:checked:not(:focus) ~ span': {
-        borderRight: `${multiSelect && 'solid 1px white'}`
-      },
-      '& > input:checked:focus ~ span': {
-        border: theme.ButtonGroup_border_focus
-      },
-      '& > input:not(:focus):not(:checked) ~ span': {
-        border: theme.ButtonGroup_border
       }
+      // '& > input:checked:not(:focus) ~ span': {
+      //   borderRight: `${multiSelect && 'solid 1px white'}`
+      // },
+      // '& > input:checked:focus ~ span': {
+      //   border: theme.ButtonGroup_border_focus
+      // },
+      // '& > input:not(:focus):not(:checked) ~ span': {
+      //   border: theme.ButtonGroup_border
+      // }
     },
+
+    // '[data-checked] + & > input:checked > span': {
+    //   borderLeft:
+    // }
+
+    '&:not(:first-child)': {
+      '& > input:not(:focus) ~ span': {
+        borderLeftColor: 'transparent'
+      }
+    }
     '&:not(:first-child)&:not(:last-child)': {
       '& > span': {
         borderBottomLeftRadius: 0,
@@ -120,25 +127,24 @@ const styles = (props) => {
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0
       },
-      '& > input:not(:focus) ~ span': {
-        borderRightColor: 'transparent'
-      },
-      '& > input:checked:not(:focus) ~ span': {
-        borderRight: 'solid 1px white'
-      },
-      '& > input:checked:focus ~ span': {
-        border: theme.ButtonGroup_border_focus
-      },
-      '& > input:not(:focus):not(:checked) ~ span': {
-        border: theme.ButtonGroup_border
-      },
-      '& > input:checked ~ span': {
-        borderRight: 'solid 1px white'
-      }
+      // '& > input:checked:not(:focus) ~ span': {
+      //   borderRight: 'solid 1px white'
+      // },
+      // '& > input:checked:focus ~ span': {
+      //   border: theme.ButtonGroup_border_focus
+      // },
+      // '& > input:not(:focus):not(:checked) ~ span': {
+      //   border: theme.ButtonGroup_border
+      // },
+      // '& > input:checked ~ span': {
+      //   borderRight: 'solid 1px white'
+      // }
     },
-    '&:last-child > span': {
-      borderBottomLeftRadius: 0,
-      borderTopLeftRadius: 0
+    '&:last-child': {
+      '> span': {
+        borderBottomLeftRadius: 0,
+        borderTopLeftRadius: 0
+      }
     }
     // '& > input:checked:focus ~ span': {
     //

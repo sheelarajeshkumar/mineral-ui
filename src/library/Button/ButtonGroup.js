@@ -66,7 +66,6 @@ export default class ButtonGroup extends Component<Props, State> {
     const { multiSelect, rootProps: otherRootProps, ...restProps } = this.props;
 
     const rootProps = {
-      appearance: 'button',
       input: InputButton,
       rootProps: {
         inline: true,

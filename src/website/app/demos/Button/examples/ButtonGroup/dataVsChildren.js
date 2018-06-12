@@ -18,7 +18,7 @@ group of related controls.`,
         name="mineral-2"
         size="small">
         <Button value="hi">Hi</Button>
-        <Button>I'm a Button</Button>
+        <Button disabled>I'm a Button</Button>
         <Button>Me too</Button>
       </ButtonGroup>
 
@@ -51,7 +51,7 @@ group of related controls.`,
   <br />
     <DemoForm>
       <ButtonGroup
-        defaultChecked="fluorite"
+        defaultChecked="magnetite"
         data={[
           { label: 'Fluorite', value: 'fluorite' },
           { label: 'Magnetite', value: 'magnetite' },
