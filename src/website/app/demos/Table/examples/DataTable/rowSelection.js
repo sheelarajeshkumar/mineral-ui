@@ -18,20 +18,11 @@ changes (most useful when [controlled](#controlled)).`,
         { ...sharedRows[2], disabled: true }
       ];
 
-      const columns = [
-        { content: 'Fruits2', name: 'Fruits' },
-        { content: 'Vegetables2', name: 'Vegetables' },
-        { content: 'Grains2', name: 'Grains' },
-        { content: 'Dairy2', name: 'Dairy' },
-        { content: 'Protein2', name: 'Protein' }
-      ];
-
       return (
         <DataTable
-          // columns={columns}
           enableRowSelection
           defaultSelectedRows={[rows[1]]}
-          rows={sharedRows}
+          rows={rows}
           rowKey="Fruits"/>
       );
     }`
