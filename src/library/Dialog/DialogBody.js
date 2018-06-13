@@ -82,10 +82,13 @@ export default class DialogBody extends Component<Props, State> {
 
   render() {
     const { hasShadowBottom, hasShadowTop } = this.state;
+    const isScrollable = hasShadowBottom || hasShadowTop;
     const rootProps = {
       hasShadowTop,
       hasShadowBottom,
       onScroll: this.handleScroll,
+      // Set tabIndex when scrollable so user can scroll with keyboard
+      tabIndex: isScrollable ? 0 : undefined,
       ...this.props
     };
 
