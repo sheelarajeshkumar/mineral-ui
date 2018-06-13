@@ -1,4 +1,5 @@
 /* @flow */
+export { default as capitalize } from './capitalize';
 export * from './children';
 export { default as composeEventHandlers } from './composeEventHandlers';
 export * from './generateId';

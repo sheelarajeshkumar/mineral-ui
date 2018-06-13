@@ -323,7 +323,13 @@ export default class Dialog extends Component<Props, State> {
   }
 
   renderHeader = () => {
-    const { children, closeButtonLabel, showCloseButton, title } = this.props;
+    const {
+      children,
+      closeButtonLabel,
+      showCloseButton,
+      title,
+      variant
+    } = this.props;
 
     const closeButtonProps = {
       'aria-label': closeButtonLabel,
@@ -341,9 +347,13 @@ export default class Dialog extends Component<Props, State> {
     };
     let header;
     if (title) {
+      const titleProps = {
+        variant
+      };
+
       header = (
         <DialogHeader {...headerProps}>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle {...titleProps}>{title}</DialogTitle>
         </DialogHeader>
       );
     } else {
