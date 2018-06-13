@@ -1,5 +1,6 @@
 /* @flow */
 import { Children } from 'react';
+import { toArray } from './collections';
 
 export function findByType(children: React$Node, type: React$ComponentType<*>) {
   let match;
@@ -19,6 +20,18 @@ export function findAllByType(
 ) {
   return Children.map(children, (child) => {
     if (child && child.type === type) {
+      return child;
+    }
+  });
+}
+
+export function excludeByType(
+  children: React$Node,
+  type: React$ComponentType<*> | Array<React$ComponentType<*>>
+) {
+  const types = toArray(type);
+  return Children.map(children, (child) => {
+    if (types.indexOf(child.type) === -1) {
       return child;
     }
   });

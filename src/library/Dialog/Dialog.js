@@ -6,17 +6,21 @@ import noScroll from 'no-scroll';
 import Transition from 'react-transition-group/Transition';
 import { createStyledComponent, pxToEm } from '../styles';
 import { createThemedComponent } from '../themes';
-import { generateId, findByType } from '../utils';
+import { generateId, excludeByType, findByType } from '../utils';
 import Button from '../Button';
 import IconClose from '../Icon/IconClose';
 import Portal from '../Portal';
 import EventListener from '../EventListener';
+import DialogActions from './DialogActions';
 import DialogBody from './DialogBody';
 import DialogFooter from './DialogFooter';
 import DialogHeader from './DialogHeader';
+import DialogTitle from './DialogTitle';
 import { componentTheme as dialogRowComponentTheme } from './DialogRow';
 
 type Props = {
+  /** TODO - Shorthand alternative to using DialogFooter and DialogActions */
+  actions?: Array<React$Node>,
   /** TODO */
   children: React$Node,
   /** TODO */
@@ -37,14 +41,16 @@ type Props = {
   isOpen?: boolean,
   /** TODO */
   modeless?: boolean,
-  /** TODO */
-  showCloseButton?: boolean,
   /** Called when Dialog is closed */
   onClose?: () => void,
   /** Called when Dialog is opened */
   onOpen?: () => void,
   /** TODO */
+  showCloseButton?: boolean,
+  /** TODO */
   size?: 'small' | 'medium' | 'large',
+  /** TODO - Shorthand alternative to using DialogHeader and DialogTitle */
+  title?: string,
   /** @Private TODO */
   usePortal?: boolean,
   /** Available variants */
@@ -161,6 +167,7 @@ const styles = {
 
 const Root = createStyledComponent('div', styles.root, {
   displayName: 'Dialog',
+  filterProps: ['title'],
   includeStyleReset: true
 });
 
@@ -215,7 +222,7 @@ export default class Dialog extends Component<Props, State> {
     closeOnClickOutside: true,
     closeOnEscape: true,
     hideOverlay: false,
-    size: 'medium', // TODO: What is the default size?
+    size: 'medium',
     usePortal: true
   };
 
@@ -239,14 +246,11 @@ export default class Dialog extends Component<Props, State> {
 
   render() {
     const {
-      children,
-      closeButtonLabel,
       closeOnClickOutside,
       closeOnEscape,
       disableFocusTrap,
       isOpen,
       hideOverlay,
-      showCloseButton,
       size,
       usePortal,
       ...restProps
@@ -257,24 +261,7 @@ export default class Dialog extends Component<Props, State> {
       return null;
     }
 
-    let [_header, body, footer] = this.extractComponentsFromChildren(children);
-
     const headerId = this.getHeaderId();
-
-    const closeButtonProps = {
-      'aria-label': closeButtonLabel,
-      iconStart: <IconClose />,
-      minimal: true,
-      onClick: this.close,
-      size: 'small'
-    };
-
-    const header = cloneElement(_header, {
-      // prettier-ignore
-      closeButton: showCloseButton ? <CloseButton {...closeButtonProps} /> : undefined,
-      id: headerId,
-      tabIndex: '-1'
-    });
 
     const rootProps = {
       'aria-labelledby': headerId,
@@ -311,9 +298,9 @@ export default class Dialog extends Component<Props, State> {
           <Root {...rootProps}>
             {!hideOverlay && <Overlay />}
             <DialogContent {...contentProps}>
-              {header}
-              {body}
-              {footer}
+              {this.renderHeader()}
+              {this.renderBody()}
+              {this.renderFooter()}
             </DialogContent>
             {closeOnEscape && (
               <EventListener
@@ -335,17 +322,82 @@ export default class Dialog extends Component<Props, State> {
     return usePortal ? <Portal>{output}</Portal> : output;
   }
 
-  extractComponentsFromChildren = (children: React$Node) => {
-    return [DialogHeader, DialogBody, DialogFooter].reduce((acc, type) => {
-      const child = findByType(children, type);
-      if (!child) {
+  renderHeader = () => {
+    const { children, closeButtonLabel, showCloseButton, title } = this.props;
+
+    const closeButtonProps = {
+      'aria-label': closeButtonLabel,
+      iconStart: <IconClose />,
+      minimal: true,
+      onClick: this.close,
+      size: 'small'
+    };
+
+    const headerProps = {
+      // prettier-ignore
+      closeButton: showCloseButton ? <CloseButton {...closeButtonProps} /> : undefined,
+      id: this.getHeaderId(),
+      tabIndex: '-1'
+    };
+    let header;
+    if (title) {
+      header = (
+        <DialogHeader {...headerProps}>
+          <DialogTitle>{title}</DialogTitle>
+        </DialogHeader>
+      );
+    } else {
+      const headerChild = findByType(children, DialogHeader);
+      if (!headerChild) {
         throw new Error(
-          `[mineral-ui/Dialog]: Dialog must contain a ${type.name}.`
+          '[mineral-ui/Dialog]: Dialog must contain a DialogHeader or use the title prop.'
         );
       }
-      acc.push(child);
-      return acc;
-    }, []);
+      header = cloneElement(headerChild, headerProps);
+    }
+
+    return header;
+  };
+
+  renderBody = () => {
+    const { children } = this.props;
+
+    let body;
+    const bodyChild = findByType(children, DialogBody);
+    if (bodyChild) {
+      body = bodyChild;
+    } else {
+      const bodyChildren = excludeByType(children, [
+        DialogHeader,
+        DialogFooter
+      ]);
+      body = <DialogBody>{bodyChildren}</DialogBody>;
+    }
+
+    return body;
+  };
+
+  renderFooter = () => {
+    const { actions, children } = this.props;
+
+    let footer;
+    if (actions) {
+      footer = (
+        <DialogFooter>
+          <DialogActions>{actions}</DialogActions>
+        </DialogFooter>
+      );
+    } else {
+      const footerChild = findByType(children, DialogFooter);
+      if (!footerChild) {
+        throw new Error(
+          '[mineral-ui/Dialog]: Dialog must contain a DialogFooter or use the actions prop.'
+        );
+      }
+      footer = footerChild;
+    }
+
+    return footer;
   };
 
   getHeaderId = () => {

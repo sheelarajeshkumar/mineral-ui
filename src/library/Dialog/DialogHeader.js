@@ -5,7 +5,7 @@ import DialogRow from './DialogRow';
 
 type Props = {
   /** TODO */
-  children: React$Node,
+  children?: React$Node,
   /** TODO */
   closeButton?: React$Node
 };
