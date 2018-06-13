@@ -10,7 +10,10 @@ type Props = {
 
 const Root = createStyledComponent(
   DialogRow,
-  {},
+  {
+    display: 'flex',
+    flex: '0 0 auto'
+  },
   {
     displayName: 'DialogFooter',
     withProps: { element: 'footer' }

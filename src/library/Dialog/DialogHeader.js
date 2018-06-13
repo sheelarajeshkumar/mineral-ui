@@ -14,6 +14,7 @@ const Root = createStyledComponent(
   DialogRow,
   {
     display: 'flex',
+    flex: '0 0 auto',
     justifyContent: 'space-between'
   },
   {

@@ -24,6 +24,7 @@ const styles = {
       alignItems: 'center',
       display: 'flex',
       justifyContent: 'flex-end',
+      width: '100%',
 
       '& > *:not(:last-child)': {
         marginLeft: rtl ? theme.DialogActionsItem_margin : null,
