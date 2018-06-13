@@ -9,7 +9,13 @@ type Props = {
   /** TODO */
   children?: React$Node,
   /** @Private TODO */
+  element?: string,
+  /** @Private TODO */
   highContrast?: boolean,
+  /** TODO */
+  minWidth?: number | string,
+  /** TODO */
+  maxWidth?: number | string,
   /** @Private TODO */
   spacious?: boolean,
   /** Available horizontal alignments */
@@ -40,7 +46,7 @@ export const componentTheme = (baseTheme: Object) => ({
   )
 });
 
-const ThemedTD = createThemedComponent(TD, ({ theme: baseTheme }) => ({
+export const ThemedTD = createThemedComponent(TD, ({ theme: baseTheme }) => ({
   ...mapComponentThemes(
     {
       name: 'TH',
@@ -54,51 +60,62 @@ const ThemedTD = createThemedComponent(TD, ({ theme: baseTheme }) => ({
   )
 }));
 
-const Root = createStyledComponent(
-  ThemedTD,
-  ({ highContrast, spacious, theme: baseTheme, width }) => {
-    const theme = componentTheme(baseTheme);
-    const fontSize = theme.TH_fontSize;
-    const paddingHorizontal = getNormalizedValue(
-      theme.TH_paddingHorizontal,
-      fontSize
-    );
-    const paddingVertical = getNormalizedValue(
-      spacious ? theme.TH_paddingVertical_spacious : theme.TH_paddingVertical,
-      fontSize
-    );
-    const rtl = theme.direction === 'rtl';
+const styles = ({
+  highContrast,
+  maxWidth,
+  minWidth,
+  spacious,
+  theme: baseTheme,
+  width
+}) => {
+  const theme = componentTheme(baseTheme);
+  const fontSize = theme.TH_fontSize;
+  const paddingHorizontal = getNormalizedValue(
+    theme.TH_paddingHorizontal,
+    fontSize
+  );
+  const paddingVertical = getNormalizedValue(
+    spacious ? theme.TH_paddingVertical_spacious : theme.TH_paddingVertical,
+    fontSize
+  );
+  const rtl = theme.direction === 'rtl';
 
-    return {
-      fontWeight: theme.TH_fontWeight,
-      padding: `${paddingVertical} ${paddingHorizontal}`,
+  return {
+    fontWeight: theme.TH_fontWeight,
+    maxWidth,
+    minWidth,
+    padding: `${paddingVertical} ${paddingHorizontal}`,
 
-      '&:not(:first-child)': {
-        borderLeft: rtl
-          ? null
-          : highContrast
-            ? theme.TH_borderVertical_highContrast
-            : theme.TH_borderVertical,
-        borderRight: !rtl
-          ? null
-          : highContrast
-            ? theme.TH_borderVertical_highContrast
-            : theme.TH_borderVertical
-      },
-      width
-    };
-  },
-  {
-    displayName: 'TH',
-    withProps: { element: 'th' }
-  }
-);
+    '&:not(:first-child)': {
+      borderLeft: rtl
+        ? null
+        : highContrast
+          ? theme.TH_borderVertical_highContrast
+          : theme.TH_borderVertical,
+      borderRight: !rtl
+        ? null
+        : highContrast
+          ? theme.TH_borderVertical_highContrast
+          : theme.TH_borderVertical
+    },
+    width
+  };
+};
 
 /**
  * TH TODO
  */
 function TH(props: Props) {
-  const { children, ...restProps } = props;
+  const { children, element, ...restProps } = props;
+
+  const Root = createStyledComponent(ThemedTD, styles, {
+    displayName: 'TH',
+    filterProps: ['width'],
+    forwardProps: ['element'],
+    rootEl: element,
+    withProps: { element }
+  });
+
   return (
     <TableContext.Consumer>
       {({ highContrast, spacious }) => {
@@ -110,6 +127,7 @@ function TH(props: Props) {
 }
 
 TH.defaultProps = {
+  element: 'th',
   textAlign: 'start'
 };
 

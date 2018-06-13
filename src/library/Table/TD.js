@@ -28,17 +28,19 @@ export const componentTheme = (baseTheme: Object) => ({
 const styles = ({ spacious, textAlign, theme: baseTheme }) => {
   const theme = componentTheme(baseTheme);
   const fontSize = theme.TD_fontSize;
-  const paddingVertical = spacious
-    ? theme.TD_paddingVertical_spacious
-    : theme.TD_paddingVertical;
+  const paddingHorizontal = getNormalizedValue(
+    theme.TD_paddingHorizontal,
+    fontSize
+  );
+  const paddingVertical = getNormalizedValue(
+    spacious ? theme.TD_paddingVertical_spacious : theme.TD_paddingVertical,
+    fontSize
+  );
 
   return {
     fontSize,
     fontWeight: 'inherit',
-    padding: `${getNormalizedValue(
-      paddingVertical,
-      fontSize
-    )} ${getNormalizedValue(theme.TD_paddingHorizontal, fontSize)}`,
+    padding: `${paddingVertical} ${paddingHorizontal}`,
     textAlign: rtlTextAlign(textAlign, theme.direction) || 'inherit',
     verticalAlign: theme.TD_verticalAlign
   };

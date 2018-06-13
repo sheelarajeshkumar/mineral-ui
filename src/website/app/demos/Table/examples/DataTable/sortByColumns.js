@@ -43,10 +43,10 @@ alphabetically.
       };
 
       const columns = [
-        { content: 'Fruits', name: 'Fruits', enableSort: true },
-        { content: 'Vegetables', name: 'Vegetables', enableSort: true },
+        { content: 'Fresh Fruits', name: 'Fruits', enableSort: true },
+        { content: 'Veritable Vegetables', name: 'Vegetables', enableSort: true },
         { content: 'Grains', name: 'Grains', enableSort: true },
-        { content: 'Dairy', name: 'Dairy', enableSort: true, sortFn: sortByLength },
+        { content: 'Delectable Dairy', name: 'Dairy', enableSort: true, sortFn: sortByLength },
         { content: 'Protein', name: 'Protein' }
       ];
 

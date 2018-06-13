@@ -1,13 +1,12 @@
 /* @flow */
 import React, { Component } from 'react';
-import { createStyledComponent } from '../styles';
-import { createThemedComponent } from '../themes';
-import Button from '../Button';
+import { createStyledComponent, pxToEm } from '../styles';
+// import { createThemedComponent } from '../themes';
 import Checkbox from '../Checkbox';
-import Table, { generateColumns } from './Table';
 import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
-import IconDanger from '../Icon/IconDanger';
+import Table, { generateColumns } from './Table';
+import TH, { ThemedTD, componentTheme as tHComponentTheme } from './TH';
 
 import type { Rows } from './Table';
 import type { TitleAppearance } from './TableTitle';
@@ -58,13 +57,16 @@ type Column = {
   'aria-sort'?: string,
   cell?: RenderFn,
   content: React$Node,
-  header?: RenderFn,
   enableSort?: boolean,
+  header?: RenderFn,
+  maxWidth?: number | string,
+  minWidth?: number | string,
   name: string,
   primary?: boolean,
   role?: string,
   sortFn?: (a: Object, b: Object, column: string) => -1 | 1 | 0,
-  textAlign?: 'start' | 'end' | 'center' | 'justify'
+  textAlign?: 'start' | 'end' | 'center' | 'justify',
+  width?: number | string
 };
 export type Columns = Array<Column>;
 type Direction = 'ascending' | 'descending' | 'none';
@@ -76,6 +78,7 @@ type GetColumnsOrRowsArg = {
   selectedRows: Rows,
   sort: Sort
 };
+type Helpers = {}; // TODO: ?
 type Messages = {
   deselectAllRows: string,
   deselectRow: string,
@@ -91,9 +94,10 @@ type Messages = {
   }
 };
 type RenderFn = (props?: RenderProps) => React$Node;
+// TODO: These don't match Table's needs
 type RenderProps = {
   props: Object
-};
+} & StateAndHelpers;
 type Sort = {
   column: string,
   direction: Direction
@@ -104,17 +108,16 @@ type State = {
   sort: Sort
 };
 
-const ThemedButton = createThemedComponent(Button, ({ theme }) => ({
-  ButtonIcon_color: theme.icon_color
-}));
-const THButton = createStyledComponent(ThemedButton, {
-  height: 'auto',
-  minWidth: 0,
-  padding: 0,
+type StateAndHelpers = {
+  state: State,
+  helpers: Helpers
+};
 
-  '& > span': {
-    display: 'block'
-  }
+// prettier-ignore
+const componentTheme = (baseTheme: Object) => ({
+  TH_boxShadow_focus: `inset 0 0 0 1px ${baseTheme.borderColor_theme_focus}`,
+  TH_border_focus: `1px solid ${baseTheme.borderColor_theme_focus}`,
+  ...baseTheme
 });
 
 const defaultSortFn = (a: Object, b: Object, column: string) => {
@@ -132,12 +135,6 @@ const defaultSortFn = (a: Object, b: Object, column: string) => {
     return 1;
   }
   return 0;
-};
-
-const sortIcon = {
-  ascending: <IconArrowDropdownUp />,
-  descending: <IconArrowDropdownDown />,
-  none: <IconDanger />
 };
 
 /**
@@ -205,8 +202,7 @@ export default class DataTable extends Component<Props, State> {
     enableRowSelection,
     messages,
     rows,
-    selectedRows,
-    sort
+    selectedRows
   }: GetColumnsOrRowsArg) => {
     const result = columns.map(({ content, enableSort, name, ...column }) => ({
       // TODO: Mac Chrome VO (others?) repeats content a _lot_
@@ -215,10 +211,12 @@ export default class DataTable extends Component<Props, State> {
       ...column,
       ...(enableSort
         ? {
-            actions: this.getColumnActions(content, messages, name, sort),
-            'aria-label': content,
-            'aria-sort': sort.column === name ? sort.direction : 'none',
-            role: 'columnheader'
+            header: ({ props }: Object) =>
+              this.getSortableColumnHeader({
+                props: { messages, ...props },
+                state: this.state,
+                helpers: {}
+              })
           }
         : undefined)
     }));
@@ -230,12 +228,19 @@ export default class DataTable extends Component<Props, State> {
     return result;
   };
 
-  getColumnActions = (
-    content: React$Node,
-    messages: Messages,
-    name: string,
-    sort: Sort
-  ) => {
+  getSortableColumnHeader = ({ props: renderProps, state }: RenderProps) => {
+    const { children, name, messages, spacious } = renderProps;
+    const { sort } = state;
+
+    const iconProps = {
+      size: 'auto'
+    };
+    const sortIcon = {
+      ascending: <IconArrowDropdownUp {...iconProps} />,
+      descending: <IconArrowDropdownDown {...iconProps} />,
+      none: <IconArrowDropdownUp {...iconProps} />
+    };
+
     const isActiveSort = sort.column === name && sort.direction !== 'none';
     const currentDirection = isActiveSort ? sort.direction : 'none';
     const directions = Object.keys(sortIcon);
@@ -244,25 +249,112 @@ export default class DataTable extends Component<Props, State> {
       directionIndex === directions.length - 1
         ? directions[0]
         : directions[directionIndex + 1];
+
+    const focusStyles = (theme) => ({
+      outline: theme.TH_border_focus,
+      outlineOffset: `-${theme.TH_border_focus.split(' ')[0]}` // TODO: IE?
+    });
+
+    const SortTH = createStyledComponent(TH, ({ theme: baseTheme }) => {
+      const theme = componentTheme(baseTheme);
+
+      return {
+        padding: 0,
+
+        '&:focus-within': focusStyles(theme)
+      };
+    });
+    const SortButton = createStyledComponent(
+      TH,
+      ({ theme: baseTheme }) => {
+        const theme = componentTheme(baseTheme);
+
+        return {
+          border: 0,
+          color: 'inherit',
+          cursor: 'pointer',
+          fontSize: 'inherit',
+          fontWeight: 'inherit',
+          verticalAlign: theme.TH_verticalAlign,
+          whiteSpace: 'nowrap',
+          width: '100%',
+
+          '&:focus': focusStyles(theme),
+
+          '*:focus-within > &:focus': {
+            outline: 0
+          }
+        };
+      },
+      {
+        withProps: { element: 'button' }
+      }
+    );
+    const Content = createStyledComponent('span', {
+      whiteSpace: 'normal'
+    });
+    const IconHolder = createStyledComponent('span', ({ theme }) => {
+      const iconAdjustment = pxToEm(4);
+      const space = `${parseFloat(theme.space_inline_xxs) +
+        parseFloat(iconAdjustment)}em`;
+
+      return {
+        color: theme.icon_color,
+        display: 'inline-block',
+        height: '0.875em',
+        marginLeft: theme.direction === 'ltr' ? space : null,
+        marginRight: theme.direction === 'rtl' ? space : null,
+        position: 'relative',
+        top: 1,
+        width: '0.875em',
+
+        '& > [role="img"]': {
+          margin: `-${iconAdjustment}`
+        },
+
+        ...(!isActiveSort
+          ? {
+              color: theme.icon_color_theme,
+              opacity: 0,
+
+              '*:hover > &': {
+                opacity: 1
+              }
+            }
+          : undefined)
+      };
+    });
+
+    const rootProps = {
+      'aria-label': children,
+      'aria-sort': sort.column === name ? sort.direction : 'none',
+      role: 'columnheader'
+    };
     const buttonProps = {
       'aria-label':
         nextDirection === 'none'
-          ? // TODO: What about non-string content?
-            messages.sortButtonLabelNone(content)
+          ? // TODO: What about non-string children?
+            messages.sortButtonLabelNone(children)
           : messages.sortButtonLabel(
-              content,
+              children,
               messages.sortOrder[nextDirection]
             ),
-      iconStart: sortIcon[currentDirection],
-      minimal: true,
       onClick: () => {
         // TODO: Focus is lost on activation (because re-render?)
         this.sort({ column: name, direction: nextDirection });
       },
-      primary: isActiveSort,
-      size: 'large'
+      spacious
     };
-    return <THButton {...buttonProps} />;
+
+    return (
+      <SortTH key={name} {...rootProps}>
+        <SortButton {...buttonProps}>
+          <Content>{children}</Content>&nbsp;<IconHolder>
+            {sortIcon[currentDirection]}
+          </IconHolder>
+        </SortButton>
+      </SortTH>
+    );
   };
 
   getSelectAllColumn = (messages: Messages, rows: Rows, selectedRows: Rows) => {
