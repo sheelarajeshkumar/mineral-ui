@@ -1,13 +1,11 @@
 /* @flow */
 import React from 'react';
-import { createStyledComponent, getNormalizedValue } from '../styles';
+import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import { createThemedComponent, mapComponentThemes } from '../themes';
 import TD, { componentTheme as tDComponentTheme } from './TD';
 import { TableContext } from './Table';
 
 type Props = {
-  /** TODO */
-  actions?: React$Node,
   /** TODO */
   children?: React$Node,
   /** @Private TODO */
@@ -32,8 +30,8 @@ export const componentTheme = (baseTheme: Object) => ({
         TH_borderVertical: `1px dotted ${baseTheme.borderColor}`,
         TH_borderVertical_highContrast: `1px dotted ${baseTheme.color_gray_80}`,
         TH_fontWeight: baseTheme.fontWeight_bold,
-        TH_paddingHorizontal: baseTheme.space_inline_sm,
-        TH_paddingVertical: baseTheme.space_stack_sm,
+        TH_paddingHorizontal: baseTheme.space_inline_md,
+        TH_paddingVertical: pxToEm(12),
         TH_paddingVertical_spacious: baseTheme.space_stack_md,
         TH_verticalAlign: 'bottom'
       }
@@ -56,32 +54,24 @@ const ThemedTD = createThemedComponent(TD, ({ theme: baseTheme }) => ({
   )
 }));
 
-const styles = {
-  content: {
-    alignItems: 'flex-end',
-    display: 'flex'
-  },
-  inner: ({ theme: baseTheme }) => {
+const Root = createStyledComponent(
+  ThemedTD,
+  ({ highContrast, spacious, theme: baseTheme, width }) => {
     const theme = componentTheme(baseTheme);
     const fontSize = theme.TH_fontSize;
-    // TODO: component theme vars
     const paddingHorizontal = getNormalizedValue(
-      theme.space_inline_sm,
+      theme.TH_paddingHorizontal,
       fontSize
     );
-    // TODO: component theme vars
-    const paddingBottom = getNormalizedValue(theme.space_inline_xs, fontSize);
-    return {
-      flex: '1 0 auto',
-      padding: `0 ${paddingHorizontal} ${paddingBottom}`
-    };
-  },
-  root: ({ highContrast, theme: baseTheme, width }) => {
-    const theme = componentTheme(baseTheme);
+    const paddingVertical = getNormalizedValue(
+      spacious ? theme.TH_paddingVertical_spacious : theme.TH_paddingVertical,
+      fontSize
+    );
     const rtl = theme.direction === 'rtl';
 
     return {
       fontWeight: theme.TH_fontWeight,
+      padding: `${paddingVertical} ${paddingHorizontal}`,
 
       '&:not(:first-child)': {
         borderLeft: rtl
@@ -97,33 +87,23 @@ const styles = {
       },
       width
     };
+  },
+  {
+    displayName: 'TH',
+    withProps: { element: 'th' }
   }
-};
-
-const Root = createStyledComponent(ThemedTD, styles.root, {
-  displayName: 'TH',
-  withProps: { element: 'th' }
-});
-const Content = createStyledComponent('div', styles.content);
-const Inner = createStyledComponent('div', styles.inner);
+);
 
 /**
  * TH TODO
  */
 function TH(props: Props) {
-  const { actions, children, ...restProps } = props;
+  const { children, ...restProps } = props;
   return (
     <TableContext.Consumer>
-      {({ highContrast }) => {
-        const rootProps = { highContrast, ...restProps };
-        return (
-          <Root {...rootProps}>
-            <Content>
-              <Inner>{children}</Inner>
-              {actions}
-            </Content>
-          </Root>
-        );
+      {({ highContrast, spacious }) => {
+        const rootProps = { highContrast, spacious, ...restProps };
+        return <Root {...rootProps}>{children}</Root>;
       }}
     </TableContext.Consumer>
   );
