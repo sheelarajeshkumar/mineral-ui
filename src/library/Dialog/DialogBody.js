@@ -1,6 +1,7 @@
 /* @flow */
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
+import debounce from 'lodash.debounce';
 import { createStyledComponent, getNormalizedValue } from '../styles';
 import { createThemedComponent } from '../themes';
 import DialogRow from './DialogRow';
@@ -11,11 +12,14 @@ type Props = {
 };
 
 type State = {
-  showTopBorder: boolean,
-  showBottomBorder: boolean
+  hasShadowTop: boolean,
+  hasShadowBottom: boolean
 };
 
+// prettier-ignore
 export const componentTheme = (baseTheme: Object) => ({
+  DialogBody_boxShadowBottom: `inset 0 -8px 8px -8px ${baseTheme.color_gray_60}, inset 0 -1px ${baseTheme.borderColor}`,
+  DialogBody_boxShadowTop: `inset 0 8px 8px -8px ${baseTheme.color_gray_60}, inset 0 1px ${baseTheme.borderColor}`,
   DialogBody_fontSize: baseTheme.fontSize_ui,
   DialogBody_paddingHorizontal: baseTheme.space_inset_lg,
 
@@ -23,17 +27,14 @@ export const componentTheme = (baseTheme: Object) => ({
 });
 
 const styles = {
-  root: ({ showBottomBorder, showTopBorder, theme: baseTheme }) => {
+  root: ({ hasShadowBottom, hasShadowTop, theme: baseTheme }) => {
     const theme = componentTheme(baseTheme);
     const fontSize = theme.DialogBody_fontSize;
 
-    const boxShadowTop = `inset 0 8px 8px -8px #8E99AB, inset 0 1px #C8D1E0`;
-    const boxShadowBottom = `inset 0 -8px 8px -8px #8E99AB, inset 0 -1px #C8D1E0`;
-
-    const boxShadowArray = [];
-    showTopBorder && boxShadowArray.push(boxShadowTop);
-    showBottomBorder && boxShadowArray.push(boxShadowBottom);
-    const boxShadow = boxShadowArray.join(',');
+    const boxShadows = [];
+    hasShadowTop && boxShadows.push(theme.DialogBody_boxShadowTop);
+    hasShadowBottom && boxShadows.push(theme.DialogBody_boxShadowBottom);
+    const boxShadow = boxShadows.join(',');
 
     return {
       boxShadow,
@@ -70,15 +71,20 @@ const Root = createStyledComponent(ThemedDialogRow, styles.root, {
  */
 export default class DialogBody extends Component<Props, State> {
   state = {
-    showTopBorder: false,
-    showBottomBorder: false
+    hasShadowTop: false,
+    hasShadowBottom: false
   };
 
+  componentDidMount() {
+    const element = findDOMNode(this); // eslint-disable-line react/no-find-dom-node
+    element instanceof HTMLElement && this.applyShadows(element);
+  }
+
   render() {
-    const { showBottomBorder, showTopBorder } = this.state;
+    const { hasShadowBottom, hasShadowTop } = this.state;
     const rootProps = {
-      showTopBorder,
-      showBottomBorder,
+      hasShadowTop,
+      hasShadowBottom,
       onScroll: this.handleScroll,
       ...this.props
     };
@@ -86,12 +92,19 @@ export default class DialogBody extends Component<Props, State> {
     return <Root {...rootProps} />;
   }
 
-  handleScroll = (e) => {
-    const body = e.currentTarget;
-
-    this.setState({
-      showTopBorder: body.scrollTop > 0,
-      showBottomBorder: body.scrollTop + body.clientHeight < body.scrollHeight
-    });
+  handleScroll = (event: SyntheticEvent<HTMLElement>) => {
+    this.applyShadows(event.currentTarget);
   };
+
+  applyShadows = debounce(
+    (element: HTMLElement) => {
+      this.setState({
+        hasShadowTop: element.scrollTop > 0,
+        hasShadowBottom:
+          element.scrollTop + element.clientHeight < element.scrollHeight
+      });
+    },
+    100,
+    { leading: true }
+  );
 }
