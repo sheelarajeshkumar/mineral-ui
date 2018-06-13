@@ -13,19 +13,16 @@ group of related controls.`,
     <div>
     <DemoForm>
       <ButtonGroup
-        required
         defaultChecked="hi"
-        name="mineral-2"
-        size="small">
+        name="mineral-2">
         <Button value="hi">Hi</Button>
-        <Button disabled>I'm a Button</Button>
-        <Button>Me too</Button>
+        <Button disabled value="I'm a button">I'm a Button</Button>
+        <Button value="me too" variant="danger">Me too</Button>
       </ButtonGroup>
 
       <FormFieldDivider />
 
       <ButtonGroup
-        minimal
         defaultChecked="quartz"
         data={[
           { label: 'Fluorite', value: 'fluorite' },
@@ -38,7 +35,7 @@ group of related controls.`,
   <br />
     <DemoForm>
       <ButtonGroup
-        variant="warning"
+        variant="danger"
         defaultChecked="fluorite"
         data={[
           { label: 'Fluorite', value: 'fluorite' },
@@ -74,7 +71,7 @@ group of related controls.`,
     </DemoForm>
   <br />
     <DemoForm>
-      <ButtonGroup disabled
+      <ButtonGroup
         defaultChecked={['magnetite', 'quartz']}
         data={[
           { label: 'Fluorite', value: 'fluorite' },

@@ -61,21 +61,21 @@ const Root = createStyledComponent(
  *
  * ButtonGroup allows users to select a single option from a list.
  */
-export default class ButtonGroup extends Component<Props, State> {
-  render() {
-    const { multiSelect, rootProps: otherRootProps, ...restProps } = this.props;
+export default function ButtonGroup(props: Props) {
+  const { multiSelect, rootProps: otherRootProps, ...restProps } = props;
+  const type = multiSelect ? 'checkbox' : 'radio';
 
-    const rootProps = {
-      input: InputButton,
-      rootProps: {
-        inline: true,
-        role: 'buttongroup',
-        ...otherRootProps
-      },
-      type: multiSelect ? 'checkbox' : 'radio',
-      ...restProps // Note: Props are spread to input rather than Root
-    };
+  const rootProps = {
+    input: InputButton,
+    multiSelect,
+    rootProps: {
+      inline: true,
+      role: `${type === 'radio' ? 'radio' : ''}group`,
+      ...otherRootProps
+    },
+    type,
+    ...restProps // Note: Props are spread to input rather than Root
+  };
 
-    return <Root {...rootProps} />;
-  }
+  return <Root {...rootProps} />;
 }

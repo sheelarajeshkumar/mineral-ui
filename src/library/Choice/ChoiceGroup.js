@@ -70,7 +70,7 @@ const styles = {
             ? theme.ChoiceGroupControl_marginVertical_stackedJumbo
             : theme.ChoiceGroupControl_marginVertical_stacked,
         marginRight:
-          inline && input === InputButton
+          inline && input !== InputButton
             ? theme.ChoiceGroupControl_marginHorizontal_inline
             : input === InputButton ? '0px' : undefined
       }
@@ -118,7 +118,13 @@ const ChoiceGroup = (props: Props) => {
     ...otherRootProps
   };
 
-  const inputProps = (value, index, inputData = {}) => {
+  const inputProps = (
+    value,
+    index,
+    inputData = {},
+    invalid = invalid,
+    required = required
+  ) => {
     return {
       checked: checked !== undefined ? isChecked(checked, value) : undefined,
       defaultChecked:
@@ -147,31 +153,21 @@ const ChoiceGroup = (props: Props) => {
     });
   } else if (children && input !== InputButton) {
     inputs = Children.map(children, (child, index) => {
-      // console.log(cloneElement(child, inputProps(child.props.value, index)));
       return cloneElement(child, inputProps(child.props.value, index));
     });
   } else if (children && input === InputButton) {
     inputs = Children.map(children, (child, index) => {
-      const { size, value, ...buttonProps } = child.props;
-      // const buttonProps = { ...otherButtonProps };
-      const comp = (
+      const { invalid, required, size, value, ...buttonProps } = child.props;
+      return (
         <InputButton
+          {...inputProps(child.props.value, index, {}, invalid, required)}
           buttonProps={buttonProps}
-          disabled={buttonProps.disabled}
+          disabled={props.disabled || buttonProps.disabled}
           type={type}
           value={value}
-          {...inputProps(child.props.value, index)}
+          variant={buttonProps.variant}
         />
       );
-      console.log(comp);
-      return comp;
-      // const newInput = cloneElement(InputButton, {
-      //   buttonProps,
-      //   // disabled,
-      //   type,
-      //   // value,
-      //   ...inputProps(child.props.value, index)
-      // });
     });
   }
 
