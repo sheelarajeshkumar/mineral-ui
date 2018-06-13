@@ -38,7 +38,7 @@ type Props = {
   /** TODO */
   modeless?: boolean,
   /** TODO */
-  noCloseButton?: boolean,
+  showCloseButton?: boolean,
   /** Called when Dialog is closed */
   onClose?: () => void,
   /** Called when Dialog is opened */
@@ -246,7 +246,7 @@ export default class Dialog extends Component<Props, State> {
       disableFocusTrap,
       isOpen,
       hideOverlay,
-      noCloseButton,
+      showCloseButton,
       size,
       usePortal,
       ...restProps
@@ -271,7 +271,7 @@ export default class Dialog extends Component<Props, State> {
 
     const header = cloneElement(_header, {
       // prettier-ignore
-      closeButton: noCloseButton ? undefined : <CloseButton {...closeButtonProps} />,
+      closeButton: showCloseButton ? <CloseButton {...closeButtonProps} /> : undefined,
       id: headerId,
       tabIndex: '-1'
     });
