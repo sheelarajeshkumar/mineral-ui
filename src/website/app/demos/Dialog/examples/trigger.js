@@ -1,13 +1,7 @@
 /* @flow */
 import { Component } from 'react';
 import Button from '../../../../../library/Button';
-import Dialog, {
-  DialogActions,
-  DialogBody,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '../../../../../library/Dialog';
+import Dialog from '../../../../../library/Dialog';
 
 export default {
   id: 'trigger',
@@ -16,12 +10,7 @@ export default {
   scope: {
     Button,
     Component,
-    Dialog,
-    DialogActions,
-    DialogBody,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle
+    Dialog
   },
   source: `() => {
     class Demo extends Component {
@@ -54,22 +43,16 @@ export default {
         return (
           <div>
             <Button onClick={this.toggleDialog}>{isOpen ? 'Close' : 'Open' } Dialog</Button>
-            <Dialog isOpen={isOpen} onClose={this.handleClose}>
-              <DialogHeader>
-                <DialogTitle>
-                  Lorem ipsum dolor sit amet
-                </DialogTitle>
-              </DialogHeader>
-              <DialogBody>
+            <Dialog
+              title="Lorem ipsum dolor sit amet"
+              actions={[
+                <Button minimal key="0" onClick={this.toggleDialog}>Cancel</Button>,
+                <Button primary key="1" onClick={this.toggleDialog}>Action</Button>
+              ]}
+              isOpen={isOpen}
+              onClose={this.handleClose}>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              </DialogBody>
-              <DialogFooter>
-                <DialogActions>
-                  <Button minimal onClick={this.toggleDialog}>Cancel</Button>
-                  <Button primary onClick={this.toggleDialog}>Action</Button>
-                </DialogActions>
-              </DialogFooter>
             </Dialog>
           </div>
         )

@@ -1,13 +1,6 @@
 /* @flow */
 import React from 'react';
 import Button from '../../../../../library/Button';
-import {
-  DialogActions,
-  DialogBody,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '../../../../../library/Dialog';
 import DemoLayout from '../components/DemoLayout';
 import Dialog from '../components/DemoDialog';
 
@@ -34,30 +27,17 @@ export default {
     Button,
     DemoLayout,
     Dialog,
-    DialogActions,
-    DialogBody,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
     content
   },
   source: `
     <DemoLayout>
-      <Dialog>
-        <DialogHeader>
-          <DialogTitle>
-            Lorem ipsum dolor sit amet
-          </DialogTitle>
-        </DialogHeader>
-        <DialogBody>
-          {content}
-        </DialogBody>
-        <DialogFooter>
-          <DialogActions>
-            <Button minimal>Cancel</Button>
-            <Button primary>Action</Button>
-          </DialogActions>
-        </DialogFooter>
+      <Dialog
+        title="Lorem ipsum dolor sit amet"
+        actions={[
+          <Button minimal key="0">Cancel</Button>,
+          <Button primary key="1">Action</Button>
+        ]}>
+        {content}
       </Dialog>
     </DemoLayout>`
 };
