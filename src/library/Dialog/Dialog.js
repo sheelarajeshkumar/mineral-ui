@@ -265,6 +265,7 @@ export default class Dialog extends Component<Props, State> {
       'aria-label': closeButtonLabel,
       iconStart: <IconClose />,
       minimal: true,
+      onClick: this.close,
       size: 'small'
     };
 
@@ -416,6 +417,7 @@ export default class Dialog extends Component<Props, State> {
   };
 
   isEventOutsideNode = (event: SyntheticEvent<Node>, node: ?HTMLElement) => {
-    return node && !node.contains(event.currentTarget);
+    const { target } = event;
+    return node && target instanceof Node && !node.contains(target);
   };
 }
