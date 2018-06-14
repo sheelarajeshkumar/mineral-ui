@@ -1,6 +1,6 @@
 /* @flow */
 import React from 'react';
-import { createStyledComponent, pxToEm } from '../styles';
+import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import IconDanger from '../Icon/IconDanger';
 import IconSuccess from '../Icon/IconSuccess';
 import IconWarning from '../Icon/IconWarning';
@@ -27,6 +27,11 @@ const styles = {
   root: ({ theme: baseTheme, variant }) => {
     const theme = componentTheme(baseTheme);
     const rtl = theme.direction === 'rtl';
+    const iconfontSize = theme.DialogTitleIcon_fontSize;
+    const iconMargin = getNormalizedValue(
+      theme.DialogTitleIcon_margin,
+      iconfontSize
+    );
 
     return {
       alignItems: 'flex-start',
@@ -37,9 +42,9 @@ const styles = {
       '& > [role="img"]': {
         color: variant ? theme[`icon_color_${variant}`] : null,
         flex: 'none',
-        fontSize: theme.DialogTitleIcon_fontSize,
-        marginLeft: rtl ? theme.DialogTitleIcon_margin : null,
-        marginRight: rtl ? null : theme.DialogTitleIcon_margin
+        fontSize: iconfontSize,
+        marginLeft: rtl ? iconMargin : null,
+        marginRight: rtl ? null : iconMargin
       }
     };
   },
