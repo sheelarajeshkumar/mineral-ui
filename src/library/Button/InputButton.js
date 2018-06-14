@@ -164,6 +164,7 @@ export default function InputButton(props: Props) {
     onChange,
     rootProps: otherRootProps,
     size,
+    value,
     variant,
     ...restProps
   } = props;
@@ -179,7 +180,10 @@ export default function InputButton(props: Props) {
     checked,
     disabled,
     label,
-    onChange: () => { onChange(value) },
+    onChange: (event) => {
+      onChange(event.target, value);
+    },
+    value,
     ...restProps // Note: Props are spread to input rather than Root
   };
   const rootProps = {
@@ -193,8 +197,7 @@ export default function InputButton(props: Props) {
     <Root data-checked={checked} {...rootProps}>
       <input {...inputProps} />
       <Button {...buttonProps}>
-        {buttonProps.children ? buttonProps.children : label}{' '}
-        {checked ? 'true' : 'false'}
+        {buttonProps.children ? buttonProps.children : label}
       </Button>
     </Root>
   );

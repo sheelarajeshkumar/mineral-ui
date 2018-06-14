@@ -78,8 +78,8 @@ export default class ButtonGroup extends Component<Props, State> {
     const rootProps = {
       checked: this.state.checked,
       input: InputButton,
-      onChange: (value) => {
-        this.handleChange(value);
+      onChange: (target, value) => {
+        this.handleChange(target, value, type);
       },
       rootProps: {
         inline: true,
@@ -93,5 +93,26 @@ export default class ButtonGroup extends Component<Props, State> {
     return <Root {...rootProps} />;
   }
 
-  handleChange = (value) => {};
+  handleChange = (target, value, type) => {
+    if (type === 'radio') {
+      this.setState({ checked: target.value });
+    } else if (type === 'checkbox') {
+      this.setState((prevState) => {
+        const checked =
+          typeof prevState.checked === 'string'
+            ? [prevState.checked]
+            : [...prevState.checked];
+        const index = checked.indexOf(target.value);
+        const hasValue = index !== -1;
+
+        if (target.checked && !hasValue) {
+          checked.push(target.value);
+        } else if (hasValue) {
+          checked.splice(index, 1);
+        }
+
+        return { checked };
+      });
+    }
+  };
 }
