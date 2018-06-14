@@ -39,46 +39,35 @@ type Props = {
   /** Props to be applied directly to the root element */
   rootProps?: Object,
   /** The value of the input */
-  value?: string
+  value: string
 };
 
+// TODO audit theme variables
 export const componentTheme = (baseTheme: Object) => ({
-  ButtonGroup_backgroundColor_checked: baseTheme.backgroundColor_themePrimary,
-  ButtonGroup_backgroundColor_checked_active:
-    baseTheme.backgroundColor_themePrimary_active,
-  ButtonGroup_backgroundColor_checked_disabled: baseTheme.color_gray_40,
-  ButtonGroup_backgroundColor_checked_focus:
-    baseTheme.backgroundColor_themePrimary_focus,
-  ButtonGroup_backgroundColor_checked_hover:
-    baseTheme.backgroundColor_themePrimary_hover,
-  ButtonGroup_border: `solid 1px ${baseTheme.borderColor}`,
-  ButtonGroup_borderColor: baseTheme.borderColor,
-  ButtonGroup_border_disabled: `solid 1px ${baseTheme.borderColor}`,
-  ButtonGroup_border_focus: `solid 1px ${baseTheme.borderColor_theme_focus}`,
-  ButtonGroup_borderColor_checked: baseTheme.borderColor_theme,
-  ButtonGroup_borderColor_checked_disabled: baseTheme.backgroundColor_disabled,
-  ButtonGroup_borderLeftColor: baseTheme.color_inverted,
-  ButtonGroup_boxShadow_focus: `0 0 0 1px ${
+  ButtonGroupButton_backgroundColor_checkedDisabled: baseTheme.color_gray_40,
+  ButtonGroupButton_border_disabled: `solid 1px ${baseTheme.borderColor}`,
+  ButtonGroupButton_borderLeftColor_checked: 'currentcolor', // change to color_<>Primary
+  ButtonGroupButton_boxShadow_focus: `0 0 0 1px ${
     baseTheme.boxShadow_focusInner
   }, 0 0 0 2px ${baseTheme.borderColor_theme_focus}`,
-  ButtonGroup_color_checked: baseTheme.color_inverted,
-  ButtonGroup_color_checked_disabled: baseTheme.color_gray_60,
+  ButtonGroupButton_color_checkedDisabled: baseTheme.color_gray_60,
 
   ...baseTheme
 });
 
-const styles = (props) => {
-  let theme = componentTheme(props.theme);
-  const { disabled, multiSelect, variant } = props;
+const styles = ({ checked, disabled, theme: baseTheme, variant }) => {
+  let theme = componentTheme(baseTheme);
+  const { direction } = theme;
+  const firstOrLast = {
+    ltr: ['first', 'last'],
+    rtl: ['last', 'first']
+  };
+
   if (variant && variant !== 'regular') {
     // prettier-ignore
     theme = {
       ...theme,
-      ButtonGroup_backgroundColor_checked: theme[`backgroundColor_${variant}Primary`],
-      ButtonGroup_backgroundColor_checked_active: theme[`backgroundColor_${variant}Primary_active`],
-      ButtonGroup_backgroundColor_checked_focus: theme[`backgroundColor_${variant}Primary_focus`],
-      ButtonGroup_backgroundColor_checked_hover: theme[`backgroundColor_${variant}Primary_hover`],
-      ButtonGroup_boxShadow_focus: `0 0 0 1px ${theme.boxShadow_focusInner}, 0 0 0 2px ${theme[`borderColor_${variant}_focus`]}`
+      ButtonGroupButton_boxShadow_focus: `0 0 0 1px ${theme.boxShadow_focusInner}, 0 0 0 2px ${theme[`borderColor_${variant}_focus`]}`
     }
   }
 
@@ -90,45 +79,38 @@ const styles = (props) => {
       zIndex: -1
     },
     '& > span': {
-      border: disabled && theme.ButtonGroup_border_disabled
+      border: disabled && theme.ButtonGroupButton_border_disabled,
+      backgroundColor:
+        disabled &&
+        checked &&
+        theme.ButtonGroupButton_backgroundColor_checkedDisabled,
+      color:
+        disabled && checked && theme.ButtonGroupButton_color_checkedDisabled
     },
-    '& > input:checked': {
-      '& ~ span': {
-        backgroundColor:
-          disabled && theme.ButtonGroup_backgroundColor_checked_disabled,
-        borderColor: !disabled && 'transparent',
-        color: disabled && theme.ButtonGroup_color_checked_disabled
-      }
-    },
-    '& > input:focus ~ span': {
-      boxShadow: theme.ButtonGroup_boxShadow_focus,
+    '& > input:focus ~ span, & > span:active': {
+      boxShadow: theme.ButtonGroupButton_boxShadow_focus,
       position: 'relative'
     },
-    '&:first-child': {
-      '& > span': {
-        borderBottomRightRadius: 0,
-        borderTopRightRadius: 0
-      }
+    '&:not(:first-child) > span': {
+      borderLeftColor: 'transparent'
     },
-    '&:not(:first-child)': {
-      '& > span': {
-        borderLeftColor: 'transparent'
-      }
+    [`&:${firstOrLast[direction][0]}-child > span`]: {
+      borderBottomRightRadius: 0,
+      borderTopRightRadius: 0
     },
-    '&:not(:first-child)&:not(:last-child)': {
-      '& > span': {
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0
-      }
+    '&:not(:first-child)&:not(:last-child) > span': {
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
+      borderTopLeftRadius: 0,
+      borderTopRightRadius: 0
     },
-    '&:last-child > span': {
+    [`&:${firstOrLast[direction][1]}-child > span`]: {
       borderBottomLeftRadius: 0,
       borderTopLeftRadius: 0
     },
     '[data-checked=true] + &[data-checked=true] > input:not(:focus) ~ span': {
-      borderLeftColor: !disabled && theme.ButtonGroup_borderLeftColor
+      borderLeftColor:
+        !disabled && theme.ButtonGroupButton_borderLeftColor_checked
     }
     // `:active` must be last, to follow LVHFA order:
     // https://developer.mozilla.org/en-US/docs/Web/CSS/:active
@@ -150,8 +132,7 @@ const styles = (props) => {
 };
 
 const Root = createStyledComponent('label', styles, {
-  // displayName: props.multiSelect ? 'Checkbox' : 'Radio',
-  // filterProps: [props.value && 'value']
+  displayName: 'InputButton'
 });
 
 export default function InputButton(props: Props) {
@@ -161,10 +142,8 @@ export default function InputButton(props: Props) {
     className,
     disabled,
     label,
-    onChange,
     rootProps: otherRootProps,
     size,
-    value,
     variant,
     ...restProps
   } = props;
@@ -180,14 +159,11 @@ export default function InputButton(props: Props) {
     checked,
     disabled,
     label,
-    onChange: (event) => {
-      onChange(event.target, value);
-    },
-    value,
     ...restProps // Note: Props are spread to input rather than Root
   };
   const rootProps = {
     className,
+    checked,
     disabled,
     variant,
     ...otherRootProps

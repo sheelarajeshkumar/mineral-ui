@@ -157,7 +157,13 @@ const ChoiceGroup = (props: Props) => {
     });
   } else if (children && input === InputButton) {
     inputs = Children.map(children, (child, index) => {
-      const { invalid, required, size, value, ...buttonProps } = child.props;
+      const {
+        invalid,
+        required,
+        size: ignoreSize,
+        value,
+        ...buttonProps
+      } = child.props;
       return (
         <InputButton
           {...inputProps(child.props.value, index, {}, invalid, required)}

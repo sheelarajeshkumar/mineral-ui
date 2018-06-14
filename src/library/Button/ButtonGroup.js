@@ -11,7 +11,7 @@ type Props = {
    * components. If this prop is specified, an `onChange` handler must also be
    * specified. See also: `defaultChecked`.
    */
-  checked?: string,
+  checked?: string | Array<string>,
   /** Mineral [Button](/components/button) components */
   children?: React$Node,
   /** Data used to contruct [Button](/components/button), see [example](#data) */
@@ -47,13 +47,13 @@ export const componentTheme = (baseTheme: Object) => ({
 //   '& > *': {marginRight: '0px'}
 // })
 
-const Root = createStyledComponent(
-  ChoiceGroup,
-  {},
-  {
-    displayName: 'ButtonGroup'
-  }
-);
+// const Root = createStyledComponent(
+//   ChoiceGroup,
+//   {},
+//   {
+//     displayName: 'ButtonGroup'
+//   }
+// );
 
 /**
  * ButtonGroup allows authors to construct a group of [Buttons](/components/button)
@@ -61,7 +61,7 @@ const Root = createStyledComponent(
  *
  * ButtonGroup allows users to select a single option from a list.
  */
-export default class ButtonGroup extends Component<Props, State> {
+class ButtonGroup extends Component<Props, State> {
   state: State = {
     checked: this.props.defaultChecked // TODO consider factoring in children prop for defaultChecked = true
   };
@@ -76,10 +76,10 @@ export default class ButtonGroup extends Component<Props, State> {
     const type = multiSelect ? 'checkbox' : 'radio';
 
     const rootProps = {
-      checked: this.state.checked,
+      checked: this.getControllableValue('checked'), //this.state.checked,
       input: InputButton,
-      onChange: (target, value) => {
-        this.handleChange(target, value, type);
+      onChange: (event) => {
+        this.handleChange(event, type);
       },
       rootProps: {
         inline: true,
@@ -90,29 +90,58 @@ export default class ButtonGroup extends Component<Props, State> {
       ...restProps // Note: Props are spread to input rather than Root
     };
 
-    return <Root {...rootProps} />;
+    return <ChoiceGroup {...rootProps} />;
   }
 
-  handleChange = (target, value, type) => {
-    if (type === 'radio') {
-      this.setState({ checked: target.value });
-    } else if (type === 'checkbox') {
-      this.setState((prevState) => {
-        const checked =
-          typeof prevState.checked === 'string'
-            ? [prevState.checked]
-            : [...prevState.checked];
-        const index = checked.indexOf(target.value);
-        const hasValue = index !== -1;
-
-        if (target.checked && !hasValue) {
-          checked.push(target.value);
-        } else if (hasValue) {
-          checked.splice(index, 1);
+  handleChange = (event, type) => {
+    event.persist();
+    if (this.isControlled('checked')) {
+      this.changeActions(event);
+    } else {
+      this.setState(
+        (prevState) => {
+          return this.updateState(event, prevState, type);
+        },
+        () => {
+          this.changeActions(event);
         }
-
-        return { checked };
-      });
+      );
     }
   };
+
+  changeActions = (event) => {
+    this.props.onChange && this.props.onChange(event);
+  };
+
+  updateState = (event, prevState, type) => {
+    const { target } = event;
+    let checked;
+
+    if (type === 'radio') {
+      checked = target.value;
+    } else if (type === 'checkbox') {
+      checked = [].concat(prevState.checked);
+      const index = checked.indexOf(target.value);
+      const hasValue = index !== -1;
+
+      if (target.checked && !hasValue) {
+        checked.push(target.value);
+      } else if (hasValue) {
+        checked.splice(index, 1);
+      }
+    }
+    return { checked };
+  };
+
+  isControlled = (prop: string) => {
+    return this.props.hasOwnProperty(prop);
+  };
+
+  getControllableValue = (key: string) => {
+    return this.isControlled(key) ? this.props[key] : this.state[key];
+  };
 }
+
+ButtonGroup.displayName = 'ButtonGroup';
+
+export default ButtonGroup;
