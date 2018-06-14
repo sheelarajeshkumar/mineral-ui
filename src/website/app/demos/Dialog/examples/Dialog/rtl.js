@@ -1,8 +1,8 @@
 /* @flow */
-import { ThemeProvider } from '../../../../../library/themes';
-import Button from '../../../../../library/Button';
-import DemoLayout from '../components/DemoLayout';
-import Dialog from '../components/DemoDialog';
+import { ThemeProvider } from '../../../../../../library/themes';
+import Button from '../../../../../../library/Button';
+import DemoLayout from '../../components/DemoLayout';
+import Dialog from '../../components/DemoDialog';
 
 export default {
   id: 'rtl',

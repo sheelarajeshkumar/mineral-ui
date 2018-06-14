@@ -1,8 +1,8 @@
 /* @flow */
 import React from 'react';
-import Button from '../../../../../library/Button';
-import DemoLayout from '../components/DemoLayout';
-import Dialog from '../components/DemoDialog';
+import Button from '../../../../../../library/Button';
+import DemoLayout from '../../components/DemoLayout';
+import Dialog from '../../components/DemoDialog';
 
 const content = [...Array(6)].map((_, index) => (
   <p key={index}>

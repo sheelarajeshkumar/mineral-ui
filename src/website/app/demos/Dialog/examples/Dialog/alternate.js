@@ -1,14 +1,14 @@
 /* @flow */
-import Button from '../../../../../library/Button';
+import Button from '../../../../../../library/Button';
 import {
   DialogActions,
   DialogBody,
   DialogFooter,
   DialogHeader,
   DialogTitle
-} from '../../../../../library/Dialog';
-import DemoLayout from '../components/DemoLayout';
-import Dialog from '../components/DemoDialog';
+} from '../../../../../../library/Dialog';
+import DemoLayout from '../../components/DemoLayout';
+import Dialog from '../../components/DemoDialog';
 
 export default {
   id: 'alternate',

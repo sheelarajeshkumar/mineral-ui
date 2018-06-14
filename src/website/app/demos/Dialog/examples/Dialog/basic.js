@@ -1,7 +1,7 @@
 /* @flow */
-import Button from '../../../../../library/Button';
-import DemoLayout from '../components/DemoLayout';
-import Dialog from '../components/DemoDialog';
+import Button from '../../../../../../library/Button';
+import DemoLayout from '../../components/DemoLayout';
+import Dialog from '../../components/DemoDialog';
 
 export default {
   id: 'basic',

@@ -1,7 +1,7 @@
 /* @flow */
 import { Component } from 'react';
-import Button from '../../../../../library/Button';
-import Dialog from '../../../../../library/Dialog';
+import Button from '../../../../../../library/Button';
+import Dialog from '../../../../../../library/Dialog';
 
 export default {
   id: 'trigger',

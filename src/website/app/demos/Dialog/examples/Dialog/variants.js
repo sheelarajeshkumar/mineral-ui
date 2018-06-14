@@ -1,8 +1,8 @@
 /* @flow */
-import Button from '../../../../../library/Button';
-import { capitalize } from '../../../../../library/utils';
-import DemoLayout from '../components/DemoLayout';
-import Dialog from '../components/DemoDialog';
+import Button from '../../../../../../library/Button';
+import { capitalize } from '../../../../../../library/utils';
+import DemoLayout from '../../components/DemoLayout';
+import Dialog from '../../components/DemoDialog';
 
 export default {
   id: 'variants',

@@ -1,15 +1,17 @@
 /* @flow */
-import { componentTheme } from '../../../../library/Dialog/Dialog';
-import examples from './examples';
+import { componentTheme as dialogComponentTheme } from '../../../../library/Dialog/Dialog';
+import dialogExamples from './examples/Dialog';
 import bestPractices from './bestPractices';
-const doc = require('!!react-docgen-loader!../../../../library/Dialog/Dialog');
+const dialogDoc = require('!!react-docgen-loader!../../../../library/Dialog/Dialog');
 
-export default {
-  bestPractices,
-  componentTheme,
-  doc,
-  examples,
-  slug: 'dialog',
-  title: 'Dialog',
-  whenHowToUse: `TODO`
-};
+export default [
+  {
+    bestPractices: bestPractices.dialog,
+    componentTheme: dialogComponentTheme,
+    doc: dialogDoc,
+    examples: dialogExamples,
+    slug: 'dialog',
+    title: 'Dialog',
+    whenHowToUse: `TODO`
+  }
+];
