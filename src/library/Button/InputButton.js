@@ -22,10 +22,10 @@ type Props = {
   /** @Private CSS className */
   className?: string,
   /**
-   * Initial checked state of the input; primarily for use with
+   * TODO: Initial checked state of the input; primarily for use with
    * uncontrolled components
    */
-  defaultChecked?: boolean,
+  // defaultChecked?: boolean,
   /** Indicates that the value of the input is invalid */
   invalid?: boolean,
   /** Label associated with the input element */
@@ -94,28 +94,10 @@ const styles = (props) => {
     },
     '& > input:checked': {
       '& ~ span': {
-        backgroundColor: disabled
-          ? theme.ButtonGroup_backgroundColor_checked_disabled
-          : !multiSelect
-            ? theme.ButtonGroup_backgroundColor_checked
-            : undefined,
-        borderColor: !disabled && !multiSelect && 'transparent',
-        color:
-          disabled && !multiSelect
-            ? theme.ButtonGroup_color_checked_disabled
-            : !multiSelect ? theme.ButtonGroup_color_checked : undefined
-      },
-      // '& > input:hover ~ span': {
-      //   backgroundColor:
-      //     !multiSelect && theme.ButtonGroup_backgroundColor_checked_focus
-      // },
-      '&:hover ~ span': {
         backgroundColor:
-          !multiSelect && theme.ButtonGroup_backgroundColor_checked_hover
-      },
-      '&:active ~ span': {
-        backgroundColor:
-          !multiSelect && theme.ButtonGroup_backgroundColor_checked_active
+          disabled && theme.ButtonGroup_backgroundColor_checked_disabled,
+        borderColor: !disabled && 'transparent',
+        color: disabled && theme.ButtonGroup_color_checked_disabled
       }
     },
     '& > input:focus ~ span': {
@@ -146,16 +128,8 @@ const styles = (props) => {
       borderTopLeftRadius: 0
     },
     '[data-checked=true] + &[data-checked=true] > input:not(:focus) ~ span': {
-      borderLeftColor:
-        multiSelect && !disabled
-          ? theme.ButtonGroup_borderLeftColor
-          : multiSelect && disabled
-            ? theme.ButtonGroup_borderColor_checked_disabled
-            : undefined
+      borderLeftColor: !disabled && theme.ButtonGroup_borderLeftColor
     }
-    // '& > input:checked:focus ~ span': {
-    //
-    // }
     // `:active` must be last, to follow LVHFA order:
     // https://developer.mozilla.org/en-US/docs/Web/CSS/:active
     // '&:active': {
@@ -180,65 +154,48 @@ const Root = createStyledComponent('label', styles, {
   // filterProps: [props.value && 'value']
 });
 
-export default class InputButton extends Component<Props, State> {
-  state: State = {
-    checked: Boolean(this.props.defaultChecked)
+export default function InputButton(props: Props) {
+  const {
+    buttonProps: otherButtonProps,
+    checked,
+    className,
+    disabled,
+    label,
+    onChange,
+    rootProps: otherRootProps,
+    size,
+    variant,
+    ...restProps
+  } = props;
+  const buttonProps = {
+    disabled,
+    size,
+    variant,
+    ...otherButtonProps,
+    element: 'span',
+    primary: checked
+  };
+  const inputProps = {
+    checked,
+    disabled,
+    label,
+    onChange: () => { onChange(value) },
+    ...restProps // Note: Props are spread to input rather than Root
+  };
+  const rootProps = {
+    className,
+    disabled,
+    variant,
+    ...otherRootProps
   };
 
-  render() {
-    const checked = this.state.checked;
-    const {
-      buttonProps: otherButtonProps,
-      className,
-      disabled,
-      label,
-      multiSelect,
-      rootProps: otherRootProps,
-      size,
-      variant,
-      ...restProps
-    } = this.props;
-    const buttonProps = {
-      disabled,
-      size,
-      variant,
-      ...otherButtonProps,
-      element: 'span',
-      primary: multiSelect && checked
-    };
-    const inputProps = {
-      checked: multiSelect && checked,
-      disabled,
-      label,
-      onChange:
-        !disabled && multiSelect
-          ? this.handleInputChange
-          : disabled ? () => {} : undefined,
-      ...restProps // Note: Props are spread to input rather than Root
-    };
-    const rootProps = {
-      className,
-      disabled,
-      multiSelect,
-      variant,
-      ...otherRootProps
-    };
-
-    return (
-      <Root data-checked={multiSelect && checked} {...rootProps}>
-        <input {...inputProps} />
-        <Button {...buttonProps}>
-          {buttonProps.children ? buttonProps.children : label}
-        </Button>
-      </Root>
-    );
-  }
-
-  handleInputChange = (event: SyntheticEvent<>) => {
-    if (this.props.multiSelect && this.state.checked) {
-      this.setState({ checked: false });
-    } else if (this.props.multiSelect && !this.state.checked) {
-      this.setState({ checked: true });
-    }
-  };
+  return (
+    <Root data-checked={checked} {...rootProps}>
+      <input {...inputProps} />
+      <Button {...buttonProps}>
+        {buttonProps.children ? buttonProps.children : label}{' '}
+        {checked ? 'true' : 'false'}
+      </Button>
+    </Root>
+  );
 }

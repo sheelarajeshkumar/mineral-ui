@@ -16,7 +16,7 @@ group of related controls.`,
         defaultChecked="hi"
         name="mineral-2">
         <Button value="hi">Hi</Button>
-        <Button disabled value="I'm a button">I'm a Button</Button>
+        <Button value="I'm a button">I'm a Button</Button>
         <Button value="me too" variant="danger">Me too</Button>
       </ButtonGroup>
 

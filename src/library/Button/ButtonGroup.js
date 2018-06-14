@@ -36,7 +36,7 @@ type Props = {
 };
 
 type State = {
-  checked?: string // Appease Dropdown
+  checked?: string | Array<string> // Appease Dropdown
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -61,21 +61,37 @@ const Root = createStyledComponent(
  *
  * ButtonGroup allows users to select a single option from a list.
  */
-export default function ButtonGroup(props: Props) {
-  const { multiSelect, rootProps: otherRootProps, ...restProps } = props;
-  const type = multiSelect ? 'checkbox' : 'radio';
-
-  const rootProps = {
-    input: InputButton,
-    multiSelect,
-    rootProps: {
-      inline: true,
-      role: `${type === 'radio' ? 'radio' : ''}group`,
-      ...otherRootProps
-    },
-    type,
-    ...restProps // Note: Props are spread to input rather than Root
+export default class ButtonGroup extends Component<Props, State> {
+  state: State = {
+    checked: this.props.defaultChecked // TODO consider factoring in children prop for defaultChecked = true
   };
 
-  return <Root {...rootProps} />;
+  render() {
+    const {
+      defaultChecked: ignoreDefaultChecked,
+      multiSelect,
+      rootProps: otherRootProps,
+      ...restProps
+    } = this.props;
+    const type = multiSelect ? 'checkbox' : 'radio';
+
+    const rootProps = {
+      checked: this.state.checked,
+      input: InputButton,
+      onChange: (value) => {
+        this.handleChange(value);
+      },
+      rootProps: {
+        inline: true,
+        role: `${type === 'radio' ? 'radio' : ''}group`,
+        ...otherRootProps
+      },
+      type,
+      ...restProps // Note: Props are spread to input rather than Root
+    };
+
+    return <Root {...rootProps} />;
+  }
+
+  handleChange = (value) => {};
 }
