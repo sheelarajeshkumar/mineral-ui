@@ -14,6 +14,14 @@ export {
   CardTitleMenu
 } from './Card';
 export { default as Checkbox, CheckboxGroup } from './Checkbox';
+export {
+  default as Dialog,
+  DialogActions,
+  DialogBody,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle
+} from './Dialog';
 export { default as Dropdown } from './Dropdown';
 export { default as Flex, FlexItem } from './Flex';
 export { FormField, FormFieldset, FormFieldDivider } from './Form';
