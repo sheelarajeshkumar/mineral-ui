@@ -26,6 +26,7 @@ export const componentTheme = (baseTheme: Object) => ({
 });
 
 const styles = ({ spacious, textAlign, theme: baseTheme }) => {
+  console.log('TD styles', textAlign);
   const theme = componentTheme(baseTheme);
   const fontSize = theme.TD_fontSize;
   const paddingHorizontal = getNormalizedValue(
@@ -64,6 +65,7 @@ function TD(props: Props) {
     <TableContext.Consumer>
       {({ spacious }) => {
         const rootProps = { spacious, ...restProps };
+        console.log('TD render', rootProps);
         return <Root {...rootProps}>{children}</Root>;
       }}
     </TableContext.Consumer>

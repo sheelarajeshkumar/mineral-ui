@@ -111,7 +111,7 @@ function TH(props: Props) {
   const Root = createStyledComponent(ThemedTD, styles, {
     displayName: 'TH',
     filterProps: ['width'],
-    forwardProps: ['element'],
+    forwardProps: ['element', 'textAlign'],
     rootEl: element,
     withProps: { element }
   });
@@ -120,6 +120,7 @@ function TH(props: Props) {
     <TableContext.Consumer>
       {({ highContrast, spacious }) => {
         const rootProps = { highContrast, spacious, ...restProps };
+        console.log('TH render', rootProps);
         return <Root {...rootProps}>{children}</Root>;
       }}
     </TableContext.Consumer>

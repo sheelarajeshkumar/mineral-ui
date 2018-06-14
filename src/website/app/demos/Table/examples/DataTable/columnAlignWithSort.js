@@ -19,7 +19,8 @@ export default {
       return (
         <DataTable
           columns={columns}
-          rows={sharedRows} />
+          rows={sharedRows}
+          defaultSort={{ column: 'Vegetables', direction: 'ascending' }} />
       );
     }`
 };

@@ -229,7 +229,7 @@ export default class DataTable extends Component<Props, State> {
   };
 
   getSortableColumnHeader = ({ props: renderProps, state }: RenderProps) => {
-    const { children, name, messages, spacious } = renderProps;
+    const { children, name, messages, spacious, textAlign } = renderProps;
     const { sort } = state;
 
     const iconProps = {
@@ -317,7 +317,7 @@ export default class DataTable extends Component<Props, State> {
           margin: `-${iconAdjustment}`
         },
 
-        '*:hover > button > &, *:focus > &': {
+        '*:hover > button > &, button:focus > &': {
           color: 'inherit',
           opacity: 1
         }
@@ -331,7 +331,8 @@ export default class DataTable extends Component<Props, State> {
         // TODO: Focus is lost on activation (because re-render?)
         this.sort({ column: name, direction: nextDirection });
       },
-      role: 'columnheader'
+      role: 'columnheader',
+      textAlign
     };
     const buttonProps = {
       'aria-label':
@@ -346,14 +347,15 @@ export default class DataTable extends Component<Props, State> {
         // TODO: Focus is lost on activation (because re-render?)
         this.sort({ column: name, direction: nextDirection });
       },
-      spacious
+      spacious,
+      textAlign
     };
 
     return (
       <SortTH key={name} {...rootProps}>
         <SortButton {...buttonProps}>
           <Content>{children}</Content>&nbsp;<IconHolder>
-            {sortIcon[currentDirection]}
+            {currentDirection !== 'none' ? sortIcon[currentDirection] || sortIcon.ascending}
           </IconHolder>
         </SortButton>
       </SortTH>

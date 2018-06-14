@@ -46,8 +46,8 @@ alphabetically.
         { content: 'Fresh Fruits', name: 'Fruits', enableSort: true },
         { content: 'Veritable Vegetables', name: 'Vegetables', enableSort: true },
         { content: 'Grains', name: 'Grains', enableSort: true },
-        { content: 'Delectable Dairy', name: 'Dairy', enableSort: true, sortFn: sortByLength },
-        { content: 'Protein', name: 'Protein' }
+        { content: 'Delectable Dairy', name: 'Dairy', enableSort: true, sortFn: sortByLength, textAlign: 'end' },
+        { content: 'Protein', name: 'Protein', textAlign: 'end' }
       ];
 
       return (
