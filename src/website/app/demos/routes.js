@@ -75,11 +75,38 @@ export default [
       title: 'CheckboxGroup'
     }
   ],
-  {
-    description: 'TODO: Dialog',
-    slug: 'dialog',
-    title: 'Dialog'
-  },
+  [
+    {
+      description: 'TODO: Dialog',
+      slug: 'dialog',
+      title: 'Dialog'
+    },
+    {
+      description: 'TODO: DialogActions',
+      slug: 'dialog-actions',
+      title: 'DialogActions'
+    },
+    {
+      description: 'TODO: DialogBody',
+      slug: 'dialog-body',
+      title: 'DialogBody'
+    },
+    {
+      description: 'TODO: DialogFooter',
+      slug: 'dialog-footer',
+      title: 'DialogFooter'
+    },
+    {
+      description: 'TODO: DialogHeader',
+      slug: 'dialog-header',
+      title: 'DialogHeader'
+    },
+    {
+      description: 'TODO: DialogTitle',
+      slug: 'dialog-title',
+      title: 'DialogTitle'
+    }
+  ],
   {
     description:
       'Dropdowns display a hidden Menu, available upon user interaction. Use Dropdowns for non-primary actions only.',
