@@ -20,6 +20,8 @@ type Props = {
    * Checkboxes.  Primarily for use with uncontrolled components.
    */
   defaultChecked?: string | Array<string>,
+  /** Disables all children */
+  disabled?: boolean,
   /** Display the choices inline horizontally rather than stacked vertically. */
   inline?: boolean,
   /**
@@ -171,7 +173,7 @@ const ChoiceGroup = (props: Props) => {
           disabled={props.disabled || buttonProps.disabled}
           type={type}
           value={value}
-          variant={buttonProps.variant}
+          variant={props.variant || buttonProps.variant}
         />
       );
     });

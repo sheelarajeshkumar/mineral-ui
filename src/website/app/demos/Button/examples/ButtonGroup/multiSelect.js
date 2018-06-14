@@ -6,7 +6,7 @@ export default {
   id: 'multi-select',
   title: 'Multi-Select',
   description: `TODO`,
-  scope: { DemoForm, ButtonGroup },
+  scope: { ButtonGroup, DemoForm },
   source: `
     <DemoForm>
       <ButtonGroup

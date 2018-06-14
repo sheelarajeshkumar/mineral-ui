@@ -8,20 +8,9 @@ export default {
   title: 'Data vs. Children',
   description: `Use either the \`data\` prop or \`children\` to construct a
 group of related controls.`,
-  scope: { DemoForm, FormFieldDivider, Button, ButtonGroup },
+  scope: { Button, ButtonGroup, DemoForm, FormFieldDivider },
   source: `
-    <div>
     <DemoForm>
-      <ButtonGroup
-        defaultChecked="hi"
-        name="mineral-2">
-        <Button value="hi">Hi</Button>
-        <Button value="I'm a button">I'm a Button</Button>
-        <Button value="me too" variant="danger">Me too</Button>
-      </ButtonGroup>
-
-      <FormFieldDivider />
-
       <ButtonGroup
         defaultChecked="quartz"
         data={[
@@ -29,70 +18,18 @@ group of related controls.`,
           { label: 'Magnetite', value: 'magnetite' },
           { label: 'Quartz', value: 'quartz' }
         ]}
-        name="mineral-1"
+        name="mineral-2"
         multiSelect />
-    </DemoForm>
-  <br />
-    <DemoForm>
+
+      <FormFieldDivider />
+
       <ButtonGroup
-        variant="danger"
-        defaultChecked="fluorite"
-        data={[
-          { label: 'Fluorite', value: 'fluorite' },
-          { label: 'Magnetite', value: 'magnetite' },
-          { label: 'Quartz', value: 'quartz' }
-        ]}
-        name="mineral-1"
-        multiSelect />
+        defaultChecked="hi"
+        name="mineral-1">
+        <Button value="hi">Hi</Button>
+        <Button value="I'm a button">I'm a Button</Button>
+        <Button value="me too">Me too</Button>
+      </ButtonGroup>
     </DemoForm>
-  <br />
-    <DemoForm>
-      <ButtonGroup
-        defaultChecked="magnetite"
-        data={[
-          { label: 'Fluorite', value: 'fluorite' },
-          { label: 'Magnetite', value: 'magnetite' },
-          { label: 'Quartz', value: 'quartz' }
-        ]}
-        name="mineral-1"
-        multiSelect />
-    </DemoForm>
-  <br />
-    <DemoForm>
-      <ButtonGroup
-        defaultChecked={['fluorite', 'quartz']}
-        data={[
-          { label: 'Fluorite', value: 'fluorite' },
-          { label: 'Magnetite', value: 'magnetite' },
-          { label: 'Quartz', value: 'quartz' }
-        ]}
-        name="mineral-1"
-        multiSelect />
-    </DemoForm>
-  <br />
-    <DemoForm>
-      <ButtonGroup
-        defaultChecked={['magnetite', 'quartz']}
-        data={[
-          { label: 'Fluorite', value: 'fluorite' },
-          { label: 'Magnetite', value: 'magnetite' },
-          { label: 'Quartz', value: 'quartz' }
-        ]}
-        name="mineral-1"
-        multiSelect />
-    </DemoForm>
-  <br />
-    <DemoForm>
-      <ButtonGroup
-        defaultChecked={['fluorite', 'magnetite']}
-        data={[
-          { label: 'Fluorite', value: 'fluorite' },
-          { label: 'Magnetite', value: 'magnetite' },
-          { label: 'Quartz', value: 'quartz' }
-        ]}
-        name="mineral-1"
-        multiSelect />
-    </DemoForm>
-    </div>
   `
 };

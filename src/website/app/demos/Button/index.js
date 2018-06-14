@@ -1,7 +1,6 @@
 /* @flow */
 import React from 'react';
 import { componentTheme as buttonComponentTheme } from '../../../../library/Button/Button';
-import { componentTheme as buttonGroupComponentTheme } from '../../../../library/Button/ButtonGroup';
 import buttonExamples from './examples/Button';
 import buttonGroupExamples from './examples/ButtonGroup';
 import bestPractices from './bestPractices';
@@ -25,7 +24,6 @@ export default [
   },
   {
     bestPractices: bestPractices.buttonGroup,
-    componentTheme: buttonGroupComponentTheme,
     doc: buttonGroupDoc,
     examples: buttonGroupExamples,
     propsComment: (

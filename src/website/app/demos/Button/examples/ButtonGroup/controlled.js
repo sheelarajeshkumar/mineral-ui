@@ -8,7 +8,7 @@ export default {
   title: 'Controlled',
   description: `Provide the \`checked\` prop and an \`onChange\` handler to
 create a controlled component.`,
-  scope: { Component, DemoForm, ButtonGroup },
+  scope: { ButtonGroup, Component, DemoForm },
   source: `
   () => {
     class MyForm extends Component {

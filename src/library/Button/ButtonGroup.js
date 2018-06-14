@@ -7,59 +7,51 @@ import InputButton from './InputButton';
 
 type Props = {
   /**
-   * Value of the selected [Button](/components/button); primarily for use with controlled
-   * components. If this prop is specified, an `onChange` handler must also be
-   * specified. See also: `defaultChecked`.
+   * Value of the selected Radio or an array of values of the selected
+   * Checkboxes. Primarily for use with controlled components. If this prop is
+   * specified, an `onChange` handler must also be specified. See also:
+   * `defaultChecked`.
    */
   checked?: string | Array<string>,
-  /** Mineral [Button](/components/button) components */
+  /** Mineral InputButtons rendered as [Button](/components/button) components */
   children?: React$Node,
-  /** Data used to contruct [Button](/components/button), see [example](#data) */
+  /** Data used to contruct InputButtons, see [example](#data) */
   data?: Array<{ label: string | React$Element<*>, value: string }>,
   /**
-   * Value of the selected [Button](/components/button); primarily for use with
+   * Value of the selected InputButton [Button](/components/button); primarily for use with
    * uncontrolled components.
    */
   defaultChecked?: string | Array<string>,
-  /** Display the choices inline horizontally rather than stacked vertically. */
+  /** Disables all children */
+  disabled?: boolean,
+  /** @Private Display the choices inline horizontally rather than stacked vertically. */
   inline?: boolean,
+  /** Indicates that the field is invalid. Not forwarded for checkboxes. */
+  invalid?: boolean,
   /** The name of the group */
   name: string,
-  /** TODO Determines whether HTML inputs are type radio or checkbox */
+  /** Indicates whether HTML inputs are type checkbox (default is type radio) */
   multiSelect?: boolean,
   /** Function called when a choice is selected */
   onChange?: (event: SyntheticEvent<>) => void,
+  /** Indicates that the field is required. Not forwarded for checkboxes. */
+  required?: boolean,
   /** Props to be applied directly to the root element */
   rootProps?: Object,
   /** Available RadioButton sizes */
-  size?: 'small' | 'medium' | 'large' | 'jumbo'
+  size?: 'small' | 'medium' | 'large' | 'jumbo',
+  /** Available variants */
+  variant?: 'regular' | 'danger' | 'success' | 'warning'
 };
 
 type State = {
-  checked?: string | Array<string> // Appease Dropdown
+  checked?: string | Array<string>
 };
 
-export const componentTheme = (baseTheme: Object) => ({
-  // ButtonGroup_backgroundColor: baseTheme.color_gray_20,
-});
-
-// const styles = ({
-//   '& > *': {marginRight: '0px'}
-// })
-
-// const Root = createStyledComponent(
-//   ChoiceGroup,
-//   {},
-//   {
-//     displayName: 'ButtonGroup'
-//   }
-// );
-
 /**
- * ButtonGroup allows authors to construct a group of [Buttons](/components/button)
- * and provides a simpler API than working with Button directly.
- *
- * ButtonGroup allows users to select a single option from a list.
+ * TODO ButtonGroup allows authors to construct a group of [Buttons](/components/button)
+ * that perform like a [RadioGroup](/components/radio-group) or
+ * [CheckboxGroup](/components/checkbox-group).
  */
 class ButtonGroup extends Component<Props, State> {
   state: State = {
@@ -76,9 +68,9 @@ class ButtonGroup extends Component<Props, State> {
     const type = multiSelect ? 'checkbox' : 'radio';
 
     const rootProps = {
-      checked: this.getControllableValue('checked'), //this.state.checked,
+      checked: this.getControllableValue('checked'),
       input: InputButton,
-      onChange: (event) => {
+      onChange: (event: SyntheticEvent<>) => {
         this.handleChange(event, type);
       },
       rootProps: {
@@ -93,7 +85,7 @@ class ButtonGroup extends Component<Props, State> {
     return <ChoiceGroup {...rootProps} />;
   }
 
-  handleChange = (event, type) => {
+  handleChange = (event: SyntheticEvent<>, type: string) => {
     event.persist();
     if (this.isControlled('checked')) {
       this.changeActions(event);
@@ -109,11 +101,11 @@ class ButtonGroup extends Component<Props, State> {
     }
   };
 
-  changeActions = (event) => {
+  changeActions = (event: SyntheticEvent<>) => {
     this.props.onChange && this.props.onChange(event);
   };
 
-  updateState = (event, prevState, type) => {
+  updateState = (event: SyntheticEvent<>, prevState: State, type: string) => {
     const { target } = event;
     let checked;
 

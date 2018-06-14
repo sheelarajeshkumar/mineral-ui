@@ -1,67 +1,52 @@
 /* @flow */
 import { ButtonGroup } from '../../../../../../library/Button';
-import { FormFieldDivider } from '../../../../../../library/Form';
-import DemoForm from '../../components/DemoForm';
+import DemoLayout from '../../../shared/DemoLayout';
 
 export default {
   id: 'sizes',
   title: 'Sizes',
   description: `TODO`,
-  scope: { DemoForm, FormFieldDivider, ButtonGroup },
+  scope: { ButtonGroup, DemoLayout },
   source: `
-    <div>
-      <DemoForm>
-        <ButtonGroup
-          defaultChecked="fluorite"
-          data={[
-            { label: 'Fluorite', value: 'fluorite' },
-            { label: 'Magnetite', value: 'magnetite' },
-            { label: 'Quartz', value: 'quartz' }
-          ]}
-          name="mineral-1"
-          size="small" />
-      </DemoForm>
+    <DemoLayout>
+      <ButtonGroup
+        defaultChecked="fluorite"
+        data={[
+          { label: 'Fluorite', value: 'fluorite' },
+          { label: 'Magnetite', value: 'magnetite' },
+          { label: 'Quartz', value: 'quartz' }
+        ]}
+        name="mineral-1"
+        size="small" />
 
-      <FormFieldDivider />
+      <ButtonGroup
+        defaultChecked="fluorite"
+        data={[
+          { label: 'Fluorite', value: 'fluorite' },
+          { label: 'Magnetite', value: 'magnetite' },
+          { label: 'Quartz', value: 'quartz' }
+        ]}
+        name="mineral-2"
+        size="medium" />
 
-      <DemoForm>
-        <ButtonGroup
-          defaultChecked="fluorite"
-          data={[
-            { label: 'Fluorite', value: 'fluorite' },
-            { label: 'Magnetite', value: 'magnetite' },
-            { label: 'Quartz', value: 'quartz' }
-          ]}
-          name="mineral-1"
-          size="medium" />
-      </DemoForm>
+      <ButtonGroup
+        defaultChecked="fluorite"
+        data={[
+          { label: 'Fluorite', value: 'fluorite' },
+          { label: 'Magnetite', value: 'magnetite' },
+          { label: 'Quartz', value: 'quartz' }
+        ]}
+        name="mineral-3" />
 
-      <FormFieldDivider />
-
-      <DemoForm>
-        <ButtonGroup
-          defaultChecked="fluorite"
-          data={[
-            { label: 'Fluorite', value: 'fluorite' },
-            { label: 'Magnetite', value: 'magnetite' },
-            { label: 'Quartz', value: 'quartz' }
-          ]}
-          name="mineral-1" />
-      </DemoForm>
-
-      <FormFieldDivider />
-
-      <DemoForm>
-        <ButtonGroup
-          defaultChecked="fluorite"
-          data={[
-            { label: 'Fluorite', value: 'fluorite' },
-            { label: 'Magnetite', value: 'magnetite' },
-            { label: 'Quartz', value: 'quartz' }
-          ]}
-          name="mineral-1"
-          size="jumbo" />
-      </DemoForm>
-    </div>
+      <ButtonGroup
+        defaultChecked="fluorite"
+        data={[
+          { label: 'Fluorite', value: 'fluorite' },
+          { label: 'Magnetite', value: 'magnetite' },
+          { label: 'Quartz', value: 'quartz' }
+        ]}
+        name="mineral-4"
+        size="jumbo" />
+    </DemoLayout>
   `
 };

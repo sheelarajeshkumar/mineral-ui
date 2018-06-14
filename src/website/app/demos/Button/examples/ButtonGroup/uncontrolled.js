@@ -7,7 +7,7 @@ export default {
   title: 'Uncontrolled',
   description: `Create an uncontrolled ButtonGroup by using the
 \`defaultChecked\` prop rather than the \`checked\` prop.`,
-  scope: { DemoForm, ButtonGroup },
+  scope: { ButtonGroup, DemoForm },
   source: `
     <DemoForm>
       <ButtonGroup

@@ -8,7 +8,7 @@ export default {
   title: 'FormField',
   description: `Use a [FormField](/components/form-field) to provide an accessible label
 and other features as well as a more streamlined API.`,
-  scope: { DemoForm, FormField, ButtonGroup },
+  scope: { ButtonGroup, DemoForm, FormField },
   source: `
     <DemoForm>
       <FormField

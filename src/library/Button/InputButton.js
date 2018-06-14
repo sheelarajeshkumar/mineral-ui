@@ -4,49 +4,45 @@ import { createStyledComponent } from '../styles';
 import Button, { componentTheme as buttonComponentTheme } from './Button';
 
 type Props = {
+  /** Props to be applied to Button child */
+  buttonProps?: Object,
   /** Rendered content of the component */
   children?: React$Node,
   /** Disables the Button */
   disabled?: boolean,
   /** Called with the click event */
   onClick?: (event: SyntheticEvent<>) => void,
-  /** @Private Available sizes */
+  /** Available sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
-
-  // /**
-  //  * Checked state of the input. Primarily for use with controlled
-  //  * components. If this prop is specified, an `onChange` handler must also be
-  //  * specified. See also: `defaultChecked`.
-  //  */
-  // checked?: boolean,
-  /** @Private CSS className */
+  /** Checked state of the input. Passed from ButtonGroup */
+  checked: boolean,
+  /** CSS className */
   className?: string,
   /**
-   * TODO: Initial checked state of the input; primarily for use with
-   * uncontrolled components
+   * Indicates that the value of the input is invalid. Doesn't apply to
+   * checkboxes
    */
-  // defaultChecked?: boolean,
-  /** Indicates that the value of the input is invalid */
   invalid?: boolean,
   /** Label associated with the input element */
   label?: string | React$Element<*>,
   /** Used to uniquely define a group of inputs */
   name?: string,
-  // /** Function called when a input is selected */
-  // onChange?: (event: SyntheticEvent<>) => void,
-  /** Indicates that the user must select an option before submitting a form */
+  /** Function called when an input is selected. Passed from ButtonGroup */
+  onChange: (event: SyntheticEvent<>) => void,
+  /** Indicates that the user must select an option before submitting a form. Doesn't apply to checkboxes */
   required?: boolean,
   /** Props to be applied directly to the root element */
   rootProps?: Object,
   /** The value of the input */
-  value: string
+  value: string,
+  /** Available variants */
+  variant?: 'regular' | 'danger' | 'success' | 'warning'
 };
 
-// TODO audit theme variables
 export const componentTheme = (baseTheme: Object) => ({
   ButtonGroupButton_backgroundColor_checkedDisabled: baseTheme.color_gray_40,
   ButtonGroupButton_border_disabled: `solid 1px ${baseTheme.borderColor}`,
-  ButtonGroupButton_borderLeftColor_checked: 'currentcolor', // change to color_<>Primary
+  ButtonGroupButton_borderLeftColor_checked: 'currentcolor',
   ButtonGroupButton_boxShadow_focus: `0 0 0 1px ${
     baseTheme.boxShadow_focusInner
   }, 0 0 0 2px ${baseTheme.borderColor_theme_focus}`,
@@ -112,22 +108,6 @@ const styles = ({ checked, disabled, theme: baseTheme, variant }) => {
       borderLeftColor:
         !disabled && theme.ButtonGroupButton_borderLeftColor_checked
     }
-    // `:active` must be last, to follow LVHFA order:
-    // https://developer.mozilla.org/en-US/docs/Web/CSS/:active
-    // '&:active': {
-    //   backgroundColor: (() => {
-    //     if (!disabled) {
-    //       if (primary) {
-    //         return theme.Button_backgroundColor_primary_active;
-    //       } else) {
-    //         return theme.Button_backgroundC_active;
-    //       } else {
-    //         return theme.Button_backgroundColor_active;
-    //       }
-    //     }
-    //   })(),
-    //   color
-    // },
   };
 };
 
@@ -148,12 +128,12 @@ export default function InputButton(props: Props) {
     ...restProps
   } = props;
   const buttonProps = {
-    disabled,
-    size,
-    variant,
     ...otherButtonProps,
+    disabled,
     element: 'span',
     primary: checked
+    size,
+    variant,
   };
   const inputProps = {
     checked,
