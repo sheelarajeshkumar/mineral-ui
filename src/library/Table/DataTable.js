@@ -237,8 +237,7 @@ export default class DataTable extends Component<Props, State> {
     };
     const sortIcon = {
       ascending: <IconArrowDropdownUp {...iconProps} />,
-      descending: <IconArrowDropdownDown {...iconProps} />,
-      none: <IconArrowDropdownUp {...iconProps} />
+      descending: <IconArrowDropdownDown {...iconProps} />
     };
 
     const isActiveSort = sort.column === name && sort.direction !== 'none';
@@ -259,7 +258,12 @@ export default class DataTable extends Component<Props, State> {
       const theme = componentTheme(baseTheme);
 
       return {
+        cursor: 'pointer',
         padding: 0,
+
+        '&:hover': {
+          color: theme.icon_color_theme
+        },
 
         '&:focus-within': focusStyles(theme)
       };
@@ -272,7 +276,7 @@ export default class DataTable extends Component<Props, State> {
         return {
           border: 0,
           color: 'inherit',
-          cursor: 'pointer',
+          cursor: 'inherit',
           fontSize: 'inherit',
           fontWeight: 'inherit',
           verticalAlign: theme.TH_verticalAlign,
@@ -294,7 +298,7 @@ export default class DataTable extends Component<Props, State> {
       whiteSpace: 'normal'
     });
     const IconHolder = createStyledComponent('span', ({ theme }) => {
-      const iconAdjustment = pxToEm(4);
+      const iconAdjustment = pxToEm(2);
       const space = `${parseFloat(theme.space_inline_xxs) +
         parseFloat(iconAdjustment)}em`;
 
@@ -304,30 +308,29 @@ export default class DataTable extends Component<Props, State> {
         height: '0.875em',
         marginLeft: theme.direction === 'ltr' ? space : null,
         marginRight: theme.direction === 'rtl' ? space : null,
+        opacity: isActiveSort ? null : 0,
         position: 'relative',
-        top: 1,
+        top: 3,
         width: '0.875em',
 
         '& > [role="img"]': {
           margin: `-${iconAdjustment}`
         },
 
-        ...(!isActiveSort
-          ? {
-              color: theme.icon_color_theme,
-              opacity: 0,
-
-              '*:hover > &': {
-                opacity: 1
-              }
-            }
-          : undefined)
+        '*:hover > button > &, *:focus > &': {
+          color: 'inherit',
+          opacity: 1
+        }
       };
     });
 
     const rootProps = {
       'aria-label': children,
       'aria-sort': sort.column === name ? sort.direction : 'none',
+      onClick: () => {
+        // TODO: Focus is lost on activation (because re-render?)
+        this.sort({ column: name, direction: nextDirection });
+      },
       role: 'columnheader'
     };
     const buttonProps = {
