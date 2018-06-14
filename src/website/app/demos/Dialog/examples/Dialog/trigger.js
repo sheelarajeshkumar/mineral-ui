@@ -44,6 +44,7 @@ export default {
           <div>
             <Button onClick={this.toggleDialog}>{isOpen ? 'Close' : 'Open' } Dialog</Button>
             <Dialog
+              appSelector="#app"
               title="Lorem ipsum dolor sit amet"
               actions={[
                 <Button minimal key="0" onClick={this.toggleDialog}>Cancel</Button>,

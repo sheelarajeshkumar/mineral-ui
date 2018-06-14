@@ -19,6 +19,8 @@ import DialogTitle from './DialogTitle';
 import { componentTheme as dialogRowComponentTheme } from './DialogRow';
 
 type Props = {
+  /** TODO */
+  appSelector?: string,
   /** TODO - Shorthand alternative to using DialogFooter and DialogActions */
   actions?: Array<React$Node>,
   /** TODO */
@@ -231,6 +233,8 @@ export default class Dialog extends Component<Props, State> {
     isExiting: false
   };
 
+  appNode: ?HTMLElement;
+
   id: string = `dialog-${generateId()}`;
 
   dialogContent: ?HTMLElement;
@@ -433,6 +437,8 @@ export default class Dialog extends Component<Props, State> {
 
   open = () => {
     this.setLastFocusedElement();
+    this.setAppNode();
+    this.disableAppNode();
     noScroll.on();
 
     this.setState({
@@ -474,6 +480,7 @@ export default class Dialog extends Component<Props, State> {
       },
       () => {
         noScroll.off();
+        this.enableAppNode();
         this.restoreFocus();
         this.props.onClose && this.props.onClose();
       }
@@ -483,5 +490,27 @@ export default class Dialog extends Component<Props, State> {
   isEventOutsideNode = (event: SyntheticEvent<Node>, node: ?HTMLElement) => {
     const { target } = event;
     return node && target instanceof Node && !node.contains(target);
+  };
+
+  setAppNode = () => {
+    const { appSelector } = this.props;
+
+    if (appSelector && canUseDOM) {
+      this.appNode = document.querySelector(appSelector);
+
+      if (!this.appNode) {
+        throw new Error(
+          '[mineral-ui/Dialog]: Unable to find app node using the appSelector prop.'
+        );
+      }
+    }
+  };
+
+  disableAppNode = () => {
+    this.appNode && this.appNode.setAttribute('aria-hidden', 'true');
+  };
+
+  enableAppNode = () => {
+    this.appNode && this.appNode.removeAttribute('aria-hidden');
   };
 }
