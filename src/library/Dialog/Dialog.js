@@ -238,8 +238,9 @@ export default class Dialog extends Component<Props, State> {
   lastFocusedElement: ?HTMLElement;
 
   componentWillReceiveProps(nextProps: Props) {
-    if (!this.props.isOpen && nextProps.isOpen) {
-      this.setLastFocusedElement();
+    const isOpening = !this.props.isOpen && nextProps.isOpen;
+
+    if (isOpening) {
       this.open();
     }
   }
@@ -431,17 +432,16 @@ export default class Dialog extends Component<Props, State> {
   };
 
   open = () => {
+    this.setLastFocusedElement();
+    noScroll.on();
+
     this.setState({
       isExited: false
     });
-
-    noScroll.on();
   };
 
   close = () => {
     this.handleExiting();
-    noScroll.off();
-    this.restoreFocus();
   };
 
   handleClick = (event: SyntheticEvent<Node>) => {
@@ -473,6 +473,8 @@ export default class Dialog extends Component<Props, State> {
         isExiting: false
       },
       () => {
+        noScroll.off();
+        this.restoreFocus();
         this.props.onClose && this.props.onClose();
       }
     );
