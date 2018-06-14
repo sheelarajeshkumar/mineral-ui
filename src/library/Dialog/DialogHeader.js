@@ -23,6 +23,10 @@ const Root = createStyledComponent(
   }
 );
 
+const Inner = createStyledComponent('div', ({ theme }) => ({
+  fontSize: theme.fontSize_base
+}));
+
 /**
  * DialogHeader - TODO
  */
@@ -31,7 +35,7 @@ export default function DialogHeader(props: Props) {
 
   return (
     <Root {...rootProps}>
-      <div>{children}</div>
+      <Inner>{children}</Inner>
       {closeButton}
     </Root>
   );
