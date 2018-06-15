@@ -212,6 +212,14 @@ const CloseButton = createStyledComponent(
       marginLeft: rtl ? null : theme.DialogCloseButton_margin,
       marginRight: rtl ? theme.DialogCloseButton_margin : null
     };
+  },
+  {
+    displayName: 'CloseButton',
+    withProps: {
+      iconStart: <IconClose />,
+      minimal: true,
+      size: 'small'
+    }
   }
 );
 
@@ -338,10 +346,7 @@ export default class Dialog extends Component<Props, State> {
 
     const closeButtonProps = {
       'aria-label': closeButtonLabel,
-      iconStart: <IconClose />,
-      minimal: true,
-      onClick: this.close,
-      size: 'small'
+      onClick: this.close
     };
 
     const headerProps = {
