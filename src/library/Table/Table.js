@@ -245,6 +245,7 @@ export default class Table extends Component<Props, State> {
     zebraStriped
   }: { row: Row } & RenderArg) =>
     columns.map(({ cell, name, primary, ...column }) => {
+      // TODO: Better way?
       const {
         'aria-label': ignoreAriaLabel,
         'aria-sort': ignoreSort,

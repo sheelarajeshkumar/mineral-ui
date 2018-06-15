@@ -6,7 +6,7 @@ import Checkbox from '../Checkbox';
 import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
 import Table, { generateColumns } from './Table';
-import TH, { ThemedTD, componentTheme as tHComponentTheme } from './TH';
+import TH from './TH';
 
 import type { Rows } from './Table';
 import type { TitleAppearance } from './TableTitle';
@@ -93,7 +93,7 @@ type Messages = {
     none: string
   }
 };
-type RenderFn = (props?: RenderProps) => React$Node;
+type RenderFn = (props: RenderProps) => React$Node;
 // TODO: These don't match Table's needs
 type RenderProps = {
   props: Object
@@ -109,8 +109,8 @@ type State = {
 };
 
 type StateAndHelpers = {
-  state: State,
-  helpers: Helpers
+  state?: State,
+  helpers?: Helpers
 };
 
 // prettier-ignore
@@ -209,13 +209,13 @@ export default class DataTable extends Component<Props, State> {
       content,
       name,
       ...column,
+      // TODO: Confirm that you can use rendered headers with enableSort and fix if not
       ...(enableSort
         ? {
-            header: ({ props }: Object) =>
+            header: ({ props }: RenderProps) =>
               this.getSortableColumnHeader({
                 props: { messages, ...props },
-                state: this.state,
-                helpers: {}
+                state: this.state
               })
           }
         : undefined)
@@ -230,7 +230,8 @@ export default class DataTable extends Component<Props, State> {
 
   getSortableColumnHeader = ({ props: renderProps, state }: RenderProps) => {
     const { children, name, messages, spacious, textAlign } = renderProps;
-    const { sort } = state;
+    const column = state && state.sort && state.sort.column;
+    const direction = state && state.sort && state.sort.direction;
 
     const iconProps = {
       size: 'auto'
@@ -240,8 +241,8 @@ export default class DataTable extends Component<Props, State> {
       descending: <IconArrowDropdownDown {...iconProps} />
     };
 
-    const isActiveSort = sort.column === name && sort.direction !== 'none';
-    const currentDirection = isActiveSort ? sort.direction : 'none';
+    const isActiveSort = column === name && direction !== 'none';
+    const currentDirection = isActiveSort && direction ? direction : 'none';
     const directions = Object.keys(sortIcon);
     const directionIndex = directions.indexOf(currentDirection);
     const nextDirection =
@@ -326,7 +327,7 @@ export default class DataTable extends Component<Props, State> {
 
     const rootProps = {
       'aria-label': children,
-      'aria-sort': sort.column === name ? sort.direction : 'none',
+      'aria-sort': column === name ? direction : 'none',
       onClick: () => {
         // TODO: Focus is lost on activation (because re-render?)
         this.sort({ column: name, direction: nextDirection });
@@ -355,7 +356,9 @@ export default class DataTable extends Component<Props, State> {
       <SortTH key={name} {...rootProps}>
         <SortButton {...buttonProps}>
           <Content>{children}</Content>&nbsp;<IconHolder>
-            {currentDirection !== 'none' ? sortIcon[currentDirection] || sortIcon.ascending}
+            {currentDirection !== 'none'
+              ? sortIcon[currentDirection]
+              : sortIcon.ascending}
           </IconHolder>
         </SortButton>
       </SortTH>
