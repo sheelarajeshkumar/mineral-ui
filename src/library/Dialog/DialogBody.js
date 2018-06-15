@@ -34,7 +34,7 @@ const styles = {
     const boxShadows = [];
     hasShadowTop && boxShadows.push(theme.DialogBody_boxShadowTop);
     hasShadowBottom && boxShadows.push(theme.DialogBody_boxShadowBottom);
-    const boxShadow = boxShadows.join(',');
+    const boxShadow = boxShadows.length ? boxShadows.join(',') : undefined;
 
     return {
       boxShadow,
@@ -42,10 +42,12 @@ const styles = {
       fontSize,
       overflowX: 'hidden',
       overflowY: 'auto',
-      padding: `1px ${getNormalizedValue(
+      // 1px to avoid unwanted vertical scrollbar
+      // 1px in to avoid potentially cutting off of focus ring of subcomponents in body
+      padding: `2px ${getNormalizedValue(
         theme.DialogBody_paddingHorizontal,
         fontSize
-      )}`, // 1px to avoid unwanted vertical scrollbar
+      )}`,
 
       '& > :first-child': {
         marginTop: 0
