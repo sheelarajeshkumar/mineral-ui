@@ -32,8 +32,6 @@ type Props = {
   /** TODO */
   closeOnClickOutside?: boolean,
   /** TODO */
-  disableFocusTrap?: boolean,
-  /** TODO */
   hideOverlay?: boolean,
   /** Id of the Dialog */
   id?: string,
@@ -261,9 +259,9 @@ export default class Dialog extends Component<Props, State> {
     const {
       closeOnClickOutside,
       closeOnEscape,
-      disableFocusTrap,
       isOpen,
       hideOverlay,
+      modeless,
       size,
       usePortal,
       ...restProps
@@ -281,7 +279,9 @@ export default class Dialog extends Component<Props, State> {
       'aria-modal': true,
       id: this.id,
       role: 'dialog',
-      ...(closeOnClickOutside ? { onClick: this.handleClick } : undefined),
+      ...(closeOnClickOutside && !modeless
+        ? { onClick: this.handleClick }
+        : undefined),
       ...restProps
     };
 
@@ -299,7 +299,7 @@ export default class Dialog extends Component<Props, State> {
     };
 
     const focusTrapProps = {
-      active: !disableFocusTrap,
+      active: !modeless,
       focusTrapOptions: {
         initialFocus: `#${headerId}`
       }
@@ -309,7 +309,7 @@ export default class Dialog extends Component<Props, State> {
       <Animation {...animationProps}>
         <FocusTrap {...focusTrapProps}>
           <Root {...rootProps}>
-            {!hideOverlay && <Overlay />}
+            {!hideOverlay && !modeless && <Overlay />}
             <DialogContent {...contentProps}>
               {this.renderHeader()}
               {this.renderBody()}
@@ -441,10 +441,15 @@ export default class Dialog extends Component<Props, State> {
   };
 
   open = () => {
+    const { modeless } = this.props;
+
     this.setLastFocusedElement();
-    this.setAppNode();
-    this.disableAppNode();
-    noScroll.on();
+
+    if (!modeless) {
+      this.setAppNode();
+      this.disableAppNode();
+      noScroll.on();
+    }
 
     this.setState({
       isExited: false
@@ -478,16 +483,21 @@ export default class Dialog extends Component<Props, State> {
   };
 
   handleExited = () => {
+    const { modeless, onClose } = this.props;
+
     this.setState(
       {
         isExited: true,
         isExiting: false
       },
       () => {
-        noScroll.off();
-        this.enableAppNode();
+        if (!modeless) {
+          noScroll.off();
+          this.enableAppNode();
+        }
+
         this.restoreFocus();
-        this.props.onClose && this.props.onClose();
+        onClose && onClose();
       }
     );
   };
