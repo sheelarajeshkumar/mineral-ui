@@ -1,8 +1,9 @@
 /* @flow */
-import basic from './basic';
 import alternate from './alternate';
+import basic from './basic';
 import components from './components';
 import importSyntax from './importSyntax';
+import modeless from './modeless';
 import rtl from './rtl';
 import sizes from './sizes';
 import scrolling from './scrolling';
@@ -17,6 +18,7 @@ export default [
   sizes,
   variants,
   scrolling,
+  modeless,
   rtl,
   components
 ];
