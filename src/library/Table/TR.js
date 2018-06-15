@@ -4,16 +4,16 @@ import { createStyledComponent } from '../styles';
 import { TableContext } from './Table';
 
 type Props = {
-  /** Rendered content can be THead, TBody, or TFoot TODO */
+  /** Rendered content can be TD or TH */
   children: React$Node,
-  /** @Private TODO */
+  /** See DataTable */
   highContrast?: boolean,
-  /** TODO */
+  /** Renders row with selected styles */
   isSelected?: boolean,
-  /** @Private TODO */
+  /** See DataTable */
   spacious?: boolean,
-  /** @Private TODO */
-  zebraStriped?: boolean
+  /** See DataTable */
+  striped?: boolean
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -22,7 +22,7 @@ export const componentTheme = (baseTheme: Object) => ({
   TR_backgroundColor_selectedHover: baseTheme.color_theme_30,
   TR_backgroundColor_highContrast_selected: baseTheme.color_theme_30,
   TR_backgroundColor_highContrast_selectedHover: baseTheme.color_theme_40,
-  TR_backgroundColor_zebraStriped: baseTheme.color_gray_20,
+  TR_backgroundColor_striped: baseTheme.color_gray_20,
   TR_borderHorizontal: `1px solid ${baseTheme.color_white}`,
   TR_borderHorizontal_highContrast: `1px solid ${baseTheme.color_gray_60}`,
 
@@ -31,7 +31,7 @@ export const componentTheme = (baseTheme: Object) => ({
 
 const Root = createStyledComponent(
   'tr',
-  ({ highContrast, isSelected, theme: baseTheme, zebraStriped }) => {
+  ({ highContrast, isSelected, theme: baseTheme, striped }) => {
     const theme = componentTheme(baseTheme);
 
     return {
@@ -64,9 +64,7 @@ const Root = createStyledComponent(
 
       '&:nth-child(even):not(:hover)': {
         backgroundColor:
-          !isSelected && zebraStriped
-            ? theme.TR_backgroundColor_zebraStriped
-            : null
+          !isSelected && striped ? theme.TR_backgroundColor_striped : null
       },
 
       ...(isSelected
@@ -96,14 +94,14 @@ const Root = createStyledComponent(
 );
 
 /**
- * TR TODO
+ * TR
  */
 export default function TR(props: Props) {
   const { children, ...restProps } = props;
   return (
     <TableContext.Consumer>
-      {({ highContrast, zebraStriped }) => {
-        const rootProps = { highContrast, zebraStriped, ...restProps };
+      {({ highContrast, striped }) => {
+        const rootProps = { highContrast, striped, ...restProps };
         return <Root {...rootProps}>{children}</Root>;
       }}
     </TableContext.Consumer>

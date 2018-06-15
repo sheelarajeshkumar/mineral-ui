@@ -23,7 +23,7 @@ Some things to keep in mind:
    \`td\`.
 1. Remember to accommodate the appearance-related DataTable props, like
    [\`highContrast\`](#high-contrast), [\`spacious\`](#spacious), and
-   [\`zebraStriped\`](#zebra-striped).
+   [\`striped\`](#zebra-striped).
 1. If your app supports RTL languages, you can use \`theme.direction\` to
    conditionally apply the necessary styles.`,
   scope: {

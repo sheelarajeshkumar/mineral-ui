@@ -1,17 +1,17 @@
 /* @flow */
-import React from 'react';
+import React, { Component } from 'react';
 import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import { rtlTextAlign } from '../utils';
 import { TableContext } from './Table';
 
 type Props = {
-  /** TODO */
+  /** Rendered content */
   children?: React$Node,
-  /** @Private TODO */
+  /** @Private Rendered element */
   element?: string,
-  /** @Private TODO */
+  /** See DataTable */
   spacious?: boolean,
-  /** Available horizontal alignments */
+  /** See DataTable's Column type */
   textAlign?: 'start' | 'end' | 'center' | 'justify'
 };
 
@@ -26,7 +26,6 @@ export const componentTheme = (baseTheme: Object) => ({
 });
 
 const styles = ({ spacious, textAlign, theme: baseTheme }) => {
-  console.log('TD styles', textAlign);
   const theme = componentTheme(baseTheme);
   const fontSize = theme.TD_fontSize;
   const paddingHorizontal = getNormalizedValue(
@@ -47,33 +46,46 @@ const styles = ({ spacious, textAlign, theme: baseTheme }) => {
   };
 };
 
-/**
- * TD TODO
- */
-function TD(props: Props) {
-  const { children, element, ...restProps } = props;
-  // TODO: Need to move this out of render?
-  const Root = createStyledComponent(
-    element || TD.defaultProps.element,
-    styles,
-    {
-      displayName: 'TD',
-      rootEl: element || TD.defaultProps.element
-    }
-  );
-  return (
-    <TableContext.Consumer>
-      {({ spacious }) => {
-        const rootProps = { spacious, ...restProps };
-        console.log('TD render', rootProps);
-        return <Root {...rootProps}>{children}</Root>;
-      }}
-    </TableContext.Consumer>
-  );
+// TD's root node must be created outside of render, so that the entire DOM
+// element is replaced only when the element prop is changed, otherwise it is
+// updated in place
+function createRootNode(props: Props) {
+  const { element = TD.defaultProps.element } = props;
+
+  return createStyledComponent(element, styles, {
+    displayName: 'TD',
+    rootEl: element
+  });
 }
 
-TD.defaultProps = {
-  element: 'td'
-};
+/**
+ * TD
+ */
+export default class TD extends Component<Props> {
+  static defaultProps = {
+    element: 'td'
+  };
 
-export default TD;
+  componentWillUpdate(nextProps: Props) {
+    if (this.props.element !== nextProps.element) {
+      this.rootNode = createRootNode(nextProps);
+    }
+  }
+
+  rootNode: React$ComponentType<*> = createRootNode(this.props);
+
+  render() {
+    const { children, ...restProps } = this.props;
+
+    const Root = this.rootNode;
+
+    return (
+      <TableContext.Consumer>
+        {({ spacious }) => {
+          const rootProps = { spacious, ...restProps };
+          return <Root {...rootProps}>{children}</Root>;
+        }}
+      </TableContext.Consumer>
+    );
+  }
+}

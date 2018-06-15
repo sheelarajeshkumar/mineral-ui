@@ -1,26 +1,26 @@
 /* @flow */
-import React from 'react';
+import React, { Component } from 'react';
 import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import { createThemedComponent, mapComponentThemes } from '../themes';
 import TD, { componentTheme as tDComponentTheme } from './TD';
 import { TableContext } from './Table';
 
 type Props = {
-  /** TODO */
+  /** Rendered content */
   children?: React$Node,
-  /** @Private TODO */
+  /** Rendered element */
   element?: string,
-  /** @Private TODO */
+  /** See DataTable */
   highContrast?: boolean,
-  /** TODO */
+  /** See DataTable's Column type */
   minWidth?: number | string,
-  /** TODO */
+  /** See DataTable's Column type */
   maxWidth?: number | string,
-  /** @Private TODO */
+  /** See DataTable */
   spacious?: boolean,
-  /** Available horizontal alignments */
+  /** See DataTable's Column type */
   textAlign?: 'start' | 'end' | 'center' | 'justify',
-  /** TODO */
+  /** See DataTable's Column type */
   width?: number | string
 };
 
@@ -102,34 +102,50 @@ const styles = ({
   };
 };
 
-/**
- * TH TODO
- */
-function TH(props: Props) {
-  const { children, element, ...restProps } = props;
+// TH's root node must be created outside of render, so that the entire DOM
+// element is replaced only when the element prop is changed, otherwise it is
+// updated in place
+function createRootNode(props: Props) {
+  const { element = TH.defaultProps.element } = props;
 
-  const Root = createStyledComponent(ThemedTD, styles, {
+  return createStyledComponent(TD, styles, {
     displayName: 'TH',
     filterProps: ['width'],
     forwardProps: ['element', 'textAlign'],
     rootEl: element,
     withProps: { element }
   });
-
-  return (
-    <TableContext.Consumer>
-      {({ highContrast, spacious }) => {
-        const rootProps = { highContrast, spacious, ...restProps };
-        console.log('TH render', rootProps);
-        return <Root {...rootProps}>{children}</Root>;
-      }}
-    </TableContext.Consumer>
-  );
 }
 
-TH.defaultProps = {
-  element: 'th',
-  textAlign: 'start'
-};
+/**
+ * TH
+ */
+export default class TH extends Component<Props> {
+  static defaultProps = {
+    element: 'th',
+    textAlign: 'start'
+  };
 
-export default TH;
+  componentWillUpdate(nextProps: Props) {
+    if (this.props.element !== nextProps.element) {
+      this.rootNode = createRootNode(nextProps);
+    }
+  }
+
+  rootNode: React$ComponentType<*> = createRootNode(this.props);
+
+  render() {
+    const { children, ...restProps } = this.props;
+
+    const Root = this.rootNode;
+
+    return (
+      <TableContext.Consumer>
+        {({ highContrast, spacious }) => {
+          const rootProps = { highContrast, spacious, ...restProps };
+          return <Root {...rootProps}>{children}</Root>;
+        }}
+      </TableContext.Consumer>
+    );
+  }
+}

@@ -18,8 +18,8 @@ import rowSelectionAndColumnDef from './rowSelectionAndColumnDef';
 import rtl from './rtl';
 import spacious from './spacious';
 import sortByColumns from './sortByColumns';
+import striped from './striped';
 import title from './title';
-import zebraStriped from './zebraStriped';
 
 export default [
   importSyntax,
@@ -31,7 +31,7 @@ export default [
   primaryColumn,
   columnAlign,
   spacious,
-  zebraStriped,
+  striped,
   highContrast,
   overflow,
   controlled,

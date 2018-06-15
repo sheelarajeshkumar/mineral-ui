@@ -23,7 +23,7 @@ Some things to keep in mind:
 1. Remember to accommodate the appearance-related DataTable props, like
    [\`highContrast\`](#high-contrast),
    [\`isSelected\`](#row-selection), [\`spacious\`](#spacious), and
-   [\`zebraStriped\`](#zebra-striped).
+   [\`striped\`](#zebra-striped).
 1. If your app supports RTL languages, you can use \`theme.direction\` to
    conditionally apply the necessary styles.`,
   scope: {
@@ -47,7 +47,7 @@ Some things to keep in mind:
        *   import { componentTheme as tRTheme } from 'mineral-ui/Table/TD';
        */
       const customRow = ({ props }) => {
-        const { key, highContrast, spacious, zebraStriped } = props;
+        const { key, highContrast, spacious, striped } = props;
 
         const CustomRow = withTheme(({ theme: baseTheme }) => {
           const theme = {
@@ -69,8 +69,8 @@ Some things to keep in mind:
 
             '&:nth-child(even):not(:hover)': {
               backgroundColor:
-                zebraStriped
-                  ? theme.TR_backgroundColor_zebraStriped
+                striped
+                  ? theme.TR_backgroundColor_striped
                   : null
             }
           });

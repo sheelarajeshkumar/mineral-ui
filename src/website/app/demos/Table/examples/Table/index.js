@@ -7,7 +7,7 @@ import rtl from './rtl';
 import spacious from './spacious';
 import table from './table';
 import title from './title';
-import zebraStriped from './zebraStriped';
+import striped from './striped';
 
 export default [
   importSyntax,
@@ -15,7 +15,7 @@ export default [
   data,
   title,
   spacious,
-  zebraStriped,
+  striped,
   highContrast,
   overflow,
   rtl

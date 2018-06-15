@@ -4,9 +4,9 @@ import { createStyledComponent } from '../styles';
 import { TableContext } from './Table';
 
 type Props = {
-  /** Rendered content can be THead, TBody, or TFoot TODO */
+  /** Rendered content must be TR */
   children: React$Node,
-  /** @Private TODO */
+  /** See DataTable */
   highContrast?: boolean
 };
 
@@ -32,7 +32,7 @@ const Root = createStyledComponent(
 );
 
 /**
- * TFoot TODO
+ * TFoot
  */
 export default function TFoot(props: Props) {
   const { children, ...restProps } = props;

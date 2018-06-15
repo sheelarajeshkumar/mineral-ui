@@ -20,7 +20,7 @@ export default {
     TR
   },
   source: `
-    <Table zebraStriped>
+    <Table striped>
       <THead>
         <TR>
           <TH>Fruits</TH>

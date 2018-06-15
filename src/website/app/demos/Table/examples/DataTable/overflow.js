@@ -8,7 +8,7 @@ export default {
   title: 'Overflow',
   description: `DataTable will allow horizontal scrolling by default when its
 width is greater than that of its container. You can disable this behavior with
-\`disableOverflowScroll\`.`,
+\`disableScrollOnOverflow\`.`,
   scope: { Box, DataTable, sharedRows },
   source: `
     <Box width="50%">

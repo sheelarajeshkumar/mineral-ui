@@ -38,14 +38,15 @@ const Caption = createStyledComponent(
 );
 
 /**
- * TableTitle TODO
+ * TableTitle
  */
 const Title = ({ appearance, children, element, id, theme }: Props) => {
   const textProps = {
     align: 'start',
     appearance,
     element,
-    id
+    id,
+    noMargins: true
   };
 
   let title = <Text {...textProps}>{children}</Text>;

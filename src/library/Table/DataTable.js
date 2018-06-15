@@ -12,55 +12,72 @@ import type { Rows } from './Table';
 import type { TitleAppearance } from './TableTitle';
 
 type Props = {
-  /** TODO */
+  /** Column definitions ([see example for more details](#column-def)) */
   columns?: Columns,
-  /** Uncontrolled TODO */
+  /**
+   * Selected rows when `enableRowSelection = true`. Primarily for use with
+   * uncontrolled components.
+   */
   defaultSelectedRows?: Rows,
-  /** Uncontrolled TODO */
+  /**
+   * Initially sorted column & direction. Primarily for use with uncontrolled
+   * components.
+   */
   defaultSort?: Sort,
-  /** TODO */
-  disableOverflowScroll?: boolean,
-  /** TODO */
+  /**
+   * Disable the scrolling behavior when DataTable's width exceeds that of its
+   * container
+   */
+  disableScrollOnOverflow?: boolean,
+  /**
+   * Enable the user to select rows. Prepends a column for checkboxes to your
+   * DataTable.
+   */
   enableRowSelection?: boolean,
-  /** TODO */
+  /** Render DataTable with high-contrast styles */
   highContrast?: boolean,
-  /** TODO */
+  /** Various messages and labels used by DataTable */
   messages: Messages,
-  /** TODO */
+  /** Called when selectedRows changes */
   onSelectRows?: (selectedRows: Rows) => void,
-  /** TODO */
+  /** Called when data is sorted */
   onSort?: (sort: Sort) => void,
   /**
    * Specifies a key in the row data that gives a row its unique identity.
    * See the [React docs](https://reactjs.org/docs/lists-and-keys.html#keys).
    */
   rowKey?: string,
-  /** TODO */
+  /** Data for your table ([see example for more details](#basic)) (TODO: Rename to `data`?) */
   rows: Rows,
-  /** Controlled TODO */
+  /**
+   * Selected rows when `enableRowSelection = true`. For use with controlled
+   * components.
+   */
   selectedRows?: Rows,
-  /** Controlled TODO */
+  /** Sorted column & direction. For use with controlled components. */
   sort?: Sort,
-  /** TODO */
+  /** Renders DataTable with more vertical space (TODO: change to enum?) */
   spacious?: boolean,
-  /** TODO */
+  /** Renders DataTable with alternating row stripes */
+  striped?: boolean,
+  /** Title for DataTable */
   title?: React$Node,
-  /** Available title styles; see Text Component */
+  /** Available title styles; see [Text](/components/text) */
   titleAppearance?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
-  /** Available title elements; see Text Component */
-  titleElement?: TitleAppearance,
-  /** TODO */
-  zebraStriped?: boolean
+  /** Available title elements; see [Text](/components/text) */
+  titleElement?: TitleAppearance
 };
 // TODO: Table doesn't need many of these, until it's rendered by DataTable;
 //       improvement possible?
+// See columnDef example for descriptions
 type Column = {
-  'aria-label'?: React$Node, // TODO: Should be a string
+  'aria-label'?: string,
   'aria-sort'?: string,
   cell?: RenderFn,
   content: React$Node,
   enableSort?: boolean,
   header?: RenderFn,
+  label?: string,
   maxWidth?: number | string,
   minWidth?: number | string,
   name: string,
@@ -80,7 +97,7 @@ type GetColumnsOrRowsArg = {
   selectedRows: Rows,
   sort: Sort
 };
-type Helpers = {}; // TODO: ?
+type Helpers = {}; // TODO: Are these needed?
 type Messages = {
   deselectAllRows: string,
   deselectRow: string,
@@ -206,25 +223,30 @@ export default class DataTable extends Component<Props, State> {
     selectedRows,
     sort
   }: GetColumnsOrRowsArg) => {
-    const result = columns.map(({ content, enableSort, name, ...column }) => ({
-      // TODO: Mac Chrome VO (others?) repeats content a _lot_
-      content,
-      name,
-      ...column,
-      // TODO: Confirm that you can use rendered headers with enableSort and fix if not
-      ...(enableSort
-        ? {
-            header: ({ props }: RenderProps) =>
-              this.getSortableColumnHeader({
-                props: { messages, ...props },
-                state: {
-                  selectedRows,
-                  sort
-                }
-              })
-          }
-        : undefined)
-    }));
+    const result = columns.map(
+      ({ content, header, enableSort, name, ...column }) => ({
+        // TODO: Mac Chrome VO (others?) repeats content a _lot_
+        content,
+        header:
+          header || enableSort
+            ? ({ props }: RenderProps) => {
+                const arg = {
+                  props: { messages, ...props },
+                  state: {
+                    selectedRows,
+                    sort
+                  }
+                };
+                return (
+                  (header && header(arg)) ||
+                  (enableSort && this.getSortableColumnHeader(arg))
+                );
+              }
+            : undefined,
+        name,
+        ...column
+      })
+    );
 
     if (enableRowSelection) {
       result.unshift(this.getSelectAllColumn(messages, rows, selectedRows));
@@ -234,7 +256,14 @@ export default class DataTable extends Component<Props, State> {
   };
 
   getSortableColumnHeader = ({ props: renderProps, state }: RenderProps) => {
-    const { children, name, messages, spacious, textAlign } = renderProps;
+    const {
+      children,
+      label,
+      name,
+      messages,
+      spacious,
+      textAlign
+    } = renderProps;
     const column = state && state.sort && state.sort.column;
     const direction = state && state.sort && state.sort.direction;
 
@@ -318,9 +347,12 @@ export default class DataTable extends Component<Props, State> {
       };
     });
 
+    const a11yLabel = label || children;
+
     const rootProps = {
-      'aria-label': children,
+      'aria-label': a11yLabel,
       'aria-sort': column === name ? direction : 'none',
+      // TODO: Feels wrong to duplicate onClick like this (see buttonProps)
       onClick: () => {
         // TODO: Focus is lost on activation (because re-render?)
         this.sort({ column: name, direction: nextDirection });
@@ -329,10 +361,10 @@ export default class DataTable extends Component<Props, State> {
       textAlign
     };
     const buttonProps = {
-      'aria-label':
-        // TODO: What about non-string children?
-        // TODO: This may not be correct, directionally (check other messages, too)
-        messages.sortButtonLabel(children, messages.sortOrder[nextDirection]),
+      'aria-label': messages.sortButtonLabel(
+        a11yLabel,
+        messages.sortOrder[nextDirection]
+      ),
       onClick: () => {
         // TODO: Focus is lost on activation (because re-render?)
         this.sort({ column: name, direction: nextDirection });
@@ -384,7 +416,7 @@ export default class DataTable extends Component<Props, State> {
     };
 
     return {
-      'aria-label': messages.selectRowsColumnLabel,
+      label: messages.selectRowsColumnLabel,
       content: <Checkbox {...checkboxProps} />,
       name: 'checkbox',
       width: 1 // Collapse to minimum width
@@ -466,12 +498,11 @@ export default class DataTable extends Component<Props, State> {
   };
 
   sortRows = (columns: Columns, rows: Rows, sort: Sort) => {
+    const currentIndex = columns.findIndex(({ name }) => name === sort.column);
+    const currentColumn = columns[currentIndex];
+    const sortFn = (currentColumn && currentColumn.sortFn) || defaultSortFn;
+
     const rowsCopy = rows.slice(0);
-    const currentIndex = columns.findIndex(
-      (column) => column.name === sort.column
-    );
-    // TODO: How to sort by a column's data that isn't displayed (needs example?)
-    const sortFn = columns[currentIndex].sortFn || defaultSortFn;
     return rowsCopy.sort((a, b) => {
       const result = sortFn(a, b, sort.column);
       return sort.direction === 'descending' ? -1 * result : result;

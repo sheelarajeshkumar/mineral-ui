@@ -15,38 +15,26 @@ import TR from './TR';
 import type { Columns } from './DataTable';
 import type { TitleAppearance } from './TableTitle';
 
+// See DataTable for prop descriptions
 type Props = {
-  /** Rendered content can be THead, TBody, or TFoot TODO */
+  /** Rendered content can be THead, TBody, or TFoot */
   children?: React$Node,
-  /** TODO */
   columns?: Columns,
-  /** TODO: Consider different name? */
-  disableOverflowScroll?: boolean,
-  /** TODO */
+  disableScrollOnOverflow?: boolean,
   highContrast?: boolean,
-  /**
-   * Specifies a key in the row data that gives a row its unique identity.
-   * See the [React docs](https://reactjs.org/docs/lists-and-keys.html#keys).
-   */
   rowKey?: string,
-  /** TODO */
   rows?: Rows,
-  /** TODO: Convert to enum? */
   spacious?: boolean,
-  /** TODO */
+  striped?: boolean,
   title?: React$Node,
-  /** Available title styles; see Text Component */
   titleAppearance?: TitleAppearance,
-  /** Available title elements; see Text Component */
-  titleElement?: TitleAppearance,
-  /** TODO */
-  zebraStriped?: boolean
+  titleElement?: TitleAppearance
 };
 type RenderArg = {
   columns: Columns,
   highContrast?: boolean,
   spacious?: boolean,
-  zebraStriped?: boolean
+  striped?: boolean
 };
 type Row = Object;
 export type Rows = Array<Row>;
@@ -58,7 +46,7 @@ type State = {
 type Appearance = {
   highContrast?: boolean,
   spacious?: boolean,
-  zebraStriped?: boolean
+  striped?: boolean
 };
 
 export const generateColumns = (rows: Rows) =>
@@ -120,7 +108,7 @@ export default class Table extends Component<Props, State> {
     const node = this.container;
     if (
       node &&
-      !this.props.disableOverflowScroll &&
+      !this.props.disableScrollOnOverflow &&
       node.scrollWidth > node.clientWidth
     ) {
       this.setState({
@@ -133,7 +121,7 @@ export default class Table extends Component<Props, State> {
     const {
       children,
       columns,
-      disableOverflowScroll,
+      disableScrollOnOverflow,
       highContrast,
       rowKey,
       rows,
@@ -141,7 +129,7 @@ export default class Table extends Component<Props, State> {
       title,
       titleAppearance,
       titleElement,
-      zebraStriped,
+      striped,
       ...restProps
     } = this.props;
 
@@ -161,7 +149,7 @@ export default class Table extends Component<Props, State> {
             {title}
           </TableTitle>
         )}
-        <TableContext.Provider value={{ highContrast, spacious, zebraStriped }}>
+        <TableContext.Provider value={{ highContrast, spacious, striped }}>
           {children}
         </TableContext.Provider>
       </StyledTable>
@@ -194,7 +182,7 @@ export default class Table extends Component<Props, State> {
       );
     }
 
-    if (!disableOverflowScroll) {
+    if (!disableScrollOnOverflow) {
       const containerProps = {
         'aria-label': title ? undefined : 'Table', // TODO: Make `title` required and allow to hide?
         'aria-labelledby': title ? this.titleId : undefined,
@@ -214,26 +202,37 @@ export default class Table extends Component<Props, State> {
     columns,
     highContrast,
     spacious,
-    zebraStriped
+    striped
   }: RenderArg) =>
-    columns.map(({ content, header, name, ...columnHeader }) => {
+    columns.map(({ content, header, label, name, ...columnHeader }) => {
       const { cell: ignoreCell, ...usefulColumnHeader } = columnHeader;
+
+      if (typeof content !== 'string' && !label) {
+        throw new Error(
+          'Columns with non-string content must define a `label` property.'
+        );
+      }
+
+      const sharedHeaderProps = {
+        'aria-label': label,
+        key: name,
+        scope: 'col',
+        ...usefulColumnHeader
+      };
+
       return header ? (
         header({
           props: {
             children: content,
             highContrast,
-            key: name,
             name,
             spacious,
-            zebraStriped,
-            ...usefulColumnHeader
+            striped,
+            ...sharedHeaderProps
           }
         })
       ) : (
-        <TH key={name} scope="col" {...usefulColumnHeader}>
-          {content}
-        </TH>
+        <TH {...sharedHeaderProps}>{content}</TH>
       );
     });
 
@@ -242,20 +241,15 @@ export default class Table extends Component<Props, State> {
     highContrast,
     row,
     spacious,
-    zebraStriped
+    striped
   }: { row: Row } & RenderArg) =>
-    columns.map(({ cell, name, primary, ...column }) => {
-      // TODO: Better way?
-      const {
-        'aria-label': ignoreAriaLabel,
-        'aria-sort': ignoreSort,
-        content: ignoreContent,
-        header: ignoreHeader,
-        role: ignoreRole,
-        ...usefulColumn
-      } = column;
+    columns.map(({ cell, enableSort, name, primary, textAlign }) => {
+      const sharedCellProps = {
+        key: name,
+        textAlign
+      };
       const cellProps = {
-        ...usefulColumn,
+        ...sharedCellProps,
         ...(primary
           ? {
               element: 'th',
@@ -269,19 +263,17 @@ export default class Table extends Component<Props, State> {
           props: {
             children: row[name],
             columnName: name,
+            enableSort,
             highContrast,
-            key: name,
             primary,
-            rowIsSelected: row.isSelected,
+            rowIsSelected: row.isSelected, // TODO: Should somehow be in DataTable?
             spacious,
-            zebraStriped,
-            ...usefulColumn
+            striped,
+            ...sharedCellProps
           }
         })
       ) : (
-        <TD key={name} {...cellProps}>
-          {row[name]}
-        </TD>
+        <TD {...cellProps}>{row[name]}</TD>
       );
     });
 
@@ -291,7 +283,7 @@ export default class Table extends Component<Props, State> {
     rowKey,
     rows,
     spacious,
-    zebraStriped,
+    striped,
     ...restProps
   }: {
     rowKey?: string,
@@ -307,7 +299,7 @@ export default class Table extends Component<Props, State> {
             highContrast,
             key,
             spacious,
-            zebraStriped,
+            striped,
             ...row
           }
         })

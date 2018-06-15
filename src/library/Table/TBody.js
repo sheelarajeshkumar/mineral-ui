@@ -3,7 +3,7 @@ import React from 'react';
 import { createStyledComponent } from '../styles';
 
 type Props = {
-  /** Rendered content can be THead, TBody, or TFoot TODO */
+  /** Rendered content must be TR */
   children: React$Node
 };
 
@@ -19,7 +19,7 @@ const Root = createStyledComponent(
 );
 
 /**
- * TBody TODO
+ * TBody
  */
 export default function TBody(props: Props) {
   const { children, ...restProps } = props;
