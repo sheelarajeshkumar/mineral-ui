@@ -12,21 +12,19 @@ group of related controls.`,
   source: `
     <DemoForm>
       <ButtonGroup
-        defaultChecked="quartz"
+        defaultChecked={['fluorite']}
         data={[
           { label: 'Fluorite', value: 'fluorite' },
           { label: 'Magnetite', value: 'magnetite' },
           { label: 'Quartz', value: 'quartz' }
         ]}
-        name="mineral-2"
-        multiSelect />
+        name="mineral-1" />
 
       <FormFieldDivider />
 
       <ButtonGroup
-        defaultChecked="hi"
-        name="mineral-1">
-        <Button value="hi">Hi</Button>
+        name="mineral-2">
+        <Button value="hi" defaultChecked>Hi</Button>
         <Button value="I'm a button">I'm a Button</Button>
         <Button value="me too">Me too</Button>
       </ButtonGroup>

@@ -55,7 +55,7 @@ type State = {
  */
 class ButtonGroup extends Component<Props, State> {
   state: State = {
-    checked: this.props.defaultChecked // TODO consider factoring in children prop for defaultChecked = true
+    checked: this.props.defaultChecked || '' // TODO consider factoring in children prop for defaultChecked = true
   };
 
   render() {

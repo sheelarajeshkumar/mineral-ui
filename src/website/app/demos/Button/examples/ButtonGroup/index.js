@@ -6,6 +6,7 @@ import disabled from './disabled';
 import formField from './formField';
 import icons from './icons';
 import multiSelect from './multiSelect';
+import rtl from './rtl';
 import sizes from './sizes';
 import uncontrolled from './uncontrolled';
 import variants from './variants';
@@ -20,5 +21,6 @@ export default [
   variants,
   disabled,
   icons,
-  formField
+  formField,
+  rtl
 ];

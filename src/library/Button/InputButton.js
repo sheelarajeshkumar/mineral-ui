@@ -6,21 +6,18 @@ import Button, { componentTheme as buttonComponentTheme } from './Button';
 type Props = {
   /** Props to be applied to Button child */
   buttonProps?: Object,
-  /** Rendered content of the component */
-  children?: React$Node,
-  /** Disables the Button */
-  disabled?: boolean,
-  /** Called with the click event */
-  onClick?: (event: SyntheticEvent<>) => void,
-  /** Available sizes */
-  size?: 'small' | 'medium' | 'large' | 'jumbo',
   /** Checked state of the input. Passed from ButtonGroup */
   checked: boolean,
+  /** Rendered content of the component */
+  children?: React$Node,
   /** CSS className */
   className?: string,
+  // /** Value of the selected InputButton [Button](/components/button) */
+  // defaultChecked?: boolean,
+  /** Disables the Button */
+  disabled?: boolean,
   /**
-   * Indicates that the value of the input is invalid. Doesn't apply to
-   * checkboxes
+   * Indicates that the value of the input is invalid. Applies for radio only.
    */
   invalid?: boolean,
   /** Label associated with the input element */
@@ -29,10 +26,14 @@ type Props = {
   name?: string,
   /** Function called when an input is selected. Passed from ButtonGroup */
   onChange: (event: SyntheticEvent<>) => void,
-  /** Indicates that the user must select an option before submitting a form. Doesn't apply to checkboxes */
+  /** Called with the click event */
+  onClick?: (event: SyntheticEvent<>) => void,
+  /** Indicates that the user must select an option before submitting a form. Applies for radio only. */
   required?: boolean,
   /** Props to be applied directly to the root element */
   rootProps?: Object,
+  /** Available sizes */
+  size?: 'small' | 'medium' | 'large' | 'jumbo',
   /** The value of the input */
   value: string,
   /** Available variants */
@@ -54,6 +55,7 @@ export const componentTheme = (baseTheme: Object) => ({
 const styles = ({ checked, disabled, theme: baseTheme, variant }) => {
   let theme = componentTheme(baseTheme);
   const { direction } = theme;
+  const rtl = direction === 'rtl';
   const firstOrLast = {
     ltr: ['first', 'last'],
     rtl: ['last', 'first']
@@ -81,14 +83,19 @@ const styles = ({ checked, disabled, theme: baseTheme, variant }) => {
         checked &&
         theme.ButtonGroupButton_backgroundColor_checkedDisabled,
       color:
-        disabled && checked && theme.ButtonGroupButton_color_checkedDisabled
+        disabled && checked && theme.ButtonGroupButton_color_checkedDisabled,
+      '&:hover': {
+        color:
+          disabled && checked && theme.ButtonGroupButton_color_checkedDisabled
+      }
     },
     '& > input:focus ~ span, & > span:active': {
-      boxShadow: theme.ButtonGroupButton_boxShadow_focus,
+      boxShadow: !disabled && theme.ButtonGroupButton_boxShadow_focus,
       position: 'relative'
     },
     '&:not(:first-child) > span': {
-      borderLeftColor: 'transparent'
+      borderLeftColor: !rtl && 'transparent',
+      borderRightColor: rtl && 'transparent'
     },
     [`&:${firstOrLast[direction][0]}-child > span`]: {
       borderBottomRightRadius: 0,
@@ -106,7 +113,9 @@ const styles = ({ checked, disabled, theme: baseTheme, variant }) => {
     },
     '[data-checked=true] + &[data-checked=true] > input:not(:focus) ~ span': {
       borderLeftColor:
-        !disabled && theme.ButtonGroupButton_borderLeftColor_checked
+        !disabled && !rtl && theme.ButtonGroupButton_borderLeftColor_checked,
+      borderRightColor:
+        !disabled && rtl && theme.ButtonGroupButton_borderLeftColor_checked
     }
   };
 };
@@ -121,36 +130,44 @@ export default function InputButton(props: Props) {
     checked,
     className,
     disabled,
+    invalid,
     label,
+    required,
     rootProps: otherRootProps,
     size,
     variant,
     ...restProps
   } = props;
+
   const buttonProps = {
     ...otherButtonProps,
     disabled,
     element: 'span',
-    primary: checked
+    primary: checked,
     size,
-    variant,
+    variant
   };
   const inputProps = {
+    'aria-invalid': invalid,
+    'aria-required': required,
     checked,
     disabled,
     label,
+    required,
     ...restProps // Note: Props are spread to input rather than Root
   };
   const rootProps = {
     className,
     checked,
+    'data-checked': checked,
     disabled,
     variant,
     ...otherRootProps
   };
+  console.log(checked);
 
   return (
-    <Root data-checked={checked} {...rootProps}>
+    <Root {...rootProps}>
       <input {...inputProps} />
       <Button {...buttonProps}>
         {buttonProps.children ? buttonProps.children : label}

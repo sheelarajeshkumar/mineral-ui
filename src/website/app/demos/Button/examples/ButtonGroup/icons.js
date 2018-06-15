@@ -11,11 +11,12 @@ export default {
   source: `
     <DemoForm>
       <ButtonGroup
-        defaultChecked="start"
-        name="icons"/>
-        <Button iconStart={IconCloud} value="start">Start icon</Button>
-        <Button iconEnd={IconCloud} value="end">End icon</Button>
-        <Button iconStart={IconCloud} iconEnd={IconCloud} value="both">Both icons</Button>
+        name="icons"
+        multiSelect>
+        <Button iconStart={<IconCloud />} value="start">Start icon</Button>
+        <Button iconEnd={<IconCloud />} value="end">End icon</Button>
+        <Button iconStart={<IconCloud />} iconEnd={<IconCloud />} value="both">Both icons</Button>
+      </ButtonGroup>
     </DemoForm>
   `
 };

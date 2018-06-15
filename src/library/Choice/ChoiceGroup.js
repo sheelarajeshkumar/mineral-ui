@@ -112,21 +112,8 @@ const ChoiceGroup = (props: Props) => {
     type,
     ...restProps
   } = props;
-  const rootProps = {
-    inline,
-    input,
-    role,
-    size,
-    ...otherRootProps
-  };
 
-  const inputProps = (
-    value,
-    index,
-    inputData = {},
-    invalid = invalid,
-    required = required
-  ) => {
+  const inputProps = (value, index, inputData = {}) => {
     return {
       checked: checked !== undefined ? isChecked(checked, value) : undefined,
       defaultChecked:
@@ -143,6 +130,7 @@ const ChoiceGroup = (props: Props) => {
     };
   };
 
+  let inputButtonDefaultChecked = [];
   let inputs = null;
   if (data && input) {
     inputs = data.map((inputData, index) => {
@@ -160,24 +148,41 @@ const ChoiceGroup = (props: Props) => {
   } else if (children && input === InputButton) {
     inputs = Children.map(children, (child, index) => {
       const {
-        invalid,
-        required,
+        defaultChecked: buttonDefaultChecked,
+        disabled: buttonDisabled,
+        invalid: buttonInvalid,
+        required: buttonRequired,
         size: ignoreSize,
         value,
         ...buttonProps
       } = child.props;
+      buttonDefaultChecked && inputButtonDefaultChecked.push(value);
+
       return (
         <InputButton
-          {...inputProps(child.props.value, index, {}, invalid, required)}
-          buttonProps={buttonProps}
-          disabled={props.disabled || buttonProps.disabled}
-          type={type}
-          value={value}
-          variant={props.variant || buttonProps.variant}
+          {...inputProps(value, index, {
+            buttonProps,
+            disabled: props.disabled || buttonDisabled,
+            invalid: invalid || buttonInvalid,
+            required: required || buttonRequired,
+            type,
+            value,
+            variant: props.variant || buttonProps.variant
+          })}
         />
       );
     });
   }
+  console.log(inputButtonDefaultChecked);
+
+  const rootProps = {
+    defaultChecked: input === InputButton && inputButtonDefaultChecked,
+    inline,
+    input,
+    role,
+    size,
+    ...otherRootProps
+  };
 
   return <Root {...rootProps}>{inputs}</Root>;
 };

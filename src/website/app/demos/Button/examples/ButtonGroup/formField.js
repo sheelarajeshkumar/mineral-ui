@@ -1,5 +1,5 @@
 /* @flow */
-import { ButtonGroup } from '../../../../../../library/Button';
+import Button, { ButtonGroup } from '../../../../../../library/Button';
 import { FormField } from '../../../../../../library/Form';
 import DemoForm from '../../components/DemoForm';
 
@@ -8,7 +8,7 @@ export default {
   title: 'FormField',
   description: `Use a [FormField](/components/form-field) to provide an accessible label
 and other features as well as a more streamlined API.`,
-  scope: { ButtonGroup, DemoForm, FormField },
+  scope: { Button, ButtonGroup, DemoForm, FormField },
   source: `
     <DemoForm>
       <FormField
