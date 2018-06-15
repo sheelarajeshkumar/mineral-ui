@@ -32,6 +32,8 @@ type Props = {
   /** TODO */
   closeOnClickOutside?: boolean,
   /** TODO */
+  disableFocusTrap?: boolean,
+  /** TODO */
   hideOverlay?: boolean,
   /** Id of the Dialog */
   id?: string,
@@ -262,6 +264,7 @@ export default class Dialog extends Component<Props, State> {
       children,
       closeOnClickOutside,
       closeOnEscape,
+      disableFocusTrap,
       isOpen,
       hideOverlay,
       modeless,
@@ -312,7 +315,7 @@ export default class Dialog extends Component<Props, State> {
     };
 
     const focusTrapProps = {
-      active: !modeless
+      active: !disableFocusTrap && !modeless
     };
 
     const output = (
