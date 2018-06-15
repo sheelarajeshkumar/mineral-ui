@@ -52,6 +52,8 @@ type Props = {
   /** TODO */
   zebraStriped?: boolean
 };
+// TODO: Table doesn't need many of these, until it's rendered by DataTable;
+//       improvement possible?
 type Column = {
   'aria-label'?: React$Node, // TODO: Should be a string
   'aria-sort'?: string,
@@ -69,7 +71,7 @@ type Column = {
   width?: number | string
 };
 export type Columns = Array<Column>;
-type Direction = 'ascending' | 'descending' | 'none';
+type Direction = 'ascending' | 'descending';
 type GetColumnsOrRowsArg = {
   columns: Columns,
   enableRowSelection?: boolean,
@@ -94,7 +96,8 @@ type Messages = {
   }
 };
 type RenderFn = (props: RenderProps) => React$Node;
-// TODO: These don't match Table's needs
+// TODO: Table doesn't need StateAndHelpers, until it's rendered by DataTable;
+//       improvement possible?
 type RenderProps = {
   props: Object
 } & StateAndHelpers;
@@ -105,7 +108,7 @@ type Sort = {
 
 type State = {
   selectedRows: Rows,
-  sort: Sort
+  sort?: Sort
 };
 
 type StateAndHelpers = {
@@ -113,7 +116,6 @@ type StateAndHelpers = {
   helpers?: Helpers
 };
 
-// prettier-ignore
 const componentTheme = (baseTheme: Object) => ({
   TH_boxShadow_focus: `inset 0 0 0 1px ${baseTheme.borderColor_theme_focus}`,
   TH_border_focus: `1px solid ${baseTheme.borderColor_theme_focus}`,
@@ -143,11 +145,14 @@ const defaultSortFn = (a: Object, b: Object, column: string) => {
 export default class DataTable extends Component<Props, State> {
   state = {
     selectedRows: this.props.defaultSelectedRows || [],
-    sort: {
-      column: (this.props.defaultSort && this.props.defaultSort.column) || '',
-      direction:
-        (this.props.defaultSort && this.props.defaultSort.direction) || 'none'
-    }
+    ...(this.props.defaultSort
+      ? {
+          sort: {
+            column: this.props.defaultSort.column,
+            direction: this.props.defaultSort.direction
+          }
+        }
+      : undefined)
   };
 
   static defaultProps = {
@@ -157,15 +162,11 @@ export default class DataTable extends Component<Props, State> {
       selectAllRows: 'Select all rows',
       selectRow: 'Select row',
       selectRowsColumnLabel: 'Selected rows',
-      // TODO: Explore template strings to hide the function implementation here
-      sortButtonLabelNone: (columnContent: string) =>
-        `Don't sort by ${columnContent}`,
       sortButtonLabel: (columnContent: string, direction: string) =>
         `Sort by ${columnContent}, in ${direction} order`,
       sortOrder: {
         ascending: 'ascending',
-        descending: 'descending',
-        none: 'none'
+        descending: 'descending'
       }
     }
   };
@@ -202,7 +203,8 @@ export default class DataTable extends Component<Props, State> {
     enableRowSelection,
     messages,
     rows,
-    selectedRows
+    selectedRows,
+    sort
   }: GetColumnsOrRowsArg) => {
     const result = columns.map(({ content, enableSort, name, ...column }) => ({
       // TODO: Mac Chrome VO (others?) repeats content a _lot_
@@ -215,7 +217,10 @@ export default class DataTable extends Component<Props, State> {
             header: ({ props }: RenderProps) =>
               this.getSortableColumnHeader({
                 props: { messages, ...props },
-                state: this.state
+                state: {
+                  selectedRows,
+                  sort
+                }
               })
           }
         : undefined)
@@ -233,22 +238,10 @@ export default class DataTable extends Component<Props, State> {
     const column = state && state.sort && state.sort.column;
     const direction = state && state.sort && state.sort.direction;
 
-    const iconProps = {
-      size: 'auto'
-    };
-    const sortIcon = {
-      ascending: <IconArrowDropdownUp {...iconProps} />,
-      descending: <IconArrowDropdownDown {...iconProps} />
-    };
-
-    const isActiveSort = column === name && direction !== 'none';
-    const currentDirection = isActiveSort && direction ? direction : 'none';
-    const directions = Object.keys(sortIcon);
-    const directionIndex = directions.indexOf(currentDirection);
+    const isActiveSort = column === name && Boolean(direction);
+    const currentDirection = isActiveSort && direction;
     const nextDirection =
-      directionIndex === directions.length - 1
-        ? directions[0]
-        : directions[directionIndex + 1];
+      currentDirection === 'ascending' ? 'descending' : 'ascending';
 
     const focusStyles = (theme) => ({
       outline: theme.TH_border_focus,
@@ -337,13 +330,9 @@ export default class DataTable extends Component<Props, State> {
     };
     const buttonProps = {
       'aria-label':
-        nextDirection === 'none'
-          ? // TODO: What about non-string children?
-            messages.sortButtonLabelNone(children)
-          : messages.sortButtonLabel(
-              children,
-              messages.sortOrder[nextDirection]
-            ),
+        // TODO: What about non-string children?
+        // TODO: This may not be correct, directionally (check other messages, too)
+        messages.sortButtonLabel(children, messages.sortOrder[nextDirection]),
       onClick: () => {
         // TODO: Focus is lost on activation (because re-render?)
         this.sort({ column: name, direction: nextDirection });
@@ -351,14 +340,19 @@ export default class DataTable extends Component<Props, State> {
       spacious,
       textAlign
     };
+    const iconProps = {
+      size: 'auto'
+    };
+    const sortIcon = {
+      ascending: <IconArrowDropdownUp {...iconProps} />,
+      descending: <IconArrowDropdownDown {...iconProps} />
+    };
 
     return (
       <SortTH key={name} {...rootProps}>
         <SortButton {...buttonProps}>
           <Content>{children}</Content>&nbsp;<IconHolder>
-            {currentDirection !== 'none'
-              ? sortIcon[currentDirection]
-              : sortIcon.ascending}
+            {currentDirection ? sortIcon[currentDirection] : sortIcon.ascending}
           </IconHolder>
         </SortButton>
       </SortTH>
@@ -409,7 +403,7 @@ export default class DataTable extends Component<Props, State> {
       ? rows.map((row) => this.addCheckboxToRow(messages, row, selectedRows))
       : rows;
 
-    return sort.direction !== 'none'
+    return sort && sort.direction
       ? this.sortRows(columns, result, sort)
       : result;
   };

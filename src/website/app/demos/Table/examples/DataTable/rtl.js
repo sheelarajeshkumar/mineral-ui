@@ -53,13 +53,11 @@ Technology (AT) within the component.`,
         selectAllRows: 'حدد جميع الصفوف',
         selectRow: 'حدد الصف',
         selectRowsColumnLabel: 'الصفوف المختارة',
-        sortButtonLabelNone: (columnContent) => \`${columnContent}لا فرز حسب\`,
         sortButtonLabel: (columnContent, direction) =>
           \`ترتيب${direction}في${columnContent}ترتيب حسب\`,
         sortOrder: {
           ascending: 'تصاعدي',
-          descending: 'تنازلي',
-          none: 'لا شيء'
+          descending: 'تنازلي'
         }
       };
 

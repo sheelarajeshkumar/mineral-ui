@@ -26,11 +26,7 @@ be managed by the application as a controlled component via the control props,
       ];
 
       const initialState = {
-        selectedRows: oddRows,
-        sort: {
-          column: '',
-          direction: 'none'
-        }
+        selectedRows: oddRows
       };
 
       class MyTable extends Component {
