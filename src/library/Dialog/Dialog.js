@@ -243,6 +243,8 @@ export default class Dialog extends Component<Props, State> {
 
   id: string = `dialog-${generateId()}`;
 
+  dialogRoot: ?HTMLElement;
+
   dialogContent: ?HTMLElement;
 
   lastFocusedElement: ?HTMLElement;
@@ -257,12 +259,14 @@ export default class Dialog extends Component<Props, State> {
 
   render() {
     const {
+      children,
       closeOnClickOutside,
       closeOnEscape,
       isOpen,
       hideOverlay,
       modeless,
       size,
+      title,
       usePortal,
       ...restProps
     } = this.props;
@@ -273,12 +277,20 @@ export default class Dialog extends Component<Props, State> {
     }
 
     const headerId = this.getHeaderId();
+    const contentId = this.getContentId();
+    const hasHeader = title || findByType(children, DialogHeader);
 
     const rootProps = {
-      'aria-labelledby': headerId,
+      /* eslint-disable react/prop-types */
+      // $FlowFixMe
+      'aria-labelledby': this.props['aria-label']
+        ? undefined
+        : hasHeader ? headerId : contentId,
       'aria-modal': true,
       id: this.id,
+      innerRef: this.setRootRef,
       role: 'dialog',
+      tabIndex: '-1',
       ...(closeOnClickOutside && !modeless
         ? { onClick: this.handleClick }
         : undefined),
@@ -286,6 +298,7 @@ export default class Dialog extends Component<Props, State> {
     };
 
     const contentProps = {
+      id: contentId,
       innerRef: this.setContentRef,
       role: 'document',
       size
@@ -299,10 +312,7 @@ export default class Dialog extends Component<Props, State> {
     };
 
     const focusTrapProps = {
-      active: !modeless,
-      focusTrapOptions: {
-        initialFocus: `#${headerId}`
-      }
+      active: !modeless
     };
 
     const output = (
@@ -352,8 +362,7 @@ export default class Dialog extends Component<Props, State> {
     const headerProps = {
       // prettier-ignore
       closeButton: showCloseButton ? <CloseButton {...closeButtonProps} /> : undefined,
-      id: this.getHeaderId(),
-      tabIndex: '-1'
+      id: this.getHeaderId()
     };
     let header;
     if (title) {
@@ -424,8 +433,16 @@ export default class Dialog extends Component<Props, State> {
     return `${this.id}-header`;
   };
 
+  getContentId = () => {
+    return `${this.id}-content`;
+  };
+
   setContentRef = (node: ?HTMLElement) => {
     this.dialogContent = node;
+  };
+
+  setRootRef = (node: ?HTMLElement) => {
+    this.dialogRoot = node;
   };
 
   setLastFocusedElement = () => {
@@ -438,6 +455,10 @@ export default class Dialog extends Component<Props, State> {
 
   restoreFocus = () => {
     this.lastFocusedElement && this.lastFocusedElement.focus();
+  };
+
+  setInitialFocus = () => {
+    this.dialogRoot && this.dialogRoot.focus();
   };
 
   open = () => {
@@ -473,6 +494,7 @@ export default class Dialog extends Component<Props, State> {
   };
 
   handleEntered = () => {
+    this.setInitialFocus();
     this.props.onOpen && this.props.onOpen();
   };
 
