@@ -233,7 +233,7 @@ export default class Dialog extends Component<Props, State> {
     isExiting: false
   };
 
-  appNode: ?HTMLElement;
+  appNodes: ?Array<HTMLElement>;
 
   id: string = `dialog-${generateId()}`;
 
@@ -496,21 +496,23 @@ export default class Dialog extends Component<Props, State> {
     const { appSelector } = this.props;
 
     if (appSelector && canUseDOM) {
-      this.appNode = document.querySelector(appSelector);
+      this.appNodes = Array.from(document.querySelectorAll(appSelector));
 
-      if (!this.appNode) {
+      if (!this.appNodes.length) {
         throw new Error(
-          '[mineral-ui/Dialog]: Unable to find app node using the appSelector prop.'
+          '[mineral-ui/Dialog]: Unable to find app node(s) using the appSelector prop.'
         );
       }
     }
   };
 
   disableAppNode = () => {
-    this.appNode && this.appNode.setAttribute('aria-hidden', 'true');
+    this.appNodes &&
+      this.appNodes.forEach((node) => node.setAttribute('aria-hidden', 'true'));
   };
 
   enableAppNode = () => {
-    this.appNode && this.appNode.removeAttribute('aria-hidden');
+    this.appNodes &&
+      this.appNodes.forEach((node) => node.removeAttribute('aria-hidden'));
   };
 }
