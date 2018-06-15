@@ -1,6 +1,7 @@
 /* @flow */
 import basic from './basic';
 import alternate from './alternate';
+import components from './components';
 import importSyntax from './importSyntax';
 import rtl from './rtl';
 import sizes from './sizes';
@@ -16,5 +17,6 @@ export default [
   sizes,
   variants,
   scrolling,
-  rtl
+  rtl,
+  components
 ];
