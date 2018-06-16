@@ -266,10 +266,10 @@ export default class Table extends Component<Props, State> {
             enableSort,
             highContrast,
             primary,
-            rowIsSelected: row.isSelected, // TODO: Should somehow be in DataTable?
             spacious,
             striped,
-            ...sharedCellProps
+            ...sharedCellProps,
+            ...row
           }
         })
       ) : (
@@ -289,9 +289,11 @@ export default class Table extends Component<Props, State> {
     rowKey?: string,
     rows: Rows
   } & RenderArg) =>
-    rows.map(({ ...row }, index) => {
+    rows.map((row, index) => {
       const children = this.renderCells({ columns, row, ...restProps });
+
       const key = row[rowKey] || index;
+
       return row.row ? (
         row.row({
           props: {
