@@ -1,12 +1,9 @@
 /* @flow */
 import React, { Component } from 'react';
-import { createStyledComponent, pxToEm } from '../styles';
 // import { createThemedComponent } from '../themes';
 import Checkbox from '../Checkbox';
-import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
-import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
+import SortableColumnHeader from './SortableColumnHeader';
 import Table, { generateColumns } from './Table';
-import TH from './TH';
 
 import type { Rows } from './Table';
 import type { TitleAppearance } from './TableTitle';
@@ -98,7 +95,7 @@ type GetColumnsOrRowsArg = {
   sort: Sort
 };
 type Helpers = {}; // TODO: Are these needed?
-type Messages = {
+export type Messages = {
   deselectAllRows: string,
   deselectRow: string,
   selectAllRows: string,
@@ -118,7 +115,7 @@ type RenderFn = (props: RenderProps) => React$Node;
 type RenderProps = {
   props: Object
 } & StateAndHelpers;
-type Sort = {
+export type Sort = {
   column: string,
   direction: Direction
 };
@@ -132,12 +129,6 @@ type StateAndHelpers = {
   state?: State,
   helpers?: Helpers
 };
-
-const componentTheme = (baseTheme: Object) => ({
-  TH_boxShadow_focus: `inset 0 0 0 1px ${baseTheme.borderColor_theme_focus}`,
-  TH_border_focus: `1px solid ${baseTheme.borderColor_theme_focus}`,
-  ...baseTheme
-});
 
 const defaultSortFn = (a: Object, b: Object, column: string) => {
   const normalizedValue = (value) =>
@@ -225,7 +216,6 @@ export default class DataTable extends Component<Props, State> {
   }: GetColumnsOrRowsArg) => {
     const result = columns.map(
       ({ content, header, enableSort, name, ...column }) => ({
-        // TODO: Mac Chrome VO (others?) repeats content a _lot_
         content,
         header:
           header || enableSort
@@ -255,141 +245,16 @@ export default class DataTable extends Component<Props, State> {
     return result;
   };
 
-  getSortableColumnHeader = ({ props: renderProps, state }: RenderProps) => {
-    const {
-      children,
-      label,
-      name,
-      messages,
-      spacious,
-      textAlign
-    } = renderProps;
-    const column = state && state.sort && state.sort.column;
-    const direction = state && state.sort && state.sort.direction;
-
-    const isActiveSort = column === name && Boolean(direction);
-    const currentDirection = isActiveSort && direction;
-    const nextDirection =
-      currentDirection === 'ascending' ? 'descending' : 'ascending';
-
-    const focusStyles = (theme) => ({
-      outline: theme.TH_border_focus,
-      outlineOffset: `-${theme.TH_border_focus.split(' ')[0]}` // TODO: IE?
-    });
-
-    const SortTH = createStyledComponent(TH, ({ theme: baseTheme }) => {
-      const theme = componentTheme(baseTheme);
-
-      return {
-        cursor: 'pointer',
-        padding: 0,
-
-        '&:hover': {
-          color: theme.icon_color_theme
-        },
-
-        '&:focus-within': focusStyles(theme)
-      };
-    });
-    const SortButton = createStyledComponent(
-      TH,
-      ({ theme: baseTheme }) => {
-        const theme = componentTheme(baseTheme);
-
-        return {
-          border: 0,
-          color: 'inherit',
-          cursor: 'inherit',
-          fontSize: 'inherit',
-          fontWeight: 'inherit',
-          verticalAlign: theme.TH_verticalAlign,
-          whiteSpace: 'nowrap',
-          width: '100%',
-
-          '&:focus': focusStyles(theme),
-
-          '*:focus-within > &:focus': {
-            outline: 0
-          }
-        };
-      },
-      {
-        withProps: { element: 'button' }
-      }
-    );
-    const Content = createStyledComponent('span', {
-      whiteSpace: 'normal'
-    });
-    const IconHolder = createStyledComponent('span', ({ theme }) => {
-      const iconAdjustment = pxToEm(2);
-      const space = `${parseFloat(theme.space_inline_xxs) +
-        parseFloat(iconAdjustment)}em`;
-
-      return {
-        color: theme.icon_color,
-        display: 'inline-block',
-        height: '0.875em',
-        marginLeft: theme.direction === 'ltr' ? space : null,
-        marginRight: theme.direction === 'rtl' ? space : null,
-        opacity: isActiveSort ? null : 0,
-        position: 'relative',
-        top: 3,
-        width: '0.875em',
-
-        '& > [role="img"]': {
-          margin: `-${iconAdjustment}`
-        },
-
-        '*:hover > button > &, button:focus > &': {
-          color: 'inherit',
-          opacity: 1
-        }
-      };
-    });
-
-    const a11yLabel = label || children;
-
-    const rootProps = {
-      'aria-label': a11yLabel,
-      'aria-sort': column === name ? direction : 'none',
-      // TODO: Feels wrong to duplicate onClick like this (see buttonProps)
-      onClick: () => {
+  getSortableColumnHeader = ({ props: renderProps, state }: RenderProps) => (
+    <SortableColumnHeader
+      {...renderProps}
+      onClick={(name, nextDirection) => {
         // TODO: Focus is lost on activation (because re-render?)
         this.sort({ column: name, direction: nextDirection });
-      },
-      role: 'columnheader',
-      textAlign
-    };
-    const buttonProps = {
-      'aria-label': messages.sortButtonLabel(
-        a11yLabel,
-        messages.sortOrder[nextDirection]
-      ),
-      onClick: () => {
-        // TODO: Focus is lost on activation (because re-render?)
-        this.sort({ column: name, direction: nextDirection });
-      },
-      spacious,
-      textAlign
-    };
-    const iconProps = {
-      size: 'auto'
-    };
-    const sortIcon = {
-      ascending: <IconArrowDropdownUp {...iconProps} />,
-      descending: <IconArrowDropdownDown {...iconProps} />
-    };
-
-    return (
-      <SortTH key={name} {...rootProps}>
-        <SortButton {...buttonProps}>
-          <Content>{children}</Content>&nbsp;<IconHolder>
-            {currentDirection ? sortIcon[currentDirection] : sortIcon.ascending}
-          </IconHolder>
-        </SortButton>
-      </SortTH>
-    );
-  };
+      }}
+      sort={state && state.sort}
+    />
+  );
 
   getSelectAllColumn = (messages: Messages, rows: Rows, selectedRows: Rows) => {
     const nonDisabledRows = rows.filter((row) => !row.disabled);
