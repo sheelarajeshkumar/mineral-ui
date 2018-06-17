@@ -94,7 +94,10 @@ type GetColumnsOrRowsArg = {
   selectedRows: Rows,
   sort: Sort
 };
-type Helpers = {}; // TODO: Are these needed?
+type Helpers = {
+  selectRows?: (selectedRows: Rows) => void,
+  sort?: (sort: Sort) => void
+};
 export type Messages = {
   deselectAllRows: string,
   deselectRow: string,
@@ -217,11 +220,18 @@ export default class DataTable extends Component<Props, State> {
     const result = columns.map(
       ({ content, header, enableSort, name, ...column }) => ({
         content,
+        // TODO: Do custom cells also need state & helpers? Probably...
         header:
           header || enableSort
             ? ({ props }: RenderProps) => {
                 const arg = {
                   props: { messages, ...props },
+                  helpers: {
+                    selectRows: enableRowSelection
+                      ? this.selectRows
+                      : undefined,
+                    sort: enableSort ? this.sort : undefined
+                  },
                   state: {
                     selectedRows,
                     sort
@@ -245,12 +255,18 @@ export default class DataTable extends Component<Props, State> {
     return result;
   };
 
-  getSortableColumnHeader = ({ props: renderProps, state }: RenderProps) => (
+  getSortableColumnHeader = ({
+    props: renderProps,
+    helpers,
+    state
+  }: RenderProps) => (
     <SortableColumnHeader
       {...renderProps}
       onClick={(name, nextDirection) => {
         // TODO: Focus is lost on activation (because re-render?)
-        this.sort({ column: name, direction: nextDirection });
+        helpers &&
+          helpers.sort &&
+          helpers.sort({ column: name, direction: nextDirection });
       }}
       sort={state && state.sort}
     />
@@ -300,6 +316,7 @@ export default class DataTable extends Component<Props, State> {
       ? rows.map((row) => this.addCheckboxToRow(messages, row, selectedRows))
       : rows;
 
+    // TODO: Do custom rows also need state & helpers? Probably...
     return sort && sort.direction
       ? this.sortRows(columns, result, sort)
       : result;
