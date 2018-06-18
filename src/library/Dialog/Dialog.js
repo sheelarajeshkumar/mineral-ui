@@ -141,11 +141,12 @@ const styles = {
       flexDirection: 'column',
       maxHeight: theme.DialogContent_maxHeight,
       minWidth: theme.DialogContent_minWidth,
+      pointerEvents: 'all',
       position: 'relative',
       ...getSizeStyles(size)
     };
   },
-  root: ({ theme: baseTheme }) => {
+  root: ({ modeless, theme: baseTheme }) => {
     const theme = componentTheme(baseTheme);
 
     return {
@@ -155,6 +156,7 @@ const styles = {
       justifyContent: 'center',
       left: 0,
       position: 'fixed',
+      pointerEvents: modeless ? 'none' : undefined,
       right: 0,
       top: 0,
       zIndex: theme.Dialog_zIndex
@@ -292,6 +294,7 @@ export default class Dialog extends Component<Props, State> {
       'aria-modal': true,
       id: this.id,
       innerRef: this.setRootRef,
+      modeless,
       role: 'dialog',
       tabIndex: '-1',
       ...(closeOnClickOutside && !modeless
