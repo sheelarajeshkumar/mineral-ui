@@ -12,10 +12,11 @@ group of related controls.`,
   source: `
     <DemoForm>
       <ButtonGroup
-        defaultChecked={['fluorite']}
+        multiSelect
+        // defaultChecked="fluorite"
         data={[
-          { label: 'Fluorite', value: 'fluorite' },
-          { label: 'Magnetite', value: 'magnetite' },
+          { label: 'Fluorite', value: 'fluorite', defaultChecked:true },
+          { label: 'Magnetite', value: 'magnetite', defaultChecked:true },
           { label: 'Quartz', value: 'quartz' }
         ]}
         name="mineral-1" />
@@ -23,10 +24,11 @@ group of related controls.`,
       <FormFieldDivider />
 
       <ButtonGroup
-        name="mineral-2">
-        <Button value="hi" defaultChecked>Hi</Button>
-        <Button value="I'm a button">I'm a Button</Button>
-        <Button value="me too">Me too</Button>
+        multiSelect
+        name="mineral-2" >
+        <Button value="hi">Hi</Button>
+        <Button value="I'm a button" defaultChecked>I'm a Button</Button>
+        <Button value="me too" defaultChecked>Me too</Button>
       </ButtonGroup>
     </DemoForm>
   `

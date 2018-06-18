@@ -7,7 +7,7 @@ type Props = {
   /** Props to be applied to Button child */
   buttonProps?: Object,
   /** Checked state of the input. Passed from ButtonGroup */
-  checked: boolean,
+  checked?: boolean,
   /** Rendered content of the component */
   children?: React$Node,
   /** CSS className */
@@ -25,7 +25,7 @@ type Props = {
   /** Used to uniquely define a group of inputs */
   name?: string,
   /** Function called when an input is selected. Passed from ButtonGroup */
-  onChange: (event: SyntheticEvent<>) => void,
+  onChange: (event: SyntheticInputEvent<>) => void,
   /** Called with the click event */
   onClick?: (event: SyntheticEvent<>) => void,
   /** Indicates that the user must select an option before submitting a form. Applies for radio only. */
@@ -43,6 +43,7 @@ type Props = {
 export const componentTheme = (baseTheme: Object) => ({
   ButtonGroupButton_backgroundColor_checkedDisabled: baseTheme.color_gray_40,
   ButtonGroupButton_border_disabled: `solid 1px ${baseTheme.borderColor}`,
+  ButtonGroupButton_borderLeftColor: baseTheme.borderColor,
   ButtonGroupButton_borderLeftColor_checked: 'currentcolor',
   ButtonGroupButton_boxShadow_focus: `0 0 0 1px ${
     baseTheme.boxShadow_focusInner
@@ -93,13 +94,21 @@ const styles = ({ checked, disabled, theme: baseTheme, variant }) => {
       boxShadow: !disabled && theme.ButtonGroupButton_boxShadow_focus,
       position: 'relative'
     },
+    [`&:${firstOrLast[direction][0]}-child > span`]: {
+      borderBottomRightRadius: 0,
+      borderTopRightRadius: 0
+    },
+    [`&:${firstOrLast[direction][1]}-child > span`]: {
+      borderBottomLeftRadius: 0,
+      borderTopLeftRadius: 0
+    },
     '&:not(:first-child) > span': {
       borderLeftColor: !rtl && 'transparent',
       borderRightColor: rtl && 'transparent'
     },
-    [`&:${firstOrLast[direction][0]}-child > span`]: {
-      borderBottomRightRadius: 0,
-      borderTopRightRadius: 0
+    '&:not(:last-child) > span': {
+      borderLeftColor: rtl && 'transparent',
+      borderRightColor: !rtl && 'transparent'
     },
     '&:not(:first-child)&:not(:last-child) > span': {
       borderBottomLeftRadius: 0,
@@ -107,15 +116,17 @@ const styles = ({ checked, disabled, theme: baseTheme, variant }) => {
       borderTopLeftRadius: 0,
       borderTopRightRadius: 0
     },
-    [`&:${firstOrLast[direction][1]}-child > span`]: {
-      borderBottomLeftRadius: 0,
-      borderTopLeftRadius: 0
-    },
     '[data-checked=true] + &[data-checked=true] > input:not(:focus) ~ span': {
-      borderLeftColor:
-        !disabled && !rtl && theme.ButtonGroupButton_borderLeftColor_checked,
-      borderRightColor:
-        !disabled && rtl && theme.ButtonGroupButton_borderLeftColor_checked
+      borderLeftColor: !rtl && theme.ButtonGroupButton_borderLeftColor_checked, // TODO: consider different name b/c rtl
+      borderRightColor: rtl && theme.ButtonGroupButton_borderLeftColor_checked
+    },
+    '[data-checked=false] + &[data-checked=false] > input:not(:focus) ~ span': {
+      borderLeftColor: !rtl && theme.ButtonGroupButton_borderLeftColor, // TODO: consider different name b/c rtl
+      borderRightColor: rtl && theme.ButtonGroupButton_borderLeftColor
+    },
+    '&[data-checked=false] > input:focus ~ span': {
+      borderLeftColor: theme.ButtonGroupButton_borderLeftColor, // TODO: consider different name b/c rtl
+      borderRightColor: theme.ButtonGroupButton_borderLeftColor
     }
   };
 };
@@ -164,7 +175,6 @@ export default function InputButton(props: Props) {
     variant,
     ...otherRootProps
   };
-  console.log(checked);
 
   return (
     <Root {...rootProps}>

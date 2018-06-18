@@ -14,7 +14,7 @@ export default {
         name="mineral-2">
         <Button value="hi">Hi</Button>
         <Button value="I'm a button">I'm a Button</Button>
-        <Button value="me too" variant="success">Me too</Button>
+        <Button value="me too" variant="danger">Me too</Button>
       </ButtonGroup>
 
       <ButtonGroup
@@ -22,7 +22,7 @@ export default {
         data={[
           { label: 'Fluorite', value: 'fluorite' },
           { label: 'Magnetite', value: 'magnetite' },
-          { label: 'Quartz', value: 'quartz', variant: 'success' }
+          { label: 'Quartz', value: 'quartz', variant: 'danger' }
         ]}
         name="mineral-1" />
 
@@ -34,7 +34,7 @@ export default {
           { label: 'Quartz', value: 'quartz' }
         ]}
         name="mineral-1"
-        variant="success" />
+        variant="danger" />
 
     </DemoLayout>
   `

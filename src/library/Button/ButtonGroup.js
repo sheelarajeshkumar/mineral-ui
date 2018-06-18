@@ -1,7 +1,6 @@
 /* @flow */
 import React, { Component } from 'react';
 import { ChoiceGroup } from '../Choice';
-// import _Radio from '../Radio';
 import { createStyledComponent } from '../styles';
 import InputButton from './InputButton';
 
@@ -14,9 +13,13 @@ type Props = {
    */
   checked?: string | Array<string>,
   /** Mineral InputButtons rendered as [Button](/components/button) components */
-  children?: React$Node,
+  children?: Array<React$Element<*>>,
   /** Data used to contruct InputButtons, see [example](#data) */
-  data?: Array<{ label: string | React$Element<*>, value: string }>,
+  data?: Array<{
+    defaultChecked?: boolean,
+    label: string | React$Element<*>,
+    value: string
+  }>,
   /**
    * Value of the selected InputButton [Button](/components/button); primarily for use with
    * uncontrolled components.
@@ -33,7 +36,7 @@ type Props = {
   /** Indicates whether HTML inputs are type checkbox (default is type radio) */
   multiSelect?: boolean,
   /** Function called when a choice is selected */
-  onChange?: (event: SyntheticEvent<>) => void,
+  onChange?: (event: SyntheticInputEvent<>) => void,
   /** Indicates that the field is required. Not forwarded for checkboxes. */
   required?: boolean,
   /** Props to be applied directly to the root element */
@@ -45,7 +48,7 @@ type Props = {
 };
 
 type State = {
-  checked?: string | Array<string>
+  checked?: string | Array<string> | void
 };
 
 /**
@@ -54,9 +57,50 @@ type State = {
  * [CheckboxGroup](/components/checkbox-group).
  */
 class ButtonGroup extends Component<Props, State> {
-  state: State = {
-    checked: this.props.defaultChecked || '' // TODO consider factoring in children prop for defaultChecked = true
-  };
+  constructor(props: Props) {
+    super(props);
+
+    const { children, data, defaultChecked, multiSelect } = this.props;
+    let childDefaults: string | Array<string> | void = [];
+
+    // TODO clean up this conditional?
+    if (children && multiSelect) {
+      children.map((checkbox) => {
+        if (checkbox.props.defaultChecked && Array.isArray(childDefaults)) {
+          childDefaults.push(checkbox.props.value);
+        }
+      });
+    } else if (children && !multiSelect) {
+      const defaultRadio = children.find((radio) => {
+        return radio.props.defaultChecked;
+      });
+      childDefaults = defaultRadio && defaultRadio.props.value;
+    } else if (data && multiSelect) {
+      data.map((checkbox) => {
+        if (checkbox.defaultChecked && Array.isArray(childDefaults)) {
+          childDefaults.push(checkbox.value);
+        }
+      });
+    } else if (data && !multiSelect) {
+      const defaultRadio = data.find((radio) => {
+        return radio.defaultChecked;
+      });
+      childDefaults = defaultRadio && defaultRadio.value;
+    }
+    this.state = {
+      checked: defaultChecked || childDefaults
+    };
+  }
+  // state: State = {
+  //   checked:
+  //     this.props.defaultChecked ||
+  //     this.props.children.map((child) => {
+  //       if (child.props.defaultChecked) {
+  //         return child.props.value;
+  //       }
+  //     }) ||
+  //     '' // TODO consider factoring in children prop for defaultChecked = true
+  // };
 
   render() {
     const {
@@ -70,7 +114,7 @@ class ButtonGroup extends Component<Props, State> {
     const rootProps = {
       checked: this.getControllableValue('checked'),
       input: InputButton,
-      onChange: (event: SyntheticEvent<>) => {
+      onChange: (event: SyntheticInputEvent<>) => {
         this.handleChange(event, type);
       },
       rootProps: {
@@ -85,7 +129,7 @@ class ButtonGroup extends Component<Props, State> {
     return <ChoiceGroup {...rootProps} />;
   }
 
-  handleChange = (event: SyntheticEvent<>, type: string) => {
+  handleChange = (event: SyntheticInputEvent<>, type: string) => {
     event.persist();
     if (this.isControlled('checked')) {
       this.changeActions(event);
@@ -101,17 +145,22 @@ class ButtonGroup extends Component<Props, State> {
     }
   };
 
-  changeActions = (event: SyntheticEvent<>) => {
+  changeActions = (event: SyntheticInputEvent<>) => {
     this.props.onChange && this.props.onChange(event);
   };
 
-  updateState = (event: SyntheticEvent<>, prevState: State, type: string) => {
+  updateState = (
+    event: SyntheticInputEvent<>,
+    prevState: State,
+    type: string
+  ) => {
     const { target } = event;
     let checked;
 
     if (type === 'radio') {
       checked = target.value;
-    } else if (type === 'checkbox') {
+    } else if (type === 'checkbox' && prevState.checked) {
+      // TODO: double-check that this is the correct check for prevState
       checked = [].concat(prevState.checked);
       const index = checked.indexOf(target.value);
       const hasValue = index !== -1;
