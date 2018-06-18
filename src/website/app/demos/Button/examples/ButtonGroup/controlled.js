@@ -1,14 +1,14 @@
 /* @flow */
 import { Component } from 'react';
-import { ButtonGroup } from '../../../../../../library/Button';
-import DemoForm from '../../components/DemoForm';
+import Button, { ButtonGroup } from '../../../../../../library/Button';
+import DemoLayout from '../../components/DemoLayout';
 
 export default {
   id: 'controlled',
   title: 'Controlled',
   description: `Provide the \`checked\` prop and an \`onChange\` handler to
 create a controlled component.`,
-  scope: { ButtonGroup, Component, DemoForm },
+  scope: { Button, ButtonGroup, Component, DemoLayout },
   source: `
   () => {
     class MyForm extends Component {
@@ -16,31 +16,40 @@ create a controlled component.`,
         super(props);
 
         this.state = {
-          value: 'quartz'
+          checked: 'quartz'
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.resetDefaultSelected = this.resetDefaultSelected.bind(this);
       }
 
       handleChange(event) {
         this.setState({
-          value: event.target.value
+          checked: event.target.value
+        });
+      }
+
+      resetDefaultSelected() {
+        this.setState({
+          checked: 'quartz'
         });
       }
 
       render() {
         return (
-          <DemoForm>
+          <DemoLayout>
             <ButtonGroup
-              checked={this.state.value}
+              checked={this.state.checked}
               data={[
                 { label: 'Fluorite', value: 'fluorite' },
                 { label: 'Magnetite', value: 'magnetite' },
                 { label: 'Quartz', value: 'quartz' }
               ]}
               name="mineral"
+              multiSelect
               onChange={this.handleChange} />
-          </DemoForm>
+            <Button minimal size="small" onClick={this.resetDefaultSelected}>Reset Default Selected</Button>
+          </DemoLayout>
         );
       }
     }

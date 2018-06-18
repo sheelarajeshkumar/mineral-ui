@@ -88,7 +88,7 @@ class ButtonGroup extends Component<Props, State> {
       childDefaults = defaultRadio && defaultRadio.value;
     }
     this.state = {
-      checked: defaultChecked || childDefaults
+      checked: defaultChecked || childDefaults || ''
     };
   }
   // state: State = {

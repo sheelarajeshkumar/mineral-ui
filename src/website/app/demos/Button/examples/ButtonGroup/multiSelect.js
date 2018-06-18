@@ -5,7 +5,8 @@ import DemoForm from '../../components/DemoForm';
 export default {
   id: 'multi-select',
   title: 'Multi-Select',
-  description: `TODO`,
+  description: `Use the \`multiSelect\` prop to enable selection of multiple
+Buttons. This renders each Button as a span with input type \`checkbox\``, //TODO: Reword
   scope: { ButtonGroup, DemoForm },
   source: `
     <DemoForm>
