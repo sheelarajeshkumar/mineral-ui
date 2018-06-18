@@ -59,7 +59,18 @@ export default {
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-                <Select data={data} name="state" />
+                <Select
+                  data={data}
+                  name="state"
+                  modifiers={{
+                    flip: {
+                      boundariesElement: 'body'
+                    },
+                    preventOverflow: {
+                      escapeWithReference: true
+                    }
+                  }}
+                />
             </Dialog>
           </div>
         )
