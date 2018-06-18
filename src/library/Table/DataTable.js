@@ -104,8 +104,7 @@ export type Messages = {
   selectAllRows: string,
   selectRow: string,
   selectRowsColumnLabel: string,
-  sortButtonLabelNone: (columnContent: React$Node) => string,
-  sortButtonLabel: (columnContent: React$Node, direction: string) => string,
+  sortButtonLabel: (direction: string) => string,
   sortOrder: {
     ascending: string,
     descending: string,
@@ -173,8 +172,8 @@ export default class DataTable extends Component<Props, State> {
       selectAllRows: 'Select all rows',
       selectRow: 'Select row',
       selectRowsColumnLabel: 'Selected rows',
-      sortButtonLabel: (columnContent: string, direction: string) =>
-        `Sort by ${columnContent}, in ${direction} order`,
+      sortButtonLabel: (direction: string) =>
+        `Sort column in ${direction} order`,
       sortOrder: {
         ascending: 'ascending',
         descending: 'descending'

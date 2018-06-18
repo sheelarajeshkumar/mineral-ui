@@ -69,6 +69,7 @@ export default function SortableColumnHeader({
       const theme = componentTheme(baseTheme);
 
       return {
+        background: 'none',
         border: 0,
         color: 'inherit',
         cursor: 'inherit',
@@ -126,25 +127,23 @@ export default function SortableColumnHeader({
   const a11yLabel = label || children;
 
   const rootProps = {
-    // TODO: Mac Chrome VO (others?) repeats content a _lot_
+    ...restProps,
+    // TODO: Mac Chrome VO (others?) announces this twice?
     'aria-label': a11yLabel,
     'aria-sort': sortColumn === name ? sortDirection : 'none',
     // TODO: Feels wrong to duplicate onClick like this (see buttonProps)
-    onClick: () => {
-      onClick(name, nextDirection);
-    },
-    role: 'columnheader',
-    ...restProps
+    // onClick: () => {
+    //   onClick(name, nextDirection);
+    // },
+    role: 'columnheader'
   };
+
   const buttonProps = {
-    'aria-label': messages.sortButtonLabel(
-      a11yLabel,
-      messages.sortOrder[nextDirection]
-    ),
+    ...restProps,
+    'aria-label': messages.sortButtonLabel(messages.sortOrder[nextDirection]),
     onClick: () => {
       onClick(name, nextDirection);
-    },
-    ...restProps
+    }
   };
   const iconProps = {
     'aria-hidden': true,
