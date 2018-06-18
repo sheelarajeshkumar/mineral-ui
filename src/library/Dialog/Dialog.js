@@ -334,8 +334,7 @@ export default class Dialog extends Component<Props, State> {
                   {
                     target: 'document',
                     event: 'keydown',
-                    handler: this.handleDocumentKeydown,
-                    options: true
+                    handler: this.handleDocumentKeydown
                   }
                 ]}
               />
@@ -491,7 +490,7 @@ export default class Dialog extends Component<Props, State> {
   };
 
   handleDocumentKeydown = (event: SyntheticKeyboardEvent<>) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && !event.defaultPrevented) {
       this.close();
     }
   };

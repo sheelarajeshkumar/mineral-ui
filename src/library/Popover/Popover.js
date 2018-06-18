@@ -351,6 +351,7 @@ export default class Popover extends Component<Props, State> {
 
   handleDocumentKeydown = (event: SyntheticKeyboardEvent<>) => {
     if (event.key === 'Escape') {
+      event.preventDefault();
       this.close(event);
     }
   };
