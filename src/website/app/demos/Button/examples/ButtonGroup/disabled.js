@@ -5,7 +5,7 @@ import DemoForm from '../../components/DemoForm';
 export default {
   id: 'disabled',
   title: 'Disabled',
-  description: `Use \`disabled\` to indicate that a Button is not
+  description: `Use \`disabled\` to indicate that a Buttons are not
 available for interaction. Functionality may be achieved via a property within
 the \`data\` prop object, a prop on a nested Button or a prop on the whole ButtonGroup. TODO: Reword`,
   scope: { Button, ButtonGroup, DemoForm },
@@ -26,6 +26,7 @@ the \`data\` prop object, a prop on a nested Button or a prop on the whole Butto
       </ButtonGroup>
 
       <ButtonGroup
+        defaultChecked="fluorite"
         data={[
           { label: 'Fluorite', value: 'fluorite' },
           { label: 'Magnetite', value: 'magnetite' },

@@ -37,7 +37,7 @@ type Props = {
   /** The value of the input */
   value: string,
   /** Available variants */
-  variant?: 'regular' | 'danger' | 'success' | 'warning'
+  variant?: 'danger' | 'success' | 'warning'
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -62,7 +62,7 @@ const styles = ({ checked, disabled, theme: baseTheme, variant }) => {
     rtl: ['last', 'first']
   };
 
-  if (variant && variant !== 'regular') {
+  if (variant) {
     // prettier-ignore
     theme = {
       ...theme,

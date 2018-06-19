@@ -5,7 +5,7 @@ import DemoLayout from '../../../shared/DemoLayout';
 export default {
   id: 'sizes',
   title: 'Sizes',
-  description: `TODO`,
+  description: `To provide hierarchy to actions on your page, change ButtonGroup impact with the \`size\` attribute.`,
   scope: { ButtonGroup, DemoLayout },
   source: `
     <DemoLayout>

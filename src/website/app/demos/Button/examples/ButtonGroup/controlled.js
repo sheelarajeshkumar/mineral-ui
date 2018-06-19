@@ -39,14 +39,14 @@ create a controlled component.`,
         return (
           <DemoLayout>
             <ButtonGroup
+              // required
               checked={this.state.checked}
               data={[
-                { label: 'Fluorite', value: 'fluorite' },
+                { label: 'Fluorite', value: 'fluorite', required: true },
                 { label: 'Magnetite', value: 'magnetite' },
                 { label: 'Quartz', value: 'quartz' }
               ]}
               name="mineral"
-              multiSelect
               onChange={this.handleChange} />
             <Button minimal size="small" onClick={this.resetDefaultSelected}>Reset Default Selected</Button>
           </DemoLayout>

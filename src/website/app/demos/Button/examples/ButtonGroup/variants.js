@@ -5,7 +5,7 @@ import DemoLayout from '../../../shared/DemoLayout';
 export default {
   id: 'variants',
   title: 'Variants',
-  description: `TODO`,
+  description: `Style ButtonGroups (or nested Buttons within) with variants to help communicate purpose.`,
   scope: { Button, ButtonGroup, DemoLayout },
   source: `
     <DemoLayout>
