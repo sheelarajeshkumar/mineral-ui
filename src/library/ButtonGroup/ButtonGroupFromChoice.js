@@ -1,5 +1,5 @@
 /* @flow */
-import React, { Children, Component, cloneElement, createElement } from 'react';
+import React, { Component } from 'react';
 import { ChoiceGroup } from '../Choice';
 import { createStyledComponent } from '../styles';
 import { setFromArray } from '../utils/collections';
@@ -28,6 +28,8 @@ type Props = {
   defaultChecked?: string | Array<string>,
   /** Disables all children */
   disabled?: boolean,
+  /** @Private Display the choices inline horizontally rather than stacked vertically. */
+  inline?: boolean,
   /** Indicates that the field is invalid. Not forwarded for checkboxes. */
   invalid?: boolean,
   /** The name of the group */
@@ -48,16 +50,6 @@ type Props = {
 
 type State = {
   checked?: string | Array<string> | void
-};
-
-const styles = {
-  display: 'flex',
-  // flexDirection: inline ? 'row' : 'column',
-
-  '& > *:not(:last-child)': {
-    marginBottom: 0,
-    marginRight: 0
-  }
 };
 
 const findDefaultValues = (props) => {
@@ -96,19 +88,28 @@ const findDefaultValues = (props) => {
     }
   }
 
+  // this works too, but is a little crazy
+  // if ((children || data) && multiple) {
+  //   (children || data).map((button) => {
+  //     if (
+  //       (button.defaultChecked ||
+  //         (button.props && button.props.defaultChecked)) &&
+  //       Array.isArray(defaultValues)
+  //     ) {
+  //       defaultValues.push(button.value || button.props.value);
+  //     }
+  //   });
+  // } else if ((children || data) && !multiple) {
+  //   const button = (children || data).find((button) => {
+  //     return (
+  //       button.defaultChecked || (button.props && button.props.defaultChecked)
+  //     );
+  //   });
+  //   defaultValues = button && (button.value || button.props.value);
+  // }
+
   return defaultValues;
 };
-
-const isChecked = (checked: string | Array<string>, value) => {
-  return Array.isArray(checked)
-    ? checked.indexOf(value) !== -1
-    : checked === value;
-};
-
-const Root = createStyledComponent('div', styles, {
-  displayName: 'ButtonGroup',
-  includeStyleReset: true
-});
 
 /**
  * TODO ButtonGroup allows authors to construct a group of [Buttons](/components/button)
@@ -122,80 +123,29 @@ class ButtonGroup extends Component<Props, State> {
 
   render() {
     const {
-      children,
-      data,
-      defaultChecked,
-      invalid,
+      defaultChecked: ignoreDefaultChecked,
       multiple,
-      required,
-      role,
       rootProps: otherRootProps,
-      size,
       ...restProps
     } = this.props;
     const type = multiple ? 'checkbox' : 'radio';
 
     const rootProps = {
-      role: `${type === 'radio' ? 'radio' : ''}group`,
-      ...otherRootProps
+      checked: this.getControllableValue('checked'),
+      input: InputButton,
+      onChange: (event: SyntheticInputEvent<>) => {
+        this.handleChange(event, type);
+      },
+      rootProps: {
+        inline: true,
+        role: `${type === 'radio' ? 'radio' : ''}group`,
+        ...otherRootProps
+      },
+      type,
+      ...restProps // Note: Props are spread to input rather than Root
     };
 
-    const inputProps = (value, index, inputData = {}) => {
-      console.log(this.getControllableValue('checked'));
-      return {
-        checked: isChecked(this.getControllableValue('checked'), value),
-        onChange: (event: SyntheticInputEvent<>) => {
-          this.handleChange(event, type);
-        },
-        // checked: checked !== undefined ? isChecked(checked, value) : undefined,
-        invalid: type === 'checkbox' ? undefined : invalid,
-        key: index,
-        required: type === 'checkbox' ? undefined : required,
-        // type: appearance === 'button' ? type : null,
-        size,
-        type,
-        value,
-        ...restProps, // Note: Props are spread to input rather than Root
-        ...inputData
-      };
-    };
-
-    let inputs = null;
-    if (data) {
-      inputs = data.map((inputData, index) => {
-        const { defaultChecked, value, ...restInputData } = inputData;
-        return createElement(InputButton, {
-          ...inputProps(value, index, restInputData)
-        });
-      });
-    } else if (children) {
-      inputs = Children.map(children, (child, index) => {
-        const {
-          defaultChecked: ignoreDefaultChecked,
-          disabled: buttonDisabled,
-          invalid: buttonInvalid,
-          required: buttonRequired,
-          size: ignoreSize,
-          value,
-          ...buttonProps
-        } = child.props;
-
-        return (
-          <InputButton
-            {...inputProps(value, index, {
-              buttonProps,
-              disabled: this.props.disabled || buttonDisabled,
-              invalid: invalid || buttonInvalid,
-              required: required || buttonRequired,
-              type,
-              variant: this.props.variant || buttonProps.variant
-            })}
-          />
-        );
-      });
-    }
-
-    return <Root {...rootProps}>{inputs}</Root>;
+    return <ChoiceGroup {...rootProps} />;
   }
 
   handleChange = (event: SyntheticInputEvent<>, type: string) => {
