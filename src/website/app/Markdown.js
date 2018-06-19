@@ -260,14 +260,12 @@ function ListItem({ children }: ListItemProps) {
         return child;
       }
 
-      const labelVariant = 'done' === labelText ? 'success' : 'regular';
+      const labelProps = {
+        key: 1,
+        ...(labelText === 'done' ? { variant: 'success' } : undefined)
+      };
 
-      return [
-        preLabelText,
-        <Label key={1} variant={labelVariant}>
-          {labelText}
-        </Label>
-      ];
+      return [preLabelText, <Label {...labelProps}>{labelText}</Label>];
     } else {
       return child;
     }
