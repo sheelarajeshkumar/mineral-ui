@@ -4,7 +4,9 @@ import { findDOMNode } from 'react-dom';
 import debounce from 'lodash.debounce';
 import { createStyledComponent, getNormalizedValue } from '../styles';
 import { createThemedComponent } from '../themes';
-import DialogRow from './DialogRow';
+import DialogRow, {
+  componentTheme as dialogRowComponentTheme
+} from './DialogRow';
 
 type Props = {
   /** TODO */
@@ -20,21 +22,28 @@ type State = {
 export const componentTheme = (baseTheme: Object) => ({
   DialogBody_boxShadowBottom: `inset 0 -8px 8px -8px ${baseTheme.color_gray_60}, inset 0 -1px ${baseTheme.borderColor}`,
   DialogBody_boxShadowTop: `inset 0 8px 8px -8px ${baseTheme.color_gray_60}, inset 0 1px ${baseTheme.borderColor}`,
-  DialogBody_fontSize: baseTheme.fontSize_ui,
-  DialogBody_paddingHorizontal: baseTheme.space_inset_lg,
 
   ...baseTheme
 });
 
 const styles = {
   root: ({ hasShadowBottom, hasShadowTop, theme: baseTheme }) => {
-    const theme = componentTheme(baseTheme);
-    const fontSize = theme.DialogBody_fontSize;
+    const theme = {
+      ...componentTheme(baseTheme),
+      ...dialogRowComponentTheme(baseTheme)
+    };
+
+    const fontSize = theme.DialogRow_fontSize;
 
     const boxShadows = [];
     hasShadowTop && boxShadows.push(theme.DialogBody_boxShadowTop);
     hasShadowBottom && boxShadows.push(theme.DialogBody_boxShadowBottom);
     const boxShadow = boxShadows.length ? boxShadows.join(',') : undefined;
+
+    const marginVertical = `${getNormalizedValue(
+      theme.DialogRow_marginVertical,
+      fontSize
+    )}`;
 
     return {
       boxShadow,
@@ -45,14 +54,21 @@ const styles = {
       // 1px to avoid unwanted vertical scrollbar
       // 1px in to avoid potentially cutting off of focus ring of subcomponents in body
       padding: `2px ${getNormalizedValue(
-        theme.DialogBody_paddingHorizontal,
+        theme.DialogRow_paddingHorizontal,
         fontSize
       )}`,
+
+      // Margins when no header or footer
+      '&:first-child': {
+        marginTop: marginVertical
+      },
+      '&:last-child': {
+        marginBottom: marginVertical
+      },
 
       '& > :first-child': {
         marginTop: 0
       },
-
       '& > :last-child': {
         marginBottom: 0
       }

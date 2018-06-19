@@ -1,5 +1,5 @@
 /* @flow */
-import React, { cloneElement, Component } from 'react';
+import React, { Component } from 'react';
 import { canUseDOM } from 'exenv';
 import FocusTrap from 'focus-trap-react';
 import noScroll from 'no-scroll';
@@ -24,7 +24,7 @@ type Props = {
   /** TODO - Shorthand alternative to using DialogFooter and DialogActions */
   actions?: Array<React$Node>,
   /** TODO */
-  children: React$Node,
+  children?: React$Node,
   /** TODO */
   closeButtonLabel?: string,
   /** TODO */
@@ -382,12 +382,9 @@ export default class Dialog extends Component<Props, State> {
       );
     } else {
       const headerChild = findByType(children, DialogHeader);
-      if (!headerChild) {
-        throw new Error(
-          '[mineral-ui/Dialog]: Dialog must contain a DialogHeader or use the title prop.'
-        );
+      if (headerChild) {
+        header = headerChild;
       }
-      header = cloneElement(headerChild, headerProps);
     }
 
     return header;
@@ -405,7 +402,9 @@ export default class Dialog extends Component<Props, State> {
         DialogHeader,
         DialogFooter
       ]);
-      body = <DialogBody>{bodyChildren}</DialogBody>;
+      if (bodyChildren) {
+        body = <DialogBody>{bodyChildren}</DialogBody>;
+      }
     }
 
     return body;
@@ -423,12 +422,9 @@ export default class Dialog extends Component<Props, State> {
       );
     } else {
       const footerChild = findByType(children, DialogFooter);
-      if (!footerChild) {
-        throw new Error(
-          '[mineral-ui/Dialog]: Dialog must contain a DialogFooter or use the actions prop.'
-        );
+      if (footerChild) {
+        footer = footerChild;
       }
-      footer = footerChild;
     }
 
     return footer;
