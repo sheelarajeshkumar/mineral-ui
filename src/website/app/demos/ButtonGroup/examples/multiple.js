@@ -3,9 +3,9 @@ import ButtonGroup from '../../../../../library/ButtonGroup';
 import DemoForm from '../components/DemoForm';
 
 export default {
-  id: 'multi-select',
-  title: 'Multi-Select',
-  description: `Use the \`multiSelect\` prop to enable selection of multiple
+  id: 'multiple',
+  title: 'Multiple Selections',
+  description: `Use the \`multiple\` prop to enable selection of multiple
 Buttons. This renders each Button as a span with input type \`checkbox\``, //TODO: Reword
   scope: { ButtonGroup, DemoForm },
   source: `
@@ -18,7 +18,7 @@ Buttons. This renders each Button as a span with input type \`checkbox\``, //TOD
           { label: 'Quartz', value: 'quartz' }
         ]}
         name="mineral-1"
-        multiSelect />
+        multiple />
     </DemoForm>
   `
 };

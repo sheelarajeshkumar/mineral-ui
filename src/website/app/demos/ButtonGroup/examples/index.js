@@ -5,7 +5,7 @@ import dataVsChildren from './dataVsChildren';
 import disabled from './disabled';
 import formField from './formField';
 import icons from './icons';
-import multiSelect from './multiSelect';
+import multiple from './multiple';
 import rtl from './rtl';
 import sizes from './sizes';
 import uncontrolled from './uncontrolled';
@@ -16,7 +16,7 @@ export default [
   dataVsChildren,
   uncontrolled,
   controlled,
-  multiSelect,
+  multiple,
   sizes,
   variants,
   disabled,

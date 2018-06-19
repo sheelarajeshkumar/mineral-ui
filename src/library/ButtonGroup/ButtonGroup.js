@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { ChoiceGroup } from '../Choice';
 import { createStyledComponent } from '../styles';
+import { setFromArray } from '../utils/collections';
 import InputButton from './InputButton';
 
 type Props = {
@@ -34,7 +35,7 @@ type Props = {
   /** The name of the group */
   name: string,
   /** Indicates whether HTML inputs are type checkbox (default is type radio) */
-  multiSelect?: boolean,
+  multiple?: boolean,
   /** Function called when a choice is selected */
   onChange?: (event: SyntheticInputEvent<>) => void,
   /** Indicates that the field is required. Not forwarded for checkboxes. */
@@ -51,65 +52,83 @@ type State = {
   checked?: string | Array<string> | void
 };
 
+const findDefaultValues = (props) => {
+  const { children, data, multiple } = props;
+  let defaultValues: string | Array<string> | void = [];
+
+  const addDefaultValue = (value) => {
+    defaultValues.push(value);
+  };
+
+  if (multiple) {
+    if (children && Array.isArray(children)) {
+      children.map((button) => {
+        if (button.props.defaultChecked && Array.isArray(defaultValues)) {
+          addDefaultValue(button.props.value);
+        }
+      });
+    } else if (data) {
+      data.map((button) => {
+        if (button.defaultChecked && Array.isArray(defaultValues)) {
+          addDefaultValue(button.value);
+        }
+      });
+    }
+  } else {
+    if (children && Array.isArray(children)) {
+      const button = children.find((button) => {
+        return button.props.defaultChecked;
+      });
+      defaultValues = button && button.props.value;
+    } else if (data) {
+      const button = data.find((button) => {
+        return button.defaultChecked;
+      });
+      defaultValues = button && button.value;
+    }
+  }
+
+  // this works too, but is a little crazy
+  // if ((children || data) && multiple) {
+  //   (children || data).map((button) => {
+  //     if (
+  //       (button.defaultChecked ||
+  //         (button.props && button.props.defaultChecked)) &&
+  //       Array.isArray(defaultValues)
+  //     ) {
+  //       defaultValues.push(button.value || button.props.value);
+  //     }
+  //   });
+  // } else if ((children || data) && !multiple) {
+  //   const button = (children || data).find((button) => {
+  //     return (
+  //       button.defaultChecked || (button.props && button.props.defaultChecked)
+  //     );
+  //   });
+  //   defaultValues = button && (button.value || button.props.value);
+  // }
+
+  return defaultValues;
+};
+
 /**
  * TODO ButtonGroup allows authors to construct a group of [Buttons](/components/button)
  * that perform like a [RadioGroup](/components/radio-group) or
  * [CheckboxGroup](/components/checkbox-group).
  */
 class ButtonGroup extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    const { children, data, defaultChecked, multiSelect } = this.props;
-    let childDefaults: string | Array<string> | void = [];
-
-    // TODO clean up this conditional? Ensure children is an array
-    if (children && multiSelect) {
-      children.map((checkbox) => {
-        if (checkbox.props.defaultChecked && Array.isArray(childDefaults)) {
-          childDefaults.push(checkbox.props.value);
-        }
-      });
-    } else if (children && !multiSelect) {
-      const defaultRadio = children.find((radio) => {
-        return radio.props.defaultChecked;
-      });
-      childDefaults = defaultRadio && defaultRadio.props.value;
-    } else if (data && multiSelect) {
-      data.map((checkbox) => {
-        if (checkbox.defaultChecked && Array.isArray(childDefaults)) {
-          childDefaults.push(checkbox.value);
-        }
-      });
-    } else if (data && !multiSelect) {
-      const defaultRadio = data.find((radio) => {
-        return radio.defaultChecked;
-      });
-      childDefaults = defaultRadio && defaultRadio.value;
-    }
-    this.state = {
-      checked: defaultChecked || childDefaults || ''
-    };
-  }
-  // state: State = {
-  //   checked:
-  //     this.props.defaultChecked ||
-  //     this.props.children.map((child) => {
-  //       if (child.props.defaultChecked) {
-  //         return child.props.value;
-  //       }
-  //     }) ||
-  //     '' // TODO consider factoring in children prop for defaultChecked = true
-  // };
+  state: State = {
+    checked: this.props.defaultChecked || findDefaultValues(this.props) || ''
+  };
 
   render() {
     const {
       defaultChecked: ignoreDefaultChecked,
-      multiSelect,
+      multiple,
       rootProps: otherRootProps,
       ...restProps
     } = this.props;
-    const type = multiSelect ? 'checkbox' : 'radio';
+    const type = multiple ? 'checkbox' : 'radio';
 
     const rootProps = {
       checked: this.getControllableValue('checked'),
@@ -161,17 +180,14 @@ class ButtonGroup extends Component<Props, State> {
     if (type === 'radio') {
       checked = target.value;
     } else if (type === 'checkbox' && prevState.checked) {
-      // TODO: double-check that this is the correct check for prevState
-      // TODO: Can we use a Set here?
-      checked = [].concat(prevState.checked);
-      const index = checked.indexOf(target.value);
-      const hasValue = index !== -1;
+      // what if prevState.checked is undefined?
 
-      if (target.checked && !hasValue) {
-        checked.push(target.value);
-      } else if (hasValue) {
-        checked.splice(index, 1);
-      }
+      const prevChecked = setFromArray([].concat(prevState.checked));
+      prevChecked.has(target.value)
+        ? prevChecked.delete(target.value)
+        : prevChecked.add(target.value);
+
+      checked = Array.from(prevChecked);
     }
     return { checked };
   };

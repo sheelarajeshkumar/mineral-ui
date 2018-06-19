@@ -14,7 +14,7 @@ A subset of Icons that [convey directionality](/components/icon#rtl) will be rev
   source: `
     <div dir="rtl">
       <ThemeProvider theme={{ direction: 'rtl' }}>
-        <ButtonGroup defaultChecked={['button-1', 'button-2']} name="rtl-buttons" multiSelect>
+        <ButtonGroup defaultChecked={['button-1', 'button-2']} name="rtl-buttons" multiple>
           <Button iconStart={<IconBackspace />} value="button-1">قم بعمل ما</Button>
           <Button iconStart={<IconBackspace />} value="button-2">قم بعمل ما</Button>
           <Button iconStart={<IconBackspace />} value="button-3">قم بعمل ما</Button>
