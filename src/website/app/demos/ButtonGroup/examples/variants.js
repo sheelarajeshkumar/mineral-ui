@@ -1,6 +1,7 @@
 /* @flow */
-import Button, { ButtonGroup } from '../../../../../../library/Button';
-import DemoLayout from '../../../shared/DemoLayout';
+import Button from '../../../../../library/Button';
+import ButtonGroup from '../../../../../library/ButtonGroup';
+import DemoLayout from '../../shared/DemoLayout';
 
 export default {
   id: 'variants',

@@ -1,6 +1,6 @@
 /* @flow */
-import { createStyledComponent } from '../../../../../../library/styles';
-import Button from '../../../../../../library/Button';
+import { createStyledComponent } from '../../../../../library/styles';
+import Button from '../../../../../library/Button';
 
 const FixedWidthLayout = createStyledComponent('div', {
   '& > button': {

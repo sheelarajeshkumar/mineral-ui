@@ -1,6 +1,6 @@
 /* @flow */
-import Button from '../../../../../../library/Button';
-import DemoLayout from '../../components/DemoLayout';
+import Button from '../../../../../library/Button';
+import DemoLayout from '../components/DemoLayout';
 
 export default {
   id: 'minimal',

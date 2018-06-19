@@ -1,7 +1,7 @@
 /* @flow */
 import IconCloud from 'mineral-ui-icons/IconCloud';
-import Button from '../../../../../../library/Button';
-import DemoLayout from '../../components/DemoLayout';
+import Button from '../../../../../library/Button';
+import DemoLayout from '../components/DemoLayout';
 
 export default {
   id: 'icon-only',

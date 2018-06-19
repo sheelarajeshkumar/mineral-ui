@@ -1,6 +1,6 @@
 /* @flow */
-import { ButtonGroup } from '../../../../../../library/Button';
-import DemoLayout from '../../../shared/DemoLayout';
+import ButtonGroup from '../../../../../library/ButtonGroup';
+import DemoLayout from '../../shared/DemoLayout';
 
 export default {
   id: 'sizes',

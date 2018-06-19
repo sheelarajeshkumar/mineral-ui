@@ -1,7 +1,7 @@
 /* @flow */
 import React, { Children, cloneElement, createElement } from 'react';
 import { createStyledComponent } from '../styles';
-import InputButton from '../Button/InputButton';
+import InputButton from '../ButtonGroup/InputButton';
 
 export type Props = {
   /**
@@ -53,7 +53,7 @@ export type Props = {
   /** Type of component that will be rendered */
   type: 'checkbox' | 'radio',
   /** @Private Available variants (applies to InputButton) */
-  variant?: 'regular' | 'danger' | 'success' | 'warning'
+  variant?: 'danger' | 'success' | 'warning'
 };
 
 export const componentTheme = (baseTheme: Object) => ({

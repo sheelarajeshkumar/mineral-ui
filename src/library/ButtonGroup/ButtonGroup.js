@@ -44,7 +44,7 @@ type Props = {
   /** Available RadioButton sizes */
   size?: 'small' | 'medium' | 'large' | 'jumbo',
   /** Available variants */
-  variant?: 'regular' | 'danger' | 'success' | 'warning'
+  variant?: 'danger' | 'success' | 'warning'
 };
 
 type State = {
@@ -63,7 +63,7 @@ class ButtonGroup extends Component<Props, State> {
     const { children, data, defaultChecked, multiSelect } = this.props;
     let childDefaults: string | Array<string> | void = [];
 
-    // TODO clean up this conditional?
+    // TODO clean up this conditional? Ensure children is an array
     if (children && multiSelect) {
       children.map((checkbox) => {
         if (checkbox.props.defaultChecked && Array.isArray(childDefaults)) {
@@ -131,6 +131,7 @@ class ButtonGroup extends Component<Props, State> {
 
   handleChange = (event: SyntheticInputEvent<>, type: string) => {
     event.persist();
+
     if (this.isControlled('checked')) {
       this.changeActions(event);
     } else {
@@ -161,6 +162,7 @@ class ButtonGroup extends Component<Props, State> {
       checked = target.value;
     } else if (type === 'checkbox' && prevState.checked) {
       // TODO: double-check that this is the correct check for prevState
+      // TODO: Can we use a Set here?
       checked = [].concat(prevState.checked);
       const index = checked.indexOf(target.value);
       const hasValue = index !== -1;

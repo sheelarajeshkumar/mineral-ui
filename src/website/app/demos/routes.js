@@ -6,19 +6,17 @@ export default [
     slug: 'avatar',
     title: 'Avatar'
   },
-  [
-    {
-      description:
-        'Buttons trigger actions or state changes in your app. Choose a button color to match the intent of the action.',
-      slug: 'button',
-      title: 'Button'
-    },
-    {
-      description: 'TODO',
-      slug: 'button-group',
-      title: 'ButtonGroup'
-    }
-  ],
+  {
+    description:
+      'Buttons trigger actions or state changes in your app. Choose a button color to match the intent of the action.',
+    slug: 'button',
+    title: 'Button'
+  },
+  {
+    description: 'TODO',
+    slug: 'button-group',
+    title: 'ButtonGroup'
+  },
   [
     {
       description:

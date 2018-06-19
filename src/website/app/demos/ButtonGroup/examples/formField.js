@@ -1,7 +1,8 @@
 /* @flow */
-import Button, { ButtonGroup } from '../../../../../../library/Button';
-import { FormField } from '../../../../../../library/Form';
-import DemoForm from '../../components/DemoForm';
+import Button from '../../../../../library/Button';
+import ButtonGroup from '../../../../../library/ButtonGroup';
+import { FormField } from '../../../../../library/Form';
+import DemoForm from '../components/DemoForm';
 
 export default {
   id: 'form-field',

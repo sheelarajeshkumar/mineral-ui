@@ -1,6 +1,6 @@
 /* @flow */
-import { ButtonGroup } from '../../../../../../library/Button';
-import DemoForm from '../../components/DemoForm';
+import ButtonGroup from '../../../../../library/ButtonGroup';
+import DemoForm from '../components/DemoForm';
 
 export default {
   id: 'multi-select',

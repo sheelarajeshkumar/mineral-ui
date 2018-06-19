@@ -1,6 +1,7 @@
 /* @flow */
-import Button, { ButtonGroup } from '../../../../../../library/Button';
-import DemoForm from '../../components/DemoForm';
+import Button from '../../../../../library/Button';
+import ButtonGroup from '../../../../../library/ButtonGroup';
+import DemoForm from '../components/DemoForm';
 
 export default {
   id: 'disabled',

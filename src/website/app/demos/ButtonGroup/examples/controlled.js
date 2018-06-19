@@ -1,7 +1,8 @@
 /* @flow */
 import { Component } from 'react';
-import Button, { ButtonGroup } from '../../../../../../library/Button';
-import DemoLayout from '../../components/DemoLayout';
+import Button from '../../../../../library/Button';
+import ButtonGroup from '../../../../../library/ButtonGroup';
+import DemoLayout from '../components/DemoLayout';
 
 export default {
   id: 'controlled',

@@ -1,7 +1,9 @@
 /* @flow */
 import React, { cloneElement, Component } from 'react';
 import { createStyledComponent } from '../styles';
-import Button, { componentTheme as buttonComponentTheme } from './Button';
+import Button, {
+  componentTheme as buttonComponentTheme
+} from '../Button/Button';
 
 type Props = {
   /** Props to be applied to Button child */

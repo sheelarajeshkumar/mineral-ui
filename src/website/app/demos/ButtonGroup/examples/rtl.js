@@ -1,7 +1,8 @@
 /* @flow */
-import { ThemeProvider } from '../../../../../../library/themes';
-import Button, { ButtonGroup } from '../../../../../../library/Button';
 import IconBackspace from 'mineral-ui-icons/IconBackspace';
+import Button from '../../../../../library/Button';
+import ButtonGroup from '../../../../../library/ButtonGroup';
+import { ThemeProvider } from '../../../../../library/themes';
 
 export default {
   id: 'rtl',

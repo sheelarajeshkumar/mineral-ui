@@ -1,5 +1,26 @@
 /* @flow */
-import buttonExamples from './Button';
-import buttonGroupExamples from './ButtonGroup';
+import importSyntax from './importSyntax';
+import regular from './regular';
+import circular from './circular';
+import icons from './icons';
+import iconOnly from './iconOnly';
+import link from './link';
+import minimal from './minimal';
+import primary from './primary';
+import rtl from './rtl';
+import sizes from './sizes';
+import truncation from './truncation';
 
-export default [].concat(buttonExamples, buttonGroupExamples);
+export default [
+  importSyntax,
+  primary,
+  regular,
+  minimal,
+  sizes,
+  icons,
+  iconOnly,
+  circular,
+  link,
+  truncation,
+  rtl
+];
