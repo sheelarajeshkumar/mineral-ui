@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const componentTheme = (baseTheme: Object) => ({
-  DialogActionsItem_margin: baseTheme.space_stack_md,
+  DialogActionsItem_margin: baseTheme.space_stack_sm,
 
   ...baseTheme
 });
