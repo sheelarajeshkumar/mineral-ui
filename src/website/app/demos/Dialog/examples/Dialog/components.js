@@ -64,7 +64,7 @@ export default {
                   name="state"
                   modifiers={{
                     flip: {
-                      boundariesElement: 'body'
+                      boundariesElement: 'window'
                     },
                     preventOverflow: {
                       escapeWithReference: true
