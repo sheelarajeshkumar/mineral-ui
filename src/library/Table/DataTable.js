@@ -315,13 +315,6 @@ export default class DataTable extends Component<Props, State> {
     const selectedRows = this.getControllableValue('selectedRows');
 
     const selected = selectedRows.indexOf(row) !== -1;
-    const newSelectedRows = selectedRows.slice(0);
-
-    if (selected) {
-      newSelectedRows.splice(newSelectedRows.indexOf(row), 1);
-    } else {
-      newSelectedRows.splice(0, 0, row);
-    }
 
     const checkboxProps = {
       checked: selected && !row.disabled,
@@ -329,7 +322,7 @@ export default class DataTable extends Component<Props, State> {
       hideLabel: true,
       label: selected ? messages.deselectRow : messages.selectRow,
       onChange: () => {
-        this.selectRows(newSelectedRows);
+        this.selectRows([row], selected);
       }
     };
 
@@ -342,18 +335,35 @@ export default class DataTable extends Component<Props, State> {
     return newRow;
   };
 
-  selectRows = (selectedRows: Rows) => {
+  selectRows = (selectedRowsRequested: Rows, selected?: boolean) => {
     if (this.isControlled('selectedRows')) {
-      this.selectRowsActions(selectedRows);
+      this.selectRowsActions(selectedRowsRequested);
     } else {
-      this.setState({ selectedRows }, () => {
-        this.selectRowsActions(selectedRows);
-      });
+      this.setState(
+        (prevState) => {
+          let selectedRows = prevState.selectedRows;
+          if (selectedRowsRequested.length === 1) {
+            const row = selectedRowsRequested[0];
+            if (selected) {
+              selectedRows.splice(selectedRows.indexOf(row), 1);
+            } else {
+              selectedRows.splice(0, 0, row);
+            }
+          } else {
+            selectedRows = selectedRowsRequested;
+          }
+
+          return { selectedRows };
+        },
+        () => {
+          this.selectRowsActions(selectedRowsRequested);
+        }
+      );
     }
   };
 
-  selectRowsActions = (selectedRows: Rows) => {
-    this.props.onSelectRows && this.props.onSelectRows(selectedRows);
+  selectRowsActions = (selectedRowsRequested: Rows) => {
+    this.props.onSelectRows && this.props.onSelectRows(selectedRowsRequested);
   };
 
   sort = (sort: Sort) => {
