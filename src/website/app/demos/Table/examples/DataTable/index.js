@@ -10,6 +10,7 @@ import dataTable from './dataTable';
 import defaultSort from './defaultSort';
 import highContrast from './highContrast';
 import importSyntax from './importSyntax';
+import kitchenSink from './kitchenSink';
 import largeDataSets from './largeDataSets';
 import overflow from './overflow';
 import primaryColumn from './primaryColumn';
@@ -42,5 +43,6 @@ export default [
   defaultSort,
   rowSelectionAndColumnDef,
   columnAlignWithSort,
-  largeDataSets
+  largeDataSets,
+  kitchenSink
 ];

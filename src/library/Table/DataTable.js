@@ -1,11 +1,9 @@
 /* @flow */
 import React, { Component } from 'react';
-// import { createThemedComponent } from '../themes';
 import Checkbox from '../Checkbox';
 import SortableColumnHeader from './SortableColumnHeader';
-import Table, { generateColumns } from './Table';
+import Table, { generateColumns, type Row, type Rows } from './Table';
 
-import type { Rows } from './Table';
 import type { TitleAppearance } from './TableTitle';
 
 type Props = {
@@ -86,14 +84,6 @@ type Column = {
 };
 export type Columns = Array<Column>;
 type Direction = 'ascending' | 'descending';
-type GetColumnsOrRowsArg = {
-  columns: Columns,
-  enableRowSelection?: boolean,
-  messages: Messages,
-  rows: Rows,
-  selectedRows: Rows,
-  sort: Sort
-};
 type Helpers = {
   selectRows?: (selectedRows: Rows) => void,
   sort?: (sort: Sort) => void
@@ -149,22 +139,16 @@ const defaultSortFn = (a: Object, b: Object, column: string) => {
   return 0;
 };
 
+const getColumnDefs = ({ columns, rows }: Props) =>
+  columns || generateColumns(rows);
+
+const getNonDisabledRows = (source: Rows) =>
+  source.filter((row) => !row.disabled);
+
 /**
  * DataTable TODO
  */
 export default class DataTable extends Component<Props, State> {
-  state = {
-    selectedRows: this.props.defaultSelectedRows || [],
-    ...(this.props.defaultSort
-      ? {
-          sort: {
-            column: this.props.defaultSort.column,
-            direction: this.props.defaultSort.direction
-          }
-        }
-      : undefined)
-  };
-
   static defaultProps = {
     messages: {
       deselectAllRows: 'Deselect all rows',
@@ -181,42 +165,53 @@ export default class DataTable extends Component<Props, State> {
     }
   };
 
+  state = {
+    selectedRows: getNonDisabledRows(this.props.defaultSelectedRows || []),
+    ...(this.props.defaultSort
+      ? {
+          sort: {
+            column: this.props.defaultSort.column,
+            direction: this.props.defaultSort.direction
+          }
+        }
+      : undefined)
+  };
+
+  columns: Columns = getColumnDefs(this.props);
+  nonDisabledRows: Rows = getNonDisabledRows(this.props.rows);
+
+  componentWillUpdate(nextProps: Props) {
+    if (
+      this.props.columns !== nextProps.columns ||
+      (!this.props.columns && this.props.rows !== nextProps.rows)
+    ) {
+      this.columns = getColumnDefs(nextProps);
+    }
+
+    if (
+      this.props.rows !== nextProps.rows ||
+      this.props.rowKey !== nextProps.rowKey
+    ) {
+      this.nonDisabledRows = getNonDisabledRows(nextProps.rows);
+    }
+  }
+
   render() {
-    const {
-      columns,
-      enableRowSelection,
-      messages,
-      rows,
-      ...restProps
-    } = this.props;
-
-    const getColumnsOrRowsArg = {
-      columns: columns || generateColumns(rows),
-      enableRowSelection,
-      messages,
-      rows,
-      selectedRows: this.getControllableValue('selectedRows'),
-      sort: this.getControllableValue('sort')
-    };
-
     const rootProps = {
-      columns: this.getColumns(getColumnsOrRowsArg),
-      rows: this.getRows(getColumnsOrRowsArg),
-      ...restProps
+      ...this.props,
+      columns: this.getColumns(),
+      rows: this.getRows()
     };
 
     return <Table {...rootProps} />;
   }
 
-  getColumns = ({
-    columns,
-    enableRowSelection,
-    messages,
-    rows,
-    selectedRows,
-    sort
-  }: GetColumnsOrRowsArg) => {
-    const result = columns.map(
+  getColumns = () => {
+    const { enableRowSelection, messages } = this.props;
+    const selectedRows = this.getControllableValue('selectedRows');
+    const sort = this.getControllableValue('sort');
+
+    const result = this.columns.map(
       ({ content, header, enableSort, name, ...column }) => ({
         content,
         // TODO: Do custom cells also need state & helpers? Probably...
@@ -248,7 +243,7 @@ export default class DataTable extends Component<Props, State> {
     );
 
     if (enableRowSelection) {
-      result.unshift(this.getSelectAllColumn(messages, rows, selectedRows));
+      result.unshift(this.getSelectAllColumn());
     }
 
     return result;
@@ -262,7 +257,6 @@ export default class DataTable extends Component<Props, State> {
     <SortableColumnHeader
       {...renderProps}
       onClick={(name, nextDirection) => {
-        // TODO: Focus is lost on activation (because re-render?)
         helpers &&
           helpers.sort &&
           helpers.sort({ column: name, direction: nextDirection });
@@ -271,20 +265,22 @@ export default class DataTable extends Component<Props, State> {
     />
   );
 
-  getSelectAllColumn = (messages: Messages, rows: Rows, selectedRows: Rows) => {
-    const nonDisabledRows = rows.filter((row) => !row.disabled);
-    const allRowsSelected = selectedRows.length === nonDisabledRows.length;
+  getSelectAllColumn = () => {
+    const { messages } = this.props;
+    const selectedRows = this.getControllableValue('selectedRows');
+
+    const allRowsSelected = selectedRows.length === this.nonDisabledRows.length;
     const someRowsSelected = selectedRows.length > 0 && !allRowsSelected;
 
     let newSelectedRows;
     if (allRowsSelected || someRowsSelected) {
       newSelectedRows = [];
     } else {
-      newSelectedRows = nonDisabledRows;
+      newSelectedRows = this.nonDisabledRows;
     }
 
     const checkboxProps = {
-      defaultChecked: allRowsSelected,
+      checked: allRowsSelected,
       hideLabel: true,
       indeterminate: someRowsSelected,
       label: someRowsSelected
@@ -303,25 +299,21 @@ export default class DataTable extends Component<Props, State> {
     };
   };
 
-  getRows = ({
-    columns,
-    enableRowSelection,
-    messages,
-    rows,
-    selectedRows,
-    sort
-  }: GetColumnsOrRowsArg) => {
+  getRows = () => {
+    const { enableRowSelection, rows } = this.props;
+
     const result = enableRowSelection
-      ? rows.map((row) => this.addCheckboxToRow(messages, row, selectedRows))
+      ? rows.map((row) => this.addCheckboxToRow(row))
       : rows;
 
     // TODO: Do custom rows also need state & helpers? Probably...
-    return sort && sort.direction
-      ? this.sortRows(columns, result, sort)
-      : result;
+    return this.sortRows(result);
   };
 
-  addCheckboxToRow = (messages: Messages, row: Object, selectedRows: Rows) => {
+  addCheckboxToRow = (row: Row) => {
+    const { messages } = this.props;
+    const selectedRows = this.getControllableValue('selectedRows');
+
     const selected = selectedRows.indexOf(row) !== -1;
     const newSelectedRows = selectedRows.slice(0);
 
@@ -332,7 +324,7 @@ export default class DataTable extends Component<Props, State> {
     }
 
     const checkboxProps = {
-      defaultChecked: selected && !row.disabled,
+      checked: selected && !row.disabled,
       disabled: row.disabled,
       hideLabel: true,
       label: selected ? messages.deselectRow : messages.selectRow,
@@ -378,16 +370,25 @@ export default class DataTable extends Component<Props, State> {
     this.props.onSort && this.props.onSort(sort);
   };
 
-  sortRows = (columns: Columns, rows: Rows, sort: Sort) => {
-    const currentIndex = columns.findIndex(({ name }) => name === sort.column);
-    const currentColumn = columns[currentIndex];
-    const sortFn = (currentColumn && currentColumn.sortFn) || defaultSortFn;
+  // TODO: Could rows here be an instance variable like columns?
+  sortRows = (rows: Rows) => {
+    const sort = this.getControllableValue('sort');
 
-    const rowsCopy = rows.slice(0);
-    return rowsCopy.sort((a, b) => {
-      const result = sortFn(a, b, sort.column);
-      return sort.direction === 'descending' ? -1 * result : result;
-    });
+    if (sort && sort.direction) {
+      const currentIndex = this.columns.findIndex(
+        ({ name }) => name === sort.column
+      );
+      const currentColumn = this.columns[currentIndex];
+      const sortFn = (currentColumn && currentColumn.sortFn) || defaultSortFn;
+
+      const rowsCopy = rows.slice(0);
+      return rowsCopy.sort((a, b) => {
+        const result = sortFn(a, b, sort.column);
+        return sort.direction === 'descending' ? -1 * result : result;
+      });
+    }
+
+    return rows;
   };
 
   isControlled = (prop: string) => {

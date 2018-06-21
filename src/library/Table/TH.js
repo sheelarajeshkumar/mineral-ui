@@ -24,8 +24,8 @@ type Props = {
   width?: number | string
 };
 
-export const componentTheme = (baseTheme: Object) => ({
-  ...mapComponentThemes(
+export const componentTheme = (baseTheme: Object) =>
+  mapComponentThemes(
     {
       name: 'TD',
       theme: tDComponentTheme(baseTheme)
@@ -34,6 +34,7 @@ export const componentTheme = (baseTheme: Object) => ({
       name: 'TH',
       theme: {
         TH_borderVertical: `1px dotted ${baseTheme.borderColor}`,
+        // TODO: New token? borderColor_highContrast (elsewhere?)
         TH_borderVertical_highContrast: `1px dotted ${baseTheme.color_gray_80}`,
         TH_fontWeight: baseTheme.fontWeight_bold,
         TH_paddingHorizontal: baseTheme.space_inline_md,
@@ -43,11 +44,10 @@ export const componentTheme = (baseTheme: Object) => ({
       }
     },
     baseTheme
-  )
-});
+  );
 
-export const ThemedTD = createThemedComponent(TD, ({ theme: baseTheme }) => ({
-  ...mapComponentThemes(
+export const ThemedTD = createThemedComponent(TD, ({ theme: baseTheme }) =>
+  mapComponentThemes(
     {
       name: 'TH',
       theme: componentTheme(baseTheme)
@@ -58,47 +58,36 @@ export const ThemedTD = createThemedComponent(TD, ({ theme: baseTheme }) => ({
     },
     baseTheme
   )
-}));
+);
+
+const REGEX_IS_EM_VALUE = /\d+em$/;
+const getWidth = (value, fontSize) =>
+  REGEX_IS_EM_VALUE.test(value) ? getNormalizedValue(value, fontSize) : value;
 
 const styles = ({
   highContrast,
   maxWidth,
   minWidth,
-  spacious,
   theme: baseTheme,
   width
 }) => {
   const theme = componentTheme(baseTheme);
   const fontSize = theme.TH_fontSize;
-  const paddingHorizontal = getNormalizedValue(
-    theme.TH_paddingHorizontal,
-    fontSize
-  );
-  const paddingVertical = getNormalizedValue(
-    spacious ? theme.TH_paddingVertical_spacious : theme.TH_paddingVertical,
-    fontSize
-  );
   const rtl = theme.direction === 'rtl';
+  const borderVertical = highContrast
+    ? theme.TH_borderVertical_highContrast
+    : theme.TH_borderVertical;
 
   return {
     fontWeight: theme.TH_fontWeight,
-    maxWidth,
-    minWidth,
-    padding: `${paddingVertical} ${paddingHorizontal}`,
+    maxWidth: getWidth(maxWidth, fontSize),
+    minWidth: getWidth(minWidth, fontSize),
+    width: getWidth(width, fontSize),
 
     '&:not(:first-child)': {
-      borderLeft: rtl
-        ? null
-        : highContrast
-          ? theme.TH_borderVertical_highContrast
-          : theme.TH_borderVertical,
-      borderRight: !rtl
-        ? null
-        : highContrast
-          ? theme.TH_borderVertical_highContrast
-          : theme.TH_borderVertical
-    },
-    width
+      borderLeft: rtl ? null : borderVertical,
+      borderRight: !rtl ? null : borderVertical
+    }
   };
 };
 
@@ -108,7 +97,7 @@ const styles = ({
 function createRootNode(props: Props) {
   const { element = TH.defaultProps.element } = props;
 
-  return createStyledComponent(TD, styles, {
+  return createStyledComponent(ThemedTD, styles, {
     displayName: 'TH',
     filterProps: ['width'],
     forwardProps: ['element', 'textAlign'],

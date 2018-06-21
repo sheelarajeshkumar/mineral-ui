@@ -36,7 +36,7 @@ type RenderArg = {
   spacious?: boolean,
   striped?: boolean
 };
-type Row = Object;
+export type Row = Object;
 export type Rows = Array<Row>;
 
 type State = {
@@ -89,6 +89,38 @@ const StyledTable = createStyledComponent(
 );
 const OverflowContainer = createStyledComponent('div', { overflowX: 'auto' });
 
+const Root = ({
+  children,
+  highContrast,
+  spacious,
+  striped,
+  title,
+  titleAppearance,
+  titleElement,
+  titleId,
+  ...restProps
+}: Props & { titleId: string }) => {
+  const rootProps = {
+    highContrast,
+    ...restProps
+  };
+  return (
+    <StyledTable {...rootProps}>
+      {title && (
+        <TableTitle
+          appearance={titleAppearance}
+          element={titleElement}
+          id={titleId}>
+          {title}
+        </TableTitle>
+      )}
+      <TableContext.Provider value={{ highContrast, spacious, striped }}>
+        {children}
+      </TableContext.Provider>
+    </StyledTable>
+  );
+};
+
 /**
  * Table TODO
  */
@@ -122,46 +154,26 @@ export default class Table extends Component<Props, State> {
       children,
       columns,
       disableScrollOnOverflow,
-      highContrast,
       rowKey,
       rows,
-      spacious,
       title,
-      titleAppearance,
-      titleElement,
-      striped,
       ...restProps
     } = this.props;
 
     const rootProps = {
       'aria-labelledby': title ? this.titleId : undefined,
-      highContrast,
+      title,
+      titleId: this.titleId,
       ...restProps
     };
 
-    const Root = ({ children }) => (
-      <StyledTable {...rootProps}>
-        {title && (
-          <TableTitle
-            appearance={titleAppearance}
-            element={titleElement}
-            id={this.titleId}>
-            {title}
-          </TableTitle>
-        )}
-        <TableContext.Provider value={{ highContrast, spacious, striped }}>
-          {children}
-        </TableContext.Provider>
-      </StyledTable>
-    );
-
     let table;
     if (children) {
-      table = <Root>{children}</Root>;
+      table = <Root {...rootProps}>{children}</Root>;
     } else if (rows) {
       const columnsDef = columns || generateColumns(rows);
       table = (
-        <Root>
+        <Root {...rootProps}>
           <THead>
             <TR>
               {columnsDef &&
