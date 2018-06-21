@@ -1,5 +1,5 @@
 /* @flow */
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { createStyledComponent } from '../styles';
 import { TableContext } from './Table';
 
@@ -37,14 +37,16 @@ const Root = createStyledComponent(
 /**
  * THead
  */
-export default function THead(props: Props) {
-  const { children, ...restProps } = props;
-  return (
-    <TableContext.Consumer>
-      {({ highContrast }) => {
-        const rootProps = { highContrast, ...restProps };
-        return <Root {...rootProps}>{children}</Root>;
-      }}
-    </TableContext.Consumer>
-  );
+export default class THead extends PureComponent<Props> {
+  render() {
+    const { children, ...restProps } = this.props;
+    return (
+      <TableContext.Consumer>
+        {({ highContrast }) => {
+          const rootProps = { highContrast, ...restProps };
+          return <Root {...rootProps}>{children}</Root>;
+        }}
+      </TableContext.Consumer>
+    );
+  }
 }

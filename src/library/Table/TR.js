@@ -1,5 +1,5 @@
 /* @flow */
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { createStyledComponent } from '../styles';
 import { TableContext } from './Table';
 
@@ -96,14 +96,16 @@ const Root = createStyledComponent(
 /**
  * TR
  */
-export default function TR(props: Props) {
-  const { children, ...restProps } = props;
-  return (
-    <TableContext.Consumer>
-      {({ highContrast, striped }) => {
-        const rootProps = { highContrast, striped, ...restProps };
-        return <Root {...rootProps}>{children}</Root>;
-      }}
-    </TableContext.Consumer>
-  );
+export default class TR extends PureComponent<Props> {
+  render() {
+    const { children, ...restProps } = this.props;
+    return (
+      <TableContext.Consumer>
+        {({ highContrast, striped }) => {
+          const rootProps = { highContrast, striped, ...restProps };
+          return <Root {...rootProps}>{children}</Root>;
+        }}
+      </TableContext.Consumer>
+    );
+  }
 }

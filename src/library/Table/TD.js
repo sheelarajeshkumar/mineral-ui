@@ -1,5 +1,5 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import { rtlTextAlign } from '../utils';
 import { TableContext } from './Table';
@@ -63,7 +63,7 @@ function createRootNode(props: Props) {
 /**
  * TD
  */
-export default class TD extends Component<Props> {
+export default class TD extends PureComponent<Props> {
   static defaultProps = {
     element: 'td'
   };

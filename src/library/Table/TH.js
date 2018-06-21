@@ -1,5 +1,5 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import { createThemedComponent, mapComponentThemes } from '../themes';
 import TD, { componentTheme as tDComponentTheme } from './TD';
@@ -109,7 +109,7 @@ function createRootNode(props: Props) {
 /**
  * TH
  */
-export default class TH extends Component<Props> {
+export default class TH extends PureComponent<Props> {
   static defaultProps = {
     element: 'th',
     textAlign: 'start'
