@@ -100,7 +100,7 @@ function createRootNode(props: Props) {
   return createStyledComponent(ThemedTD, styles, {
     displayName: 'TH',
     filterProps: ['width'],
-    forwardProps: ['element', 'textAlign'],
+    forwardProps: ['element', 'noPadding', 'textAlign'],
     rootEl: element,
     withProps: { element }
   });

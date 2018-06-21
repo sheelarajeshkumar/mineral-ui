@@ -1,8 +1,10 @@
 /* @flow */
 import React, { Component } from 'react';
-import Checkbox from '../Checkbox';
+import PaddedCheckbox from './PaddedCheckbox';
 import SortableColumnHeader from './SortableColumnHeader';
 import Table, { generateColumns, type Row, type Rows } from './Table';
+import TD from './TD';
+import TH from './TH';
 
 import type { TitleAppearance } from './TableTitle';
 
@@ -69,7 +71,7 @@ type Column = {
   'aria-label'?: string,
   'aria-sort'?: string,
   cell?: RenderFn,
-  content: React$Node,
+  content: any,
   enableSort?: boolean,
   header?: RenderFn,
   label?: string,
@@ -85,8 +87,8 @@ type Column = {
 export type Columns = Array<Column>;
 type Direction = 'ascending' | 'descending';
 type Helpers = {
-  selectRows?: (selectedRows: Rows) => void,
-  sort?: (sort: Sort) => void
+  selectRows: (selectedRows: Rows) => void,
+  sort: (sort: Sort) => void
 };
 export type Messages = {
   deselectAllRows: string,
@@ -207,35 +209,37 @@ export default class DataTable extends Component<Props, State> {
   }
 
   getColumns = () => {
-    const { enableRowSelection, messages } = this.props;
-    const selectedRows = this.getControllableValue('selectedRows');
-    const sort = this.getControllableValue('sort');
+    const { enableRowSelection } = this.props;
 
     const result = this.columns.map(
-      ({ content, header, enableSort, name, ...column }) => ({
-        content,
+      ({ cell, content, header, enableSort, name, ...column }) => ({
         // TODO: Do custom cells also need state & helpers? Probably...
+        cell: cell
+          ? this.getRenderer({
+              custom: cell
+            })
+          : undefined,
+        content,
         header:
           header || enableSort
-            ? ({ props }: RenderProps) => {
-                const arg = {
-                  props: { messages, ...props },
-                  helpers: {
-                    selectRows: enableRowSelection
-                      ? this.selectRows
-                      : undefined,
-                    sort: enableSort ? this.sort : undefined
-                  },
-                  state: {
-                    selectedRows,
-                    sort
-                  }
-                };
-                return (
-                  (header && header(arg)) ||
-                  (enableSort && this.getSortableColumnHeader(arg))
-                );
-              }
+            ? this.getRenderer({
+                custom: header,
+                fallback: enableSort
+                  ? ({ props, helpers, state }: RenderProps) => (
+                      <SortableColumnHeader
+                        {...props}
+                        onClick={(name, nextDirection) => {
+                          helpers &&
+                            helpers.sort({
+                              column: name,
+                              direction: nextDirection
+                            });
+                        }}
+                        sort={state && state.sort}
+                      />
+                    )
+                  : undefined
+              })
             : undefined,
         name,
         ...column
@@ -249,21 +253,32 @@ export default class DataTable extends Component<Props, State> {
     return result;
   };
 
-  getSortableColumnHeader = ({
-    props: renderProps,
-    helpers,
-    state
-  }: RenderProps) => (
-    <SortableColumnHeader
-      {...renderProps}
-      onClick={(name, nextDirection) => {
-        helpers &&
-          helpers.sort &&
-          helpers.sort({ column: name, direction: nextDirection });
-      }}
-      sort={state && state.sort}
-    />
-  );
+  getRenderer = ({
+    custom,
+    fallback
+  }: {
+    custom?: RenderFn,
+    fallback?: RenderFn
+  }) => {
+    const { messages } = this.props;
+    const selectedRows = this.getControllableValue('selectedRows');
+    const sort = this.getControllableValue('sort');
+
+    return ({ props }: RenderProps) => {
+      const arg = {
+        props: { messages, ...props },
+        helpers: {
+          selectRows: this.selectRows,
+          sort: this.sort
+        },
+        state: {
+          selectedRows,
+          sort
+        }
+      };
+      return (custom && custom(arg)) || (fallback && fallback(arg));
+    };
+  };
 
   getSelectAllColumn = () => {
     const { messages } = this.props;
@@ -276,24 +291,36 @@ export default class DataTable extends Component<Props, State> {
     if (allRowsSelected || someRowsSelected) {
       newSelectedRows = [];
     } else {
-      newSelectedRows = this.nonDisabledRows;
+      newSelectedRows = this.nonDisabledRows.slice(0);
     }
 
     const checkboxProps = {
       checked: allRowsSelected,
-      hideLabel: true,
       indeterminate: someRowsSelected,
       label: someRowsSelected
         ? messages.deselectAllRows
         : messages.selectAllRows,
       onChange: () => {
         this.selectRows(newSelectedRows);
-      }
+      },
+      wrappingElement: 'th'
     };
 
     return {
       label: messages.selectRowsColumnLabel,
-      content: <Checkbox {...checkboxProps} />,
+      cell: ({ props }: Object) => (
+        <TD noPadding={true} {...props}>
+          {props.children(props)}
+        </TD>
+      ),
+      content: ({ spacious }: Object) => (
+        <PaddedCheckbox spacious={spacious} {...checkboxProps} />
+      ),
+      header: ({ props }: Object) => (
+        <TH noPadding={true} width={1} {...props}>
+          {props.children(props)}
+        </TH>
+      ),
       name: 'checkbox',
       width: 1 // Collapse to minimum width
     };
@@ -319,7 +346,6 @@ export default class DataTable extends Component<Props, State> {
     const checkboxProps = {
       checked: selected && !row.disabled,
       disabled: row.disabled,
-      hideLabel: true,
       label: selected ? messages.deselectRow : messages.selectRow,
       onChange: () => {
         this.selectRows([row], selected);
@@ -328,7 +354,9 @@ export default class DataTable extends Component<Props, State> {
 
     const newRow = {
       ...row,
-      checkbox: <Checkbox {...checkboxProps} />,
+      checkbox: ({ spacious }: Object) => (
+        <PaddedCheckbox spacious={spacious} {...checkboxProps} />
+      ),
       isSelected: selected && !row.disabled
     };
 

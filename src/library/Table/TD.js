@@ -9,6 +9,8 @@ type Props = {
   children?: React$Node,
   /** @Private Rendered element */
   element?: string,
+  /** Remove padding */
+  noPadding?: boolean,
   /** See DataTable */
   spacious?: boolean,
   /** See DataTable's Column type */
@@ -25,7 +27,7 @@ export const componentTheme = (baseTheme: Object) => ({
   ...baseTheme
 });
 
-const styles = ({ spacious, textAlign, theme: baseTheme }) => {
+const styles = ({ noPadding, spacious, textAlign, theme: baseTheme }) => {
   const theme = componentTheme(baseTheme);
   const fontSize = theme.TD_fontSize;
   const paddingHorizontal = getNormalizedValue(
@@ -40,7 +42,7 @@ const styles = ({ spacious, textAlign, theme: baseTheme }) => {
   return {
     fontSize,
     fontWeight: 'inherit',
-    padding: `${paddingVertical} ${paddingHorizontal}`,
+    padding: noPadding ? 0 : `${paddingVertical} ${paddingHorizontal}`,
     textAlign: rtlTextAlign(textAlign, theme.direction) || 'inherit',
     verticalAlign: theme.TD_verticalAlign
   };

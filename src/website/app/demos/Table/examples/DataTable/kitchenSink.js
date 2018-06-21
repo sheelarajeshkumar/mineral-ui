@@ -151,8 +151,11 @@ export default {
       defaultSelectedRows={[rows[0]]}
       defaultSort={{ column: 'aa', direction: 'ascending' }}
       enableRowSelection={true}
+      highContrast={true}
       rows={rows}
       rowKey="aa"
+      spacious={true}
+      striped={true}
       title="Title"
       titleAppearance="h5"
       titleElement="h2" />`

@@ -23,7 +23,6 @@ type Props = {
 };
 
 const componentTheme = (baseTheme: Object) => ({
-  TH_boxShadow_focus: `inset 0 0 0 1px ${baseTheme.borderColor_theme_focus}`,
   TH_border_focus: `1px solid ${baseTheme.borderColor_theme_focus}`,
   ...baseTheme
 });
@@ -39,7 +38,6 @@ const styles = {
 
     return {
       cursor: 'pointer',
-      padding: 0,
 
       '&:hover': {
         color: theme.icon_color_theme
@@ -100,7 +98,9 @@ const styles = {
   }
 };
 
-const Root = createStyledComponent(TH, styles.root);
+const Root = createStyledComponent(TH, styles.root, {
+  withProps: { noPadding: true }
+});
 const Button = createStyledComponent(TH, styles.button, {
   withProps: { element: 'button' }
 });

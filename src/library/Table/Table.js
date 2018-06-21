@@ -302,7 +302,14 @@ export default class Table extends Component<Props, State> {
     rows: Rows
   } & RenderArg) =>
     rows.map((row, index) => {
-      const children = this.renderCells({ columns, row, ...restProps });
+      const children = this.renderCells({
+        columns,
+        highContrast,
+        spacious,
+        striped,
+        row,
+        ...restProps
+      });
 
       const key = row[rowKey] || index;
 
