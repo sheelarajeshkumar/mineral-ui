@@ -1,6 +1,7 @@
 /* @flow */
 export { default } from './Table';
-export { default as DataTable } from './DataTable';
+// TODO: Temporary
+export { default as DataTable } from './StatefulDataTable';
 export { default as TBody } from './TBody';
 export { default as TD } from './TD';
 export { default as TFoot } from './TFoot';

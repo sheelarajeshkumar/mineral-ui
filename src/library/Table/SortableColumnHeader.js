@@ -5,7 +5,7 @@ import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
 import TH from './TH';
 
-import type { Messages, Sort } from './DataTable';
+import type { Messages, Sort } from './StatefulDataTable';
 
 type Props = {
   /** Rendered content */

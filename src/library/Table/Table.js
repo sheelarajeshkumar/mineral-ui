@@ -12,7 +12,7 @@ import TH from './TH';
 import THead from './THead';
 import TR from './TR';
 
-import type { Columns } from './DataTable';
+import type { Columns } from './StatefulDataTable';
 import type { TitleAppearance } from './TableTitle';
 
 // See DataTable for prop descriptions
