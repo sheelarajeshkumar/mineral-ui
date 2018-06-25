@@ -5,7 +5,7 @@ import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
 import TH from './TH';
 
-import type { Messages, Sort } from './StatefulDataTable';
+import type { Direction, Messages, Sort } from './StatefulDataTable';
 
 type Props = {
   /** Rendered content */
@@ -15,7 +15,7 @@ type Props = {
   /** Name of column */
   name: string,
   /** Called when button is clicked */
-  onClick: (name: string, nextDirection: string) => void,
+  onClick: (sort: { column: string, direction: Direction }) => void,
   /** Various messages and labels used by DataTable */
   messages: Messages,
   /** Sorted column & direction. For use with controlled components. */
@@ -151,7 +151,7 @@ export default function SortableColumnHeader({
     ...restProps,
     'aria-label': messages.sortButtonLabel(messages.sortOrder[nextDirection]),
     onClick: () => {
-      onClick(name, nextDirection);
+      onClick({ column: name, direction: nextDirection });
     }
   };
   const iconHolderProps = {

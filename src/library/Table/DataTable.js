@@ -14,17 +14,17 @@ import type {
   Sort
 } from './StatefulDataTable';
 
-// See DataTable for prop descriptions
+// See StatefulDataTable for prop descriptions
 type Props = {
   columns: Columns,
   enableRowSelection?: boolean,
   messages: Messages,
   nonDisabledRows: Rows,
-  selectAllRows: (rows: Rows) => void,
-  selectRow: (row: Row) => void,
-  onSort?: (sort: Sort) => void,
   rows: Rows,
   selectedRows: Rows,
+  selectAllRows: (rows: Rows) => void,
+  selectRow: (row: Row) => void,
+  sortRows: (sort: Sort) => void,
   sort?: Sort
 };
 
@@ -76,12 +76,8 @@ export default class DataTable extends Component<Props> {
                   ? ({ props, helpers, state }: RenderProps) => (
                       <SortableColumnHeader
                         {...props}
-                        onClick={(name, nextDirection) => {
-                          helpers &&
-                            helpers.sort({
-                              column: name,
-                              direction: nextDirection
-                            });
+                        onClick={(sort) => {
+                          helpers && helpers.sortRows(sort);
                         }}
                         sort={state && state.sort}
                       />
@@ -113,7 +109,8 @@ export default class DataTable extends Component<Props> {
       selectAllRows,
       selectRow,
       selectedRows,
-      sort
+      sort,
+      sortRows
     } = this.props;
 
     return ({ props }: RenderProps) => {
@@ -122,7 +119,7 @@ export default class DataTable extends Component<Props> {
         helpers: {
           selectAllRows,
           selectRow,
-          sort: this.sort
+          sortRows
         },
         state: {
           selectedRows,
@@ -217,14 +214,6 @@ export default class DataTable extends Component<Props> {
     };
 
     return newRow;
-  };
-
-  sort = (sort: Sort) => {
-    this.sortActions(sort);
-  };
-
-  sortActions = (sort: Sort) => {
-    this.props.onSort && this.props.onSort(sort);
   };
 
   // TODO: Could rows here be an instance variable like columns?

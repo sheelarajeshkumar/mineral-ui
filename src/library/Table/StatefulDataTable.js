@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { generateColumns, type Row, type Rows } from './Table';
 import DataTable from './DataTable';
-import SelectAllState from './SelectAllState';
 
 import type { TitleAppearance } from './TableTitle';
 
@@ -38,7 +37,7 @@ type Props = {
   /** Called when selectedRows changes (TODO) */
   onSelectRow?: (row: Row) => void,
   /** Called when data is sorted */
-  onSort?: (sort: Sort) => void,
+  onSortRows?: (sort: Sort) => void,
   /**
    * Specifies a key in the row data that gives a row its unique identity.
    * See the [React docs](https://reactjs.org/docs/lists-and-keys.html#keys).
@@ -64,6 +63,12 @@ type Props = {
   /** Available title elements; see [Text](/components/text) */
   titleElement?: TitleAppearance
 };
+
+type State = {
+  selectedRows: Rows,
+  sort?: Sort
+};
+
 // TODO: Table doesn't need many of these, until it's rendered by DataTable;
 //       improvement possible?
 // See columnDef example for descriptions
@@ -85,12 +90,7 @@ type Column = {
   width?: number | string
 };
 export type Columns = Array<Column>;
-type Direction = 'ascending' | 'descending';
-type Helpers = {
-  selectAllRows: (rows: Rows) => void,
-  selectRow: (row: Row) => void,
-  sort: (sort: Sort) => void
-};
+export type Direction = 'ascending' | 'descending';
 export type Messages = {
   deselectAllRows: string,
   deselectRow: string,
@@ -100,29 +100,28 @@ export type Messages = {
   sortButtonLabel: (direction: string) => string,
   sortOrder: {
     ascending: string,
-    descending: string,
-    none: string
+    descending: string
   }
 };
+export type Sort = {
+  column: string,
+  direction: Direction
+};
+
 export type RenderFn = (props: RenderProps) => React$Node;
 // TODO: Table doesn't need StateAndHelpers, until it's rendered by DataTable;
 //       improvement possible?
 export type RenderProps = {
   props: Object
 } & StateAndHelpers;
-export type Sort = {
-  column: string,
-  direction: Direction
-};
-
-type State = {
-  selectedRows: Rows,
-  sort?: Sort
-};
-
 type StateAndHelpers = {
   state?: State,
   helpers?: Helpers
+};
+type Helpers = {
+  selectAllRows: (rows: Rows) => void,
+  selectRow: (row: Row) => void,
+  sortRows: (sort: Sort) => void
 };
 
 const getColumnDefs = ({ columns, rows }: Props) =>
@@ -153,14 +152,7 @@ export default class StatefulDataTable extends Component<Props, State> {
 
   state = {
     selectedRows: getNonDisabledRows(this.props.defaultSelectedRows || []),
-    ...(this.props.defaultSort
-      ? {
-          sort: {
-            column: this.props.defaultSort.column,
-            direction: this.props.defaultSort.direction
-          }
-        }
-      : undefined)
+    sort: this.props.defaultSort
   };
 
   columns: Columns = getColumnDefs(this.props);
@@ -183,39 +175,25 @@ export default class StatefulDataTable extends Component<Props, State> {
   }
 
   render() {
-    const { defaultSelectedRows, ...restProps } = this.props;
     const rootProps = {
-      ...restProps,
-      defaultIds: defaultSelectedRows,
-      render: this.renderDataTable
-    };
-    return <SelectAllState {...rootProps} />;
-  }
-
-  renderDataTable = ({ props, state, helpers }) => {
-    const rootProps = {
-      ...props,
+      ...this.props,
       columns: this.columns,
       nonDisabledRows: this.nonDisabledRows,
-      selectedRows: state.ids, // TODO: Controlled?
-      selectAllRows: (rows) => {
-        this.selectAllRows(helpers.addAll, rows);
-      },
-      selectRow: (row) => {
-        this.selectRow(helpers.toggle, row);
-      },
+      selectedRows: this.getControllableValue('selectedRows'),
+      selectAllRows: this.selectAllRows,
+      selectRow: this.selectRow,
       sort: this.getControllableValue('sort'),
-      onSort: this.onSort
+      sortRows: this.sortRows
     };
 
     return <DataTable {...rootProps} />;
-  };
+  }
 
-  selectAllRows = (addAll, rows: Rows) => {
+  selectAllRows = (rows: Rows) => {
     if (this.isControlled('selectedRows')) {
       this.selectAllRowsActions(rows);
     } else {
-      addAll(rows);
+      this.toggleAll(rows);
       this.selectAllRowsActions(rows);
     }
   };
@@ -224,11 +202,11 @@ export default class StatefulDataTable extends Component<Props, State> {
     this.props.onSelectAllRows && this.props.onSelectAllRows(rows);
   };
 
-  selectRow = (toggle, row: Row) => {
+  selectRow = (row: Row) => {
     if (this.isControlled('selectedRows')) {
       this.selectRowActions(row);
     } else {
-      toggle(row);
+      this.toggle(row);
       this.selectRowActions(row);
     }
   };
@@ -237,8 +215,17 @@ export default class StatefulDataTable extends Component<Props, State> {
     this.props.onSelectRow && this.props.onSelectRow(row);
   };
 
-  onSort = () => {
-    console.log('needs wired');
+  sortRows = (sort: Sort) => {
+    if (this.isControlled('sort')) {
+      this.sortRowsActions(sort);
+    } else {
+      this.sort(sort);
+      this.sortRowsActions(sort);
+    }
+  };
+
+  sortRowsActions = (row: Row) => {
+    this.props.onSortRows && this.props.onSortRows(row);
   };
 
   isControlled = (prop: string) => {
@@ -247,5 +234,25 @@ export default class StatefulDataTable extends Component<Props, State> {
 
   getControllableValue = (key: string) => {
     return this.isControlled(key) ? this.props[key] : this.state[key];
+  };
+
+  // From SelectAllState:
+
+  toggle = (row: Row) => {
+    this.setState(({ selectedRows }) => {
+      const index = selectedRows.indexOf(row);
+      const has = index !== -1;
+      has ? selectedRows.splice(index, 1) : selectedRows.push(row);
+      return { selectedRows };
+    });
+  };
+
+  toggleAll = (selectedRows: Rows) => {
+    const allSelected = selectedRows.length === this.state.selectedRows.length;
+    this.setState({ selectedRows: allSelected ? [] : selectedRows });
+  };
+
+  sort = (sort: Sort) => {
+    this.setState({ sort });
   };
 }
