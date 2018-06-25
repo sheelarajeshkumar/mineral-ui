@@ -70,7 +70,7 @@ const styles = {
   content: {
     whiteSpace: 'normal'
   },
-  iconHolder: ({ isActiveSort, theme }) => {
+  iconHolder: ({ isActiveSort, sortDirection, theme }) => {
     const iconAdjustment = pxToEm(2);
     const space = `${parseFloat(theme.space_inline_xxs) +
       parseFloat(iconAdjustment)}em`;
@@ -83,7 +83,7 @@ const styles = {
       marginRight: theme.direction === 'rtl' ? space : null,
       opacity: isActiveSort ? null : 0,
       position: 'relative',
-      top: 3,
+      top: sortDirection === 'ascending' ? 2 : 1,
       width: '0.875em',
 
       '& > [role="img"]': {
@@ -155,6 +155,7 @@ export default function SortableColumnHeader({
     }
   };
   const iconHolderProps = {
+    sortDirection,
     isActiveSort
   };
 
