@@ -32,9 +32,9 @@ type Props = {
   highContrast?: boolean,
   /** Various messages and labels used by DataTable */
   messages: Messages,
-  /** Called when selectedRows changes (TODO) */
+  /** Called when all rows are selected/deselected */
   onSelectAllRows?: (rows: Rows) => void,
-  /** Called when selectedRows changes (TODO) */
+  /** Called when a single row is selected/deselected */
   onSelectRow?: (row: Row) => void,
   /** Called when data is sorted */
   onSortRows?: (sort: Sort) => void,

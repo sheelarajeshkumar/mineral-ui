@@ -45,6 +45,7 @@ const defaultSortFn = (a: Object, b: Object, column: string) => {
   return 0;
 };
 
+// TODO: Convert to SFC now that there's no state?
 export default class DataTable extends Component<Props> {
   render() {
     const rootProps = {
@@ -183,11 +184,13 @@ export default class DataTable extends Component<Props> {
   getRows = () => {
     const { enableRowSelection, rows } = this.props;
 
-    const result = enableRowSelection
-      ? rows.map((row) => this.addCheckboxToRow(row))
-      : rows;
+    const result = rows.map((row) => ({
+      ...row,
+      // TODO: Do custom rows also need state & helpers? Probably...
+      row: row.row ? this.getRenderer({ custom: row.row }) : undefined,
+      ...(enableRowSelection ? this.addCheckboxToRow(row) : undefined)
+    }));
 
-    // TODO: Do custom rows also need state & helpers? Probably...
     return this.sortRows(result);
   };
 
@@ -205,15 +208,12 @@ export default class DataTable extends Component<Props> {
       }
     };
 
-    const newRow = {
-      ...row,
+    return {
       checkbox: ({ spacious }: Object) => (
         <PaddedCheckbox spacious={spacious} {...checkboxProps} />
       ),
       isSelected: selected && !row.disabled
     };
-
-    return newRow;
   };
 
   // TODO: Could rows here be an instance variable like columns?
