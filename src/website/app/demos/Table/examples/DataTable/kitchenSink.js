@@ -120,7 +120,7 @@ const columns = [
   { content: 'AA', name: 'aa', enableSort: true, cell: CustomCell },
   { content: 'AB', name: 'ab', enableSort: true, header: CustomSortableHeader },
   { content: 'AC', name: 'ac', header: CustomHeader },
-  { content: 'AD', name: 'ad', enableSort: true, sortFn: sortByLength },
+  { content: 'AD', name: 'ad', sortFn: sortByLength },
   { content: 'AE', name: 'ae' }
 ];
 
@@ -151,11 +151,11 @@ export default {
       defaultSelectedRows={[rows[0]]}
       defaultSort={{ column: 'aa', direction: 'ascending' }}
       enableRowSelection={true}
-      highContrast={true}
+      // highContrast={true}
       rows={rows}
       rowKey="aa"
-      spacious={true}
-      striped={true}
+      // spacious={true}
+      // striped={true}
       title="Title"
       titleAppearance="h5"
       titleElement="h2" />`
