@@ -1,4 +1,4 @@
-/* @flow */
+// TODO: Re-flow
 import Box from '../../../../../../library/Box';
 import Table, {
   TBody,

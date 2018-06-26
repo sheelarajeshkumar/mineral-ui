@@ -2,8 +2,8 @@
 import { createStyledComponent } from '../../../../../../library/styles';
 import { withTheme } from '../../../../../../library/themes';
 import { DataTable } from '../../../../../../library/Table';
-import { componentTheme as tDTheme } from '../../../../../../library/Table/TD';
-import { componentTheme as tRTheme } from '../../../../../../library/Table/TR';
+import { componentTheme as cellTheme } from '../../../../../../library/Table/Cell';
+import { componentTheme as tableRowTheme } from '../../../../../../library/Table/TableRow';
 import renderPropDescription from '../../../shared/renderPropDescription';
 import sharedRows from '../shared/data';
 
@@ -30,8 +30,8 @@ Some things to keep in mind:
     createStyledComponent,
     DataTable,
     sharedRows,
-    tDTheme,
-    tRTheme,
+    cellTheme,
+    tableRowTheme,
     withTheme
   },
   source: `
@@ -44,15 +44,15 @@ Some things to keep in mind:
        *
        * If you wish to access a component specific theme, you'll need to import
        * it and compose it with the base theme as shown below.
-       *   import { componentTheme as tRTheme } from 'mineral-ui/Table/TD';
+       *   import { componentTheme as tableRowTheme } from 'mineral-ui/Table/TableRow';
        */
       const customRow = ({ props }) => {
         const { key, highContrast, spacious, striped } = props;
 
         const CustomRow = withTheme(({ theme: baseTheme }) => {
           const theme = {
-            ...tDTheme(baseTheme),
-            ...tRTheme(baseTheme)
+            ...cellTheme(baseTheme),
+            ...tableRowTheme(baseTheme)
           };
           const paddingVertical = spacious
             ? theme.TD_paddingVertical_spacious

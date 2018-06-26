@@ -1,4 +1,4 @@
-/* @flow */
+// TODO: Re-flow
 import Table, {
   TBody,
   TD,

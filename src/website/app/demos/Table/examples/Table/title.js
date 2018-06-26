@@ -1,4 +1,4 @@
-/* @flow */
+// TODO: Re-flow
 import Grid, { GridItem } from '../../../../../../library/Grid';
 import Table, {
   TBody,

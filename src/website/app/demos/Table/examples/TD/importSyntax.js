@@ -1,4 +1,4 @@
-/* @flow */
+// TODO: Re-flow
 export default {
   id: 'import-syntax',
   title: 'Import Syntax',

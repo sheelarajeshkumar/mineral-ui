@@ -1,4 +1,4 @@
-/* @flow */
+// TODO: Re-flow
 import importSyntax from './importSyntax';
 import tHead from './tHead';
 

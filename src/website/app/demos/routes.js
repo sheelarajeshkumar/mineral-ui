@@ -207,46 +207,46 @@ export default [
     title: 'Select'
   },
   [
-    {
-      description: 'Table TODO',
-      slug: 'table',
-      title: 'Table'
-    },
+    // {
+    //   description: 'Table TODO',
+    //   slug: 'table',
+    //   title: 'Table'
+    // },
     {
       description: 'DataTable TODO',
       slug: 'data-table',
       title: 'DataTable'
-    },
-    {
-      description: 'TBody TODO',
-      slug: 'tbody',
-      title: 'TBody'
-    },
-    {
-      description: 'TD TODO',
-      slug: 'td',
-      title: 'TD'
-    },
-    {
-      description: 'TFoot TODO',
-      slug: 'tfoot',
-      title: 'TFoot'
-    },
-    {
-      description: 'TH TODO',
-      slug: 'th',
-      title: 'TH'
-    },
-    {
-      description: 'THead TODO',
-      slug: 'thead',
-      title: 'THead'
-    },
-    {
-      description: 'TR TODO',
-      slug: 'tr',
-      title: 'TR'
     }
+    // {
+    //   description: 'TBody TODO',
+    //   slug: 'tbody',
+    //   title: 'TBody'
+    // },
+    // {
+    //   description: 'TD TODO',
+    //   slug: 'td',
+    //   title: 'TD'
+    // },
+    // {
+    //   description: 'TFoot TODO',
+    //   slug: 'tfoot',
+    //   title: 'TFoot'
+    // },
+    // {
+    //   description: 'TH TODO',
+    //   slug: 'th',
+    //   title: 'TH'
+    // },
+    // {
+    //   description: 'THead TODO',
+    //   slug: 'thead',
+    //   title: 'THead'
+    // },
+    // {
+    //   description: 'TR TODO',
+    //   slug: 'tr',
+    //   title: 'TR'
+    // }
   ],
   {
     description:

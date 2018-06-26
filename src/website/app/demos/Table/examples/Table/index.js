@@ -1,4 +1,4 @@
-/* @flow */
+// TODO: Re-flow
 import data from './data';
 import highContrast from './highContrast';
 import importSyntax from './importSyntax';

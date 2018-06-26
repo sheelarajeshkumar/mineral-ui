@@ -1,4 +1,4 @@
-/* @flow */
+// TODO: Re-flow
 import { ThemeProvider } from '../../../../../../library/themes';
 import Table, {
   TBody,

@@ -1,4 +1,4 @@
-/* @flow */
+// TODO: Re-flow
 export default [
   {
     Fruits: 'Pomello',
