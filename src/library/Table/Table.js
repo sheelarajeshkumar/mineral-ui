@@ -61,14 +61,14 @@ export const componentTheme = (baseTheme: Object) => ({
   Table_borderTop: `1px solid ${baseTheme.borderColor}`,
   Table_borderBottom_highContrast: `1px solid ${baseTheme.color_gray_60}`,
   Table_borderTop_highContrast: `1px solid ${baseTheme.color_gray_80}`,
+  Table_boxShadow_focus: `0 0 0 1px ${baseTheme.borderColor_theme_focus}`,
   ...tableTitleComponentTheme(baseTheme),
 
   ...baseTheme
 });
 
-const StyledTable = createStyledComponent(
-  'table',
-  ({ highContrast, theme: baseTheme }) => {
+const styles = {
+  table: ({ highContrast, theme: baseTheme }) => {
     const theme = componentTheme(baseTheme);
 
     return {
@@ -81,13 +81,29 @@ const StyledTable = createStyledComponent(
       width: '100%'
     };
   },
-  {
-    displayName: 'Table',
-    rootEl: 'table',
-    includeStyleReset: true
+  overflowContainer: ({ theme: baseTheme }) => {
+    const theme = componentTheme(baseTheme);
+
+    return {
+      overflowX: 'auto',
+
+      '&:focus': {
+        outline: 0,
+        boxShadow: theme.Table_boxShadow_focus
+      }
+    };
   }
+};
+
+const StyledTable = createStyledComponent('table', styles.table, {
+  displayName: 'Table',
+  rootEl: 'table',
+  includeStyleReset: true
+});
+const OverflowContainer = createStyledComponent(
+  'div',
+  styles.overflowContainer
 );
-const OverflowContainer = createStyledComponent('div', { overflowX: 'auto' });
 
 const Root = ({
   children,
