@@ -33,7 +33,11 @@ export default class DataRow extends Component<Props> {
           <SelectCell checked={checked} onChange={this.toggleItem} />
         ) : null}
         {columns.map((column) => {
-          return <Cell key={column.name}>{data[column.name]}</Cell>;
+          return (
+            <Cell key={column.name}>
+              {column.cell ? column.cell({ props: {} }) : data[column.name]}
+            </Cell>
+          );
         })}
       </Fragment>
     );

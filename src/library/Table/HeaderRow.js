@@ -25,7 +25,6 @@ export default class HeaderRow extends Component<Props> {
       <TableRow>
         {selectable ? (
           <SelectCell
-            all
             checked={checked}
             indeterminate={indeterminate}
             onChange={toggle}
@@ -38,7 +37,7 @@ export default class HeaderRow extends Component<Props> {
           };
           return (
             <HeaderCell key={column.name} {...cellProps}>
-              {column.content}
+              {column.header ? column.header({ props: {} }) : column.content}
             </HeaderCell>
           );
         })}
