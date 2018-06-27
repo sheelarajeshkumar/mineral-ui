@@ -34,7 +34,7 @@ export default class HeaderRow extends Component<Props> {
         {columns.map((column) => {
           const cellProps = {
             name: column.name,
-            sort
+            sort: column.enableSort ? sort : undefined
           };
           return (
             <HeaderCell key={column.name} {...cellProps}>

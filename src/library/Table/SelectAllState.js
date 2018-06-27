@@ -16,6 +16,7 @@ export default class SelectAllState<T> extends Component<Props<T>, State<T>> {
   constructor(props: Props<T>) {
     super(props);
     this.state = {
+      // TODO: Handle defaultSelected
       selected: new Set(),
       some: false,
       all: false

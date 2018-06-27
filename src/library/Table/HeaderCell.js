@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 
 type Props = {
-  sort: (name: string) => void,
+  sort?: (name: string) => void,
   name: string
 };
 
