@@ -4,9 +4,12 @@ import SelectAllState from './SelectAllState';
 import Table from './Table';
 
 type Props = {
+  columns?: Columns,
+  rowKey?: string,
+  rows: Rows,
   selectable?: boolean,
-  sort: (name: string) => void,
-  rows: Rows
+  /** TODO: Controlled */
+  sort?: (name: string) => void
 };
 
 type State = {
@@ -17,38 +20,37 @@ type State = {
   }
 };
 
+export type Columns = Array<Column>;
+type Column = Object;
 export type Row = Object;
 export type Rows = Array<Row>;
+
+const generateColumns = (rows: Rows) =>
+  Object.keys(rows[0]).reduce((acc, cell) => {
+    acc.push({ content: cell, name: cell });
+    return acc;
+  }, []);
 
 // TODO: props flow type
 const rowRenderer = ({ props }: { props: Object }) => {
   return <tr style={{ backgroundColor: 'palevioletred ' }} {...props} />;
 };
 
-const range = (top) => {
-  let data = [],
-    i = 0;
-  while (top > i++) {
-    data.push({
-      a: i,
-      b: i % 2,
-      c: top - i,
-      d: i % 3 === 0 ? i * i : i,
-      row: i % 2 === 0 ? rowRenderer : undefined
-    });
-  }
-  return data;
-};
-
 export default class DataTable extends Component<Props, State> {
   state = {
-    rows: range(10)
+    rows: this.props.rows
   };
 
   render() {
     return (
       <div className="App" style={{ padding: '3em' }}>
-        <SelectableTable selectable sort={this.sort} rows={this.state.rows} />
+        <SelectableTable
+          columns={this.props.columns || generateColumns(this.state.rows)}
+          selectable
+          sort={this.sort}
+          rowKey={this.props.rowKey}
+          rows={this.state.rows}
+        />
       </div>
     );
   }
@@ -72,10 +74,12 @@ export default class DataTable extends Component<Props, State> {
 }
 
 const SelectableTable = (props: Props) => {
-  const { selectable, sort, rows } = props;
+  const { columns, rowKey, rows, selectable, sort } = props;
   const tableProps = {
-    sort,
-    rows
+    columns,
+    rowKey,
+    rows,
+    sort
   };
   return selectable ? (
     <SelectAllState {...tableProps} render={Table} />

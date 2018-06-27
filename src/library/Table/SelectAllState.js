@@ -1,20 +1,23 @@
 /* @flow */
 import React, { Component } from 'react';
 
-type Props = {
-  render: React$StatelessFunctionalComponent<*>
+type Props<T> = {
+  render: React$StatelessFunctionalComponent<*>,
+  rows: Array<T>
 };
 
 type State<T> = {
   selected: Set<T>, // TODO: Convert this to an array
+  some: boolean,
   all: boolean
 };
 
-export default class SelectAllState<T> extends Component<Props, State<T>> {
-  constructor(props: Props) {
+export default class SelectAllState<T> extends Component<Props<T>, State<T>> {
+  constructor(props: Props<T>) {
     super(props);
     this.state = {
       selected: new Set(),
+      some: false,
       all: false
     };
   }
@@ -25,8 +28,6 @@ export default class SelectAllState<T> extends Component<Props, State<T>> {
       ...restProps,
       selectable: {
         ...this.state,
-        add: this.add,
-        remove: this.remove,
         isSelected: this.isSelected,
         toggleItem: this.toggleItem,
         toggleAll: this.toggleAll
@@ -35,39 +36,29 @@ export default class SelectAllState<T> extends Component<Props, State<T>> {
     return <Root {...renderProps} />;
   }
 
-  add = (item: T) => {
-    this.setState(({ selected }) => {
-      selected.add(item);
-      return { selected };
-    });
-  };
-
-  remove = (item: T) => {
-    this.setState(({ selected }) => {
-      selected.delete(item);
-      return { selected };
-    });
-  };
-
   isSelected = (item: T) => {
-    return this.state.all
-      ? !this.state.selected.has(item)
-      : this.state.selected.has(item);
+    return this.state.selected.has(item);
   };
 
   toggleItem = (item: T) => {
     this.setState(({ selected }) => {
       selected.has(item) ? selected.delete(item) : selected.add(item);
-      return { selected };
+      const all = selected.size === this.props.rows.length;
+      return {
+        all,
+        some: selected.size > 0 && !all,
+        selected
+      };
     });
   };
 
   toggleAll = () => {
-    this.setState(({ selected, all }) => {
-      selected.clear();
+    this.setState(({ all, some }) => {
       return {
-        all: !all,
-        selected
+        all: !all && !some,
+        some: false,
+        // TODO: Account for disabled, store in instance var
+        selected: all || some ? new Set() : new Set(this.props.rows)
       };
     });
   };

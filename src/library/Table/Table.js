@@ -6,9 +6,12 @@ import HeaderRow from './HeaderRow';
 import type { Row, Rows } from './DataTable';
 
 type Props = {
+  columns?: Columns,
+  rowKey?: string,
   rows: Rows,
   selectable?: {
     all: boolean,
+    some: boolean,
     isSelected: (row: Row) => boolean,
     toggleAll: () => void,
     toggleItem: (row: Row) => void
@@ -16,17 +19,18 @@ type Props = {
   sort?: (name: string) => void
 };
 
-export default function Table({ rows, selectable, sort }: Props) {
+export default function Table({
+  columns,
+  rowKey,
+  rows,
+  selectable,
+  sort
+}: Props) {
   console.log(`render ${selectable ? 'selectable ' : ''}Table`);
-  const columns = [
-    { name: 'a', content: 'AAA' },
-    { name: 'b', content: 'BBB' },
-    { name: 'c', content: 'CCC' },
-    { name: 'd', content: 'DDD' }
-  ];
   const headerProps = {
     columns: columns,
     checked: selectable && selectable.all,
+    indeterminate: selectable && selectable.some,
     toggle: selectable && selectable.toggleAll,
     sort: sort
   };
@@ -37,7 +41,7 @@ export default function Table({ rows, selectable, sort }: Props) {
         <HeaderRow {...headerProps} />
       </thead>
       <tbody>
-        {rows.map((row) => {
+        {rows.map((row, index) => {
           const rowProps = {
             data: row,
             columns: columns,
@@ -45,7 +49,7 @@ export default function Table({ rows, selectable, sort }: Props) {
             toggleItem: selectable && selectable.toggleItem
           };
           // TODO: rowkey
-          return <DataRow key={row.a} {...rowProps} />;
+          return <DataRow key={row[rowKey] || index} {...rowProps} />;
         })}
       </tbody>
     </table>

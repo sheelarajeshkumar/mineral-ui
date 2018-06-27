@@ -6,9 +6,10 @@ import TableRow from './TableRow';
 
 type Props = {
   checked?: boolean,
-  toggle: () => void,
-  sort?: boolean,
-  columns: Columns
+  columns: Columns,
+  indeterminate?: boolean,
+  sort?: (name: string) => void,
+  toggle: () => void
 };
 
 export default class HeaderRow extends Component<Props> {
@@ -17,12 +18,19 @@ export default class HeaderRow extends Component<Props> {
   }
 
   render() {
-    const { checked, toggle, sort, columns } = this.props;
+    const { checked, columns, indeterminate, sort, toggle } = this.props;
     const selectable = Boolean(toggle);
     console.log(`render ${selectable ? 'selectable ' : ''}HeaderRow`);
     return (
       <TableRow>
-        {selectable ? <SelectCell checked={checked} onChange={toggle} /> : null}
+        {selectable ? (
+          <SelectCell
+            all
+            checked={checked}
+            indeterminate={indeterminate}
+            onChange={toggle}
+          />
+        ) : null}
         {columns.map((column) => {
           const cellProps = {
             name: column.name,
