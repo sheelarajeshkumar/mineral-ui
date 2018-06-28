@@ -23,7 +23,12 @@ type Props = {
     toggleAll: () => void,
     toggleItem: (rowData: Row) => void
   },
-  sort?: (name: string) => void,
+  /** TODO: Controlled */
+  sort?: {
+    key: string,
+    ascending?: boolean
+  },
+  sortFn?: (key: string) => -1 | 0 | 1,
   spacious?: boolean,
   striped?: boolean,
   title?: React$Node,
@@ -80,6 +85,7 @@ export default function Table({
   rowKey,
   selectable,
   sort,
+  sortFn,
   spacious,
   striped,
   title,
@@ -93,7 +99,8 @@ export default function Table({
     columns,
     indeterminate: selectable && selectable.some,
     messages,
-    sort: sort,
+    sort,
+    sortFn,
     toggle: selectable && selectable.toggleAll
   };
 

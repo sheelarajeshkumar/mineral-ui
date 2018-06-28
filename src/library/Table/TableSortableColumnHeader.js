@@ -5,6 +5,7 @@ import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
 import TableColumnHeader from './TableColumnHeader';
 
+import type { SortComparator } from './withSort';
 import type { Messages } from './DataTable';
 
 type Props = {
@@ -14,8 +15,14 @@ type Props = {
   label?: string,
   /** Name of column */
   name: string,
+  /** TODO: Controlled */
+  sort?: {
+    key: string,
+    ascending?: boolean
+  },
+  sortComparator?: SortComparator,
   /** Called when button is clicked */
-  sort: (name: string) => void,
+  sortFn: (key: string) => -1 | 0 | 1,
   /** Various messages and labels used by DataTable */
   messages: Messages
 };
@@ -70,7 +77,7 @@ const styles = {
   content: {
     whiteSpace: 'normal'
   },
-  iconHolder: ({ isActiveSort, sortDirection, theme }) => {
+  iconHolder: ({ isActiveSort, direction, theme }) => {
     const iconAdjustment = pxToEm(2);
     const space = `${parseFloat(theme.space_inline_xxs) +
       parseFloat(iconAdjustment)}em`;
@@ -83,7 +90,7 @@ const styles = {
       marginRight: theme.direction === 'rtl' ? space : null,
       opacity: isActiveSort ? null : 0,
       position: 'relative',
-      top: sortDirection === 'ascending' ? 2 : 1,
+      top: direction === 'ascending' ? 2 : 1,
       width: '0.875em',
 
       '& > [role="img"]': {
@@ -105,6 +112,7 @@ const Button = createStyledComponent(TableColumnHeader, styles.button, {
   withProps: { element: 'button' }
 });
 const Content = createStyledComponent('span', styles.content);
+// TODO: Maybe not necessary
 const IconHolder = createStyledComponent('span', styles.iconHolder);
 
 const iconProps = {
@@ -122,15 +130,18 @@ export default function SortableColumnHeader({
   name,
   messages,
   sort,
+  sortComparator,
+  sortFn,
   ...restProps
 }: Props) {
-  const sortColumn = sort && sort.column;
-  const sortDirection = sort && sort.direction;
+  const sortColumn = sort && sort.key;
+  const ascending = sort && sort.ascending;
 
-  const isActiveSort = sortColumn === name && Boolean(sortDirection);
-  const activeDirection = isActiveSort && sortDirection;
-  const nextDirection =
-    activeDirection === 'ascending' ? 'descending' : 'ascending';
+  const isActiveSort = sortColumn === name;
+  const activeDirection = isActiveSort
+    ? ascending ? 'ascending' : 'descending'
+    : undefined;
+  const nextDirection = ascending ? 'descending' : 'ascending';
 
   const a11yLabel = label || children;
 
@@ -138,7 +149,7 @@ export default function SortableColumnHeader({
     ...restProps,
     // TODO: Mac Chrome VO (others?) announces this twice?
     'aria-label': a11yLabel,
-    'aria-sort': sortColumn === name ? sortDirection : 'none',
+    'aria-sort': sortColumn === name ? activeDirection : 'none',
     // TODO: Feels wrong to duplicate onClick like this (see buttonProps)
     // onClick: () => {
     //   onClick(name, nextDirection);
@@ -150,11 +161,11 @@ export default function SortableColumnHeader({
     ...restProps,
     'aria-label': messages.sortButtonLabel(messages.sortOrder[nextDirection]),
     onClick: () => {
-      sort(name);
+      sortFn(name, sortComparator);
     }
   };
   const iconHolderProps = {
-    sortDirection,
+    direction: activeDirection || 'ascending',
     isActiveSort
   };
 
@@ -162,7 +173,7 @@ export default function SortableColumnHeader({
     <Root {...rootProps}>
       <Button {...buttonProps}>
         <Content>{children}</Content>&nbsp;<IconHolder {...iconHolderProps}>
-          {activeDirection ? sortIcon[activeDirection] : sortIcon.ascending}
+          {sortIcon[iconHolderProps.direction]}
         </IconHolder>
       </Button>
     </Root>

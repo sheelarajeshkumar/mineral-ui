@@ -13,7 +13,11 @@ type Props = {
   messages: Messages,
   rowKey?: string,
   /** TODO: Controlled */
-  sort?: (name: string) => void,
+  sort?: {
+    key: string,
+    ascending?: boolean
+  },
+  sortComparator?: (a: Object, b: Object, key: string) => -1 | 0 | 1,
   spacious?: boolean,
   striped?: boolean,
   title?: React$Node,

@@ -4,7 +4,8 @@ import getComponentDisplayName from '../utils/getComponentDisplayName';
 
 type Props = {
   data: Data,
-  sort: Sort
+  sort: Sort,
+  sortComparator: SortComparator
 };
 
 type State = {
@@ -13,10 +14,22 @@ type State = {
 };
 
 type Data = Array<Object>;
-
 type Sort = {
   key: string,
   ascending?: boolean
+};
+export type SortComparator = (a: Object, b: Object, key: string) => -1 | 0 | 1;
+
+const normalizedValue = (value) =>
+  value === null || value === undefined
+    ? ''
+    : typeof value === 'string' ? value.toUpperCase() : value;
+
+const defaultSortComparator: SortComparator = (a, b, key) => {
+  const valueA = normalizedValue(a[key]);
+  const valueB = normalizedValue(b[key]);
+
+  return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
 };
 
 export default function withSort(WrappedComponent: React$ComponentType<*>) {
@@ -25,12 +38,16 @@ export default function withSort(WrappedComponent: React$ComponentType<*>) {
       WrappedComponent
     )})`;
 
+    static defaultProps = {
+      sortComparator: defaultSortComparator
+    };
+
     state = {
       data: this.props.data,
       sort: this.props.sort
     };
 
-    sort = (key: string) => {
+    sort = (key: string, sortComparator?: SortComparator) => {
       this.setState(({ data, sort }) => {
         const ascending = sort && sort.key === key ? !sort.ascending : true;
         return {
@@ -39,15 +56,24 @@ export default function withSort(WrappedComponent: React$ComponentType<*>) {
             ascending
           },
           data: data.sort((a, b) => {
-            const asc = a[key] > b[key];
-            return (ascending ? asc : !asc) ? 1 : -1;
+            const asc =
+              (sortComparator && sortComparator(a, b, key)) ||
+              this.props.sortComparator(a, b, key);
+            return (ascending ? asc : !asc) ? asc : -1 * asc;
           })
         };
       });
     };
 
     render() {
-      return <WrappedComponent sort={this.sort} {...this.props} />;
+      return (
+        <WrappedComponent
+          {...this.props}
+          data={this.state.data}
+          sort={this.state.sort}
+          sortFn={this.sort}
+        />
+      );
     }
   }
 

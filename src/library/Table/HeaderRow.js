@@ -12,7 +12,12 @@ type Props = {
   columns: Columns,
   indeterminate?: boolean,
   messages: Messages,
-  sort?: (name: string) => void,
+  /** TODO: Controlled */
+  sort?: {
+    key: string,
+    ascending?: boolean
+  },
+  sortFn?: (key: string) => -1 | 0 | 1,
   toggle?: () => void
 };
 
@@ -28,6 +33,7 @@ export default class HeaderRow extends Component<Props> {
       indeterminate,
       messages,
       sort,
+      sortFn,
       toggle
     } = this.props;
     const selectable = Boolean(toggle);
@@ -47,7 +53,9 @@ export default class HeaderRow extends Component<Props> {
             key: column.name,
             messages,
             name: column.name,
-            sort: column.enableSort ? sort : undefined,
+            sort,
+            sortComparator: column.sortComparator,
+            sortFn: column.enableSort ? sortFn : undefined,
             textAlign: column.textAlign
           };
           return column.header ? (
