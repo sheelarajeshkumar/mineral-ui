@@ -1,8 +1,8 @@
 /* @flow */
 import React, { Component } from 'react';
 import { generateId } from '../utils';
-import SelectAllState from './SelectAllState';
 import Table from './Table';
+import withSelectable from './withSelectable';
 import withSort from './withSort';
 
 type Props = {
@@ -79,20 +79,8 @@ class DataTable extends Component<Props> {
       ...restProps
     };
 
-    return <SelectableTable {...rootProps} />;
+    return <Table {...rootProps} />;
   }
 }
 
-export default withSort(DataTable);
-
-const SelectableTable = (props: Props) => {
-  const { enableRowSelection, ...restProps } = props;
-  const tableProps = {
-    ...restProps
-  };
-  return enableRowSelection ? (
-    <SelectAllState {...tableProps} render={Table} />
-  ) : (
-    <Table {...tableProps} />
-  );
-};
+export default withSelectable(withSort(DataTable));

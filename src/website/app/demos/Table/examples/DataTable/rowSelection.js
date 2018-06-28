@@ -12,7 +12,7 @@ changes (most useful when [controlled](#controlled)).`,
   scope: { DataTable, sharedData },
   source: `
     () => {
-      const rows = [
+      const data = [
         sharedData[0],
         sharedData[1],
         { ...sharedData[2], disabled: true }
@@ -21,7 +21,7 @@ changes (most useful when [controlled](#controlled)).`,
       return (
         <DataTable
           enableRowSelection
-          defaultSelectedRows={[rows[1]]}
+          defaultSelectedRows={[data[1]]}
           data={data}
           rowKey="Fruits"/>
       );

@@ -22,7 +22,7 @@ type Props = {
   },
   sortComparator?: SortComparator,
   /** Called when button is clicked */
-  sortFn: (key: string) => -1 | 0 | 1,
+  sortFn: (key: string, comparator?: SortComparator) => -1 | 0 | 1,
   /** Various messages and labels used by DataTable */
   messages: Messages
 };

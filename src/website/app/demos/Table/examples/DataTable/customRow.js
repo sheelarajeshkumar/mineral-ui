@@ -86,7 +86,7 @@ Some things to keep in mind:
             height: 1
           })
 
-          const numCells = Object.keys(rows[0]).length;
+          const numCells = Object.keys(data[0]).length;
 
           return (
             <Root {...props}>
@@ -98,7 +98,7 @@ Some things to keep in mind:
         return <CustomRow key={key} />;
       }
 
-      const rows = [
+      const data = [
         sharedData[0],
         sharedData[1],
         { row: customRow },

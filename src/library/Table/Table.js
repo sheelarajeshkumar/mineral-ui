@@ -8,6 +8,7 @@ import TableBody from './TableBody';
 import TableHeader from './TableHeader';
 import TableTitle from './TableTitle';
 
+import type { SortComparator } from './withSort';
 import type { Columns, Messages, Row, Rows } from './DataTable';
 
 type Props = {
@@ -28,7 +29,7 @@ type Props = {
     key: string,
     ascending?: boolean
   },
-  sortFn?: (key: string) => -1 | 0 | 1,
+  sortFn?: (key: string, comparator?: SortComparator) => -1 | 0 | 1,
   spacious?: boolean,
   striped?: boolean,
   title?: React$Node,

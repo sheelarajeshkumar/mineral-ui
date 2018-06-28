@@ -10,7 +10,7 @@ which is the row property key used to uniquely identify each row.`,
   scope: { DataTable },
   source: `
     () => {
-      const rows = [
+      const data = [
         {
           Fruits: 'Pomello',
           Vegetables: 'Bok Choi',

@@ -23,7 +23,7 @@ Technology (AT) within the component.`,
         { content: 'بروتين', name: 'Protein' }
       ];
 
-      const rows = [
+      const data = [
         {
           Fruits: 'Pomello',
           Vegetables: 'بوك تشوي',

@@ -5,6 +5,7 @@ import TableSortableColumnHeader from './TableSortableColumnHeader';
 import SelectCell from './SelectCell';
 import TableRow from './TableRow';
 
+import type { SortComparator } from './withSort';
 import type { Columns, Messages } from './DataTable';
 
 type Props = {
@@ -17,7 +18,7 @@ type Props = {
     key: string,
     ascending?: boolean
   },
-  sortFn?: (key: string) => -1 | 0 | 1,
+  sortFn?: (key: string, comparator?: SortComparator) => -1 | 0 | 1,
   toggle?: () => void
 };
 

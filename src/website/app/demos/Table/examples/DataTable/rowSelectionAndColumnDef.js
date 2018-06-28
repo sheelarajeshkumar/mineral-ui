@@ -17,7 +17,7 @@ export default {
         { content: 'Powerful Protein', name: 'Protein' }
       ];
 
-      const rows = [
+      const data = [
         sharedData[0],
         sharedData[1],
         { ...sharedData[2], disabled: true },
@@ -30,7 +30,7 @@ export default {
           data={data}
           rowKey="Fruits"
           enableRowSelection
-          defaultSelectedRows={[rows[1]]} />
+          defaultSelectedRows={[data[1]]} />
       );
     }`
 };

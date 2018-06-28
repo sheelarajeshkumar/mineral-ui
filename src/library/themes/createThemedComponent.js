@@ -1,6 +1,6 @@
 /* @flow */
 import React from 'react';
-import getComponentDisplayName from '../utils/getComponentDisplayName';
+import wrapDisplayName from 'recompose/wrapDisplayName';
 import withTheme from './withTheme';
 import ThemeProvider from './ThemeProvider';
 
@@ -22,7 +22,7 @@ export default function createThemedComponent(
 
   Wrapper.propTypes = WrappedComponent.propTypes;
 
-  Wrapper.displayName = `Themed(${getComponentDisplayName(WrappedComponent)})`;
+  Wrapper.displayName = wrapDisplayName(WrappedComponent, 'Themed');
 
   return withTheme(Wrapper);
 }

@@ -1,6 +1,6 @@
 /* @flow */
 import React, { Component } from 'react';
-import getComponentDisplayName from '../utils/getComponentDisplayName';
+import wrapDisplayName from 'recompose/wrapDisplayName';
 
 type Props = {
   data: Data,
@@ -34,9 +34,7 @@ const defaultSortComparator: SortComparator = (a, b, key) => {
 
 export default function withSort(WrappedComponent: React$ComponentType<*>) {
   class Wrapper extends Component<Props, State> {
-    static displayName = `withSort(${getComponentDisplayName(
-      WrappedComponent
-    )})`;
+    static displayName = wrapDisplayName(WrappedComponent, 'withSort');
 
     static defaultProps = {
       sortComparator: defaultSortComparator
