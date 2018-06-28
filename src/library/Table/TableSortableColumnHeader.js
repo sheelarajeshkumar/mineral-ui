@@ -5,7 +5,7 @@ import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
 import TableColumnHeader from './TableColumnHeader';
 
-import type { SortComparator } from './withSort';
+import type { Sort, SortComparator, SortFn } from './withSort';
 import type { Messages } from './DataTable';
 
 type Props = {
@@ -15,15 +15,12 @@ type Props = {
   label?: string,
   /** Name of column */
   name: string,
-  /** TODO: Controlled */
-  sort?: {
-    key: string,
-    ascending?: boolean
-  },
+  /** See DataTable */
+  sort?: Sort,
+  /** See DataTable's Column type */
   sortComparator?: SortComparator,
-  /** Called when button is clicked */
-  sortFn: (key: string, comparator?: SortComparator) => -1 | 0 | 1,
-  /** Various messages and labels used by DataTable */
+  sortFn: SortFn,
+  /** See DataTable */
   messages: Messages
 };
 

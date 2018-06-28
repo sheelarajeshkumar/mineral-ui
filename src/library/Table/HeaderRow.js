@@ -5,21 +5,19 @@ import TableSortableColumnHeader from './TableSortableColumnHeader';
 import SelectCell from './SelectCell';
 import TableRow from './TableRow';
 
-import type { SortComparator } from './withSort';
+import type { ToggleAll } from './withSelectable';
+import type { Sort, SortFn } from './withSort';
 import type { Columns, Messages } from './DataTable';
 
 type Props = {
   checked?: boolean,
   columns: Columns,
+  enableSort?: boolean,
   indeterminate?: boolean,
   messages: Messages,
-  /** TODO: Controlled */
-  sort?: {
-    key: string,
-    ascending?: boolean
-  },
-  sortFn?: (key: string, comparator?: SortComparator) => -1 | 0 | 1,
-  toggle?: () => void
+  sort?: Sort,
+  sortFn?: SortFn,
+  toggle?: ToggleAll
 };
 
 export default class HeaderRow extends Component<Props> {
@@ -31,6 +29,7 @@ export default class HeaderRow extends Component<Props> {
     const {
       checked,
       columns,
+      enableSort,
       indeterminate,
       messages,
       sort,
@@ -49,14 +48,16 @@ export default class HeaderRow extends Component<Props> {
           />
         ) : null}
         {columns.map((column) => {
+          // TODO: Could probably spread column here instead
           const cellProps = {
             children: column.content,
             key: column.name,
+            label: column.label, // TODO: Fall back to string content, error otherwise
             messages,
             name: column.name,
             sort,
             sortComparator: column.sortComparator,
-            sortFn: column.enableSort ? sortFn : undefined,
+            sortFn: enableSort || column.enableSort ? sortFn : undefined,
             textAlign: column.textAlign
           };
           return column.header ? (

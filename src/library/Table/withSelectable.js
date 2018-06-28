@@ -6,13 +6,23 @@ type Props<T> = {
   data: Data<T>
 };
 
-type State<T> = {
-  selected: Set<T>, // TODO: Convert this to an array
+export type State<T> = {
+  selected: Set<T>,
   some: boolean,
   all: boolean
 };
 
 type Data<T> = Array<T>;
+// TODO: `rowData` should be T, but that would require passing T from Table
+export type Selectable = {
+  all: boolean,
+  some: boolean,
+  isSelected: (rowData: Object) => boolean,
+  toggleAll: ToggleAll,
+  toggleItem: ToggleItem
+};
+export type ToggleAll = () => void;
+export type ToggleItem = (rowData: Object) => void;
 
 export default function withSelectable(
   WrappedComponent: React$ComponentType<*>

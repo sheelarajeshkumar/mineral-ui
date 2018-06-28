@@ -15,6 +15,8 @@ type Props = {
   /** See DataTable */
   highContrast?: boolean,
   /** See DataTable's Column type */
+  label?: string,
+  /** See DataTable's Column type */
   minWidth?: number | string,
   /** See DataTable's Column type */
   maxWidth?: number | string,
@@ -130,7 +132,7 @@ export default class TableColumnHeader extends PureComponent<Props> {
 
   render() {
     console.log('render TableColumnHeader');
-    const { children, ...restProps } = this.props;
+    const { children, label, ...restProps } = this.props;
 
     const Root = this.rootNode;
 
@@ -138,6 +140,7 @@ export default class TableColumnHeader extends PureComponent<Props> {
       <TableContext.Consumer>
         {({ highContrast, spacious }) => {
           const rootProps = {
+            'aria-label': label,
             highContrast,
             spacious,
             ...restProps

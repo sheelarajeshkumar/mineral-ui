@@ -6,24 +6,25 @@ export default {
   id: 'sort-by-columns',
   title: 'Sort by Columns',
   description: `Users can sort the rows in DataTable by column, enabled via the
-\`enableSort\` column definition property. If the default sorting function,
-below, does not work for your data, you can supply your own with the \`sortFn\`
-column definition property. You can set the default sort with \`defaultSort\`.
+\`enableSort\` prop. If the default sorting function,
+below, does not work for your data, you can supply your own with the
+\`sortComparator\` prop. You can set the default sort with
+\`defaultSort\` or you can [control](#controlled) the sort state with \`sort\`.
+Note that the \`enableSort\` & \`sortComparator\` properties can be applied to
+DataTable via props or to individual columns via column definition.
 
 \`\`\`
-const defaultSortFn = (a: Object, b: Object, column: string) => {
-  // Coerce null & undefined values to an empty string and normalize letter casing
-  const normalizedValue = (value) =>
-    value === null || value === undefined
-      ? ''
-      : typeof value === 'string' ? value.toUpperCase() : value;
+// Coerce null & undefined values to an empty string and normalize letter casing
+const normalizedValue = (value) =>
+  value === null || value === undefined
+    ? ''
+    : typeof value === 'string' ? value.toUpperCase() : value;
 
-  const valueA = normalizedValue(a[column]);
-  const valueB = normalizedValue(b[column]);
+const defaultSortComparator: SortComparator = (a, b, key) => {
+  const valueA = normalizedValue(a[key]);
+  const valueB = normalizedValue(b[key]);
 
-  if (valueA < valueB) { return -1; }
-  if (valueA > valueB) { return 1; }
-  return 0;
+  return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
 };
 \`\`\`
 
@@ -37,9 +38,7 @@ alphabetically.
       const sortByLength = (a, b, column) => {
         const lengthA =a[column].length;
         const lengthB =b[column].length;
-        if (lengthA < lengthB) { return -1; }
-        if (lengthA > lengthB) { return 1; }
-        return 0;
+        return lengthA < lengthB ? -1 : lengthA > lengthB ? 1 : 0;
       };
 
       const columns = [
@@ -53,9 +52,9 @@ alphabetically.
       return (
         <DataTable
           columns={columns}
-          defaultSort={{ column: 'Fruits', direction: 'ascending' }}
           data={sharedData}
-          rowKey="Fruits" />
+          rowKey="Fruits"
+          defaultSort={{ key: 'Fruits', ascending: true }} />
       );
     }`
 };

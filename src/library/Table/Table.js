@@ -8,35 +8,25 @@ import TableBody from './TableBody';
 import TableHeader from './TableHeader';
 import TableTitle from './TableTitle';
 
-import type { SortComparator } from './withSort';
-import type { Columns, Messages, Row, Rows } from './DataTable';
+import type { Selectable } from './withSelectable';
+import type { Sort, SortFn } from './withSort';
+import type { Columns, Messages, Rows } from './DataTable';
 
+// See DataTable
 type Props = {
-  columns?: Columns,
+  columns: Columns,
   data: Rows,
-  highContrast?: boolean,
+  enableSort?: boolean,
   messages: Messages,
   rowKey?: string,
-  selectable?: {
-    all: boolean,
-    some: boolean,
-    isSelected: (rowData: Row) => boolean,
-    toggleAll: () => void,
-    toggleItem: (rowData: Row) => void
-  },
-  /** TODO: Controlled */
-  sort?: {
-    key: string,
-    ascending?: boolean
-  },
-  sortFn?: (key: string, comparator?: SortComparator) => -1 | 0 | 1,
-  spacious?: boolean,
-  striped?: boolean,
+  selectable?: Selectable,
+  sort?: Sort,
+  sortFn?: SortFn,
   title?: React$Node,
   titleAppearance?: string,
   titleElement?: string,
   titleId?: string
-};
+} & Appearance;
 
 type Appearance = {
   highContrast?: boolean,
@@ -81,6 +71,7 @@ const StyledTable = createStyledComponent('table', styles.table, {
 export default function Table({
   columns,
   data,
+  enableSort,
   highContrast,
   messages,
   rowKey,
@@ -98,6 +89,7 @@ export default function Table({
   const headerProps = {
     checked: selectable && selectable.all,
     columns,
+    enableSort,
     indeterminate: selectable && selectable.some,
     messages,
     sort,

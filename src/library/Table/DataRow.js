@@ -4,13 +4,14 @@ import TableCell from './TableCell';
 import SelectCell from './SelectCell';
 import TableRow from './TableRow';
 
+import type { ToggleItem } from './withSelectable';
 import type { Columns, Row } from './DataTable';
 
 type Props = {
   checked?: boolean,
   columns: Columns,
   data: Row,
-  toggleItem?: () => void
+  toggleItem?: ToggleItem
 };
 
 export default class DataRow extends Component<Props> {
@@ -33,9 +34,11 @@ export default class DataRow extends Component<Props> {
           <SelectCell checked={checked} onChange={this.toggleItem} />
         ) : null}
         {columns.map((column) => {
+          // TODO: Could probably just spread column here
           const cellProps = {
             children: data[column.name],
             key: column.name,
+            primary: column.primary,
             textAlign: column.textAlign
           };
           return column.cell ? (

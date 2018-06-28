@@ -11,6 +11,8 @@ type Props = {
   element?: string,
   /** Remove padding */
   noPadding?: boolean,
+  /** See DataTable's Column type */
+  primary?: boolean,
   /** See DataTable */
   spacious?: boolean,
   /** See DataTable's Column type */
@@ -54,7 +56,11 @@ const styles = ({ noPadding, spacious, textAlign, theme: baseTheme }) => {
 // element is replaced only when the element prop is changed, otherwise it is
 // updated in place
 function createRootNode(props: Props) {
-  const { element = TableCell.defaultProps.element } = props;
+  const defaultElement = TableCell.defaultProps.element;
+  const element =
+    props.element && props.element !== defaultElement
+      ? props.element
+      : props.primary ? 'th' : defaultElement;
 
   return createStyledComponent(element, styles, {
     displayName: 'TableCell',
@@ -71,7 +77,10 @@ export default class TableCell extends PureComponent<Props> {
   };
 
   componentWillUpdate(nextProps: Props) {
-    if (this.props.element !== nextProps.element) {
+    if (
+      this.props.element !== nextProps.element ||
+      this.props.primary !== nextProps.primary
+    ) {
       this.rootNode = createRootNode(nextProps);
     }
   }
@@ -80,14 +89,18 @@ export default class TableCell extends PureComponent<Props> {
 
   render() {
     console.log('render TableCell', this.props.children);
-    const { children, ...restProps } = this.props;
+    const { children, primary, ...restProps } = this.props;
 
     const Root = this.rootNode;
 
     return (
       <TableContext.Consumer>
         {({ spacious }) => {
-          const rootProps = { spacious, ...restProps };
+          const rootProps = {
+            scope: primary ? 'row' : undefined,
+            spacious,
+            ...restProps
+          };
           return <Root {...rootProps}>{children}</Root>;
         }}
       </TableContext.Consumer>

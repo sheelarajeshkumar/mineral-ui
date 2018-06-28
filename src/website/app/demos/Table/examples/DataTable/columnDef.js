@@ -66,8 +66,8 @@ of an array of column objects, where each object contains:
         description:
           'Render cells in the column as \`<th scope="row" />\` ([see example](#primary-column))'
       },
-      sortFn: {
-        flowType: { name: '(a: Row, b: Row, column: string) => -1 | 1 | 0' },
+      sortComparator: {
+        flowType: { name: '(a: Object, b: Object, key: string) => -1 | 1 | 0' },
         required: false,
         description:
           'Define a custom [comparator function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description) for the column ([see example](#sort-by-columns))'

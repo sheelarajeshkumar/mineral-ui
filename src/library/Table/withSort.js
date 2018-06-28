@@ -8,17 +8,18 @@ type Props = {
   sortComparator: SortComparator
 };
 
-type State = {
+export type State = {
   data: Data,
   sort: ?Sort
 };
 
 type Data = Array<Object>;
-type Sort = {
+export type Sort = {
   key: string,
-  ascending?: boolean
+  ascending?: boolean // TODO: Change to descending so that the default is sensible?
 };
 export type SortComparator = (a: Object, b: Object, key: string) => -1 | 0 | 1;
+export type SortFn = (key: string, comparator?: SortComparator) => void;
 
 const normalizedValue = (value) =>
   value === null || value === undefined
@@ -45,7 +46,7 @@ export default function withSort(WrappedComponent: React$ComponentType<*>) {
       sort: this.props.sort
     };
 
-    sort = (key: string, sortComparator?: SortComparator) => {
+    sort: SortFn = (key, sortComparator) => {
       this.setState(({ data, sort }) => {
         const ascending = sort && sort.key === key ? !sort.ascending : true;
         return {
