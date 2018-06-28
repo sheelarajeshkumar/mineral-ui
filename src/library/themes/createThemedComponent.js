@@ -1,35 +1,28 @@
 /* @flow */
 import React from 'react';
+import getComponentDisplayName from '../utils/getComponentDisplayName';
 import withTheme from './withTheme';
 import ThemeProvider from './ThemeProvider';
 
-function getComponentDisplayName(Component: React$ComponentType<*>): string {
-  return typeof Component === 'string'
-    ? Component
-    : Component.displayName || Component.name || 'Component';
-}
-
 export default function createThemedComponent(
-  ComponentToTheme: React$ComponentType<*>,
+  WrappedComponent: React$ComponentType<*>,
   theme: Object | ((props: Object, context?: Object) => Object)
 ) {
-  const ThemedComponent = (props, context) => {
+  const Wrapper = (props, context) => {
     const outTheme =
       typeof theme === 'function' ? theme(props, context) : theme;
     const { theme: ignore, ...outProps } = props;
 
     return (
       <ThemeProvider theme={outTheme}>
-        <ComponentToTheme {...outProps} />
+        <WrappedComponent {...outProps} />
       </ThemeProvider>
     );
   };
 
-  ThemedComponent.propTypes = ComponentToTheme.propTypes;
+  Wrapper.propTypes = WrappedComponent.propTypes;
 
-  ThemedComponent.displayName = `Themed(${getComponentDisplayName(
-    ComponentToTheme
-  )})`;
+  Wrapper.displayName = `Themed(${getComponentDisplayName(WrappedComponent)})`;
 
-  return withTheme(ThemedComponent);
+  return withTheme(Wrapper);
 }

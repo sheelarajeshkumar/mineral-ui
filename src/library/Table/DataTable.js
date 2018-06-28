@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { generateId } from '../utils';
 import SelectAllState from './SelectAllState';
 import Table from './Table';
+import withSort from './withSort';
 
 type Props = {
   columns?: Columns,
@@ -51,7 +52,7 @@ const generateColumns = (rows: Rows) =>
     return acc;
   }, []);
 
-export default class DataTable extends Component<Props, State> {
+class DataTable extends Component<Props, State> {
   // TODO: Pass these down via context?
   static defaultProps = {
     messages: {
@@ -80,30 +81,14 @@ export default class DataTable extends Component<Props, State> {
       // messages: DataTable.defaultProps.messages, // TODO: temp
       ...this.props,
       columns: this.props.columns || generateColumns(this.state.rows),
-      sort: this.sort,
       rows: this.state.rows
     };
 
     return <SelectableTable {...rootProps} />;
   }
-
-  sort = (columnName: string) => {
-    this.setState(({ rows, sort }) => {
-      const ascending =
-        sort && sort.column === columnName ? !sort.ascending : true;
-      return {
-        sort: {
-          column: columnName,
-          ascending
-        },
-        rows: rows.sort((a, b) => {
-          const asc = a[columnName] > b[columnName];
-          return (ascending ? asc : !asc) ? 1 : -1;
-        })
-      };
-    });
-  };
 }
+
+export default withSort(DataTable);
 
 const SelectableTable = (props: Props) => {
   const { enableRowSelection, ...restProps } = props;
