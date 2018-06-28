@@ -8,6 +8,7 @@ type Props = {
   columns?: Columns,
   highContrast?: boolean,
   enableRowSelection?: boolean,
+  messages: Messages,
   rowKey?: string,
   rows: Rows,
   /** TODO: Controlled */
@@ -29,6 +30,18 @@ type State = {
 
 export type Columns = Array<Column>;
 type Column = Object;
+export type Messages = {
+  deselectAllRows: string,
+  deselectRow: string,
+  selectAllRows: string,
+  selectRow: string,
+  selectRowsColumnLabel: string,
+  sortButtonLabel: (direction: string) => string,
+  sortOrder: {
+    ascending: string,
+    descending: string
+  }
+};
 export type Row = Object;
 export type Rows = Array<Row>;
 
@@ -39,6 +52,23 @@ const generateColumns = (rows: Rows) =>
   }, []);
 
 export default class DataTable extends Component<Props, State> {
+  // TODO: Pass these down via context?
+  static defaultProps = {
+    messages: {
+      deselectAllRows: 'Deselect all rows',
+      deselectRow: 'Deselect row',
+      selectAllRows: 'Select all rows',
+      selectRow: 'Select row',
+      selectRowsColumnLabel: 'Selected rows',
+      sortButtonLabel: (direction: string) =>
+        `Sort column in ${direction} order`,
+      sortOrder: {
+        ascending: 'ascending',
+        descending: 'descending'
+      }
+    }
+  };
+
   state = {
     rows: this.props.rows
   };
@@ -47,6 +77,7 @@ export default class DataTable extends Component<Props, State> {
 
   render() {
     const rootProps = {
+      // messages: DataTable.defaultProps.messages, // TODO: temp
       ...this.props,
       columns: this.props.columns || generateColumns(this.state.rows),
       sort: this.sort,

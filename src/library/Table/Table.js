@@ -8,11 +8,12 @@ import TableBody from './TableBody';
 import TableHeader from './TableHeader';
 import TableTitle from './TableTitle';
 
-import type { Columns, Row, Rows } from './DataTable';
+import type { Columns, Messages, Row, Rows } from './DataTable';
 
 type Props = {
   columns?: Columns,
   highContrast?: boolean,
+  messages: Messages,
   rowKey?: string,
   rows: Rows,
   selectable?: {
@@ -74,6 +75,7 @@ const StyledTable = createStyledComponent('table', styles.table, {
 export default function Table({
   columns,
   highContrast,
+  messages,
   rowKey,
   rows,
   selectable,
@@ -90,6 +92,7 @@ export default function Table({
     checked: selectable && selectable.all,
     columns,
     indeterminate: selectable && selectable.some,
+    messages,
     sort: sort,
     toggle: selectable && selectable.toggleAll
   };

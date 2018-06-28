@@ -23,10 +23,7 @@ type Props = {
   /** See DataTable's Column type */
   textAlign?: 'start' | 'end' | 'center' | 'justify',
   /** See DataTable's Column type */
-  width?: number | string,
-
-  sort?: (name: string) => void,
-  name: string
+  width?: number | string
 };
 
 // prettier-ignore
@@ -133,7 +130,7 @@ export default class TableColumnHeader extends PureComponent<Props> {
 
   render() {
     console.log('render HeaderCell');
-    const { children, name: ignoreName, sort, ...restProps } = this.props;
+    const { children, ...restProps } = this.props;
 
     const Root = this.rootNode;
 
@@ -143,7 +140,6 @@ export default class TableColumnHeader extends PureComponent<Props> {
           const rootProps = {
             highContrast,
             spacious,
-            ...(sort ? { onClick: this.onClick } : undefined),
             ...restProps
           };
           return <Root {...rootProps}>{children}</Root>;
@@ -151,8 +147,4 @@ export default class TableColumnHeader extends PureComponent<Props> {
       </TableContext.Consumer>
     );
   }
-
-  onClick = () => {
-    this.props.sort && this.props.sort(this.props.name);
-  };
 }
