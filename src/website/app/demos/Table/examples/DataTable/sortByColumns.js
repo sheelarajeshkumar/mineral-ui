@@ -1,6 +1,6 @@
 /* @flow */
 import { DataTable } from '../../../../../../library/Table';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'sort-by-columns',
@@ -31,7 +31,7 @@ In the example below, all columns except the last one have enabled sorting and
 the Dairy column has a custom sorting function to sort by length rather than
 alphabetically.
 `,
-  scope: { DataTable, sharedRows },
+  scope: { DataTable, sharedData },
   source: `
     () => {
       const sortByLength = (a, b, column) => {
@@ -54,7 +54,7 @@ alphabetically.
         <DataTable
           columns={columns}
           defaultSort={{ column: 'Fruits', direction: 'ascending' }}
-          rows={sharedRows}
+          data={sharedData}
           rowKey="Fruits" />
       );
     }`

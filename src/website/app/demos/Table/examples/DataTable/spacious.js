@@ -1,12 +1,12 @@
 /* @flow */
 import { DataTable } from '../../../../../../library/Table';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'spacious',
   title: 'Spacious',
   description: `You can render DataTable with a more spacious appearance.`,
-  scope: { DataTable, sharedRows },
+  scope: { DataTable, sharedData },
   source: `
-    <DataTable spacious rows={sharedRows} rowKey="Fruits" />`
+    <DataTable spacious data={sharedData} rowKey="Fruits" />`
 };

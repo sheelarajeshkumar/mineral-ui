@@ -41,7 +41,7 @@ which is the row property key used to uniquely identify each row.`,
         }
       ];
 
-      return <DataTable rows={rows} rowKey="Fruits" />;
+      return <DataTable data={data} rowKey="Fruits" />;
     }
     `
 };

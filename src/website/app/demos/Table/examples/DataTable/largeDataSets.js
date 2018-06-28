@@ -34,7 +34,7 @@ before clicking those buttons. 😬`,
               { content: 'AA', name: 'aa', enableSort: true },
               { content: 'AB', name: 'ab' }
             ],
-            rows: [
+            data: [
               { aa: 'aa0', ab: 'ab0' },
               { aa: 'aa1', ab: 'ab1' }
             ]
@@ -47,14 +47,14 @@ before clicking those buttons. 😬`,
         populate4x1000() {
           this.setState({
             columns: columns4,
-            rows: rows1000
+            data: rows1000
           })
         }
 
         populate104x100() {
           this.setState({
             columns: columns104,
-            rows: rows100
+            data: rows100
           })
         }
 
@@ -71,7 +71,7 @@ before clicking those buttons. 😬`,
               </Flex>
               <DataTable
                 columns={this.state.columns}
-                rows={this.state.rows}
+                data={this.state.data}
                 rowKey="aa"
                 enableRowSelection />
             </div>

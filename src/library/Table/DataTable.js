@@ -7,11 +7,11 @@ import withSort from './withSort';
 
 type Props = {
   columns?: Columns,
+  data: Rows,
   highContrast?: boolean,
   enableRowSelection?: boolean,
   messages: Messages,
   rowKey?: string,
-  rows: Rows,
   /** TODO: Controlled */
   sort?: (name: string) => void,
   spacious?: boolean,
@@ -19,14 +19,6 @@ type Props = {
   title?: React$Node,
   titleAppearance?: string,
   titleElement?: string
-};
-
-type State = {
-  rows: Rows,
-  sort?: {
-    column: string,
-    ascending?: boolean
-  }
 };
 
 export type Columns = Array<Column>;
@@ -46,13 +38,13 @@ export type Messages = {
 export type Row = Object;
 export type Rows = Array<Row>;
 
-const generateColumns = (rows: Rows) =>
-  Object.keys(rows[0]).reduce((acc, cell) => {
+const generateColumns = (data: Rows) =>
+  Object.keys(data[0]).reduce((acc, cell) => {
     acc.push({ content: cell, name: cell });
     return acc;
   }, []);
 
-class DataTable extends Component<Props, State> {
+class DataTable extends Component<Props> {
   // TODO: Pass these down via context?
   static defaultProps = {
     messages: {
@@ -70,18 +62,17 @@ class DataTable extends Component<Props, State> {
     }
   };
 
-  state = {
-    rows: this.props.rows
-  };
-
   titleId: string = `tableTitle-${generateId()}`;
 
   render() {
+    console.log('render DataTable');
+
+    const { columns, data, ...restProps } = this.props;
     const rootProps = {
-      // messages: DataTable.defaultProps.messages, // TODO: temp
-      ...this.props,
-      columns: this.props.columns || generateColumns(this.state.rows),
-      rows: this.state.rows
+      columns: columns || generateColumns(data),
+      data,
+      titleId: this.titleId,
+      ...restProps
     };
 
     return <SelectableTable {...rootProps} />;

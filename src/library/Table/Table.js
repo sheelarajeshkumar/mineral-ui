@@ -12,16 +12,16 @@ import type { Columns, Messages, Row, Rows } from './DataTable';
 
 type Props = {
   columns?: Columns,
+  data: Rows,
   highContrast?: boolean,
   messages: Messages,
   rowKey?: string,
-  rows: Rows,
   selectable?: {
     all: boolean,
     some: boolean,
-    isSelected: (row: Row) => boolean,
+    isSelected: (rowData: Row) => boolean,
     toggleAll: () => void,
-    toggleItem: (row: Row) => void
+    toggleItem: (rowData: Row) => void
   },
   sort?: (name: string) => void,
   spacious?: boolean,
@@ -74,10 +74,10 @@ const StyledTable = createStyledComponent('table', styles.table, {
 
 export default function Table({
   columns,
+  data,
   highContrast,
   messages,
   rowKey,
-  rows,
   selectable,
   sort,
   spacious,
@@ -112,15 +112,14 @@ export default function Table({
           <HeaderRow {...headerProps} />
         </TableHeader>
         <TableBody>
-          {rows.map((row, index) => {
+          {data.map((rowData, index) => {
             const rowProps = {
-              checked: selectable && selectable.isSelected(row),
+              checked: selectable && selectable.isSelected(rowData),
               columns,
-              data: row,
+              data: rowData,
               toggleItem: selectable && selectable.toggleItem
             };
-            // TODO: rowkey
-            return <DataRow key={row[rowKey] || index} {...rowProps} />;
+            return <DataRow key={rowData[rowKey] || index} {...rowProps} />;
           })}
         </TableBody>
       </TableContext.Provider>

@@ -5,7 +5,7 @@ import { withTheme } from '../../../../../../library/themes';
 import { DataTable } from '../../../../../../library/Table';
 import { componentTheme as tableCellTheme } from '../../../../../../library/Table/TableCell';
 import renderPropDescription from '../../../shared/renderPropDescription';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'custom-cell',
@@ -30,7 +30,7 @@ Some things to keep in mind:
     createStyledComponent,
     DataTable,
     palette,
-    sharedRows,
+    sharedData,
     tableCellTheme,
     withTheme
   },
@@ -111,7 +111,7 @@ Some things to keep in mind:
       return (
         <DataTable
           columns={columns}
-          rows={sharedRows}
+          data={sharedData}
           rowKey="Fruits" />
       );
     }`

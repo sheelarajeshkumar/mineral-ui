@@ -152,7 +152,7 @@ export default {
       defaultSort={{ column: 'aa', direction: 'ascending' }}
       enableRowSelection={true}
       // highContrast={true}
-      rows={rows}
+      data={data}
       rowKey="aa"
       // spacious={true}
       // striped={true}

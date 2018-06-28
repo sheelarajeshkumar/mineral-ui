@@ -1,6 +1,6 @@
 /* @flow */
 import { DataTable } from '../../../../../../library/Table';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'row-selection',
@@ -9,20 +9,20 @@ export default {
 Rows with a \`disabled\` property set to \`true\` will render a disabled
 checkbox. \`onSelectRows\` is called with the selected rows when the selection
 changes (most useful when [controlled](#controlled)).`,
-  scope: { DataTable, sharedRows },
+  scope: { DataTable, sharedData },
   source: `
     () => {
       const rows = [
-        sharedRows[0],
-        sharedRows[1],
-        { ...sharedRows[2], disabled: true }
+        sharedData[0],
+        sharedData[1],
+        { ...sharedData[2], disabled: true }
       ];
 
       return (
         <DataTable
           enableRowSelection
           defaultSelectedRows={[rows[1]]}
-          rows={rows}
+          data={data}
           rowKey="Fruits"/>
       );
     }`

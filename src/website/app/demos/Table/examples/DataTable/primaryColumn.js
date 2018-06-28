@@ -1,6 +1,6 @@
 /* @flow */
 import { DataTable } from '../../../../../../library/Table';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'primary-column',
@@ -11,7 +11,7 @@ export default {
 definition property. This will render cells in that column as
 \`<th scope="row">\`, which can provide helpful context to users of some
 Assistive Technology (AT).`,
-  scope: { DataTable, sharedRows },
+  scope: { DataTable, sharedData },
   source: `
     () => {
       // TODO: Different data for this example? All examples?
@@ -27,7 +27,7 @@ Assistive Technology (AT).`,
       return (
         <DataTable
           columns={columns}
-          rows={sharedRows} />
+          data={sharedData} />
       );
     }`
 };

@@ -99,6 +99,7 @@ const Root = createStyledComponent(
  */
 export default class TableRow extends PureComponent<Props> {
   render() {
+    console.log('render TableRow');
     const { children, ...restProps } = this.props;
     return (
       <TableContext.Consumer>

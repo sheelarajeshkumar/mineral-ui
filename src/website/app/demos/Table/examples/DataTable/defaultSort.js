@@ -1,12 +1,12 @@
 /* @flow */
 import { DataTable } from '../../../../../../library/Table';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'default-sort',
   title: 'Default Sort (w/o `enableSort` on a column)',
   hideFromProd: true,
-  scope: { DataTable, sharedRows },
+  scope: { DataTable, sharedData },
   source: `
     () => {
       const sortByLength = (a, b, column) => {
@@ -29,7 +29,7 @@ export default {
         <DataTable
           columns={columns}
           defaultSort={{ column: 'Dairy', direction: 'ascending' }}
-          rows={sharedRows}
+          data={sharedData}
           rowKey="Fruits" />
       );
     }`

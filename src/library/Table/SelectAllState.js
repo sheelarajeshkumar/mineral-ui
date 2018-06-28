@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 
 type Props<T> = {
-  render: React$StatelessFunctionalComponent<*>,
-  rows: Array<T>
+  data: Array<T>,
+  render: React$StatelessFunctionalComponent<*>
 };
 
 type State<T> = {
@@ -44,7 +44,7 @@ export default class SelectAllState<T> extends Component<Props<T>, State<T>> {
   toggleItem = (item: T) => {
     this.setState(({ selected }) => {
       selected.has(item) ? selected.delete(item) : selected.add(item);
-      const all = selected.size === this.props.rows.length;
+      const all = selected.size === this.props.data.length;
       return {
         all,
         some: selected.size > 0 && !all,
@@ -59,7 +59,7 @@ export default class SelectAllState<T> extends Component<Props<T>, State<T>> {
         all: !all && !some,
         some: false,
         // TODO: Account for disabled, store in instance var
-        selected: all || some ? new Set() : new Set(this.props.rows)
+        selected: all || some ? new Set() : new Set(this.props.data)
       };
     });
   };

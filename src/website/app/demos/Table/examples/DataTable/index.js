@@ -43,6 +43,6 @@ export default [
   defaultSort,
   rowSelectionAndColumnDef,
   columnAlignWithSort,
-  largeDataSets,
-  kitchenSink
+  largeDataSets
+  // kitchenSink
 ];

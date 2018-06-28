@@ -129,7 +129,7 @@ export default class TableColumnHeader extends PureComponent<Props> {
   rootNode: React$ComponentType<*> = createRootNode(this.props);
 
   render() {
-    console.log('render HeaderCell');
+    console.log('render TableColumnHeader');
     const { children, ...restProps } = this.props;
 
     const Root = this.rootNode;

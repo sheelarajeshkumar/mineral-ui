@@ -1,13 +1,13 @@
 /* @flow */
 import { DataTable } from '../../../../../../library/Table';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'column-align',
   title: 'Column Alignment',
   description: `Align the text of both the column header and the cells under it
 with the \`textAlign\` column definition property.`,
-  scope: { DataTable, sharedRows },
+  scope: { DataTable, sharedData },
   source: `
     () => {
       const columns = [
@@ -21,7 +21,7 @@ with the \`textAlign\` column definition property.`,
       return (
         <DataTable
           columns={columns}
-          rows={sharedRows} />
+          data={sharedData} />
       );
     }`
 };

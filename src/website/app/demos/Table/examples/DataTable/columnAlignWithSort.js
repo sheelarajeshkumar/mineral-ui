@@ -1,12 +1,12 @@
 /* @flow */
 import { DataTable } from '../../../../../../library/Table';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'column-align-with-sort',
   title: 'Column Alignment with Sorting',
   hideFromProd: true,
-  scope: { DataTable, sharedRows },
+  scope: { DataTable, sharedData },
   source: `
     () => {
       const columns = [
@@ -19,7 +19,7 @@ export default {
       return (
         <DataTable
           columns={columns}
-          rows={sharedRows}
+          data={sharedData}
           defaultSort={{ column: 'Vegetables', direction: 'ascending' }} />
       );
     }`

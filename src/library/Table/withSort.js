@@ -2,40 +2,44 @@
 import React, { Component } from 'react';
 import getComponentDisplayName from '../utils/getComponentDisplayName';
 
+type Props = {
+  data: Data,
+  sort: Sort
+};
+
 type State = {
-  rows: Rows,
+  data: Data,
   sort: ?Sort
 };
 
-type Row = Object;
-type Rows = Array<Row>;
+type Data = Array<Object>;
+
 type Sort = {
-  column: string,
+  key: string,
   ascending?: boolean
 };
 
 export default function withSort(WrappedComponent: React$ComponentType<*>) {
-  class Wrapper extends Component<*, State> {
+  class Wrapper extends Component<Props, State> {
     static displayName = `withSort(${getComponentDisplayName(
       WrappedComponent
     )})`;
 
     state = {
-      rows: this.props.rows,
+      data: this.props.data,
       sort: this.props.sort
     };
 
-    sort = (columnName: string) => {
-      this.setState(({ rows, sort }) => {
-        const ascending =
-          sort && sort.column === columnName ? !sort.ascending : true;
+    sort = (key: string) => {
+      this.setState(({ data, sort }) => {
+        const ascending = sort && sort.key === key ? !sort.ascending : true;
         return {
           sort: {
-            column: columnName,
+            key,
             ascending
           },
-          rows: rows.sort((a, b) => {
-            const asc = a[columnName] > b[columnName];
+          data: data.sort((a, b) => {
+            const asc = a[key] > b[key];
             return (ascending ? asc : !asc) ? 1 : -1;
           })
         };

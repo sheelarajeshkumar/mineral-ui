@@ -3,7 +3,7 @@ import { Component } from 'react';
 import Button from '../../../../../../library/Button';
 import Flex, { FlexItem } from '../../../../../../library/Flex';
 import { DataTable } from '../../../../../../library/Table';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'controlled',
@@ -11,11 +11,11 @@ export default {
   description: `DataTable controls its own state by default, and can optionally
 be managed by the application as a controlled component via the control props,
 \`selectedRows\` and \`sort\`.`,
-  scope: { Button, Component, DataTable, Flex, FlexItem, sharedRows },
+  scope: { Button, Component, DataTable, Flex, FlexItem, sharedData },
   source: `
     () => {
-      const evenRows = sharedRows.filter((row, index) => (index + 1)%2 === 0);
-      const oddRows = sharedRows.filter((row) => evenRows.indexOf(row) === -1);
+      const evenRows = sharedData.filter((row, index) => (index + 1)%2 === 0);
+      const oddRows = sharedData.filter((row) => evenRows.indexOf(row) === -1);
 
       const columns = [
         { content: 'Fruits', name: 'Fruits', enableSort: true },
@@ -79,7 +79,7 @@ be managed by the application as a controlled component via the control props,
               </Flex>
               <DataTable
                 columns={columns}
-                rows={sharedRows}
+                data={sharedData}
                 rowKey="a"
                 enableRowSelection
                 selectedRows={this.state.selectedRows}

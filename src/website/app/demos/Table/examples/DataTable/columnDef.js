@@ -1,6 +1,6 @@
 /* @flow */
 import { DataTable } from '../../../../../../library/Table';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 /*
  * Unfortunately, something in the markdown -> PropTable -> react-docgen stack
@@ -86,7 +86,7 @@ of an array of column objects, where each object contains:
     }} />
 </div>
 `,
-  scope: { DataTable, sharedRows },
+  scope: { DataTable, sharedData },
   source: `
     () => {
       const columns = [
@@ -100,7 +100,7 @@ of an array of column objects, where each object contains:
       return (
         <DataTable
           columns={columns}
-          rows={sharedRows}
+          data={sharedData}
           rowKey="Fruits" />
       );
     }`

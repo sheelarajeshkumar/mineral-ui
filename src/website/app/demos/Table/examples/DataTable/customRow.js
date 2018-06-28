@@ -5,7 +5,7 @@ import { DataTable } from '../../../../../../library/Table';
 import { componentTheme as tableCellTheme } from '../../../../../../library/Table/TableCell';
 import { componentTheme as tableRowTheme } from '../../../../../../library/Table/TableRow';
 import renderPropDescription from '../../../shared/renderPropDescription';
-import sharedRows from '../shared/data';
+import sharedData from '../shared/data';
 
 export default {
   id: 'custom-row',
@@ -29,7 +29,7 @@ Some things to keep in mind:
   scope: {
     createStyledComponent,
     DataTable,
-    sharedRows,
+    sharedData,
     tableCellTheme,
     tableRowTheme,
     withTheme
@@ -99,16 +99,16 @@ Some things to keep in mind:
       }
 
       const rows = [
-        sharedRows[0],
-        sharedRows[1],
+        sharedData[0],
+        sharedData[1],
         { row: customRow },
-        sharedRows[2],
-        sharedRows[3]
+        sharedData[2],
+        sharedData[3]
       ];
 
       return (
         <DataTable
-          rows={rows}
+          data={data}
           rowKey="Fruits" />
       );
     }`

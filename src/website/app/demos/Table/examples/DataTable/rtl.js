@@ -66,7 +66,7 @@ Technology (AT) within the component.`,
           <ThemeProvider theme={{ direction: 'rtl' }}>
             <DataTable
               columns={columns}
-              rows={rows}
+              data={data}
               rowKey="Fruits"
               title="الأطعمة اللذيذة"
               messages={messages} />

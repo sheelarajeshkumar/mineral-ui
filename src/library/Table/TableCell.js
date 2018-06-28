@@ -79,6 +79,7 @@ export default class TableCell extends PureComponent<Props> {
   rootNode: React$ComponentType<*> = createRootNode(this.props);
 
   render() {
+    console.log('render TableCell', this.props.children);
     const { children, ...restProps } = this.props;
 
     const Root = this.rootNode;
