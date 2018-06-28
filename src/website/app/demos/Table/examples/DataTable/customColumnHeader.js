@@ -3,7 +3,7 @@ import { palette } from 'mineral-ui-tokens';
 import { createStyledComponent } from '../../../../../../library/styles';
 import { withTheme } from '../../../../../../library/themes';
 import { DataTable } from '../../../../../../library/Table';
-import { componentTheme as headerCellTheme } from '../../../../../../library/Table/HeaderCell';
+import { componentTheme as tableColumnHeaderTheme } from '../../../../../../library/Table/TableColumnHeader';
 import renderPropDescription from '../../../shared/renderPropDescription';
 import sharedRows from '../shared/data';
 
@@ -31,7 +31,7 @@ Some things to keep in mind:
     DataTable,
     palette,
     sharedRows,
-    headerCellTheme,
+    tableColumnHeaderTheme,
     withTheme
   },
   source: `
@@ -44,13 +44,13 @@ Some things to keep in mind:
        *
        * If you wish to access a component specific theme, you'll need to import
        * it and compose it with the base theme as shown below.
-       *   import { componentTheme as headerCellTheme } from 'mineral-ui/Table/HeaderCell';
+       *   import { componentTheme as tableColumnHeaderTheme } from 'mineral-ui/Table/TableColumnHeader';
        */
       const header = ({ props }) => {
         const { children, highContrast, key, spacious, textAlign } = props;
 
         const CustomColumnHeader = withTheme(({ theme: baseTheme }) => {
-          const theme = headerCellTheme(baseTheme);
+          const theme = tableColumnHeaderTheme(baseTheme);
           const fontSize = theme.TH_fontSize;
           const paddingVertical = spacious
             ? theme.TH_paddingVertical_spacious

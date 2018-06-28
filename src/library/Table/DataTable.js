@@ -1,15 +1,22 @@
 /* @flow */
 import React, { Component } from 'react';
+import { generateId } from '../utils';
 import SelectAllState from './SelectAllState';
 import Table from './Table';
 
 type Props = {
   columns?: Columns,
+  highContrast?: boolean,
+  enableRowSelection?: boolean,
   rowKey?: string,
   rows: Rows,
-  selectable?: boolean,
   /** TODO: Controlled */
-  sort?: (name: string) => void
+  sort?: (name: string) => void,
+  spacious?: boolean,
+  striped?: boolean,
+  title?: React$Node,
+  titleAppearance?: string,
+  titleElement?: string
 };
 
 type State = {
@@ -31,28 +38,22 @@ const generateColumns = (rows: Rows) =>
     return acc;
   }, []);
 
-// TODO: props flow type
-const rowRenderer = ({ props }: { props: Object }) => {
-  return <tr style={{ backgroundColor: 'palevioletred ' }} {...props} />;
-};
-
 export default class DataTable extends Component<Props, State> {
   state = {
     rows: this.props.rows
   };
 
+  titleId: string = `tableTitle-${generateId()}`;
+
   render() {
-    return (
-      <div className="App" style={{ padding: '3em' }}>
-        <SelectableTable
-          columns={this.props.columns || generateColumns(this.state.rows)}
-          selectable
-          sort={this.sort}
-          rowKey={this.props.rowKey}
-          rows={this.state.rows}
-        />
-      </div>
-    );
+    const rootProps = {
+      ...this.props,
+      columns: this.props.columns || generateColumns(this.state.rows),
+      sort: this.sort,
+      rows: this.state.rows
+    };
+
+    return <SelectableTable {...rootProps} />;
   }
 
   sort = (columnName: string) => {
@@ -74,14 +75,11 @@ export default class DataTable extends Component<Props, State> {
 }
 
 const SelectableTable = (props: Props) => {
-  const { columns, rowKey, rows, selectable, sort } = props;
+  const { enableRowSelection, ...restProps } = props;
   const tableProps = {
-    columns,
-    rowKey,
-    rows,
-    sort
+    ...restProps
   };
-  return selectable ? (
+  return enableRowSelection ? (
     <SelectAllState {...tableProps} render={Table} />
   ) : (
     <Table {...tableProps} />

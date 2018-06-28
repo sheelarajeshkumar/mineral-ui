@@ -3,7 +3,7 @@ import { palette } from 'mineral-ui-tokens';
 import { createStyledComponent } from '../../../../../../library/styles';
 import { withTheme } from '../../../../../../library/themes';
 import { DataTable } from '../../../../../../library/Table';
-import { componentTheme as cellTheme } from '../../../../../../library/Table/Cell';
+import { componentTheme as tableCellTheme } from '../../../../../../library/Table/TableCell';
 import renderPropDescription from '../../../shared/renderPropDescription';
 import sharedRows from '../shared/data';
 
@@ -31,7 +31,7 @@ Some things to keep in mind:
     DataTable,
     palette,
     sharedRows,
-    cellTheme,
+    tableCellTheme,
     withTheme
   },
   source: `
@@ -44,13 +44,13 @@ Some things to keep in mind:
        *
        * If you wish to access a component specific theme, you'll need to import
        * it and compose it with the base theme as shown below.
-       *   import { componentTheme as cellTheme } from 'mineral-ui/Table/Cell';
+       *   import { componentTheme as tableCellTheme } from 'mineral-ui/Table/TableCell';
        */
       const cell = ({ props }) => {
         const { children, key, spacious, textAlign } = props;
 
         const CustomCell = withTheme(({ theme: baseTheme }) => {
-          const theme = cellTheme(baseTheme);
+          const theme = tableCellTheme(baseTheme);
           const paddingVertical = spacious
             ? theme.TD_paddingVertical_spacious
             : theme.TD_paddingVertical;

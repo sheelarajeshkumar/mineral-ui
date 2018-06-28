@@ -2,7 +2,7 @@
 import { createStyledComponent } from '../../../../../../library/styles';
 import { withTheme } from '../../../../../../library/themes';
 import { DataTable } from '../../../../../../library/Table';
-import { componentTheme as cellTheme } from '../../../../../../library/Table/Cell';
+import { componentTheme as tableCellTheme } from '../../../../../../library/Table/TableCell';
 import { componentTheme as tableRowTheme } from '../../../../../../library/Table/TableRow';
 import renderPropDescription from '../../../shared/renderPropDescription';
 import sharedRows from '../shared/data';
@@ -30,7 +30,7 @@ Some things to keep in mind:
     createStyledComponent,
     DataTable,
     sharedRows,
-    cellTheme,
+    tableCellTheme,
     tableRowTheme,
     withTheme
   },
@@ -50,10 +50,11 @@ Some things to keep in mind:
         const { key, highContrast, spacious, striped } = props;
 
         const CustomRow = withTheme(({ theme: baseTheme }) => {
-          const theme = {
-            ...cellTheme(baseTheme),
-            ...tableRowTheme(baseTheme)
-          };
+          // const theme = {
+          //   ...tableCellTheme(baseTheme),
+          //   ...tableRowTheme(baseTheme)
+          // };
+          const theme = baseTheme;
           const paddingVertical = spacious
             ? theme.TD_paddingVertical_spacious
             : theme.TD_paddingVertical;
