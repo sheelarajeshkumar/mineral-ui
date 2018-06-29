@@ -1,7 +1,7 @@
 /* @flow */
 import React, { PureComponent } from 'react';
 import { createStyledComponent } from '../styles';
-import { TableContext } from './Table';
+import { TableContext } from './TablePresentational';
 
 type Props = {
   /** Rendered content can be TD or TH */
@@ -10,8 +10,6 @@ type Props = {
   highContrast?: boolean,
   /** Renders row with selected styles */
   isSelected?: boolean,
-  /** See DataTable */
-  spacious?: boolean,
   /** See DataTable */
   striped?: boolean
 };

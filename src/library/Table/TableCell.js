@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import { rtlTextAlign } from '../utils';
-import { TableContext } from './Table';
+import { TableContext } from './TablePresentational';
 
 type Props = {
   /** Rendered content */
@@ -13,10 +13,10 @@ type Props = {
   noPadding?: boolean,
   /** See DataTable's Column type */
   primary?: boolean,
-  /** See DataTable */
-  spacious?: boolean,
   /** See DataTable's Column type */
-  textAlign?: 'start' | 'end' | 'center' | 'justify'
+  textAlign?: 'start' | 'end' | 'center' | 'justify',
+  /** See DataTable */
+  verticalSpace: 'default' | 'spacious'
 };
 
 export const componentTheme = (baseTheme: Object) => ({
@@ -29,7 +29,7 @@ export const componentTheme = (baseTheme: Object) => ({
   ...baseTheme
 });
 
-const styles = ({ noPadding, spacious, textAlign, theme: baseTheme }) => {
+const styles = ({ noPadding, textAlign, theme: baseTheme, verticalSpace }) => {
   const theme = componentTheme(baseTheme);
   const fontSize = theme.TableCell_fontSize;
   const paddingHorizontal = getNormalizedValue(
@@ -37,7 +37,7 @@ const styles = ({ noPadding, spacious, textAlign, theme: baseTheme }) => {
     fontSize
   );
   const paddingVertical = getNormalizedValue(
-    spacious
+    verticalSpace === 'spacious'
       ? theme.TableCell_paddingVertical_spacious
       : theme.TableCell_paddingVertical,
     fontSize
@@ -95,10 +95,10 @@ export default class TableCell extends PureComponent<Props> {
 
     return (
       <TableContext.Consumer>
-        {({ spacious }) => {
+        {({ verticalSpace }) => {
           const rootProps = {
             scope: primary ? 'row' : undefined,
-            spacious,
+            verticalSpace,
             ...restProps
           };
           return <Root {...rootProps}>{children}</Root>;

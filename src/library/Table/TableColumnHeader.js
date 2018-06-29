@@ -5,7 +5,7 @@ import { createThemedComponent, mapComponentThemes } from '../themes';
 import TableCell, {
   componentTheme as tableCellComponentTheme
 } from './TableCell';
-import { TableContext } from './Table';
+import { TableContext } from './TablePresentational';
 
 type Props = {
   /** Rendered content */
@@ -20,10 +20,10 @@ type Props = {
   minWidth?: number | string,
   /** See DataTable's Column type */
   maxWidth?: number | string,
-  /** See DataTable */
-  spacious?: boolean,
   /** See DataTable's Column type */
   textAlign?: 'start' | 'end' | 'center' | 'justify',
+  /** See DataTable */
+  verticalSpace: 'default' | 'spacious',
   /** See DataTable's Column type */
   width?: number | string
 };
@@ -39,7 +39,6 @@ export const componentTheme = (baseTheme: Object) =>
       name: 'TableColumnHeader',
       theme: {
         TableColumnHeader_borderVertical: `1px dotted ${baseTheme.borderColor}`,
-        // TODO: New token? borderColor_highContrast (elsewhere?)
         TableColumnHeader_borderVertical_highContrast: `1px dotted ${baseTheme.color_gray_80}`,
         TableColumnHeader_fontWeight: baseTheme.fontWeight_bold,
         TableColumnHeader_paddingHorizontal: baseTheme.space_inline_md,
@@ -138,11 +137,11 @@ export default class TableColumnHeader extends PureComponent<Props> {
 
     return (
       <TableContext.Consumer>
-        {({ highContrast, spacious }) => {
+        {({ highContrast, verticalSpace }) => {
           const rootProps = {
             'aria-label': label,
             highContrast,
-            spacious,
+            verticalSpace,
             ...restProps
           };
           return <Root {...rootProps}>{children}</Root>;

@@ -7,7 +7,7 @@ import TableRow from './TableRow';
 
 import type { ToggleAll } from './Selectable';
 import type { Sort, SortFn } from './Sortable';
-import type { Columns, Messages } from './DataTable';
+import type { Columns, Messages } from './Table';
 
 type Props = {
   checked?: boolean,
@@ -29,7 +29,7 @@ export default class HeaderRow extends Component<Props> {
     const {
       checked,
       columns,
-      enableSort,
+      enableSort: tableEnableSort,
       indeterminate,
       messages,
       sort,
@@ -47,27 +47,34 @@ export default class HeaderRow extends Component<Props> {
             onChange={toggle}
           />
         ) : null}
-        {columns.map((column) => {
-          // TODO: Could probably spread column here instead
-          const cellProps = {
-            children: column.content,
-            key: column.name,
-            label: column.label, // TODO: Fall back to string content, error otherwise
-            messages,
-            name: column.name,
-            sort,
-            sortComparator: column.sortComparator,
-            sortFn: enableSort || column.enableSort ? sortFn : undefined,
-            textAlign: column.textAlign
-          };
-          return column.header ? (
-            column.header({ props: cellProps })
-          ) : column.enableSort ? (
-            <TableSortableColumnHeader {...cellProps} />
-          ) : (
-            <TableColumnHeader {...cellProps} />
-          );
-        })}
+        {columns.map(
+          ({ content, enableSort, header, label, name, ...restColumn }) => {
+            if (typeof content !== 'string' && !label) {
+              throw new Error(
+                'Columns with non-string content must define a `label` property.'
+              );
+            }
+
+            const cellProps = {
+              children: content,
+              key: name,
+              label: label || content,
+              messages,
+              name,
+              sort,
+              sortFn: tableEnableSort || enableSort ? sortFn : undefined,
+              ...restColumn
+            };
+
+            return header ? (
+              header({ props: cellProps })
+            ) : enableSort ? (
+              <TableSortableColumnHeader {...cellProps} />
+            ) : (
+              <TableColumnHeader {...cellProps} />
+            );
+          }
+        )}
       </TableRow>
     );
   }

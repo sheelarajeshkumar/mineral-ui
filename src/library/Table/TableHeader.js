@@ -1,7 +1,7 @@
 /* @flow */
 import React, { PureComponent } from 'react';
 import { createStyledComponent } from '../styles';
-import { TableContext } from './Table';
+import { TableContext } from './TablePresentational';
 
 type Props = {
   /** Rendered content must be TR */

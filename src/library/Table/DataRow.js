@@ -5,7 +5,7 @@ import SelectCell from './SelectCell';
 import TableRow from './TableRow';
 
 import type { ToggleItem } from './Selectable';
-import type { Columns, Row } from './DataTable';
+import type { Columns, Row } from './Table';
 
 type Props = {
   checked?: boolean,
@@ -28,21 +28,20 @@ export default class DataRow extends Component<Props> {
     const selectable = Boolean(toggleItem);
     console.log(`render ${selectable ? 'selectable ' : ''}DataRow`);
     const children = (
-      // TODO
+      // TODO: React 16+ only
       <Fragment>
         {selectable ? (
           <SelectCell checked={checked} onChange={this.toggleItem} />
         ) : null}
-        {columns.map((column) => {
-          // TODO: Could probably just spread column here
+        {columns.map(({ cell, name, ...restColumn }) => {
           const cellProps = {
-            children: data[column.name],
-            key: column.name,
-            primary: column.primary,
-            textAlign: column.textAlign
+            children: data[name],
+            key: name,
+            name,
+            ...restColumn
           };
-          return column.cell ? (
-            column.cell({ props: cellProps })
+          return cell ? (
+            cell({ props: cellProps })
           ) : (
             <TableCell {...cellProps} />
           );

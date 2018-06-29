@@ -6,7 +6,7 @@ import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
 import TableColumnHeader from './TableColumnHeader';
 
 import type { Sort, SortComparator, SortFn } from './Sortable';
-import type { Messages } from './DataTable';
+import type { Messages } from './Table';
 
 type Props = {
   /** Rendered content */
