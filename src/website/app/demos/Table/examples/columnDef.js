@@ -18,27 +18,10 @@ of an array of column objects, where each object contains:
 <div style={{ padding: '0 1.5em' }} key={0}>
   <PropTable
     propDoc={{
-      cell: {
-        flowType: { name: 'RenderFn' },
-        required: false,
-        description:
-          'Provides custom rendering control for the cells in the column. See the [custom cell example](#custom-cell) and [React docs](https://reactjs.org/docs/render-props.html).'
-      },
       content: {
         flowType: { name: 'React$Node' },
         required: true,
         description: 'Rendered content of the column header'
-      },
-      enableSort: {
-        flowType: { name: 'boolean' },
-        required: false,
-        description: 'Enable column to be sorted ([see example](#sort-by-columns))'
-      },
-      header: {
-        flowType: { name: 'RenderFn' },
-        required: false,
-        description:
-          'Provides custom rendering control for the column header. See the [custom column header example](#custom-column-header) and [React docs](https://reactjs.org/docs/render-props.html).'
       },
       label: {
         flowType: { name: 'string' },
@@ -65,12 +48,6 @@ of an array of column objects, where each object contains:
         required: false,
         description:
           'Render cells in the column as \`<th scope="row" />\` ([see example](#primary-column))'
-      },
-      sortComparator: {
-        flowType: { name: '(a: Object, b: Object, key: string) => -1 | 1 | 0' },
-        required: false,
-        description:
-          'Define a custom [comparator function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description) for the column ([see example](#sort-by-columns))'
       },
       textAlign: {
         flowType: { name: 'boolean' },

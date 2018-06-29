@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { createStyledComponent, getNormalizedValue, pxToEm } from '../styles';
 import { rtlTextAlign } from '../utils';
-import { TableContext } from './TablePresentational';
+import { TableContext } from './Table';
 
 type Props = {
   /** Rendered content */

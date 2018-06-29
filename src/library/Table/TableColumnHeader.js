@@ -5,7 +5,7 @@ import { createThemedComponent, mapComponentThemes } from '../themes';
 import TableCell, {
   componentTheme as tableCellComponentTheme
 } from './TableCell';
-import { TableContext } from './TablePresentational';
+import { TableContext } from './Table';
 
 type Props = {
   /** Rendered content */
