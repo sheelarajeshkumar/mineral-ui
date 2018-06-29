@@ -5,7 +5,7 @@ import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
 import TableColumnHeader from './TableColumnHeader';
 
-import type { Sort, SortComparator, SortFn } from './withSort';
+import type { Sort, SortComparator, SortFn } from './Sortable';
 import type { Messages } from './DataTable';
 
 type Props = {

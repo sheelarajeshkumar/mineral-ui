@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { generateId } from '../utils';
 import Table from './Table';
-import withSelectable from './withSelectable';
-import withSort from './withSort';
+import Selectable from './Selectable';
+import Sortable from './Sortable';
 
-import type { State as SortState } from './withSort';
-import type { State as SelectableState } from './withSelectable';
+import type { State as SortState } from './Sortable';
+import type { State as SelectableState } from './Selectable';
 
 type Props = {
   /** Column definitions ([see example for more details](#column-def)) */
@@ -136,14 +136,42 @@ const generateColumns = (data: Rows) =>
     return acc;
   }, []);
 
-class DefaultDataTable extends Component<Props> {
+class DataTable extends Component<Props> {
+  // TODO: Pass these down via context?
+  static defaultProps = {
+    messages: {
+      deselectAllRows: 'Deselect all rows',
+      deselectRow: 'Deselect row',
+      selectAllRows: 'Select all rows',
+      selectRow: 'Select row',
+      selectRowsColumnLabel: 'Selected rows',
+      sortButtonLabel: (direction: string) =>
+        `Sort column in ${direction} order`,
+      sortOrder: {
+        ascending: 'ascending',
+        descending: 'descending'
+      }
+    }
+  };
+
   // TODO: Move this to Table?
   titleId: string = `tableTitle-${generateId()}`;
 
   render() {
     console.log('render DataTable');
 
-    const { columns, data, ...restProps } = this.props;
+    const {
+      columns,
+      data,
+      enableRowSelection: selectable,
+      enableSort,
+      ...restProps
+    } = this.props;
+
+    // TODO: Store this in an instance variable and update with componentWillUpdate?
+    const sortable =
+      enableSort || (columns && columns.some((column) => column.enableSort));
+
     const rootProps = {
       // TODO: Store this in an instance variable and update with componentWillUpdate?
       columns: columns || generateColumns(data),
@@ -152,48 +180,28 @@ class DefaultDataTable extends Component<Props> {
       ...restProps
     };
 
-    return <Table {...rootProps} />;
-  }
-}
-
-function DataTable(props: Props) {
-  const { columns, enableRowSelection } = props;
-
-  // TODO: Store this in an instance variable and update with componentWillUpdate?
-  let enableSort;
-  columns &&
-    columns.forEach((column) => {
-      if (column.enableSort) {
-        return true;
-      }
-    });
-
-  let Root = DefaultDataTable;
-  if (enableRowSelection && enableSort) {
-    Root = withSelectable(withSort(DefaultDataTable));
-  } else if (enableRowSelection) {
-    Root = withSelectable(DefaultDataTable);
-  } else if (enableSort) {
-    Root = withSort(DefaultDataTable);
-  }
-
-  return <Root {...props} />;
-}
-
-// TODO: Pass these down via context?
-DataTable.defaultProps = {
-  messages: {
-    deselectAllRows: 'Deselect all rows',
-    deselectRow: 'Deselect row',
-    selectAllRows: 'Select all rows',
-    selectRow: 'Select row',
-    selectRowsColumnLabel: 'Selected rows',
-    sortButtonLabel: (direction: string) => `Sort column in ${direction} order`,
-    sortOrder: {
-      ascending: 'ascending',
-      descending: 'descending'
+    if (selectable && sortable) {
+      return <SelectableSortableTable {...rootProps} />;
+    } else if (selectable) {
+      return <SelectableTable {...rootProps} />;
+    } else if (sortable) {
+      return <SortableTable {...rootProps} />;
+    } else {
+      return <Table {...rootProps} />;
     }
   }
-};
+}
+
+const SelectableTable = (props) => (
+  <Selectable {...props}>{(props) => <Table {...props} />}</Selectable>
+);
+
+const SortableTable = (props) => (
+  <Sortable {...props}>{(props) => <Table {...props} />}</Sortable>
+);
+
+const SelectableSortableTable = (props) => (
+  <Selectable {...props}>{(props) => <SortableTable {...props} />}</Selectable>
+);
 
 export default DataTable;

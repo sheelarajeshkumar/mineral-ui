@@ -4,7 +4,7 @@ import TableCell from './TableCell';
 import SelectCell from './SelectCell';
 import TableRow from './TableRow';
 
-import type { ToggleItem } from './withSelectable';
+import type { ToggleItem } from './Selectable';
 import type { Columns, Row } from './DataTable';
 
 type Props = {

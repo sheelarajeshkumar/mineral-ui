@@ -5,8 +5,8 @@ import TableSortableColumnHeader from './TableSortableColumnHeader';
 import SelectCell from './SelectCell';
 import TableRow from './TableRow';
 
-import type { ToggleAll } from './withSelectable';
-import type { Sort, SortFn } from './withSort';
+import type { ToggleAll } from './Selectable';
+import type { Sort, SortFn } from './Sortable';
 import type { Columns, Messages } from './DataTable';
 
 type Props = {
