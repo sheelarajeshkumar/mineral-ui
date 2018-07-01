@@ -12,8 +12,6 @@ type Props = {
   children?: React$Node,
   /** Rendered element */
   element?: string,
-  /** See Table */
-  highContrast?: boolean,
   /** See Table's Column type */
   label?: string,
   /** See Table's Column type */
@@ -22,8 +20,6 @@ type Props = {
   maxWidth?: number | string,
   /** See Table's Column type */
   textAlign?: 'start' | 'end' | 'center' | 'justify',
-  /** See Table */
-  verticalSpace: 'default' | 'spacious',
   /** See Table's Column type */
   width?: number | string
 };
@@ -138,6 +134,10 @@ export default class TableColumnHeader extends PureComponent<Props> {
     return (
       <TableContext.Consumer>
         {({ highContrast, verticalSpace }) => {
+          console.log(
+            'render TableColumnHeader, context.verticalSpace:',
+            verticalSpace
+          );
           const rootProps = {
             'aria-label': label,
             highContrast,

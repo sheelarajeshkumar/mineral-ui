@@ -47,7 +47,7 @@ type State = {
 type Appearance = {
   highContrast?: boolean,
   striped?: boolean,
-  verticalSpace: 'default' | 'spacious'
+  verticalSpace?: 'default' | 'spacious'
 };
 export type Columns = Array<Column>;
 // See columnDef example for descriptions
@@ -111,9 +111,7 @@ const generateColumns = (data: Rows) =>
 const getColumnDefs = ({ columns, data }: Props) =>
   columns || generateColumns(data);
 
-export const TableContext: Context<Appearance> = createReactContext({
-  verticalSpace: 'default' // TODO: Way to reference this?
-});
+export const TableContext: Context<Appearance> = createReactContext({});
 
 export default class Table extends Component<Props, State> {
   static defaultProps = {
@@ -176,7 +174,12 @@ export default class Table extends Component<Props, State> {
             {title}
           </TableTitle>
         )}
-        <TableContext.Provider value={{ highContrast, striped, verticalSpace }}>
+        <TableContext.Provider
+          value={{
+            highContrast,
+            striped,
+            verticalSpace
+          }}>
           <TableHeader hideHeader={hideHeader}>
             <HeaderRow columns={this.columns} />
           </TableHeader>

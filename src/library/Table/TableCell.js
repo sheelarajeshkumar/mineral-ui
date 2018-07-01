@@ -14,9 +14,7 @@ type Props = {
   /** See Table's Column type */
   primary?: boolean,
   /** See Table's Column type */
-  textAlign?: 'start' | 'end' | 'center' | 'justify',
-  /** See Table */
-  verticalSpace: 'default' | 'spacious'
+  textAlign?: 'start' | 'end' | 'center' | 'justify'
 };
 
 export const componentTheme = (baseTheme: Object) => ({

@@ -6,12 +6,8 @@ import { TableContext } from './Table';
 type Props = {
   /** Rendered content can be TD or TH */
   children: React$Node,
-  /** See Table */
-  highContrast?: boolean,
   /** Renders row with selected styles */
-  isSelected?: boolean,
-  /** See Table */
-  striped?: boolean
+  isSelected?: boolean
 };
 
 // prettier-ignore

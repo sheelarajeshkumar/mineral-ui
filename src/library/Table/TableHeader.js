@@ -8,9 +8,7 @@ type Props = {
   /** Rendered content must be TR */
   children: React$Node,
   /** See Table */
-  hideHeader?: boolean,
-  /** See Table */
-  highContrast?: boolean
+  hideHeader?: boolean
 };
 
 export const componentTheme = (baseTheme: Object) => ({
