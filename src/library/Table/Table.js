@@ -19,6 +19,8 @@ type Props = {
    * container
    */
   disableScrollOnOverflow?: boolean,
+  /** Visually hide Table's header */
+  hideHeader?: boolean,
   /** Render Table with high-contrast styles */
   highContrast?: boolean,
   /**
@@ -65,27 +67,16 @@ export type Row = Object;
 export type Rows = Array<Row>;
 
 export const componentTheme = (baseTheme: Object) => ({
-  Table_borderBottom_highContrast: `1px solid ${baseTheme.color_gray_60}`,
-  Table_borderTop: `1px solid ${baseTheme.borderColor}`,
-  Table_borderTop_highContrast: `1px solid ${baseTheme.color_gray_80}`,
   Table_boxShadow_focus: `0 0 0 1px ${baseTheme.borderColor_theme_focus}`,
 
   ...baseTheme
 });
 
 const styles = {
-  table: ({ highContrast, theme: baseTheme }) => {
-    const theme = componentTheme(baseTheme);
-
-    return {
-      borderBottom: highContrast ? theme.Table_borderBottom_highContrast : null,
-      borderCollapse: 'collapse',
-      borderSpacing: 0,
-      borderTop: highContrast
-        ? theme.Table_borderTop_highContrast
-        : theme.Table_borderTop,
-      width: '100%'
-    };
+  table: {
+    borderCollapse: 'collapse',
+    borderSpacing: 0,
+    width: '100%'
   },
   overflowContainer: ({ theme: baseTheme }) => {
     const theme = componentTheme(baseTheme);
@@ -164,6 +155,7 @@ export default class Table extends Component<Props, State> {
     const {
       data,
       disableScrollOnOverflow,
+      hideHeader,
       highContrast,
       rowKey,
       striped,
@@ -185,7 +177,7 @@ export default class Table extends Component<Props, State> {
           </TableTitle>
         )}
         <TableContext.Provider value={{ highContrast, striped, verticalSpace }}>
-          <TableHeader>
+          <TableHeader hideHeader={hideHeader}>
             <HeaderRow columns={this.columns} />
           </TableHeader>
           <TableBody>

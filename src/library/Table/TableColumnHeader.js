@@ -12,19 +12,19 @@ type Props = {
   children?: React$Node,
   /** Rendered element */
   element?: string,
-  /** See DataTable */
+  /** See Table */
   highContrast?: boolean,
-  /** See DataTable's Column type */
+  /** See Table's Column type */
   label?: string,
-  /** See DataTable's Column type */
+  /** See Table's Column type */
   minWidth?: number | string,
-  /** See DataTable's Column type */
+  /** See Table's Column type */
   maxWidth?: number | string,
-  /** See DataTable's Column type */
+  /** See Table's Column type */
   textAlign?: 'start' | 'end' | 'center' | 'justify',
-  /** See DataTable */
+  /** See Table */
   verticalSpace: 'default' | 'spacious',
-  /** See DataTable's Column type */
+  /** See Table's Column type */
   width?: number | string
 };
 

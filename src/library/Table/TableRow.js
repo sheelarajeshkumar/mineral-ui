@@ -6,11 +6,11 @@ import { TableContext } from './Table';
 type Props = {
   /** Rendered content can be TD or TH */
   children: React$Node,
-  /** See DataTable */
+  /** See Table */
   highContrast?: boolean,
   /** Renders row with selected styles */
   isSelected?: boolean,
-  /** See DataTable */
+  /** See Table */
   striped?: boolean
 };
 
@@ -43,11 +43,15 @@ const Root = createStyledComponent(
         }
       })(),
 
-      '&:not(:last-child)': {
-        borderBottom: highContrast
-          ? theme.TableRow_borderHorizontal_highContrast
-          : theme.TableRow_borderHorizontal
-      },
+      ...(highContrast
+        ? {
+            borderBottom: theme.TableRow_borderHorizontal_highContrast
+          }
+        : {
+            '&:not(:last-child)': {
+              borderBottom: theme.TableRow_borderHorizontal
+            }
+          }),
 
       '*:not(thead) > &:hover': {
         backgroundColor: (() => {

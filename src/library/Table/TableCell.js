@@ -11,11 +11,11 @@ type Props = {
   element?: string,
   /** Remove padding */
   noPadding?: boolean,
-  /** See DataTable's Column type */
+  /** See Table's Column type */
   primary?: boolean,
-  /** See DataTable's Column type */
+  /** See Table's Column type */
   textAlign?: 'start' | 'end' | 'center' | 'justify',
-  /** See DataTable */
+  /** See Table */
   verticalSpace: 'default' | 'spacious'
 };
 

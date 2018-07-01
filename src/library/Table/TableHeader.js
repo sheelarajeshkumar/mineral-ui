@@ -1,32 +1,41 @@
 /* @flow */
 import React, { PureComponent } from 'react';
+import { hideVisually } from 'polished';
 import { createStyledComponent } from '../styles';
 import { TableContext } from './Table';
 
 type Props = {
   /** Rendered content must be TR */
   children: React$Node,
-  /** See DataTable */
+  /** See Table */
+  hideHeader?: boolean,
+  /** See Table */
   highContrast?: boolean
 };
 
 export const componentTheme = (baseTheme: Object) => ({
   TableHeader_borderBottom: `2px solid ${baseTheme.borderColor}`,
   TableHeader_borderBottom_highContrast: `2px solid ${baseTheme.color_gray_80}`,
-
+  TableHeader_borderTop: `1px solid ${baseTheme.borderColor}`,
+  TableHeader_borderTop_highContrast: `1px solid ${baseTheme.color_gray_80}`,
   ...baseTheme
 });
 
 const Root = createStyledComponent(
   'thead',
-  ({ highContrast, theme: baseTheme }) => {
+  ({ hideHeader, highContrast, theme: baseTheme }) => {
     const theme = componentTheme(baseTheme);
 
-    return {
-      borderBottom: highContrast
-        ? theme.TableHeader_borderBottom_highContrast
-        : theme.TableHeader_borderBottom
-    };
+    return hideHeader
+      ? hideVisually()
+      : {
+          borderBottom: highContrast
+            ? theme.TableHeader_borderBottom_highContrast
+            : theme.TableHeader_borderBottom,
+          borderTop: highContrast
+            ? theme.TableHeader_borderTop_highContrast
+            : theme.TableHeader_borderTop
+        };
   },
   {
     displayName: 'TableHeader',
