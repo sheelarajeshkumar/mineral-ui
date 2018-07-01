@@ -38,6 +38,10 @@ type Props = {
   verticalSpace: 'default' | 'spacious'
 };
 
+type State = {
+  scrollable: boolean
+};
+
 type Appearance = {
   highContrast?: boolean,
   striped?: boolean,
@@ -59,19 +63,6 @@ type Column = {
 };
 export type Row = Object;
 export type Rows = Array<Row>;
-
-const generateColumns = (data: Rows) =>
-  Object.keys(data[0]).reduce((acc, cell) => {
-    acc.push({ content: cell, name: cell });
-    return acc;
-  }, []);
-
-const getColumnDefs = ({ columns, data }: Props) =>
-  columns || generateColumns(data);
-
-export const TableContext: Context<Appearance> = createReactContext({
-  verticalSpace: 'default' // TODO: Way to reference this?
-});
 
 export const componentTheme = (baseTheme: Object) => ({
   Table_borderBottom_highContrast: `1px solid ${baseTheme.color_gray_60}`,
@@ -95,6 +86,18 @@ const styles = {
         : theme.Table_borderTop,
       width: '100%'
     };
+  },
+  overflowContainer: ({ theme: baseTheme }) => {
+    const theme = componentTheme(baseTheme);
+
+    return {
+      overflowX: 'auto',
+
+      '&:focus': {
+        outline: 0,
+        boxShadow: theme.Table_boxShadow_focus
+      }
+    };
   }
 };
 
@@ -103,14 +106,50 @@ const StyledTable = createStyledComponent('table', styles.table, {
   rootEl: 'table',
   includeStyleReset: true
 });
+const OverflowContainer = createStyledComponent(
+  'div',
+  styles.overflowContainer
+);
 
-export default class Table extends Component<Props> {
+const generateColumns = (data: Rows) =>
+  Object.keys(data[0]).reduce((acc, cell) => {
+    acc.push({ content: cell, name: cell });
+    return acc;
+  }, []);
+
+const getColumnDefs = ({ columns, data }: Props) =>
+  columns || generateColumns(data);
+
+export const TableContext: Context<Appearance> = createReactContext({
+  verticalSpace: 'default' // TODO: Way to reference this?
+});
+
+export default class Table extends Component<Props, State> {
   static defaultProps = {
+    titleElement: 'h4',
     verticalSpace: 'default'
   };
 
+  state = {
+    scrollable: false
+  };
+
   columns: Columns = getColumnDefs(this.props);
+  container: ?HTMLElement;
   titleId: string = `tableTitle-${generateId()}`;
+
+  componentDidMount() {
+    const node = this.container;
+    if (
+      node &&
+      !this.props.disableScrollOnOverflow &&
+      node.scrollWidth > node.clientWidth
+    ) {
+      this.setState({
+        scrollable: true
+      });
+    }
+  }
 
   componentWillUpdate(nextProps: Props) {
     if (
@@ -124,6 +163,7 @@ export default class Table extends Component<Props> {
   render() {
     const {
       data,
+      disableScrollOnOverflow,
       highContrast,
       rowKey,
       striped,
@@ -134,7 +174,7 @@ export default class Table extends Component<Props> {
     } = this.props;
     console.log(`render Table`);
 
-    return (
+    let table = (
       <StyledTable>
         {title && (
           <TableTitle
@@ -160,5 +200,24 @@ export default class Table extends Component<Props> {
         </TableContext.Provider>
       </StyledTable>
     );
+
+    if (!disableScrollOnOverflow) {
+      const containerProps = {
+        'aria-label': title ? undefined : 'Table', // TODO: Make `title` required and allow to hide?
+        'aria-labelledby': title ? this.titleId : undefined,
+        innerRef: this.setContainerRef,
+        role: 'group',
+        tabIndex: this.state.scrollable ? 0 : undefined
+      };
+      table = (
+        <OverflowContainer {...containerProps}>{table}</OverflowContainer>
+      );
+    }
+
+    return table;
   }
+
+  setContainerRef = (node: HTMLElement) => {
+    this.container = node;
+  };
 }
