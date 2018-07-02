@@ -6,14 +6,12 @@ import sharedData from '../shared/data';
  * Unfortunately, something in the markdown -> PropTable -> react-docgen stack
  * borks on newlines in the descriptions.
  */
-// prettier-ignore
-const columnWidthDisclaimer = `\`minWidth\` takes precedence over \`maxWidth\` which takes precedence over \`width\`. If no width-related properties are defined, columns will use the width decided by the rendered \`<table>\` element.`;
 
 export default {
   id: 'column-def',
   title: 'Column Definition',
-  description: `In addition to \`rows\`, you can pass a \`columns\` definition
-of an array of column objects, where each object contains:
+  description: `In addition to \`data\`, you can pass an array of \`column\`
+definition objects, where each object contains:
 
 <div style={{ padding: '0 1.5em' }} key={0}>
   <PropTable
@@ -26,17 +24,17 @@ of an array of column objects, where each object contains:
       label: {
         flowType: { name: 'string' },
         required: false,
-        description: "If a column's \`content\` is not a string, label must be provided for accessibility purposes."
+        description: "If a column's \`content\` is not a string, \`label\` must be provided for accessibility purposes."
       },
       maxWidth: {
         flowType: { name: 'number, string' },
         required: false,
-        description: 'Maximum width of the column. ${columnWidthDisclaimer}'
+        description: 'Maximum width of the column. See \`width\` for more details.'
       },
       minWidth: {
         flowType: { name: 'number, string' },
         required: false,
-        description: 'Minimum width of the column. ${columnWidthDisclaimer}'
+        description: 'Minimum width of the column. See \`width\` for more details.'
       },
       name: {
         flowType: { name: 'string' },
@@ -58,7 +56,7 @@ of an array of column objects, where each object contains:
       width: {
         flowType: { name: 'number, string' },
         required: false,
-        description: 'Width of the column. ${columnWidthDisclaimer}'
+        description: 'Width of the column. \`minWidth\` takes precedence over \`maxWidth\` which takes precedence over \`width\`. If no width-related properties are defined, columns will use the width decided by the rendered \`<table>\` element.'
       },
     }} />
 </div>

@@ -12,7 +12,7 @@ import TableTitle from './TableTitle';
 type Props = {
   /** Column definitions ([see example for more details](#column-def)) */
   columns?: Columns,
-  /** Data for your table ([see example for more details](#basic)) */
+  /** Row data ([see example for more details](#basic)) */
   data: Array<Object>,
   /**
    * Disable the scrolling behavior when Table's width exceeds that of its
@@ -32,9 +32,9 @@ type Props = {
   striped?: boolean,
   /** Title for Table */
   title?: React$Node,
-  /** Available title styles; see [Text](/components/text) */
+  /** Available title styles (see [Text](/components/text)) */
   titleAppearance?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
-  /** Available title elements; see [Text](/components/text) */
+  /** Available title elements (see [Text](/components/text)) */
   titleElement?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
   /** Amount of vertical padding in Table's cells */
   verticalSpace: 'default' | 'spacious'
@@ -113,6 +113,9 @@ const getColumnDefs = ({ columns, data }: Props) =>
 
 export const TableContext: Context<Appearance> = createReactContext({});
 
+/**
+ * Table displays structured data with columns and rows.
+ */
 export default class Table extends Component<Props, State> {
   static defaultProps = {
     titleElement: 'h4',

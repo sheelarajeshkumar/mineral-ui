@@ -207,7 +207,7 @@ export default [
     title: 'Select'
   },
   {
-    description: 'Table TODO',
+    description: 'Table displays structured data with columns and rows.',
     slug: 'table',
     title: 'Table'
   },
