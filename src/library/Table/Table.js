@@ -52,14 +52,12 @@ type Appearance = {
 export type Columns = Array<Column>;
 // See columnDef example for descriptions
 type Column = {
-  'aria-label'?: string, // TODO: Needed?
   content: React$Node,
   label?: string,
   maxWidth?: number | string,
   minWidth?: number | string,
   name: string,
   primary?: boolean,
-  role?: string, // TODO: Needed?
   textAlign?: 'start' | 'end' | 'center' | 'justify',
   width?: number | string
 };
@@ -92,7 +90,7 @@ const styles = {
   }
 };
 
-const StyledTable = createStyledComponent('table', styles.table, {
+const Root = createStyledComponent('table', styles.table, {
   displayName: 'Table',
   rootEl: 'table',
   includeStyleReset: true
@@ -152,6 +150,10 @@ export default class Table extends Component<Props, State> {
     }
   }
 
+  setContainerRef = (node: HTMLElement) => {
+    this.container = node;
+  };
+
   render() {
     const {
       data,
@@ -167,8 +169,14 @@ export default class Table extends Component<Props, State> {
     } = this.props;
     console.log(`render Table`);
 
+    const appearanceProps = {
+      highContrast,
+      striped,
+      verticalSpace
+    };
+
     let table = (
-      <StyledTable>
+      <Root>
         {title && (
           <TableTitle
             appearance={titleAppearance}
@@ -177,26 +185,21 @@ export default class Table extends Component<Props, State> {
             {title}
           </TableTitle>
         )}
-        <TableContext.Provider
-          value={{
-            highContrast,
-            striped,
-            verticalSpace
-          }}>
+        <TableContext.Provider value={appearanceProps}>
           <TableHeader hideHeader={hideHeader}>
             <HeaderRow columns={this.columns} />
           </TableHeader>
           <TableBody>
-            {data.map((rowData, index) => {
-              const rowProps = {
-                columns: this.columns,
-                data: rowData
-              };
-              return <DataRow key={rowData[rowKey] || index} {...rowProps} />;
-            })}
+            {data.map((rowData, index) => (
+              <DataRow
+                columns={this.columns}
+                data={rowData}
+                key={rowData[rowKey] || index}
+              />
+            ))}
           </TableBody>
         </TableContext.Provider>
-      </StyledTable>
+      </Root>
     );
 
     if (!disableScrollOnOverflow) {
@@ -214,8 +217,4 @@ export default class Table extends Component<Props, State> {
 
     return table;
   }
-
-  setContainerRef = (node: HTMLElement) => {
-    this.container = node;
-  };
 }
