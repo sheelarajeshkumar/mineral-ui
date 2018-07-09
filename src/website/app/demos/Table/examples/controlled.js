@@ -18,10 +18,10 @@ be managed by the application as a controlled component via the control props,
       const oddRows = sharedData.filter((row) => evenRows.indexOf(row) === -1);
 
       const columns = [
-        { content: 'Fruits', key: 'Fruits', enableSort: true },
-        { content: 'Vegetables', key: 'Vegetables', enableSort: true },
-        { content: 'Grains', key: 'Grains', enableSort: true },
-        { content: 'Dairy', key: 'Dairy', enableSort: true },
+        { content: 'Fruits', key: 'Fruits', sortable: true },
+        { content: 'Vegetables', key: 'Vegetables', sortable: true },
+        { content: 'Grains', key: 'Grains', sortable: true },
+        { content: 'Dairy', key: 'Dairy', sortable: true },
         { content: 'Protein', key: 'Protein' }
       ];
 

@@ -109,16 +109,16 @@ const CustomRow = ({ props }: Object) => (
 );
 
 // const columns = [
-//   { content: 'Fresh Fruits', key: 'Fruits', enableSort: true, cell: CustomCell },
-//   { content: 'Veritable Vegetables', key: 'Vegetables', enableSort: true, header: CustomSortableHeader },
+//   { content: 'Fresh Fruits', key: 'Fruits', sortable: true, cell: CustomCell },
+//   { content: 'Veritable Vegetables', key: 'Vegetables', sortable: true, header: CustomSortableHeader },
 //   { content: 'Grains', key: 'Grains', header: CustomHeader },
-//   { content: 'Delectable Dairy', key: 'Dairy', enableSort: true, sortFn: sortByLength },
+//   { content: 'Delectable Dairy', key: 'Dairy', sortable: true, sortFn: sortByLength },
 //   { content: 'Protein', key: 'Protein' }
 // ];
 
 const columns = [
-  { content: 'AA', key: 'aa', enableSort: true, cell: CustomCell },
-  { content: 'AB', key: 'ab', enableSort: true, header: CustomSortableHeader },
+  { content: 'AA', key: 'aa', sortable: true, cell: CustomCell },
+  { content: 'AB', key: 'ab', sortable: true, header: CustomSortableHeader },
   { content: 'AC', key: 'ac', header: CustomHeader },
   { content: 'AD', key: 'ad', sortFn: sortByLength },
   { content: 'AE', key: 'ae' }

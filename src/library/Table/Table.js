@@ -32,8 +32,6 @@ type Props = {
    * Table.
    */
   enableRowSelection?: boolean,
-  /** Enable the user to sort all columns */
-  enableSort?: boolean,
   /** Visually hide Table's header, but keep available for [assistive technologies](https://webaccess.berkeley.edu/resources/assistive-technology) */
   hideHeader?: boolean,
   /** Visually hide Table's title, but keep available for [assistive technologies](https://webaccess.berkeley.edu/resources/assistive-technology) */
@@ -74,6 +72,8 @@ type Props = {
     key: string,
     ascending?: boolean
   },
+  /** Enable the user to sort all columns */
+  sortable?: boolean,
   /** The sort comparator function used by sortable columns */
   sortComparator?: (a: Object, b: Object, key: string) => -1 | 0 | 1,
   /** Renders Table with alternating row stripes */
@@ -91,7 +91,7 @@ export type Columns = Array<Column>;
 type Column = {
   cell?: RenderFn,
   content: React$Node,
-  enableSort?: boolean,
+  sortable?: boolean,
   header?: RenderFn,
   key: string,
   label?: string,
@@ -139,10 +139,8 @@ const generateColumns = (data: Rows) =>
 const getColumnDefs = ({ columns, data }: Props) =>
   columns || generateColumns(data);
 
-const getSortable = ({ columns, enableSort }: Props) =>
-  Boolean(
-    enableSort || (columns && columns.some((column) => column.enableSort))
-  );
+const getSortable = ({ columns, sortable }: Props) =>
+  Boolean(sortable || (columns && columns.some((column) => column.sortable)));
 
 /**
  * Table displays structured data with columns and rows.

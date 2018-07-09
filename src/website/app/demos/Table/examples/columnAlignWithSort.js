@@ -10,10 +10,10 @@ export default {
   source: `
     () => {
       const columns = [
-        { content: 'Fruits', key: 'Fruits', enableSort: true },
-        { content: 'Vegetables', key: 'Vegetables', textAlign: 'end', enableSort: true },
-        { content: 'Grains', key: 'Grains', textAlign: 'center', enableSort: true },
-        { content: 'Dairy', key: 'Dairy',  textAlign: 'justify', enableSort: true }
+        { content: 'Fruits', key: 'Fruits', sortable: true },
+        { content: 'Vegetables', key: 'Vegetables', textAlign: 'end', sortable: true },
+        { content: 'Grains', key: 'Grains', textAlign: 'center', sortable: true },
+        { content: 'Dairy', key: 'Dairy',  textAlign: 'justify', sortable: true }
       ];
 
       return (

@@ -12,10 +12,10 @@ import type { Columns } from './Table';
 type Props = {
   checked?: boolean,
   columns: Columns,
-  enableSort?: boolean,
   indeterminate?: boolean,
   messages: Messages,
   sort?: Sort,
+  sortable?: boolean,
   sortFn?: SortFn,
   toggle?: ToggleAll
 };
@@ -29,7 +29,7 @@ export default class HeaderRow extends Component<Props> {
     const {
       checked,
       columns,
-      enableSort: tableEnableSort,
+      sortable: tableSortable,
       indeterminate,
       messages,
       sort,
@@ -48,7 +48,7 @@ export default class HeaderRow extends Component<Props> {
           />
         ) : null}
         {columns.map(
-          ({ content, enableSort, header, key, label, ...restColumn }) => {
+          ({ content, sortable, header, key, label, ...restColumn }) => {
             if (typeof content !== 'string' && !label) {
               throw new Error(
                 'Columns with non-string content must define a `label` property.'
@@ -61,13 +61,13 @@ export default class HeaderRow extends Component<Props> {
               label: label || content,
               messages,
               sort,
-              sortFn: tableEnableSort || enableSort ? sortFn : undefined,
+              sortFn: tableSortable || sortable ? sortFn : undefined,
               ...restColumn
             };
 
             return header ? (
               header({ props: cellProps })
-            ) : enableSort ? (
+            ) : sortable ? (
               <TableSortableColumnHeader name={key} {...cellProps} />
             ) : (
               <TableColumnHeader {...cellProps} />

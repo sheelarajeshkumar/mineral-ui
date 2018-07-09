@@ -16,10 +16,10 @@ Technology (AT) within the component.`,
   source: `
     () => {
       const columns = [
-        { content: 'ثمار', key: 'Fruits', enableSort: true },
+        { content: 'ثمار', key: 'Fruits', sortable: true },
         { content: 'خضروات', key: 'Vegetables', textAlign: 'center' },
         { content: 'بقوليات', key: 'Grains' },
-        { content: 'الألبان', key: 'Dairy', enableSort: true, textAlign: 'end' },
+        { content: 'الألبان', key: 'Dairy', sortable: true, textAlign: 'end' },
         { content: 'بروتين', key: 'Protein' }
       ];
 

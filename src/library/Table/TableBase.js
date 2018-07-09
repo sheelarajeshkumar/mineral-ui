@@ -21,7 +21,6 @@ import type { Columns, Messages, Rows } from './Table';
 type Props = {
   columns: Columns,
   data: Rows,
-  enableSort?: boolean,
   hideHeader?: boolean,
   hideTitle?: boolean,
   id?: string,
@@ -30,6 +29,7 @@ type Props = {
   scrollable?: boolean,
   selectable?: Selectable,
   sort?: Sort,
+  sortable?: boolean,
   sortFn?: SortFn,
   title: React$Node,
   titleAppearance?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
@@ -111,7 +111,7 @@ export default class TableBase extends Component<Props, State> {
       columns,
       data,
       density,
-      enableSort,
+      sortable,
       hideHeader,
       hideTitle,
       highContrast,
@@ -135,7 +135,7 @@ export default class TableBase extends Component<Props, State> {
     const headerProps = {
       checked: selectable && selectable.all,
       columns,
-      enableSort,
+      sortable,
       indeterminate: selectable && selectable.some,
       messages,
       sort,

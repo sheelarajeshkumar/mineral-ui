@@ -6,11 +6,11 @@ export default {
   id: 'sort-by-columns',
   title: 'Sort by Columns',
   description: `Users can sort the rows in Table by column, enabled via the
-\`enableSort\` prop. If the default sorting function,
+\`sortable\` prop. If the default sorting function,
 below, does not work for your data, you can supply your own with the
 \`sortComparator\` prop. You can set the default sort with
 \`defaultSort\` or you can [control](#controlled) the sort state with \`sort\`.
-Note that the \`enableSort\` & \`sortComparator\` properties can be applied to
+Note that the \`sortable\` & \`sortComparator\` properties can be applied to
 Table via props or to individual columns via column definition.
 
 \`\`\`
@@ -42,10 +42,10 @@ alphabetically.
       };
 
       const columns = [
-        { content: 'Fresh Fruits', key: 'Fruits', enableSort: true },
-        { content: 'Veritable Vegetables', key: 'Vegetables', enableSort: true },
-        { content: 'Grains', key: 'Grains', enableSort: true },
-        { content: 'Delectable Dairy', key: 'Dairy', enableSort: true, sortComparator: sortByLength },
+        { content: 'Fresh Fruits', key: 'Fruits', sortable: true },
+        { content: 'Veritable Vegetables', key: 'Vegetables', sortable: true },
+        { content: 'Grains', key: 'Grains', sortable: true },
+        { content: 'Delectable Dairy', key: 'Dairy', sortable: true, sortComparator: sortByLength },
         { content: 'Protein', key: 'Protein' }
       ];
 

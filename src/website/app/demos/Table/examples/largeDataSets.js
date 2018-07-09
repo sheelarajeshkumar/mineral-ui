@@ -31,7 +31,7 @@ before clicking those buttons. 😬`,
 
           this.state = {
             columns: [
-              { content: 'AA', key: 'aa', enableSort: true },
+              { content: 'AA', key: 'aa', sortable: true },
               { content: 'AB', key: 'ab' }
             ],
             data: [

@@ -53,7 +53,7 @@
 
 // prettier-ignore
 export const columns4 = [
-  { content: "AA", name: "aa", enableSort: true },
+  { content: "AA", name: "aa", sortable: true },
   { content: "AB", name: "ab" },
   { content: "AC", name: "ac" },
   { content: "AD", name: "ad" }
@@ -61,7 +61,7 @@ export const columns4 = [
 
 // prettier-ignore
 export const columns104 = [
-  { content: "AA", name: "aa", enableSort: true },
+  { content: "AA", name: "aa", sortable: true },
   { content: "AB", name: "ab" },
   { content: "AC", name: "ac" },
   { content: "AD", name: "ad" },

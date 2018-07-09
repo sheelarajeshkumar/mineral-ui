@@ -4,7 +4,7 @@ import sharedData from '../shared/data';
 
 export default {
   id: 'default-sort',
-  title: 'Default Sort (w/o `enableSort` on a column)',
+  title: 'Default Sort (w/o `sortable` on a column)',
   hideFromProd: true,
   scope: { Table, sharedData },
   source: `
