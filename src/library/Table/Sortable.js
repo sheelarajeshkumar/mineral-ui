@@ -64,9 +64,11 @@ export default class Sortable extends Component<Props, State> {
   render() {
     const props = {
       ...this.props,
-      data: this.state.data,
-      sort: this.state.sort,
-      sortFn: this.sort
+      sortable: {
+        data: this.state.data,
+        sort: this.state.sort,
+        sortFn: this.sort
+      }
     };
 
     return this.props.children(props);

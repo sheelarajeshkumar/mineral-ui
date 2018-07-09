@@ -209,7 +209,9 @@ const SelectableTable = (props) => (
 );
 
 const SortableTable = (props) => (
-  <Sortable {...props}>{(props) => <TableBase {...props} />}</Sortable>
+  <Sortable {...props}>
+    {({ sortable, ...restProps }) => <TableBase {...sortable} {...restProps} />}
+  </Sortable>
 );
 
 const SelectableSortableTable = (props) => (
