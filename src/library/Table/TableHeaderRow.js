@@ -1,13 +1,14 @@
+/* @flow */
 import React, { Component } from 'react';
 import deepEqual from 'fast-deep-equal';
-import SelectCell from './SelectCell';
+import TableSelectableCell from './TableSelectableCell';
 import TableHeaderCell from './TableHeaderCell';
 import TableSortableHeaderCell from './TableSortableHeaderCell';
 import TableRow from './TableRow';
 
 import type { ToggleAll } from './Selectable';
 import type { Sort, SortFn } from './Sortable';
-import type { Columns } from './Table';
+import type { Columns, Messages } from './Table';
 
 type Props = {
   checked?: boolean,
@@ -20,10 +21,15 @@ type Props = {
   toggle?: ToggleAll
 };
 
-export default class HeaderRow extends Component<Props> {
-  shouldComponentUpdate(nextProps) {
+export default class TableHeaderRow extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return !deepEqual(this.props, nextProps);
   }
+
+  toggle = () => {
+    const { toggle } = this.props;
+    toggle && toggle();
+  };
 
   render() {
     const {
@@ -37,11 +43,11 @@ export default class HeaderRow extends Component<Props> {
       toggle
     } = this.props;
     const selectable = Boolean(toggle);
-    console.log(`render ${selectable ? 'selectable ' : ''}HeaderRow`);
+    console.log(`render ${selectable ? 'selectable ' : ''}TableHeaderRow`);
     return (
       <TableRow>
         {selectable ? (
-          <SelectCell
+          <TableSelectableCell
             isHeader={true}
             label={
               checked || indeterminate
@@ -50,7 +56,7 @@ export default class HeaderRow extends Component<Props> {
             }
             checked={checked}
             indeterminate={indeterminate}
-            onChange={toggle}
+            onChange={this.toggle}
           />
         ) : null}
         {columns.map(
@@ -64,7 +70,8 @@ export default class HeaderRow extends Component<Props> {
             const cellProps = {
               children: content,
               key,
-              label: label || content,
+              label:
+                label || (typeof content === 'string' ? content : undefined),
               messages,
               sort,
               sortFn: tableSortable || sortable ? sortFn : undefined,

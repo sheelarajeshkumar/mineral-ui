@@ -1,11 +1,12 @@
+/* @flow */
 import React, { Component } from 'react';
 import deepEqual from 'fast-deep-equal';
-import SelectCell from './SelectCell';
+import TableSelectableCell from './TableSelectableCell';
 import TableCell from './TableCell';
 import TableRow from './TableRow';
 
 import type { ToggleItem } from './Selectable';
-import type { Columns, Row } from './Table';
+import type { Columns, Messages, Row } from './Table';
 
 type Props = {
   checked?: boolean,
@@ -15,19 +16,20 @@ type Props = {
   toggleItem?: ToggleItem
 };
 
-export default class DataRow extends Component<Props> {
-  shouldComponentUpdate(nextProps) {
+export default class TableDataRow extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return !deepEqual(this.props, nextProps);
   }
 
   toggleItem = () => {
-    this.props.toggleItem(this.props.data);
+    const { toggleItem } = this.props;
+    toggleItem && toggleItem(this.props.data);
   };
 
   render() {
     const { checked, columns, data, messages, toggleItem } = this.props;
     const selectable = Boolean(toggleItem);
-    console.log(`render ${selectable ? 'selectable ' : ''}DataRow`);
+    console.log(`render ${selectable ? 'selectable ' : ''}TableDataRow`);
 
     const children = columns.map(({ cell, key, ...restColumn }) => {
       const cellProps = {
@@ -40,7 +42,7 @@ export default class DataRow extends Component<Props> {
 
     if (selectable) {
       children.unshift(
-        <SelectCell
+        <TableSelectableCell
           key="selectable"
           label={checked ? messages.deselectRow : messages.selectRow}
           checked={checked}

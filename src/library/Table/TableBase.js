@@ -4,8 +4,8 @@ import createReactContext, { type Context } from 'create-react-context';
 import { createStyledComponent } from '../styles';
 import { createThemedComponent, mapComponentThemes } from '../themes';
 import { generateId } from '../utils';
-import DataRow from './DataRow';
-import HeaderRow from './HeaderRow';
+import TableDataRow from './TableDataRow';
+import TableHeaderRow from './TableHeaderRow';
 import _OverflowContainer, {
   componentTheme as overflowContainerComponentTheme
 } from './OverflowContainer';
@@ -154,7 +154,7 @@ export default class TableBase extends Component<Props, State> {
             {title}
           </TableTitle>
           <TableHeader hide={hideHeader}>
-            <HeaderRow {...headerProps} />
+            <TableHeaderRow {...headerProps} />
           </TableHeader>
           <TableBody>
             {data.map((rowData, index) => {
@@ -165,7 +165,9 @@ export default class TableBase extends Component<Props, State> {
                 messages,
                 toggleItem: selectable && selectable.toggleItem
               };
-              return <DataRow key={rowData[rowKey] || index} {...rowProps} />;
+              return (
+                <TableDataRow key={rowData[rowKey] || index} {...rowProps} />
+              );
             })}
           </TableBody>
         </Root>

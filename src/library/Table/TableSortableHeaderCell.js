@@ -121,7 +121,7 @@ const sortIcon = {
   descending: <IconArrowDropdownDown {...iconProps} />
 };
 
-export default function SortableHeaderCell({
+export default function TableSortableHeaderCell({
   children,
   label,
   name,

@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from 'react';
 import Checkbox from '../Checkbox';
 import TableCell from './TableCell';
@@ -11,8 +12,8 @@ type Props = {
   onChange: () => void
 };
 
-export default class SelectCell extends Component<Props> {
-  shouldComponentUpdate(nextProps) {
+export default class TableSelectableCell extends Component<Props> {
+  shouldComponentUpdate(nextProps: Props) {
     return (
       this.props.checked !== nextProps.checked ||
       this.props.indeterminate !== nextProps.indeterminate
@@ -20,7 +21,7 @@ export default class SelectCell extends Component<Props> {
   }
 
   render() {
-    console.log('render SelectCell');
+    console.log('render TableSelectableCell');
     const {
       checked,
       indeterminate,
