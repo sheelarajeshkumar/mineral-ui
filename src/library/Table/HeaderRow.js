@@ -42,6 +42,7 @@ export default class HeaderRow extends Component<Props> {
       <TableRow>
         {selectable ? (
           <SelectCell
+            isHeader={true}
             label={
               checked || indeterminate
                 ? messages.deselectAllRows

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import Checkbox from '../Checkbox';
+import TableCell from './TableCell';
+import TableColumnHeader from './TableColumnHeader';
 
 type Props = {
   checked?: boolean,
   indeterminate?: boolean,
+  isHeader?: boolean,
   label: string,
   onChange: () => void
 };
@@ -21,12 +24,16 @@ export default class SelectCell extends Component<Props> {
     const {
       checked,
       indeterminate,
+      isHeader,
       label,
       onChange,
       ...rootProps
     } = this.props;
+
+    const Root = isHeader ? TableColumnHeader : TableCell;
+
     return (
-      <td {...rootProps}>
+      <Root {...rootProps}>
         <Checkbox
           checked={checked}
           indeterminate={indeterminate}
@@ -34,7 +41,7 @@ export default class SelectCell extends Component<Props> {
           label={label}
           onChange={onChange}
         />
-      </td>
+      </Root>
     );
   }
 }
