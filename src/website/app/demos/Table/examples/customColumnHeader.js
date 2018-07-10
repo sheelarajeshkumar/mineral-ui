@@ -47,14 +47,14 @@ Some things to keep in mind:
        *   import { componentTheme as tableColumnHeaderTheme } from 'mineral-ui/Table/TableColumnHeader';
        */
       const header = ({ props }) => {
-        const { children, highContrast, key, spacious, textAlign } = props;
+        const { children, highContrast, key, label, spacious, textAlign } = props;
 
         const CustomColumnHeader = withTheme(({ theme: baseTheme }) => {
           const theme = tableColumnHeaderTheme(baseTheme);
-          const fontSize = theme.TH_fontSize;
+          const fontSize = theme.TableColumnHeader_fontSize;
           const paddingVertical = spacious
-            ? theme.TH_paddingVertical_spacious
-            : theme.TH_paddingVertical;
+            ? theme.TableColumnHeader_paddingVertical_spacious
+            : theme.TableColumnHeader_paddingVertical;
           const rtl = theme.direction === 'rtl';
           let rtlTextAlign;
           if ((rtl && textAlign == 'start') || (!rtl && textAlign == 'end')) {
@@ -63,20 +63,20 @@ Some things to keep in mind:
             rtlTextAlign = 'left';
           }
 
-          const Root = createStyledComponent('td', {
-            padding: paddingVertical + ' ' + theme.TH_paddingHorizontal,
+          const Root = createStyledComponent('th', {
+            padding: paddingVertical + ' ' + theme.TableColumnHeader_paddingHorizontal,
 
             '&:not(:first-child)': {
               borderLeft: rtl
                 ? null
                 : highContrast
-                  ? theme.TH_borderVertical_highContrast
-                  : theme.TH_borderVertical,
+                  ? theme.TableColumnHeader_borderVertical_highContrast
+                  : theme.TableColumnHeader_borderVertical,
               borderRight: !rtl
                 ? null
                 : highContrast
-                  ? theme.TH_borderVertical_highContrast
-                  : theme.TH_borderVertical
+                  ? theme.TableColumnHeader_borderVertical_highContrast
+                  : theme.TableColumnHeader_borderVertical
             },
           });
 
@@ -92,14 +92,19 @@ Some things to keep in mind:
 
           const Content = createStyledComponent('span', {
             fontSize,
-            fontWeight: theme.TH_fontWeight,
+            fontWeight: theme.TableColumnHeader_fontWeight,
             textAlign: rtlTextAlign
           });
 
           const veggies = ['🍆', '🥒', '🍠', '🌿'];
 
+          const rootProps = {
+            'aria-label': label,
+            ...props
+          };
+
           return (
-            <Root {...props}>
+            <Root {...rootProps}>
               <Inner>
                 <Veggie>{veggies[Math.floor(Math.random()*veggies.length)]}</Veggie>
                 <Content>{children}</Content>
