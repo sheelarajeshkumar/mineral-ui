@@ -52,8 +52,8 @@ Some things to keep in mind:
         const CustomCell = withTheme(({ theme: baseTheme }) => {
           const theme = tableCellTheme(baseTheme);
           const paddingVertical = spacious
-            ? theme.TD_paddingVertical_spacious
-            : theme.TD_paddingVertical;
+            ? theme.TableCell_paddingVertical_spacious
+            : theme.TableCell_paddingVertical;
           const rtl = theme.direction === 'rtl';
           let rtlTextAlign;
           if ((rtl && textAlign == 'start') || (!rtl && textAlign == 'end')) {
@@ -63,7 +63,7 @@ Some things to keep in mind:
           }
 
           const Root = createStyledComponent('td', {
-            padding: paddingVertical + ' ' + theme.TD_paddingHorizontal,
+            padding: paddingVertical + ' ' + theme.TableCell_paddingHorizontal,
 
             'tr:hover > &': {
               backgroundColor: palette.green_10
@@ -81,7 +81,7 @@ Some things to keep in mind:
           });
 
           const Content = createStyledComponent('span', {
-            fontSize: theme.TD_fontSize,
+            fontSize: theme.TableCell_fontSize,
             textAlign: rtlTextAlign
           });
 

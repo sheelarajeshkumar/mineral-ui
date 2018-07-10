@@ -56,8 +56,8 @@ Some things to keep in mind:
           // };
           const theme = baseTheme;
           const paddingVertical = spacious
-            ? theme.TD_paddingVertical_spacious
-            : theme.TD_paddingVertical;
+            ? theme.TableCell_paddingVertical_spacious
+            : theme.TableCell_paddingVertical;
 
           const Root = createStyledComponent('tr', {
             backgroundColor: theme.well_backgroundColor_warning,
@@ -77,7 +77,7 @@ Some things to keep in mind:
           });
 
           const Cell = createStyledComponent('td', {
-            padding: paddingVertical + ' ' + theme.TD_paddingHorizontal
+            padding: paddingVertical + ' ' + theme.TableCell_paddingHorizontal
           });
 
           const Divider = createStyledComponent('hr', {
