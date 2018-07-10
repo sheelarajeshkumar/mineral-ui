@@ -86,7 +86,7 @@ Some things to keep in mind:
 
           const Veggie = createStyledComponent('span', {
             display: 'inline-block',
-            marginRight: rtl ? theme.space_inline_sm : null,
+            marginLeft: rtl ? theme.space_inline_sm : null,
             marginRight: rtl ? null : theme.space_inline_sm
           });
 
