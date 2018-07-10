@@ -46,7 +46,7 @@ Some things to keep in mind:
        * it and compose it with the base theme as shown below.
        *   import { componentTheme as tableRowTheme } from 'mineral-ui/Table/TableRow';
        */
-      const customRow = ({ props }) => {
+      const row = ({ props }) => {
         const { key, highContrast, spacious, striped } = props;
 
         const CustomRow = withTheme(({ theme: baseTheme }) => {
@@ -101,7 +101,7 @@ Some things to keep in mind:
       const data = [
         sharedData[0],
         sharedData[1],
-        { row: customRow },
+        { row },
         sharedData[2],
         sharedData[3]
       ];
