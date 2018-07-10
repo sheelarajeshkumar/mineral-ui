@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Checkbox from '../Checkbox';
 import TableCell from './TableCell';
-import TableColumnHeader from './TableColumnHeader';
+import TableHeaderCell from './TableHeaderCell';
 
 type Props = {
   checked?: boolean,
@@ -30,7 +30,7 @@ export default class SelectCell extends Component<Props> {
       ...rootProps
     } = this.props;
 
-    const Root = isHeader ? TableColumnHeader : TableCell;
+    const Root = isHeader ? TableHeaderCell : TableCell;
 
     return (
       <Root {...rootProps}>

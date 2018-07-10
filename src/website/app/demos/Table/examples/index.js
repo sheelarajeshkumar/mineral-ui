@@ -4,7 +4,7 @@ import columnAlign from './columnAlign';
 import columnAlignWithSort from './columnAlignWithSort';
 import columnDef from './columnDef';
 import customCell from './customCell';
-import customColumnHeader from './customColumnHeader';
+import customHeaderCell from './customHeaderCell';
 import customRow from './customRow';
 import controlled from './controlled';
 import defaultSort from './defaultSort';
@@ -38,7 +38,7 @@ export default [
   controlled,
   rtl,
   customCell,
-  customColumnHeader,
+  customHeaderCell,
   customRow,
   defaultSort,
   rowSelectionAndColumnDef,

@@ -1,7 +1,7 @@
 /* @flow */
 import { componentTheme as tableComponentTheme } from '../../../../library/Table/TableBase';
 import { componentTheme as tableCellComponentTheme } from '../../../../library/Table/TableCell';
-import { componentTheme as tableColumnHeaderComponentTheme } from '../../../../library/Table/TableColumnHeader';
+import { componentTheme as tableHeaderCellComponentTheme } from '../../../../library/Table/TableHeaderCell';
 import { componentTheme as tableHeaderComponentTheme } from '../../../../library/Table/TableHeader';
 import { componentTheme as tableRowComponentTheme } from '../../../../library/Table/TableRow';
 import { componentTheme as tableTitleComponentTheme } from '../../../../library/Table/TableTitle';
@@ -17,7 +17,7 @@ export default {
   componentTheme: [
     tableComponentTheme,
     tableCellComponentTheme,
-    tableColumnHeaderComponentTheme,
+    tableHeaderCellComponentTheme,
     tableHeaderComponentTheme,
     tableRowComponentTheme,
     tableTitleComponentTheme

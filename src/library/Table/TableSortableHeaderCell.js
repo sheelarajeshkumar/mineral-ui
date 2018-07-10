@@ -3,7 +3,7 @@ import React from 'react';
 import { createStyledComponent, pxToEm } from '../styles';
 import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
-import TableColumnHeader from './TableColumnHeader';
+import TableHeaderCell from './TableHeaderCell';
 
 import type { Sort, SortComparator, SortFn } from './Sortable';
 import type { Messages } from './Table';
@@ -25,15 +25,15 @@ type Props = {
 };
 
 const componentTheme = (baseTheme: Object) => ({
-  TableColumnHeader_border_focus: `1px solid ${
+  TableHeaderCell_border_focus: `1px solid ${
     baseTheme.borderColor_theme_focus
   }`,
   ...baseTheme
 });
 
 const focusStyles = (theme) => ({
-  outline: theme.TableColumnHeader_border_focus,
-  outlineOffset: `-${theme.TableColumnHeader_border_focus.split(' ')[0]}` // TODO: IE?
+  outline: theme.TableHeaderCell_border_focus,
+  outlineOffset: `-${theme.TableHeaderCell_border_focus.split(' ')[0]}` // TODO: IE?
 });
 
 const styles = {
@@ -60,7 +60,7 @@ const styles = {
       cursor: 'inherit',
       fontSize: 'inherit',
       fontWeight: 'inherit',
-      verticalAlign: theme.TableColumnHeader_verticalAlign,
+      verticalAlign: theme.TableHeaderCell_verticalAlign,
       whiteSpace: 'nowrap',
       width: '100%',
 
@@ -102,10 +102,10 @@ const styles = {
   }
 };
 
-const Root = createStyledComponent(TableColumnHeader, styles.root, {
+const Root = createStyledComponent(TableHeaderCell, styles.root, {
   withProps: { noPadding: true }
 });
-const Button = createStyledComponent(TableColumnHeader, styles.button, {
+const Button = createStyledComponent(TableHeaderCell, styles.button, {
   withProps: { element: 'button' }
 });
 const Content = createStyledComponent('span', styles.content);
@@ -121,7 +121,7 @@ const sortIcon = {
   descending: <IconArrowDropdownDown {...iconProps} />
 };
 
-export default function SortableColumnHeader({
+export default function SortableHeaderCell({
   children,
   label,
   name,

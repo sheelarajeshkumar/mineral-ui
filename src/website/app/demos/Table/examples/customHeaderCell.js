@@ -3,16 +3,16 @@ import { palette } from 'mineral-ui-tokens';
 import { createStyledComponent } from '../../../../../library/styles';
 import { withTheme } from '../../../../../library/themes';
 import Table from '../../../../../library/Table';
-import { componentTheme as tableColumnHeaderTheme } from '../../../../../library/Table/TableColumnHeader';
+import { componentTheme as tableHeaderCellTheme } from '../../../../../library/Table/TableHeaderCell';
 import renderPropDescription from '../../shared/renderPropDescription';
 import sharedData from '../shared/data';
 
 export default {
-  id: 'custom-column-header',
-  title: 'Custom Column Header',
+  id: 'custom-header-cell',
+  title: 'Custom Header Cell',
   description: `Use the \`cell\`
 [render prop](https://reactjs.org/docs/render-props.html) in a column definiton
-to provide custom rendering control of all [THs](/components/th) in that
+to provide custom rendering control of all [TableHeaderCells](/components/table-header-cell) in that
 column.
 
 ${renderPropDescription}
@@ -31,7 +31,7 @@ Some things to keep in mind:
     Table,
     palette,
     sharedData,
-    tableColumnHeaderTheme,
+    tableHeaderCellTheme,
     withTheme
   },
   source: `
@@ -44,17 +44,17 @@ Some things to keep in mind:
        *
        * If you wish to access a component specific theme, you'll need to import
        * it and compose it with the base theme as shown below.
-       *   import { componentTheme as tableColumnHeaderTheme } from 'mineral-ui/Table/TableColumnHeader';
+       *   import { componentTheme as tableHeaderCellTheme } from 'mineral-ui/Table/TableHeaderCell';
        */
       const header = ({ props }) => {
         const { children, highContrast, key, label, spacious, textAlign } = props;
 
-        const CustomColumnHeader = withTheme(({ theme: baseTheme }) => {
-          const theme = tableColumnHeaderTheme(baseTheme);
-          const fontSize = theme.TableColumnHeader_fontSize;
+        const CustomHeaderCell = withTheme(({ theme: baseTheme }) => {
+          const theme = tableHeaderCellTheme(baseTheme);
+          const fontSize = theme.TableHeaderCell_fontSize;
           const paddingVertical = spacious
-            ? theme.TableColumnHeader_paddingVertical_spacious
-            : theme.TableColumnHeader_paddingVertical;
+            ? theme.TableHeaderCell_paddingVertical_spacious
+            : theme.TableHeaderCell_paddingVertical;
           const rtl = theme.direction === 'rtl';
           let rtlTextAlign;
           if ((rtl && textAlign == 'start') || (!rtl && textAlign == 'end')) {
@@ -64,19 +64,19 @@ Some things to keep in mind:
           }
 
           const Root = createStyledComponent('th', {
-            padding: paddingVertical + ' ' + theme.TableColumnHeader_paddingHorizontal,
+            padding: paddingVertical + ' ' + theme.TableHeaderCell_paddingHorizontal,
 
             '&:not(:first-child)': {
               borderLeft: rtl
                 ? null
                 : highContrast
-                  ? theme.TableColumnHeader_borderVertical_highContrast
-                  : theme.TableColumnHeader_borderVertical,
+                  ? theme.TableHeaderCell_borderVertical_highContrast
+                  : theme.TableHeaderCell_borderVertical,
               borderRight: !rtl
                 ? null
                 : highContrast
-                  ? theme.TableColumnHeader_borderVertical_highContrast
-                  : theme.TableColumnHeader_borderVertical
+                  ? theme.TableHeaderCell_borderVertical_highContrast
+                  : theme.TableHeaderCell_borderVertical
             },
           });
 
@@ -92,7 +92,7 @@ Some things to keep in mind:
 
           const Content = createStyledComponent('span', {
             fontSize,
-            fontWeight: theme.TableColumnHeader_fontWeight,
+            fontWeight: theme.TableHeaderCell_fontWeight,
             textAlign: rtlTextAlign
           });
 
@@ -113,7 +113,7 @@ Some things to keep in mind:
           );
         });
 
-        return <CustomColumnHeader key={key} />;
+        return <CustomHeaderCell key={key} />;
       };
 
       const columns = [

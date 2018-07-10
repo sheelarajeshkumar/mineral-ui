@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import deepEqual from 'fast-deep-equal';
 import SelectCell from './SelectCell';
-import TableColumnHeader from './TableColumnHeader';
-import TableSortableColumnHeader from './TableSortableColumnHeader';
+import TableHeaderCell from './TableHeaderCell';
+import TableSortableHeaderCell from './TableSortableHeaderCell';
 import TableRow from './TableRow';
 
 import type { ToggleAll } from './Selectable';
@@ -74,9 +74,9 @@ export default class HeaderRow extends Component<Props> {
             return header ? (
               header({ props: cellProps })
             ) : sortable ? (
-              <TableSortableColumnHeader name={key} {...cellProps} />
+              <TableSortableHeaderCell name={key} {...cellProps} />
             ) : (
-              <TableColumnHeader {...cellProps} />
+              <TableHeaderCell {...cellProps} />
             );
           }
         )}
