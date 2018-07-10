@@ -4,7 +4,7 @@ import Selectable from './Selectable';
 import Sortable from './Sortable';
 import TableBase from './TableBase';
 
-import type { State as SortState } from './Sortable';
+import type { State as SortableState } from './Sortable';
 import type { State as SelectableState } from './Selectable';
 
 type Props = {
@@ -125,7 +125,7 @@ export type RenderProps = {
 } & StateAndHelpers;
 type StateAndHelpers = {
   // TODO: Would require passing T in to SelectableState
-  state?: SelectableState & SortState,
+  state?: SelectableState & SortableState,
   helpers?: Helpers
 };
 type Helpers = {};
