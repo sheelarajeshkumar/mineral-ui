@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import deepEqual from 'fast-deep-equal';
 import SelectCell from './SelectCell';
 import TableCell from './TableCell';
@@ -28,30 +28,27 @@ export default class DataRow extends Component<Props> {
     const { checked, columns, data, messages, toggleItem } = this.props;
     const selectable = Boolean(toggleItem);
     console.log(`render ${selectable ? 'selectable ' : ''}DataRow`);
-    const children = (
-      // TODO: React 16+ only
-      <Fragment>
-        {selectable ? (
-          <SelectCell
-            label={checked ? messages.deselectRow : messages.selectRow}
-            checked={checked}
-            onChange={this.toggleItem}
-          />
-        ) : null}
-        {columns.map(({ cell, key, ...restColumn }) => {
-          const cellProps = {
-            children: data[key],
-            key,
-            ...restColumn
-          };
-          return cell ? (
-            cell({ props: cellProps })
-          ) : (
-            <TableCell {...cellProps} />
-          );
-        })}
-      </Fragment>
-    );
+
+    const children = columns.map(({ cell, key, ...restColumn }) => {
+      const cellProps = {
+        children: data[key],
+        key,
+        ...restColumn
+      };
+      return cell ? cell({ props: cellProps }) : <TableCell {...cellProps} />;
+    });
+
+    if (selectable) {
+      children.unshift(
+        <SelectCell
+          key="selectable"
+          label={checked ? messages.deselectRow : messages.selectRow}
+          checked={checked}
+          onChange={this.toggleItem}
+        />
+      );
+    }
+
     return data.row ? (
       data.row({ props: { children } })
     ) : (
