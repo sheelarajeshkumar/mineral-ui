@@ -162,6 +162,7 @@ export default class TableBase extends Component<Props, State> {
                 checked: selectable && selectable.isSelected(rowData),
                 columns,
                 data: rowData,
+                messages,
                 toggleItem: selectable && selectable.toggleItem
               };
               return <DataRow key={rowData[rowKey] || index} {...rowProps} />;

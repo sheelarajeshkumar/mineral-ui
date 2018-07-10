@@ -11,6 +11,7 @@ type Props = {
   checked?: boolean,
   columns: Columns,
   data: Row,
+  messages: Messages,
   toggleItem?: ToggleItem
 };
 
@@ -24,14 +25,18 @@ export default class DataRow extends Component<Props> {
   };
 
   render() {
-    const { checked, columns, data, toggleItem } = this.props;
+    const { checked, columns, data, messages, toggleItem } = this.props;
     const selectable = Boolean(toggleItem);
     console.log(`render ${selectable ? 'selectable ' : ''}DataRow`);
     const children = (
       // TODO: React 16+ only
       <Fragment>
         {selectable ? (
-          <SelectCell checked={checked} onChange={this.toggleItem} />
+          <SelectCell
+            label={checked ? messages.deselectRow : messages.selectRow}
+            checked={checked}
+            onChange={this.toggleItem}
+          />
         ) : null}
         {columns.map(({ cell, key, ...restColumn }) => {
           const cellProps = {

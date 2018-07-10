@@ -42,6 +42,11 @@ export default class HeaderRow extends Component<Props> {
       <TableRow>
         {selectable ? (
           <SelectCell
+            label={
+              checked || indeterminate
+                ? messages.deselectAllRows
+                : messages.selectAllRows
+            }
             checked={checked}
             indeterminate={indeterminate}
             onChange={toggle}
