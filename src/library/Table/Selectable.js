@@ -1,9 +1,11 @@
 /* @flow */
 import { Component } from 'react';
+import { setFromArray } from '../utils';
 
 type Props<T> = {
   children: (props: Object) => React$Node,
   data: Data<T>,
+  defaultSelected: Data<T>,
   onToggle?: (item: T, selected: boolean) => void,
   onToggleAll?: (items: Array<T>, selected: boolean) => void
 };
@@ -30,9 +32,10 @@ export default class Selectable<T> extends Component<Props<T>, State<T>> {
   constructor(props: Props<T>) {
     super(props);
 
+    const { defaultSelected } = props;
+
     this.state = {
-      // TODO: Handle defaultSelected
-      selected: new Set(),
+      selected: (defaultSelected && setFromArray(defaultSelected)) || new Set(),
       some: false,
       all: false
     };

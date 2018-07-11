@@ -184,6 +184,7 @@ class Table extends Component<Props> {
   render() {
     console.log('render Table');
     const {
+      defaultSelectedRows: defaultSelected,
       enableRowSelection: selectable,
       onToggleRow: onToggle,
       onToggleAllRows: onToggleAll,
@@ -193,6 +194,7 @@ class Table extends Component<Props> {
     const rootProps = {
       ...restProps,
       columns: this.columns,
+      defaultSelected,
       onToggle,
       onToggleAll
     };
