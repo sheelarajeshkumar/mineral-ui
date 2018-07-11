@@ -4,8 +4,8 @@ import { Component } from 'react';
 type Props<T> = {
   children: (props: Object) => React$Node,
   data: Data<T>,
-  onToggle?: (item: T) => void,
-  onToggleAll?: (items: Array<T>) => void
+  onToggle?: (item: T, selected: boolean) => void,
+  onToggleAll?: (items: Array<T>, selected: boolean) => void
 };
 
 export type State<T> = {
@@ -56,7 +56,7 @@ export default class Sortable<T> extends Component<Props<T>, State<T>> {
         };
       },
       () => {
-        onToggle && onToggle(item);
+        onToggle && onToggle(item, this.state.selected.has(item));
       }
     );
   };
@@ -74,7 +74,7 @@ export default class Sortable<T> extends Component<Props<T>, State<T>> {
         };
       },
       () => {
-        onToggleAll && onToggleAll([...this.state.selected]); // TODO: Is it more useful to just pass a boolean?
+        onToggleAll && onToggleAll([...this.state.selected], this.state.all);
       }
     );
   };

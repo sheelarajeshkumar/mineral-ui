@@ -43,15 +43,15 @@ type Props = {
    * ([see example for more details](#rtl))
    */
   messages: Messages,
-  /** Called when all rows are selected/deselected */
-  onToggleAllRows?: (rows: Array<Object>) => void,
-  /** Called when a single row is selected/deselected */
-  onToggleRow?: (row: Object) => void,
   /** Called when data is sorted */
   onSortRows?: (sort: {
     key: string,
     ascending?: boolean
   }) => void,
+  /** Called when all rows are selected/deselected */
+  onToggleAllRows?: (rows: Array<Object>, selected: boolean) => void,
+  /** Called when a single row is selected/deselected */
+  onToggleRow?: (row: Object, selected: boolean) => void,
   /**
    * Specifies a key in the row data that gives a row its unique identity.
    * See the [React docs](https://reactjs.org/docs/lists-and-keys.html#keys).

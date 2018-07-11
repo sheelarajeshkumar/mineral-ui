@@ -24,12 +24,16 @@ export default {
         sharedData[3]
       ];
 
+      const onToggle = (rows, selected) => console.log(rows, selected);
+
       return (
         <Table
           columns={columns}
           data={data}
           rowKey="Fruits"
           enableRowSelection
+          onToggleRow={onToggle}
+          onToggleAllRows={onToggle}
           defaultSelectedRows={[data[1]]}
           title="Delicious Foods"
           hideTitle />
