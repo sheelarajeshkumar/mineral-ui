@@ -23,7 +23,7 @@ type Props = {
    */
   defaultSort?: {
     key: string,
-    ascending?: boolean
+    descending?: boolean
   },
   /** Amount of vertical space in Table's cells */
   density: 'default' | 'spacious',
@@ -46,7 +46,7 @@ type Props = {
   /** Called when data is sorted */
   onSort?: (sort: {
     key: string,
-    ascending?: boolean
+    descending?: boolean
   }) => void,
   /** Called when all rows are selected/deselected */
   onToggleAllRows?: (rows: Array<Object>, selected: boolean) => void,
@@ -70,7 +70,7 @@ type Props = {
   /** Sorted column & direction. For use with controlled components. */
   sort?: {
     key: string,
-    ascending?: boolean
+    descending?: boolean
   },
   /** Enable the user to sort all columns */
   sortable?: boolean,
@@ -87,7 +87,8 @@ type Props = {
 };
 
 export type Columns = Array<Column>;
-// See columnDef example for descriptions
+
+// See demos/Table/index.js additionalTypes for descriptions
 type Column = {
   cell?: RenderFn,
   content: React$Node,
@@ -102,18 +103,17 @@ type Column = {
   textAlign?: 'start' | 'end' | 'center' | 'justify',
   width?: number | string
 };
+
 export type Messages = {
   deselectAllRows: string,
   deselectRow: string,
   selectAllRows: string,
   selectRow: string,
-  selectRowsColumnLabel: string,
-  sortButtonLabel: (direction: string) => string,
-  sortOrder: {
-    ascending: string,
-    descending: string
-  }
+  // selectRowsColumnLabel: string,  TODO: is this used?  Should be applied for SelectCell
+  sortColumnAscending: string,
+  sortColumnDescending: string
 };
+
 export type Row = Object;
 export type Rows = Array<Row>;
 
@@ -154,12 +154,8 @@ class Table extends Component<Props> {
       selectAllRows: 'Select all rows',
       selectRow: 'Select row',
       selectRowsColumnLabel: 'Selected rows',
-      sortButtonLabel: (direction: string) =>
-        `Sort column in ${direction} order`,
-      sortOrder: {
-        ascending: 'ascending',
-        descending: 'descending'
-      }
+      sortColumnAscending: 'Sort column in ascending order',
+      sortColumnDescending: 'Sort column in descending order'
     },
     titleElement: 'h4'
   };

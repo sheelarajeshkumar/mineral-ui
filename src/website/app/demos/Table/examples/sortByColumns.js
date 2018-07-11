@@ -54,7 +54,7 @@ alphabetically.
           columns={columns}
           data={sharedData}
           rowKey="Fruits"
-          defaultSort={{ key: 'Fruits', ascending: true }}
+          defaultSort={{ key: 'Fruits' }}
           title="Delicious Foods"
           hideTitle />
       );

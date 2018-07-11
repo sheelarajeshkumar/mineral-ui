@@ -53,12 +53,8 @@ Technology (AT) within the component.`,
         selectAllRows: 'حدد جميع الصفوف',
         selectRow: 'حدد الصف',
         selectRowsColumnLabel: 'الصفوف المختارة',
-        sortButtonLabel: (direction) =>
-          \`ترتيب العمود في ${direction} الطلب\`,
-        sortOrder: {
-          ascending: 'تصاعدي',
-          descending: 'تنازلي'
-        }
+        sortColumnAscending: 'ترتيب العمود في تصاعدي الطلب',
+        sortColumnDescending: 'ترتيب العمود في تنازلي الطلب'
       };
 
       return (

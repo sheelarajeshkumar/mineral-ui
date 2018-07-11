@@ -15,12 +15,13 @@ type Props = {
   label?: string,
   /** Name of column */
   name: string,
-  /** See DataTable */
+  /** See Table */
   sort?: Sort,
-  /** See DataTable's Column type */
+  /** See Table's Column type */
   sortComparator?: SortComparator,
+  /** TODO */
   sortFn: SortFn,
-  /** See DataTable */
+  /** See Table */
   messages: Messages
 };
 
@@ -132,13 +133,14 @@ export default function TableSortableHeaderCell({
   ...restProps
 }: Props) {
   const sortColumn = sort && sort.key;
-  const ascending = sort && sort.ascending;
+  const descending = sort && sort.descending;
 
   const isActiveSort = sortColumn === name;
   const activeDirection = isActiveSort
-    ? ascending ? 'ascending' : 'descending'
+    ? descending ? 'descending' : 'ascending'
     : undefined;
-  const nextDirection = ascending ? 'descending' : 'ascending';
+  const nextDirection =
+    activeDirection === 'ascending' ? 'descending' : 'ascending';
 
   const a11yLabel = label || children;
 
@@ -156,7 +158,10 @@ export default function TableSortableHeaderCell({
 
   const buttonProps = {
     ...restProps,
-    'aria-label': messages.sortButtonLabel(messages.sortOrder[nextDirection]),
+    'aria-label':
+      nextDirection === 'ascending'
+        ? messages.sortColumnAscending
+        : messages.sortColumnDescending,
     onClick: () => {
       sortFn(name, sortComparator);
     }

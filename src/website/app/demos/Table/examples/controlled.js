@@ -59,7 +59,7 @@ be managed by the application as a controlled component via the control props,
         }
 
         sortColumnBAsc() {
-          this.handleSort({ key: 'Grains', ascending: false })
+          this.handleSort({ key: 'Grains', descending: true })
         }
 
         render() {

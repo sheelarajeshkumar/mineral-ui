@@ -28,7 +28,7 @@ export default {
       return (
         <Table
           columns={columns}
-          defaultSort={{ key: 'Dairy', ascending: true }}
+          defaultSort={{ key: 'Dairy' }}
           data={sharedData}
           rowKey="Fruits"
           title="Delicious Foods"

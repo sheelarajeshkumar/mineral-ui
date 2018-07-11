@@ -19,7 +19,7 @@ type Data = Array<Object>;
 
 export type Sort = {
   key: string,
-  ascending?: boolean // TODO: Change to descending so that the default is sensible?
+  descending?: boolean
 };
 export type SortComparator = (a: Object, b: Object, key: string) => -1 | 0 | 1;
 export type SortFn = (key: string, comparator?: SortComparator) => void;
@@ -60,17 +60,19 @@ export default class Sortable extends Component<Props, State> {
 
     this.setState(
       ({ data, sort }) => {
-        const ascending = sort && sort.key === key ? !sort.ascending : true;
+        const descending = sort && sort.key === key ? !sort.descending : false;
+
         return {
           sort: {
             key,
-            ascending
+            descending
           },
           data: data.sort((a, b) => {
             const asc =
               (sortComparator && sortComparator(a, b, key)) ||
               this.props.sortComparator(a, b, key);
-            return (ascending ? asc : !asc) ? asc : -1 * asc;
+            const desc = asc * -1;
+            return descending ? desc : asc;
           })
         };
       },
