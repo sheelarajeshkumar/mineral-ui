@@ -11,9 +11,9 @@ type Props<T> = {
 };
 
 export type State<T> = {
+  all: boolean,
   selected: Set<T>,
-  some: boolean,
-  all: boolean
+  some: boolean
 };
 
 type Data<T> = Array<T>;
@@ -32,12 +32,13 @@ export default class Selectable<T> extends Component<Props<T>, State<T>> {
   constructor(props: Props<T>) {
     super(props);
 
-    const { defaultSelected } = props;
+    const { data, defaultSelected } = props;
+    const all = defaultSelected && defaultSelected.length === data.length;
 
     this.state = {
+      all,
       selected: (defaultSelected && setFromArray(defaultSelected)) || new Set(),
-      some: false,
-      all: false
+      some: defaultSelected && defaultSelected.length > 0 && !all
     };
   }
 
@@ -54,8 +55,8 @@ export default class Selectable<T> extends Component<Props<T>, State<T>> {
         const all = selected.size === this.props.data.length;
         return {
           all,
-          some: selected.size > 0 && !all,
-          selected
+          selected,
+          some: selected.size > 0 && !all
         };
       },
       () => {
