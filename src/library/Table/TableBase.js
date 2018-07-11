@@ -13,7 +13,7 @@ import TableBody from './TableBody';
 import TableHeader from './TableHeader';
 import TableTitle from './TableTitle';
 
-import type { Selectable } from './Selectable';
+import type { SelectableType } from './Selectable';
 import type { Sort, SortFn } from './Sortable';
 import type { Columns, Messages, Rows } from './Table';
 
@@ -27,7 +27,7 @@ type Props = {
   messages: Messages,
   rowKey?: string,
   scrollable?: boolean,
-  selectable?: Selectable,
+  selectable?: SelectableType,
   sort?: Sort,
   sortable?: boolean,
   sortFn?: SortFn,

@@ -16,7 +16,7 @@ export type State<T> = {
 
 type Data<T> = Array<T>;
 // TODO: `rowData` should be T, but that would require passing T from Table
-export type Selectable = {
+export type SelectableType = {
   all: boolean,
   some: boolean,
   isSelected: (rowData: Object) => boolean,
@@ -26,7 +26,7 @@ export type Selectable = {
 export type Toggle = (rowData: Object) => void;
 export type ToggleAll = () => void;
 
-export default class Sortable<T> extends Component<Props<T>, State<T>> {
+export default class Selectable<T> extends Component<Props<T>, State<T>> {
   constructor(props: Props<T>) {
     super(props);
 
