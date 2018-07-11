@@ -43,7 +43,7 @@ export default class TableHeaderRow extends Component<Props> {
       toggle
     } = this.props;
     const selectable = Boolean(toggle);
-    console.log(`render ${selectable ? 'selectable ' : ''}TableHeaderRow`);
+    console.log(`render ${selectable ? 'Selectable ' : ''}TableHeaderRow`);
     return (
       <TableRow>
         {selectable ? (

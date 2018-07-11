@@ -44,9 +44,9 @@ type Props = {
    */
   messages: Messages,
   /** Called when all rows are selected/deselected */
-  onSelectAllRows?: (rows: Array<Object>) => void,
+  onToggleAllRows?: (rows: Array<Object>) => void,
   /** Called when a single row is selected/deselected */
-  onSelectRow?: (row: Object) => void,
+  onToggleRow?: (row: Object) => void,
   /** Called when data is sorted */
   onSortRows?: (sort: {
     key: string,
@@ -183,11 +183,18 @@ class Table extends Component<Props> {
 
   render() {
     console.log('render Table');
-    const { enableRowSelection: selectable, ...restProps } = this.props;
+    const {
+      enableRowSelection: selectable,
+      onToggleRow: onToggle,
+      onToggleAllRows: onToggleAll,
+      ...restProps
+    } = this.props;
 
     const rootProps = {
       ...restProps,
-      columns: this.columns
+      columns: this.columns,
+      onToggle,
+      onToggleAll
     };
 
     if (selectable && this.sortable) {

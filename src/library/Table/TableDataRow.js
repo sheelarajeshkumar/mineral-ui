@@ -5,7 +5,7 @@ import TableSelectableCell from './TableSelectableCell';
 import TableCell from './TableCell';
 import TableRow from './TableRow';
 
-import type { ToggleItem } from './Selectable';
+import type { Toggle } from './Selectable';
 import type { Columns, Messages, Row } from './Table';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   columns: Columns,
   data: Row,
   messages: Messages,
-  toggleItem?: ToggleItem
+  toggle?: Toggle
 };
 
 export default class TableDataRow extends Component<Props> {
@@ -21,15 +21,15 @@ export default class TableDataRow extends Component<Props> {
     return !deepEqual(this.props, nextProps);
   }
 
-  toggleItem = () => {
-    const { toggleItem } = this.props;
-    toggleItem && toggleItem(this.props.data);
+  toggle = () => {
+    const { toggle } = this.props;
+    toggle && toggle(this.props.data);
   };
 
   render() {
-    const { checked, columns, data, messages, toggleItem } = this.props;
-    const selectable = Boolean(toggleItem);
-    console.log(`render ${selectable ? 'selectable ' : ''}TableDataRow`);
+    const { checked, columns, data, messages, toggle } = this.props;
+    const selectable = Boolean(toggle);
+    console.log(`render ${selectable ? 'Selectable ' : ''}TableDataRow`);
 
     const children = columns.map(({ cell, key, ...restColumn }) => {
       const cellProps = {
@@ -46,7 +46,7 @@ export default class TableDataRow extends Component<Props> {
           key="selectable"
           label={checked ? messages.deselectRow : messages.selectRow}
           checked={checked}
-          onChange={this.toggleItem}
+          onChange={this.toggle}
         />
       );
     }

@@ -3,7 +3,7 @@ import { Component } from 'react';
 import Button from '../../../../../library/Button';
 import Flex, { FlexItem } from '../../../../../library/Flex';
 import Table from '../../../../../library/Table';
-import sharedData from '../shared/data';
+import data from '../shared/data';
 
 export default {
   id: 'controlled',
@@ -11,11 +11,11 @@ export default {
   description: `Table controls its own state by default, and can optionally
 be managed by the application as a controlled component via the control props,
 \`selectedRows\` and \`sort\`.`,
-  scope: { Button, Component, Table, Flex, FlexItem, sharedData },
+  scope: { Button, Component, Table, Flex, FlexItem, data },
   source: `
     () => {
-      const evenRows = sharedData.filter((row, index) => (index + 1)%2 === 0);
-      const oddRows = sharedData.filter((row) => evenRows.indexOf(row) === -1);
+      const evenRows = data.filter((row, index) => (index + 1)%2 === 0);
+      const oddRows = data.filter((row) => evenRows.indexOf(row) === -1);
 
       const columns = [
         { content: 'Fruits', key: 'Fruits', sortable: true },
@@ -41,7 +41,6 @@ be managed by the application as a controlled component via the control props,
           this.selectEvenRows = this.selectEvenRows.bind(this);
           this.sortColumnBAsc = this.sortColumnBAsc.bind(this);
         }
-
 
         handleSelectRows(selectedRows) {
           this.setState({ selectedRows });
@@ -79,7 +78,7 @@ be managed by the application as a controlled component via the control props,
               </Flex>
               <Table
                 columns={columns}
-                data={sharedData}
+                data={data}
                 rowKey="Fruits"
                 enableRowSelection
                 selectedRows={this.state.selectedRows}

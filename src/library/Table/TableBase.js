@@ -163,7 +163,7 @@ export default class TableBase extends Component<Props, State> {
                 columns,
                 data: rowData,
                 messages,
-                toggleItem: selectable && selectable.toggleItem
+                toggle: selectable && selectable.toggle
               };
               return (
                 <TableDataRow key={rowData[rowKey] || index} {...rowProps} />

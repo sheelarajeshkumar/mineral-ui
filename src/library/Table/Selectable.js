@@ -3,7 +3,9 @@ import { Component } from 'react';
 
 type Props<T> = {
   children: (props: Object) => React$Node,
-  data: Data<T>
+  data: Data<T>,
+  onToggle?: (item: T) => void,
+  onToggleAll?: (items: Array<T>) => void
 };
 
 export type State<T> = {
@@ -18,11 +20,11 @@ export type Selectable = {
   all: boolean,
   some: boolean,
   isSelected: (rowData: Object) => boolean,
-  toggleAll: ToggleAll,
-  toggleItem: ToggleItem
+  toggle: Toggle,
+  toggleAll: ToggleAll
 };
+export type Toggle = (rowData: Object) => void;
 export type ToggleAll = () => void;
-export type ToggleItem = (rowData: Object) => void;
 
 export default class Sortable<T> extends Component<Props<T>, State<T>> {
   constructor(props: Props<T>) {
@@ -40,27 +42,41 @@ export default class Sortable<T> extends Component<Props<T>, State<T>> {
     return this.state.selected.has(item);
   };
 
-  toggleItem = (item: T) => {
-    this.setState(({ selected }) => {
-      selected.has(item) ? selected.delete(item) : selected.add(item);
-      const all = selected.size === this.props.data.length;
-      return {
-        all,
-        some: selected.size > 0 && !all,
-        selected
-      };
-    });
+  toggle = (item: T) => {
+    const { onToggle } = this.props;
+
+    this.setState(
+      ({ selected }) => {
+        selected.has(item) ? selected.delete(item) : selected.add(item);
+        const all = selected.size === this.props.data.length;
+        return {
+          all,
+          some: selected.size > 0 && !all,
+          selected
+        };
+      },
+      () => {
+        onToggle && onToggle(item);
+      }
+    );
   };
 
   toggleAll = () => {
-    this.setState(({ all, some }) => {
-      return {
-        all: !all && !some,
-        some: false,
-        // TODO: Account for disabled, store in instance var
-        selected: all || some ? new Set() : new Set(this.props.data)
-      };
-    });
+    const { onToggleAll } = this.props;
+
+    this.setState(
+      ({ all, some }) => {
+        return {
+          all: !all && !some,
+          some: false,
+          // TODO: Account for disabled, store in instance var
+          selected: all || some ? new Set() : new Set(this.props.data)
+        };
+      },
+      () => {
+        onToggleAll && onToggleAll([...this.state.selected]); // TODO: Is it more useful to just pass a boolean?
+      }
+    );
   };
 
   render() {
@@ -69,7 +85,7 @@ export default class Sortable<T> extends Component<Props<T>, State<T>> {
       selectable: {
         ...this.state,
         isSelected: this.isSelected,
-        toggleItem: this.toggleItem,
+        toggle: this.toggle,
         toggleAll: this.toggleAll
       }
     };
