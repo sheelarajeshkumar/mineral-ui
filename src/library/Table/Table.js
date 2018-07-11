@@ -109,7 +109,7 @@ export type Messages = {
   deselectRow: string,
   selectAllRows: string,
   selectRow: string,
-  // selectRowsColumnLabel: string,  TODO: is this used?  Should be applied for SelectCell
+  selectedRows: string,
   sortColumnAscending: string,
   sortColumnDescending: string
 };
@@ -152,8 +152,8 @@ class Table extends Component<Props> {
       deselectAllRows: 'Deselect all rows',
       deselectRow: 'Deselect row',
       selectAllRows: 'Select all rows',
+      selectedRows: 'Selected rows',
       selectRow: 'Select row',
-      selectRowsColumnLabel: 'Selected rows',
       sortColumnAscending: 'Sort column in ascending order',
       sortColumnDescending: 'Sort column in descending order'
     },

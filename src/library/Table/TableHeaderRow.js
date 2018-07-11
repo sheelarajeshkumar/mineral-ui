@@ -48,6 +48,7 @@ export default class TableHeaderRow extends Component<Props> {
       <TableRow>
         {selectable ? (
           <TableSelectableCell
+            aria-label={messages.selectedRows}
             isHeader={true}
             label={
               checked || indeterminate

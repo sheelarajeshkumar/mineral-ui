@@ -51,8 +51,8 @@ Technology (AT) within the component.`,
         deselectAllRows: 'قم بإلغاء تحديد جميع الصفوف',
         deselectRow: 'إلغاء الصف',
         selectAllRows: 'حدد جميع الصفوف',
+        selectedRows: 'الصفوف المختارة',
         selectRow: 'حدد الصف',
-        selectRowsColumnLabel: 'الصفوف المختارة',
         sortColumnAscending: 'ترتيب العمود في تصاعدي الطلب',
         sortColumnDescending: 'ترتيب العمود في تنازلي الطلب'
       };
