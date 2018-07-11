@@ -64,14 +64,14 @@ Some things to keep in mind:
 
             '&:not(:last-child)': {
               borderBottom: highContrast
-                ? theme.TR_borderHorizontal_highContrast
-                : theme.TR_borderHorizontal
+                ? theme.TableRow_borderHorizontal_highContrast
+                : theme.TableRow_borderHorizontal
             },
 
             '&:nth-child(even):not(:hover)': {
               backgroundColor:
                 striped
-                  ? theme.TR_backgroundColor_striped
+                  ? theme.TableRow_backgroundColor_striped
                   : null
             }
           });
