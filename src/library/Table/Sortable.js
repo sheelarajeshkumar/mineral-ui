@@ -4,7 +4,9 @@ import { Component } from 'react';
 type Props = {
   children: (props: Object) => React$Node,
   data: Data,
-  sort?: Sort,
+  defaultSort?: Sort,
+  onSort?: (sort: Sort) => void,
+  sort?: Sort, // TODO: do we really need to offer "controlled" sort?
   sortComparator: SortComparator
 };
 
@@ -14,6 +16,7 @@ export type State = {
 };
 
 type Data = Array<Object>;
+
 export type Sort = {
   key: string,
   ascending?: boolean // TODO: Change to descending so that the default is sensible?
@@ -40,25 +43,41 @@ export default class Sortable extends Component<Props, State> {
 
   state = {
     data: this.props.data,
-    sort: this.props.sort
+    sort: undefined
   };
 
+  componentDidMount() {
+    const { defaultSort, sortComparator } = this.props;
+
+    if (defaultSort) {
+      // NOTE: This causes an extra render. Better to set initial state in constructor.
+      this.sort(defaultSort.key, sortComparator);
+    }
+  }
+
   sort: SortFn = (key, sortComparator) => {
-    this.setState(({ data, sort }) => {
-      const ascending = sort && sort.key === key ? !sort.ascending : true;
-      return {
-        sort: {
-          key,
-          ascending
-        },
-        data: data.sort((a, b) => {
-          const asc =
-            (sortComparator && sortComparator(a, b, key)) ||
-            this.props.sortComparator(a, b, key);
-          return (ascending ? asc : !asc) ? asc : -1 * asc;
-        })
-      };
-    });
+    const { onSort } = this.props;
+
+    this.setState(
+      ({ data, sort }) => {
+        const ascending = sort && sort.key === key ? !sort.ascending : true;
+        return {
+          sort: {
+            key,
+            ascending
+          },
+          data: data.sort((a, b) => {
+            const asc =
+              (sortComparator && sortComparator(a, b, key)) ||
+              this.props.sortComparator(a, b, key);
+            return (ascending ? asc : !asc) ? asc : -1 * asc;
+          })
+        };
+      },
+      () => {
+        onSort && this.state.sort && onSort(this.state.sort);
+      }
+    );
   };
 
   render() {

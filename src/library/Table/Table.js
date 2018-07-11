@@ -44,7 +44,7 @@ type Props = {
    */
   messages: Messages,
   /** Called when data is sorted */
-  onSortRows?: (sort: {
+  onSort?: (sort: {
     key: string,
     ascending?: boolean
   }) => void,

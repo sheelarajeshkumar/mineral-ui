@@ -16,11 +16,14 @@ export default {
         { content: 'Dairy', key: 'Dairy',  textAlign: 'justify', sortable: true }
       ];
 
+      const onSort = (sort) => console.log(sort);
+
       return (
         <Table
           columns={columns}
           data={sharedData}
           defaultSort={{ key: 'Vegetables', ascending: true }}
+          onSort={onSort}
           title="Delicious Foods"
           hideTitle />
       );
