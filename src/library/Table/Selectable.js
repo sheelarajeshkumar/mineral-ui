@@ -80,7 +80,8 @@ export default class Selectable<T> extends Component<Props<T>, State<T>> {
         };
       },
       () => {
-        onToggleAll && onToggleAll(this.props.data, this.state.all);
+        onToggleAll &&
+          onToggleAll(this.state.all ? this.props.data : [], this.state.all);
       }
     );
   };
