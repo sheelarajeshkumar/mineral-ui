@@ -119,10 +119,12 @@ type StateAndHelpers = {
 type Helpers = {};
 
 const generateColumns = (data: Rows) =>
-  Object.keys(data[0]).reduce((acc, cell) => {
-    acc.push({ content: cell, key: cell });
-    return acc;
-  }, []);
+  data[0]
+    ? Object.keys(data[0]).reduce((acc, cell) => {
+        acc.push({ content: cell, key: cell });
+        return acc;
+      }, [])
+    : [];
 
 const getColumnDefs = ({ columns, data }: Props) =>
   columns || generateColumns(data);
