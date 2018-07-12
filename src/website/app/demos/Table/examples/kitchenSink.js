@@ -3,9 +3,9 @@ import React from 'react';
 import Table from '../../../../../library/Table';
 // import data from '../shared/data';
 
-const sortByLength = (a: Object, b: Object, column: string) => {
-  const lengthA = a[column].length;
-  const lengthB = b[column].length;
+const sortByLength = (a: Object, b: Object, key: string) => {
+  const lengthA = a[key].length;
+  const lengthB = b[key].length;
   if (lengthA < lengthB) {
     return -1;
   }
@@ -118,18 +118,20 @@ const CustomRow = ({ props }: Object) => (
 
 const columns = [
   { content: 'AA', key: 'aa', sortable: true, cell: CustomCell },
-  { content: 'AB', key: 'ab', sortable: true, header: CustomSortableHeader },
+  { content: 'AB', key: 'ab', sortable: true, header: CustomHeader },
   { content: 'AC', key: 'ac', header: CustomHeader },
-  { content: 'AD', key: 'ad', sortFn: sortByLength },
+  { content: 'AD', key: 'ad', sortComparator: sortByLength },
   { content: 'AE', key: 'ae' }
 ];
 
-const rows = data.concat({
-  ...data[0],
-  disabled: true,
-  aa: data[0].aa + 1,
-  row: CustomRow
-});
+const rows = data.concat([
+  {
+    ...data[0],
+    disabled: true,
+    aa: data[0].aa + 1,
+    row: CustomRow
+  }
+]);
 
 export default {
   id: 'kitchen-sink',
@@ -141,21 +143,21 @@ export default {
     CustomHeader,
     CustomSortableHeader,
     CustomRow,
-    Table,
     rows,
+    Table,
     columns
   },
   source: `
     <Table
       columns={columns}
+      data={rows}
       defaultSelectedRows={[rows[0]]}
       defaultSort={{ key: 'aa' }}
-      enableRowSelection={true}
-      // highContrast={true}
-      data={data}
+      enableRowSelection
+      highContrast
       rowKey="aa"
-      // spacious={true}
-      // striped={true}
+      density="spacious"
+      striped
       title="Title"
       titleAppearance="h5"
       titleElement="h2" />`

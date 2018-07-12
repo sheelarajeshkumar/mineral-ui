@@ -10,7 +10,7 @@ import defaultSort from './defaultSort';
 import density from './density';
 import highContrast from './highContrast';
 import importSyntax from './importSyntax';
-// import kitchenSink from './kitchenSink';
+import kitchenSink from './kitchenSink';
 import largeDataSets from './largeDataSets';
 import primaryColumn from './primaryColumn';
 import rowSelection from './rowSelection';
@@ -41,6 +41,6 @@ export default [
   defaultSort,
   rowSelectionAndColumnDef,
   columnAlignWithSort,
-  largeDataSets
-  // kitchenSink
+  largeDataSets,
+  kitchenSink
 ];
