@@ -33,12 +33,14 @@ export default class Selectable<T> extends Component<Props<T>, State<T>> {
     super(props);
 
     const { data, defaultSelected } = props;
-    const all = defaultSelected && defaultSelected.length === data.length;
+    const all = Boolean(
+      defaultSelected && defaultSelected.length === data.length
+    );
 
     this.state = {
       all,
       selected: (defaultSelected && setFromArray(defaultSelected)) || new Set(),
-      some: defaultSelected && defaultSelected.length > 0 && !all
+      some: Boolean(defaultSelected && defaultSelected.length > 0 && !all)
     };
   }
 
