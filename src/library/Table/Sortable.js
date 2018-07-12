@@ -54,6 +54,16 @@ export default class Sortable extends Component<Props, State> {
     }
   }
 
+  // TODO: Best approach? See also TODOs in largeDataSets example
+  componentWillUpdate(nextProps: Props) {
+    // TODO: deepEqual check - also check if similar issue with Selectable
+    if (this.props.data !== nextProps.data) {
+      this.setState({
+        data: nextProps.data
+      });
+    }
+  }
+
   sort: SortFn = (key, sortComparator) => {
     const { onSort } = this.props;
 
@@ -76,7 +86,7 @@ export default class Sortable extends Component<Props, State> {
         };
       },
       () => {
-        onSort && this.state.sort && onSort(this.state.sort);
+        onSort && this.state.sort && onSort(this.state.data); // TODO: Pass data and sort?
       }
     );
   };
