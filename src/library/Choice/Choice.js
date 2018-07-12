@@ -245,6 +245,7 @@ const Control = createStyledComponent('span', styles.control, {
  * Choice is base renderer for Checkbox and Radio.
  */
 const Choice = (props: Props) => {
+  console.log('render Choice');
   const {
     className,
     disabled,
