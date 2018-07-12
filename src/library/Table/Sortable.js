@@ -6,7 +6,6 @@ type Props = {
   data: Data,
   defaultSort?: Sort,
   onSort?: (sort: Sort) => void,
-  sort?: Sort, // TODO: do we really need to offer "controlled" sort?
   sortComparator: SortComparator
 };
 

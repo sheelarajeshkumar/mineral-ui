@@ -6,12 +6,12 @@ export default {
   id: 'sort-by-columns',
   title: 'Sort by Columns',
   description: `Users can sort the rows in Table by column, enabled via the
-\`sortable\` prop. If the default sorting function,
-below, does not work for your data, you can supply your own with the
-\`sortComparator\` prop. You can set the default sort with
-\`defaultSort\` or you can [control](#controlled) the sort state with \`sort\`.
+\`sortable\` prop. If the default sorting function, below, is insufficient for
+your needs, you can supply your own with the \`sortComparator\` prop. You can
+set the initially sorted column & direction with \`defaultSort\` prop.
 Note that the \`sortable\` & \`sortComparator\` properties can be applied to
-Table via props or to individual columns via column definition.
+Table via props or to individual columns via
+[column definition](/components/table/#Column-type).
 
 \`\`\`
 // Coerce null & undefined values to an empty string and normalize letter casing

@@ -13,13 +13,11 @@ type Props = {
   /** Row data ([see example for more details](#basic)) */
   data: Array<Object>,
   /**
-   * Selected rows when `enableRowSelection = true`. Primarily for use with
-   * uncontrolled components.
+   * Selected rows when `enableRowSelection = true`.
    */
   defaultSelectedRows?: Array<Object>,
   /**
-   * Initially sorted column & direction. Primarily for use with uncontrolled
-   * components.
+   * Initially sorted column & direction.
    */
   defaultSort?: {
     key: string,
@@ -62,16 +60,6 @@ type Props = {
    * container
    */
   scrollable?: boolean,
-  /**
-   * Selected rows when `enableRowSelection = true`. For use with controlled
-   * components.
-   */
-  selectedRows?: Array<Object>,
-  /** Sorted column & direction. For use with controlled components. */
-  sort?: {
-    key: string,
-    descending?: boolean
-  },
   /** Enable the user to sort all columns */
   sortable?: boolean,
   /** The sort comparator function used by sortable columns */

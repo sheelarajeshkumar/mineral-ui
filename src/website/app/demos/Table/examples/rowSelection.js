@@ -7,8 +7,7 @@ export default {
   title: 'Row Selection',
   description: `Allow users to select rows with the \`enableRowSelection\` prop.
 Rows with a \`disabled\` property set to \`true\` will render a disabled
-checkbox. \`onSelectRows\` is called with the selected rows when the selection
-changes (most useful when [controlled](#controlled)).`,
+checkbox. \`onToggleRow\` and \`onToggleAllRows\` callbacks are also available.`,
   scope: { Table, sharedData },
   source: `
     () => {

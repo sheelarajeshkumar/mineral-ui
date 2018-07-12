@@ -6,12 +6,11 @@ import columnDef from './columnDef';
 import customCell from './customCell';
 import customHeaderCell from './customHeaderCell';
 import customRow from './customRow';
-import controlled from './controlled';
 import defaultSort from './defaultSort';
 import density from './density';
 import highContrast from './highContrast';
 import importSyntax from './importSyntax';
-import kitchenSink from './kitchenSink';
+// import kitchenSink from './kitchenSink';
 import largeDataSets from './largeDataSets';
 import primaryColumn from './primaryColumn';
 import rowSelection from './rowSelection';
@@ -35,7 +34,6 @@ export default [
   striped,
   highContrast,
   scrollable,
-  controlled,
   rtl,
   customCell,
   customHeaderCell,
