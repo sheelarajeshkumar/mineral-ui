@@ -26,7 +26,7 @@ type Props = {
     descending?: boolean
   },
   /** Amount of vertical space in Table's cells */
-  density: 'default' | 'spacious',
+  density: 'compact' | 'spacious',
   /**
    * Enable the user to select rows. Prepends a column for checkboxes to your
    * Table.
@@ -147,7 +147,7 @@ const getSortable = ({ columns, sortable }: Props) =>
  */
 class Table extends Component<Props> {
   static defaultProps = {
-    density: 'default',
+    density: 'compact',
     messages: {
       deselectAllRows: 'Deselect all rows',
       deselectRow: 'Deselect row',

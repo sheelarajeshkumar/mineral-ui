@@ -41,7 +41,7 @@ type State = {
 };
 
 type Appearance = {
-  density?: 'default' | 'spacious',
+  density?: 'compact' | 'spacious',
   highContrast?: boolean,
   striped?: boolean
 };
@@ -97,7 +97,7 @@ export const TableContext: Context<Appearance> = createReactContext({});
 export default class TableBase extends Component<Props, State> {
   static defaultProps = {
     titleElement: 'h4',
-    density: 'default',
+    density: 'compact',
     scrollable: true
   };
 
