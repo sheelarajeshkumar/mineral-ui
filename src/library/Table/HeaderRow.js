@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import deepEqual from 'fast-deep-equal';
+import deepEqual from 'react-fast-compare';
 import TableColumnHeader from './TableColumnHeader';
 import TableRow from './TableRow';
 
