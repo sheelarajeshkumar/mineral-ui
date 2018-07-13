@@ -63,7 +63,7 @@ export default class Selectable<T> extends Component<Props<T>, State<T>> {
   toggle = (item: T) => {
     this.setState(
       (prevState) => {
-        const selected = [...prevState.selected];
+        const selected = prevState.selected.slice(0);
         const index = selected.indexOf(item);
         const hasItem = index !== -1;
         hasItem ? selected.splice(index, 1) : selected.push(item);

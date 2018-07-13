@@ -44,7 +44,7 @@ be managed by the application as a controlled component via the control props,
 
         handleToggleRow(row) {
           this.setState((prevState) => {
-            const selected = [...prevState.selected];
+            const selected = prevState.selected.slice(0);
             const index = selected.indexOf(row);
             const hasRow = index !== -1;
             hasRow ? selected.splice(index, 1) : selected.push(row);
