@@ -13,7 +13,8 @@ type Props = {
   /** Row data ([see example for more details](#basic)) */
   data: Array<Object>,
   /**
-   * Selected rows when `enableRowSelection = true`.
+   * Selected rows when `enableRowSelection = true`.  Primarily for use with
+   * uncontrolled components.
    */
   defaultSelectedRows?: Array<Object>,
   /**
@@ -60,6 +61,11 @@ type Props = {
    * container
    */
   scrollable?: boolean,
+  /**
+   * Selected rows when `enableRowSelection = true`. For use with controlled
+   * components.
+   */
+  selectedRows?: Array<Object>,
   /** Enable the user to sort all columns */
   sortable?: boolean,
   /** The sort comparator function used by sortable columns */
@@ -174,6 +180,7 @@ class Table extends Component<Props> {
       enableRowSelection: selectable,
       onToggleRow: onToggle,
       onToggleAllRows: onToggleAll,
+      selectedRows: selected,
       ...restProps
     } = this.props;
 
@@ -182,7 +189,8 @@ class Table extends Component<Props> {
       columns: this.columns,
       defaultSelected,
       onToggle,
-      onToggleAll
+      onToggleAll,
+      selected
     };
 
     if (selectable && this.sortable) {
