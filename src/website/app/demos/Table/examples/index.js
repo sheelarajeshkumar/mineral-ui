@@ -7,7 +7,6 @@ import controlled from './controlled';
 import customCell from './customCell';
 import customHeaderCell from './customHeaderCell';
 import customRow from './customRow';
-import defaultSort from './defaultSort';
 import density from './density';
 import highContrast from './highContrast';
 import importSyntax from './importSyntax';
@@ -40,7 +39,6 @@ export default [
   customCell,
   customHeaderCell,
   customRow,
-  defaultSort,
   rowSelectionAndColumnDef,
   columnAlignWithSort,
   largeDataSets,

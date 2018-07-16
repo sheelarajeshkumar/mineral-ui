@@ -136,11 +136,13 @@ export default function TableSortableHeaderCell({
   const descending = sort && sort.descending;
 
   const isActiveSort = sortColumn === name;
-  const activeDirection = isActiveSort
-    ? descending ? 'descending' : 'ascending'
-    : undefined;
+  const activeDirection = descending ? 'descending' : 'ascending';
   const nextDirection =
-    activeDirection === 'ascending' ? 'descending' : 'ascending';
+    isActiveSort && activeDirection === 'ascending'
+      ? 'descending'
+      : 'ascending';
+
+  const shouldToggle = isActiveSort || activeDirection !== nextDirection;
 
   const a11yLabel = label || children;
 
@@ -148,7 +150,7 @@ export default function TableSortableHeaderCell({
     ...restProps,
     // TODO: Mac Chrome VO (others?) announces this twice?
     'aria-label': a11yLabel,
-    'aria-sort': sortColumn === name ? activeDirection : 'none',
+    'aria-sort': isActiveSort ? activeDirection : 'none',
     // TODO: Feels wrong to duplicate onClick like this (see buttonProps)
     // onClick: () => {
     //   onClick(name, nextDirection);
@@ -163,16 +165,11 @@ export default function TableSortableHeaderCell({
         ? messages.sortColumnAscending
         : messages.sortColumnDescending,
     onClick: () => {
-      sortFn(
-        name,
-        sortComparator,
-        // FIXME: Need moar logic
-        isActiveSort || (!isActiveSort && nextDirection === 'ascending')
-      );
+      sortFn(name, sortComparator, shouldToggle);
     }
   };
   const iconHolderProps = {
-    direction: activeDirection || 'ascending',
+    direction: (isActiveSort && activeDirection) || 'ascending',
     isActiveSort
   };
 
