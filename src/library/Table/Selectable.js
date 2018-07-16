@@ -36,8 +36,10 @@ export default class Selectable<T> extends Component<Props<T>, State<T>> {
   }
 
   componentWillReceiveProps(nextProps: Props<T>) {
-    // TODO: do we also need to check data?
-    if (!deepEqual(this.props.selected, nextProps.selected)) {
+    if (
+      !deepEqual(this.props.selected, nextProps.selected) ||
+      !deepEqual(this.props.data, nextProps.data)
+    ) {
       this.setState(this.getStateFromProps(nextProps));
     }
   }
