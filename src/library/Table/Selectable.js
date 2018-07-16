@@ -5,7 +5,6 @@ import deepEqual from 'fast-deep-equal';
 type Props<T> = {
   children: (props: Object) => React$Node,
   data: Data<T>,
-  defaultSelected?: Data<T>,
   onToggle?: (item: T, selected: boolean) => void,
   onToggleAll?: (items: Array<T>, selected: boolean) => void,
   selected?: Data<T>
@@ -44,9 +43,8 @@ export default class Selectable<T> extends Component<Props<T>, State<T>> {
   }
 
   getStateFromProps = (props: Props<T>) => {
-    const { data, defaultSelected } = props;
-    const selected = props.selected || defaultSelected || [];
-    const all = selected.length === data.length;
+    const selected = props.selected || [];
+    const all = selected.length === props.data.length;
     const some = selected.length > 0 && !all;
 
     return {

@@ -34,7 +34,7 @@ export default {
           enableRowSelection
           onToggleRow={onToggle}
           onToggleAllRows={onToggle}
-          defaultSelectedRows={[data[1]]}
+          selectedRows={[data[1]]}
           title="Delicious Foods"
           hideTitle />
       );

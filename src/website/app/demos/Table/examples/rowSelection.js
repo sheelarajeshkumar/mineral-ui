@@ -20,7 +20,7 @@ checkbox. \`onToggleRow\` and \`onToggleAllRows\` callbacks are also available.`
       return (
         <Table
           enableRowSelection
-          defaultSelectedRows={[data[1]]}
+          selectedRows={[data[1]]}
           data={data}
           rowKey="Fruits"
           title="Delicious Foods"

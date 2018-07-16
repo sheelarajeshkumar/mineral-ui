@@ -13,11 +13,6 @@ type Props = {
   /** Row data ([see example for more details](#basic)) */
   data: Array<Object>,
   /**
-   * Selected rows when `enableRowSelection = true`.  Primarily for use with
-   * uncontrolled components.
-   */
-  defaultSelectedRows?: Array<Object>,
-  /**
    * Initially sorted column & direction.
    */
   defaultSort?: {
@@ -62,8 +57,7 @@ type Props = {
    */
   scrollable?: boolean,
   /**
-   * Selected rows when `enableRowSelection = true`. For use with controlled
-   * components.
+   * Selected rows when `enableRowSelection = true`.
    */
   selectedRows?: Array<Object>,
   /** Enable the user to sort all columns */
@@ -176,7 +170,6 @@ class Table extends Component<Props> {
   render() {
     console.log('render Table');
     const {
-      defaultSelectedRows: defaultSelected,
       enableRowSelection: selectable,
       onToggleRow: onToggle,
       onToggleAllRows: onToggleAll,
@@ -187,7 +180,6 @@ class Table extends Component<Props> {
     const rootProps = {
       ...restProps,
       columns: this.columns,
-      defaultSelected,
       onToggle,
       onToggleAll,
       selected
