@@ -31,9 +31,9 @@ export default {
           columns={columns}
           data={data}
           rowKey="Fruits"
-          enableRowSelection
           onToggleRow={onToggle}
           onToggleAllRows={onToggle}
+          selectable
           selectedRows={[data[1]]}
           title="Delicious Foods"
           hideTitle />

@@ -90,7 +90,7 @@ be managed by the application as a controlled component via the control props,
                 columns={columns}
                 data={data}
                 rowKey="Fruits"
-                enableRowSelection
+                selectable
                 selectedRows={this.state.selected}
                 onToggleRow={this.handleToggleRow}
                 onToggleAllRows={this.handleToggleAllRows}

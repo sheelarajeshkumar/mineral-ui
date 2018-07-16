@@ -5,7 +5,7 @@ import sharedData from '../shared/data';
 export default {
   id: 'row-selection',
   title: 'Row Selection',
-  description: `Allow users to select rows with the \`enableRowSelection\` prop.
+  description: `Allow users to select rows with the \`selectable\` prop.
 Rows with a \`disabled\` property set to \`true\` will render a disabled
 checkbox. \`onToggleRow\` and \`onToggleAllRows\` callbacks are also available.`,
   scope: { Table, sharedData },
@@ -19,7 +19,7 @@ checkbox. \`onToggleRow\` and \`onToggleAllRows\` callbacks are also available.`
 
       return (
         <Table
-          enableRowSelection
+          selectable
           selectedRows={[data[1]]}
           data={data}
           rowKey="Fruits"

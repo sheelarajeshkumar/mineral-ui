@@ -25,7 +25,7 @@ type Props = {
    * Enable the user to select rows. Prepends a column for checkboxes to your
    * Table.
    */
-  enableRowSelection?: boolean,
+  selectable?: boolean,
   /** Visually hide Table's header, but keep available for [assistive technologies](https://webaccess.berkeley.edu/resources/assistive-technology) */
   hideHeader?: boolean,
   /** Visually hide Table's title, but keep available for [assistive technologies](https://webaccess.berkeley.edu/resources/assistive-technology) */
@@ -57,7 +57,7 @@ type Props = {
    */
   scrollable?: boolean,
   /**
-   * Selected rows when `enableRowSelection = true`.
+   * Selected rows when `selectable = true`.
    */
   selectedRows?: Array<Object>,
   /** Enable the user to sort all columns */
@@ -170,9 +170,9 @@ class Table extends Component<Props> {
   render() {
     console.log('render Table');
     const {
-      enableRowSelection: selectable,
       onToggleRow: onToggle,
       onToggleAllRows: onToggleAll,
+      selectable,
       selectedRows: selected,
       ...restProps
     } = this.props;

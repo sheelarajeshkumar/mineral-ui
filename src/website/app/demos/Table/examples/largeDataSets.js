@@ -85,7 +85,7 @@ before clicking those buttons. 😬`,
                 data={this.state.data}
                 onSort={this.handleSort}
                 rowKey="aa"
-                enableRowSelection
+                selectable
                 title="Example data"
                 hideTitle />
             </div>

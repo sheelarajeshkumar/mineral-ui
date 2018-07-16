@@ -151,9 +151,9 @@ export default {
     <Table
       columns={columns}
       data={rows}
+      selectable
       selectedRows={[rows[0]]}
       defaultSort={{ key: 'aa' }}
-      enableRowSelection
       highContrast
       rowKey="aa"
       density="spacious"
