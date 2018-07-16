@@ -102,6 +102,7 @@ const styles = {
 };
 
 const Root = createStyledComponent(TableHeaderCell, styles.root, {
+  displayName: 'TableSortableHeaderCell',
   withProps: { noPadding: true }
 });
 const Button = createStyledComponent(TableHeaderCell, styles.button, {
@@ -162,7 +163,12 @@ export default function TableSortableHeaderCell({
         ? messages.sortColumnAscending
         : messages.sortColumnDescending,
     onClick: () => {
-      sortFn(name, sortComparator);
+      sortFn(
+        name,
+        sortComparator,
+        // FIXME: Need moar logic
+        isActiveSort || (!isActiveSort && nextDirection === 'ascending')
+      );
     }
   };
   const iconHolderProps = {

@@ -4,7 +4,7 @@ import Selectable from './Selectable';
 import Sortable from './Sortable';
 import TableBase from './TableBase';
 
-import type { State as SortableState } from './Sortable';
+import type { Comparators, State as SortableState } from './Sortable';
 import type { State as SelectableState } from './Selectable';
 
 type Props = {
@@ -126,11 +126,31 @@ const generateColumns = (data: Rows) =>
       }, [])
     : [];
 
-const getColumnDefs = ({ columns, data }: Props) =>
+const getColumns = ({ columns, data }: Props) =>
   columns || generateColumns(data);
 
-const getSortable = ({ columns, sortable }: Props) =>
-  Boolean(sortable || (columns && columns.some((column) => column.sortable)));
+const getComparators = ({ columns }: Props) => {
+  const comparators =
+    columns &&
+    columns.reduce((acc, column) => {
+      const { key, sortComparator } = column;
+      if (sortComparator) {
+        acc[key] = sortComparator;
+      }
+      return acc;
+    }, {});
+
+  return comparators && Object.keys(comparators).length
+    ? comparators
+    : undefined;
+};
+
+const getSortable = ({ columns, defaultSort, sortable }: Props) =>
+  Boolean(
+    defaultSort ||
+      sortable ||
+      (columns && columns.some((column) => column.sortable))
+  );
 
 /**
  * Table displays structured data with columns and rows.
@@ -150,7 +170,9 @@ class Table extends Component<Props> {
     titleElement: 'h4'
   };
 
-  columns: Columns = getColumnDefs(this.props);
+  columns: Columns = getColumns(this.props);
+
+  comparators: Comparators = getComparators(this.props);
 
   sortable: boolean = getSortable(this.props);
 
@@ -159,7 +181,8 @@ class Table extends Component<Props> {
       this.props.columns !== nextProps.columns ||
       (!this.props.columns && this.props.data !== nextProps.data)
     ) {
-      this.columns = getColumnDefs(nextProps);
+      this.columns = getColumns(nextProps);
+      this.comparators = getComparators(nextProps);
     }
 
     if (this.props.columns !== nextProps.columns) {
@@ -180,6 +203,7 @@ class Table extends Component<Props> {
     const rootProps = {
       ...restProps,
       columns: this.columns,
+      comparators: this.comparators,
       onToggle,
       onToggleAll,
       selected
@@ -202,7 +226,7 @@ const SelectableTable = (props) => (
 );
 
 const SortableTable = (props) => (
-  <Sortable {...props}>
+  <Sortable {...props} isSortable={props.sortable}>
     {({ ...props }) => <TableBase {...props} data={props.sortable.data} />}
   </Sortable>
 );

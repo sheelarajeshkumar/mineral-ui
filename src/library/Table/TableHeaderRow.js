@@ -14,6 +14,7 @@ type Props = {
   checked?: boolean,
   columns: Columns,
   indeterminate?: boolean,
+  isSortable?: boolean,
   messages: Messages,
   sortable?: SortableType,
   toggle?: ToggleAll
@@ -33,8 +34,9 @@ export default class TableHeaderRow extends Component<Props> {
     const {
       checked,
       columns,
-      sortable: tableSortable,
       indeterminate,
+      isSortable,
+      sortable: tableSortable,
       messages,
       toggle
     } = this.props;
@@ -78,13 +80,13 @@ export default class TableHeaderRow extends Component<Props> {
                 label || (typeof content === 'string' ? content : undefined),
               messages,
               sortable:
-                tableSortable || columnSortable ? tableSortable : undefined,
+                isSortable || columnSortable ? tableSortable : undefined,
               ...restColumn
             };
 
             return header ? (
               header({ props: cellProps })
-            ) : columnSortable ? (
+            ) : cellProps.sortable ? (
               <TableSortableHeaderCell name={key} {...cellProps} />
             ) : (
               <TableHeaderCell {...cellProps} />

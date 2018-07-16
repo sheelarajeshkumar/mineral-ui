@@ -9,9 +9,9 @@ export default {
   scope: { Table, sharedData },
   source: `
     () => {
-      const sortByLength = (a, b, column) => {
-        const lengthA = a[column].length;
-        const lengthB = b[column].length;
+      const sortByLength = (a, b, key) => {
+        const lengthA = a[key].length;
+        const lengthB = b[key].length;
         if (lengthA < lengthB) { return -1; }
         if (lengthA > lengthB) { return 1; }
         return 0;
@@ -21,14 +21,14 @@ export default {
         { content: 'Fruits', key: 'Fruits' },
         { content: 'Vegetables', key: 'Vegetables' },
         { content: 'Grains', key: 'Grains' },
-        { content: 'Dairy', key: 'Dairy', sortFn: sortByLength },
+        { content: 'Dairy', key: 'Dairy', sortComparator: sortByLength },
         { content: 'Protein', key: 'Protein' }
       ];
 
       return (
         <Table
           columns={columns}
-          defaultSort={{ key: 'Dairy' }}
+          defaultSort={{ key: 'Dairy', descending: true }}
           data={sharedData}
           rowKey="Fruits"
           title="Delicious Foods"

@@ -45,7 +45,6 @@ before clicking those buttons. 😬`,
             ]
           };
 
-          this.handleSort = this.handleSort.bind(this);
           this.populate4x1000 = this.populate4x1000.bind(this);
           this.populate104x100 = this.populate104x100.bind(this);
         }
@@ -64,11 +63,6 @@ before clicking those buttons. 😬`,
           })
         }
 
-        // TODO: Best approach? See also TODOs in Sortable
-        handleSort(data) {
-          this.setState({ data });
-        }
-
         render() {
           return (
             <div>
@@ -83,7 +77,6 @@ before clicking those buttons. 😬`,
               <Table
                 columns={this.state.columns}
                 data={this.state.data}
-                onSort={this.handleSort}
                 rowKey="aa"
                 selectable
                 title="Example data"

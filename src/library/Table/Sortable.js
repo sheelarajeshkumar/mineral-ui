@@ -4,9 +4,10 @@ import deepEqual from 'fast-deep-equal';
 
 type Props = {
   children: (props: Object) => React$Node,
+  comparators?: Comparators,
   data: Data,
   defaultSort?: Sort,
-  onSort?: (sort: Sort) => void,
+  onSort?: (data: Data) => void,
   sortComparator: SortComparator
 };
 
@@ -24,7 +25,13 @@ export type Sort = {
 
 export type SortComparator = (a: Object, b: Object, key: string) => -1 | 0 | 1;
 
-type SortFn = (key: string, comparator?: SortComparator) => void;
+type Comparators = { [string]: SortComparator };
+
+type SortFn = (
+  key: string,
+  comparator?: SortComparator,
+  toggle?: boolean
+) => void;
 
 export type SortableType = {
   data: Data,
@@ -55,11 +62,14 @@ export default class Sortable extends Component<Props, State> {
   };
 
   componentDidMount() {
-    const { defaultSort, sortComparator } = this.props;
+    const { comparators, defaultSort } = this.props;
 
     if (defaultSort) {
       // NOTE: This causes an extra render. Better to set initial state in constructor.
-      this.sort(defaultSort.key, sortComparator);
+      this.sortDefault(
+        defaultSort.key,
+        comparators ? comparators[defaultSort.key] : undefined
+      );
     }
   }
 
@@ -72,22 +82,42 @@ export default class Sortable extends Component<Props, State> {
     }
   }
 
-  sort: SortFn = (key, sortComparator) => {
+  sortDefault: SortFn = (key, sortComparatorParam) => {
+    const { defaultSort } = this.props;
+    const sortComparator = sortComparatorParam || this.props.sortComparator;
+    const descending = defaultSort ? defaultSort.descending : false;
+
+    this.setState(({ data }) => ({
+      sort: {
+        key,
+        descending
+      },
+      data: data.slice(0).sort((a, b) => {
+        const asc = sortComparator(a, b, key);
+        const desc = asc * -1;
+        return descending ? desc : asc;
+      })
+    }));
+  };
+
+  sort: SortFn = (key, sortComparatorParam, toggle) => {
     const { onSort } = this.props;
+    const sortComparator = sortComparatorParam || this.props.sortComparator;
 
     this.setState(
       ({ data, sort }) => {
-        const descending = sort && sort.key === key ? !sort.descending : false;
+        const descending =
+          sort && sort.key
+            ? toggle ? !sort.descending : sort.descending
+            : false;
 
         return {
           sort: {
             key,
             descending
           },
-          data: data.sort((a, b) => {
-            const asc =
-              (sortComparator && sortComparator(a, b, key)) ||
-              this.props.sortComparator(a, b, key);
+          data: data.slice(0).sort((a, b) => {
+            const asc = sortComparator(a, b, key);
             const desc = asc * -1;
             return descending ? desc : asc;
           })

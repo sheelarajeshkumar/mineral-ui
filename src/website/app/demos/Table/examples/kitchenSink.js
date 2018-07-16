@@ -112,7 +112,7 @@ const CustomRow = ({ props }: Object) => (
 //   { content: 'Fresh Fruits', key: 'Fruits', sortable: true, cell: CustomCell },
 //   { content: 'Veritable Vegetables', key: 'Vegetables', sortable: true, header: CustomSortableHeader },
 //   { content: 'Grains', key: 'Grains', header: CustomHeader },
-//   { content: 'Delectable Dairy', key: 'Dairy', sortable: true, sortFn: sortByLength },
+//   { content: 'Delectable Dairy', key: 'Dairy', sortable: true, sortComparator: sortByLength },
 //   { content: 'Protein', key: 'Protein' }
 // ];
 

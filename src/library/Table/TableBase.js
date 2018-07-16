@@ -24,6 +24,7 @@ type Props = {
   hideHeader?: boolean,
   hideTitle?: boolean,
   id?: string,
+  isSortable?: boolean,
   messages: Messages,
   rowKey?: string,
   scrollable?: boolean,
@@ -112,6 +113,7 @@ export default class TableBase extends Component<Props, State> {
       hideHeader,
       hideTitle,
       highContrast,
+      isSortable,
       messages,
       rowKey,
       scrollable,
@@ -132,6 +134,7 @@ export default class TableBase extends Component<Props, State> {
       checked: selectable && selectable.all,
       columns,
       indeterminate: selectable && selectable.some,
+      isSortable,
       messages,
       sortable,
       toggle: selectable && selectable.toggleAll
