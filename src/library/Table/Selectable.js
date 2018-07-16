@@ -74,33 +74,29 @@ export default class Selectable<T> extends Component<Props<T>, State<T>> {
         };
       },
       () => {
-        this.toggleActions(item);
+        const { onToggle } = this.props;
+        onToggle && onToggle(item, this.isSelected(item));
       }
     );
   };
 
-  toggleActions = (item: T) => {
-    const { onToggle } = this.props;
-
-    onToggle && onToggle(item, this.isSelected(item));
-  };
-
   toggleAll = () => {
-    this.setState(({ all, some }) => {
-      return {
-        all: !all && !some,
-        some: false,
-        // TODO: Account for disabled, store in instance var
-        selected: all || some ? [] : this.props.data
-      };
-    }, this.toggleAllActions);
-  };
+    this.setState(
+      ({ all, some }) => {
+        return {
+          all: !all && !some,
+          some: false,
+          // TODO: Account for disabled, store in instance var
+          selected: all || some ? [] : this.props.data
+        };
+      },
+      () => {
+        const { data, onToggleAll } = this.props;
+        const { all } = this.state;
 
-  toggleAllActions = () => {
-    const { data, onToggleAll } = this.props;
-    const { all } = this.state;
-
-    onToggleAll && onToggleAll(all ? data : [], all);
+        onToggleAll && onToggleAll(all ? data : [], all);
+      }
+    );
   };
 
   render() {
