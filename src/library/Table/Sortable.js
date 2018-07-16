@@ -25,7 +25,7 @@ export type Sort = {
 
 export type SortComparator = (a: Object, b: Object, key: string) => -1 | 0 | 1;
 
-type Comparators = { [string]: SortComparator };
+export type Comparators = { [string]: SortComparator };
 
 type SortFn = (
   key: string,
@@ -73,7 +73,7 @@ export default class Sortable extends Component<Props, State> {
     }
   }
 
-  // TODO: Best approach? See also TODOs in largeDataSets example
+  // TODO: Best approach?
   componentWillReceiveProps(nextProps: Props) {
     if (!deepEqual(this.props.data, nextProps.data)) {
       this.setState({

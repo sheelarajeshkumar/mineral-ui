@@ -38,10 +38,7 @@ type Props = {
    */
   messages: Messages,
   /** Called when data is sorted */
-  onSort?: (sort: {
-    key: string,
-    descending?: boolean
-  }) => void,
+  onSort?: (data: Array<Object>) => void,
   /** Called when all rows are selected/deselected */
   onToggleAllRows?: (rows: Array<Object>, selected: boolean) => void,
   /** Called when a single row is selected/deselected */
@@ -106,8 +103,6 @@ export type Row = Object;
 export type Rows = Array<Row>;
 
 export type RenderFn = (props: RenderProps) => React$Node;
-// TODO: Table doesn't need StateAndHelpers, until it's rendered by DataTable;
-//       improvement possible?
 export type RenderProps = {
   props: Object
 } & StateAndHelpers;
@@ -172,7 +167,7 @@ class Table extends Component<Props> {
 
   columns: Columns = getColumns(this.props);
 
-  comparators: Comparators = getComparators(this.props);
+  comparators: Comparators | typeof undefined = getComparators(this.props);
 
   sortable: boolean = getSortable(this.props);
 
@@ -182,11 +177,11 @@ class Table extends Component<Props> {
       (!this.props.columns && this.props.data !== nextProps.data)
     ) {
       this.columns = getColumns(nextProps);
-      this.comparators = getComparators(nextProps);
     }
 
     if (this.props.columns !== nextProps.columns) {
       this.sortable = getSortable(nextProps);
+      this.comparators = getComparators(nextProps);
     }
   }
 
@@ -225,11 +220,13 @@ const SelectableTable = (props) => (
   <Selectable {...props}>{(props) => <TableBase {...props} />}</Selectable>
 );
 
+/* eslint-disable react/prop-types */
 const SortableTable = (props) => (
   <Sortable {...props} isSortable={props.sortable}>
     {({ ...props }) => <TableBase {...props} data={props.sortable.data} />}
   </Sortable>
 );
+/* eslint-enable */
 
 const SelectableSortableTable = (props) => (
   <Selectable {...props}>{(props) => <SortableTable {...props} />}</Selectable>
