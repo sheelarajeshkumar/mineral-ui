@@ -3,14 +3,14 @@ import Table from '../../../../../library/Table';
 import sharedData from '../shared/data';
 
 export default {
-  id: 'sort-by-columns',
-  title: 'Sort by Columns',
+  id: 'sortable',
+  title: 'Sort by Column(s)',
   description: `Users can sort the rows in Table by column, enabled via the
 \`sortable\` prop. If the default sorting function, below, is insufficient for
 your needs, you can supply your own with the \`sortComparator\` prop. You can
-set the initially sorted column & direction with \`defaultSort\` prop.
-Note that the \`sortable\` & \`sortComparator\` properties can be applied to
-Table via props or to individual columns via
+set the sorted column & direction with the \`sort\` prop, and an \`onSort\`
+callback is also available. Note that the \`sortable\` & \`sortComparator\`
+properties can be applied to Table via props or to individual columns via
 [column definition](/components/table/#Column-type).
 
 \`\`\`
@@ -54,7 +54,7 @@ alphabetically.
           columns={columns}
           data={sharedData}
           rowKey="Fruits"
-          defaultSort={{ key: 'Fruits' }}
+          sort={{ key: 'Fruits' }}
           title="Delicious Foods"
           hideTitle />
       );

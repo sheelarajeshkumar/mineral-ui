@@ -12,20 +12,8 @@ type Props = {
   columns?: Columns,
   /** Row data ([see example for more details](#basic)) */
   data: Array<Object>,
-  /**
-   * Initially sorted column & direction.
-   */
-  defaultSort?: {
-    key: string,
-    descending?: boolean
-  },
   /** Amount of vertical space in Table's cells */
   density: 'compact' | 'spacious',
-  /**
-   * Enable the user to select rows. Prepends a column for checkboxes to your
-   * Table.
-   */
-  selectable?: boolean,
   /** Visually hide Table's header, but keep available for [assistive technologies](https://webaccess.berkeley.edu/resources/assistive-technology) */
   hideHeader?: boolean,
   /** Visually hide Table's title, but keep available for [assistive technologies](https://webaccess.berkeley.edu/resources/assistive-technology) */
@@ -54,9 +42,21 @@ type Props = {
    */
   scrollable?: boolean,
   /**
+   * Enable the user to select rows. Prepends a column for checkboxes to your
+   * Table.
+   */
+  selectable?: boolean,
+  /**
    * Selected rows when `selectable = true`.
    */
   selectedRows?: Array<Object>,
+  /**
+   * Sorted column & direction
+   */
+  sort?: {
+    key: string,
+    descending?: boolean
+  },
   /** Enable the user to sort all columns */
   sortable?: boolean,
   /** The sort comparator function used by sortable columns */
@@ -140,11 +140,9 @@ const getComparators = ({ columns }: Props) => {
     : undefined;
 };
 
-const getSortable = ({ columns, defaultSort, sortable }: Props) =>
+const getSortable = ({ columns, sort, sortable }: Props) =>
   Boolean(
-    defaultSort ||
-      sortable ||
-      (columns && columns.some((column) => column.sortable))
+    sort || sortable || (columns && columns.some((column) => column.sortable))
   );
 
 /**

@@ -6,8 +6,8 @@ type Props = {
   children: (props: Object) => React$Node,
   comparators?: Comparators,
   data: Data,
-  defaultSort?: Sort,
   onSort?: (data: Data) => void,
+  sort?: Sort,
   sortComparator: SortComparator
 };
 
@@ -62,13 +62,13 @@ export default class Sortable extends Component<Props, State> {
   };
 
   componentDidMount() {
-    const { comparators, defaultSort } = this.props;
+    const { comparators, sort } = this.props;
 
-    if (defaultSort) {
+    if (sort) {
       // NOTE: This causes an extra render. Better to set initial state in constructor.
       this.sortDefault(
-        defaultSort.key,
-        comparators ? comparators[defaultSort.key] : undefined
+        sort.key,
+        comparators ? comparators[sort.key] : undefined
       );
     }
   }
@@ -83,9 +83,9 @@ export default class Sortable extends Component<Props, State> {
   }
 
   sortDefault: SortFn = (key, sortComparatorParam) => {
-    const { defaultSort } = this.props;
+    const { sort } = this.props;
     const sortComparator = sortComparatorParam || this.props.sortComparator;
-    const descending = defaultSort ? defaultSort.descending : false;
+    const descending = sort ? sort.descending : false;
 
     this.setState(({ data }) => ({
       sort: {

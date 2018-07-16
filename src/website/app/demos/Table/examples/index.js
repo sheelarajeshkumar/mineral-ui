@@ -13,11 +13,11 @@ import importSyntax from './importSyntax';
 import kitchenSink from './kitchenSink';
 import largeDataSets from './largeDataSets';
 import primaryColumn from './primaryColumn';
-import rowSelection from './rowSelection';
+import selectable from './selectable';
 import rowSelectionAndColumnDef from './rowSelectionAndColumnDef';
 import rtl from './rtl';
 import scrollable from './scrollable';
-import sortByColumns from './sortByColumns';
+import sortable from './sortable';
 import striped from './striped';
 import title from './title';
 
@@ -25,8 +25,8 @@ export default [
   importSyntax,
   basic,
   columnDef,
-  sortByColumns,
-  rowSelection,
+  sortable,
+  selectable,
   title,
   primaryColumn,
   columnAlign,

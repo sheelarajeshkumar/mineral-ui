@@ -3,11 +3,12 @@ import Table from '../../../../../library/Table';
 import sharedData from '../shared/data';
 
 export default {
-  id: 'row-selection',
+  id: 'selectable',
   title: 'Row Selection',
   description: `Allow users to select rows with the \`selectable\` prop.
 Rows with a \`disabled\` property set to \`true\` will render a disabled
-checkbox. \`onToggleRow\` and \`onToggleAllRows\` callbacks are also available.`,
+checkbox. You can set the selected rows with the \`selectedRows\` prop, and
+\`onToggleRow\` and \`onToggleAllRows\` callbacks are also available.`,
   scope: { Table, sharedData },
   source: `
     () => {

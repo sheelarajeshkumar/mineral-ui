@@ -71,11 +71,11 @@ describe('Table', () => {
   });
 
   describe('sortable', () => {
-    describe('defaultSort', () => {
+    describe('sort', () => {
       it('without sortable', () => {
         const [, table] = mountTable({
           data: defaultProps.data,
-          defaultSort: { key: 'aa', descending: true }
+          sort: { key: 'aa', descending: true }
         });
 
         const sortedData = table.find(TableBase).props().data;
@@ -86,7 +86,7 @@ describe('Table', () => {
       it('with sortable Table', () => {
         const [, table] = mountTable({
           data: defaultProps.data,
-          defaultSort: { key: 'aa', descending: true },
+          sort: { key: 'aa', descending: true },
           sortable: true
         });
 
@@ -104,7 +104,7 @@ describe('Table', () => {
             { key: 'ad', content: 'AD' }
           ],
           data: defaultProps.data,
-          defaultSort: { key: 'aa', descending: true }
+          sort: { key: 'aa', descending: true }
         });
 
         const sortedData = table.find(TableBase).props().data;
@@ -115,7 +115,7 @@ describe('Table', () => {
       it('with sortable Table and sortComparator', () => {
         const [, table] = mountTable({
           data: defaultProps.data,
-          defaultSort: { key: 'aa', descending: true },
+          sort: { key: 'aa', descending: true },
           sortable: true,
           sortComparator: () => 0
         });
@@ -141,7 +141,7 @@ describe('Table', () => {
             { key: 'ad', content: 'AD' }
           ],
           data: defaultProps.data,
-          defaultSort: { key: 'aa', descending: true },
+          sort: { key: 'aa', descending: true },
           sortComparator: tableSortComparator
         });
 
@@ -154,19 +154,19 @@ describe('Table', () => {
 
     it('maintains sort state when data changes', () => {
       const props = {
-        data: [
-          { aa: 'aa0', ab: 'ab0', ac: 'ac0', ad: 'ad0' },
-          { aa: 'aa1', ab: 'ab1', ac: 'ac1', ad: 'ad1' },
-          { aa: 'aa2', ab: 'ab2', ac: 'ac2', ad: 'ad2' },
-          { aa: 'aa3', ab: 'ab3', ac: 'ac3', ad: 'ad3' }
-        ],
-        defaultSort: { key: 'aa', descending: true },
         columns: [
           { content: 'AA', key: 'aa' },
           { content: 'AB', key: 'ab' },
           { content: 'AC', key: 'ac' },
           { content: 'AD', key: 'ad' }
         ],
+        data: [
+          { aa: 'aa0', ab: 'ab0', ac: 'ac0', ad: 'ad0' },
+          { aa: 'aa1', ab: 'ab1', ac: 'ac1', ad: 'ad1' },
+          { aa: 'aa2', ab: 'ab2', ac: 'ac2', ad: 'ad2' },
+          { aa: 'aa3', ab: 'ab3', ac: 'ac3', ad: 'ad3' }
+        ],
+        sort: { key: 'aa', descending: true },
         sortable: true,
         title: 'Test'
       };

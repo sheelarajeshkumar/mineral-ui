@@ -22,7 +22,7 @@ export default {
         <Table
           columns={columns}
           data={sharedData}
-          defaultSort={{ key: 'Vegetables' }}
+          sort={{ key: 'Vegetables' }}
           onSort={onSort}
           title="Delicious Foods"
           hideTitle />
