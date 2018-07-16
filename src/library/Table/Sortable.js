@@ -21,8 +21,16 @@ export type Sort = {
   key: string,
   descending?: boolean
 };
+
 export type SortComparator = (a: Object, b: Object, key: string) => -1 | 0 | 1;
-export type SortFn = (key: string, comparator?: SortComparator) => void;
+
+type SortFn = (key: string, comparator?: SortComparator) => void;
+
+export type SortableType = {
+  data: Data,
+  sort: ?Sort,
+  sortFn: SortFn
+};
 
 const normalizedValue = (value) =>
   value === null || value === undefined

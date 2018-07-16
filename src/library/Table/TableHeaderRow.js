@@ -7,7 +7,7 @@ import TableSortableHeaderCell from './TableSortableHeaderCell';
 import TableRow from './TableRow';
 
 import type { ToggleAll } from './Selectable';
-import type { Sort, SortFn } from './Sortable';
+import type { SortableType } from './Sortable';
 import type { Columns, Messages } from './Table';
 
 type Props = {
@@ -15,9 +15,7 @@ type Props = {
   columns: Columns,
   indeterminate?: boolean,
   messages: Messages,
-  sort?: Sort,
-  sortable?: boolean,
-  sortFn?: SortFn,
+  sortable?: SortableType,
   toggle?: ToggleAll
 };
 
@@ -38,8 +36,6 @@ export default class TableHeaderRow extends Component<Props> {
       sortable: tableSortable,
       indeterminate,
       messages,
-      sort,
-      sortFn,
       toggle
     } = this.props;
     const selectable = Boolean(toggle);
@@ -61,7 +57,14 @@ export default class TableHeaderRow extends Component<Props> {
           />
         ) : null}
         {columns.map(
-          ({ content, sortable, header, key, label, ...restColumn }) => {
+          ({
+            content,
+            sortable: columnSortable,
+            header,
+            key,
+            label,
+            ...restColumn
+          }) => {
             if (typeof content !== 'string' && !label) {
               throw new Error(
                 'Columns with non-string content must define a `label` property.'
@@ -74,14 +77,14 @@ export default class TableHeaderRow extends Component<Props> {
               label:
                 label || (typeof content === 'string' ? content : undefined),
               messages,
-              sort,
-              sortFn: tableSortable || sortable ? sortFn : undefined,
+              sortable:
+                tableSortable || columnSortable ? tableSortable : undefined,
               ...restColumn
             };
 
             return header ? (
               header({ props: cellProps })
-            ) : sortable ? (
+            ) : columnSortable ? (
               <TableSortableHeaderCell name={key} {...cellProps} />
             ) : (
               <TableHeaderCell {...cellProps} />

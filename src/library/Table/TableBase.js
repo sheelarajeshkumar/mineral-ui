@@ -14,7 +14,7 @@ import TableHeader from './TableHeader';
 import TableTitle from './TableTitle';
 
 import type { SelectableType } from './Selectable';
-import type { Sort, SortFn } from './Sortable';
+import type { SortableType } from './Sortable';
 import type { Columns, Messages, Rows } from './Table';
 
 // See Table
@@ -28,9 +28,7 @@ type Props = {
   rowKey?: string,
   scrollable?: boolean,
   selectable?: SelectableType,
-  sort?: Sort,
-  sortable?: boolean,
-  sortFn?: SortFn,
+  sortable?: SortableType,
   title: React$Node,
   titleAppearance?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
   titleElement?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -111,7 +109,6 @@ export default class TableBase extends Component<Props, State> {
       columns,
       data,
       density,
-      sortable,
       hideHeader,
       hideTitle,
       highContrast,
@@ -119,8 +116,7 @@ export default class TableBase extends Component<Props, State> {
       rowKey,
       scrollable,
       selectable,
-      sort,
-      sortFn,
+      sortable,
       striped,
       title,
       titleAppearance,
@@ -135,11 +131,9 @@ export default class TableBase extends Component<Props, State> {
     const headerProps = {
       checked: selectable && selectable.all,
       columns,
-      sortable,
       indeterminate: selectable && selectable.some,
       messages,
-      sort,
-      sortFn,
+      sortable,
       toggle: selectable && selectable.toggleAll
     };
 

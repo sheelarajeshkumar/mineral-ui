@@ -5,7 +5,7 @@ import IconArrowDropdownDown from '../Icon/IconArrowDropdownDown';
 import IconArrowDropdownUp from '../Icon/IconArrowDropdownUp';
 import TableHeaderCell from './TableHeaderCell';
 
-import type { Sort, SortComparator, SortFn } from './Sortable';
+import type { SortableType, SortComparator } from './Sortable';
 import type { Messages } from './Table';
 
 type Props = {
@@ -16,11 +16,9 @@ type Props = {
   /** Name of column */
   name: string,
   /** See Table */
-  sort?: Sort,
+  sortable: SortableType,
   /** See Table's Column type */
   sortComparator?: SortComparator,
-  /** TODO */
-  sortFn: SortFn,
   /** See Table */
   messages: Messages
 };
@@ -127,11 +125,12 @@ export default function TableSortableHeaderCell({
   label,
   name,
   messages,
-  sort,
+  sortable,
   sortComparator,
-  sortFn,
   ...restProps
 }: Props) {
+  const { sort, sortFn } = sortable;
+
   const sortColumn = sort && sort.key;
   const descending = sort && sort.descending;
 
